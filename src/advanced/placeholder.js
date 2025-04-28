@@ -1,0 +1,2 @@
+/* Placeholder */
+import "./placeholder.scss";

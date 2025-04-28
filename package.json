@@ -1,0 +1,33 @@
+{
+    "name": "rrze-settings",
+    "engines": {
+        "node": ">=22.8.0",
+        "npm": ">=10.8.2"
+    },
+    "browserslist": [
+        "extends @wordpress/browserslist-config"
+    ],
+    "scripts": {
+        "start": "wp-scripts start",
+        "build": "wp-scripts build",
+        "format": "wp-scripts format src",
+        "lint:js": "wp-scripts lint-js src",
+        "check-engines": "wp-scripts check-engines",
+        "check-licenses": "wp-scripts check-licenses --prod --gpl3",
+        "packages-update": "wp-scripts packages-update"
+    },
+    "dependencies": {
+        "@wordpress/block-library": "latest",
+        "@wordpress/blocks": "latest",
+        "@wordpress/edit-post": "latest",
+        "@wordpress/element": "latest",
+        "@wordpress/hooks": "latest",
+        "@wordpress/i18n": "latest",
+        "@wordpress/preferences": "^4.10.0"
+    },
+    "devDependencies": {
+        "@wordpress/scripts": "latest",
+        "axios": "^1.6.8",
+        "classnames": "^2.5.1"
+    }
+}

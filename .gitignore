@@ -1,0 +1,15 @@
+### vscode ###
+.vscode/
+### NetBeans ###
+**/nbproject/
+### PhpStorm ###
+.idea/
+### macOS ###
+.DS_Store
+### Node ###
+node_modules/
+*.pot
+### Tmp ###
+_tmp/
+### CSP ###
+content-security-policy.header

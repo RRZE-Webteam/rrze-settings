@@ -1,0 +1,1 @@
+(()=>{"use strict";window.wp.data,window.wp.preferences})();
