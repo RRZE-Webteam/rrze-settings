@@ -17,7 +17,7 @@ RRZE Settings is a WordPress plugin that provides general settings and enhanceme
 
     ```
 2. Place the plugin folder in your WordPress wp-content/plugins directory.
-3. Activate the plugin through the WordPress admin interface.
+3. Activate the plugin through the WordPress network admin interface.
 
 ## Usage
 
@@ -38,18 +38,6 @@ Requirements
 -Node.js >= 22.8.0
 -npm >= 10.8.2
 
-Scripts
-
-The following npm scripts are available:
-
--npm run start: Start development mode.
--npm run build: Build the plugin for production.
--npm run format: Format the source code.
--npm run lint:js: Lint JavaScript files.
--npm run check-engines: Verify Node.js and npm versions.
--npm run check-licenses: Check for GPLv3-compatible licenses.
--npm run packages-update: Update WordPress packages.
-
 Contributing
 
 Contributions are welcome! Please follow the guidelines below:
@@ -68,4 +56,4 @@ Developed by the RRZE Webteam.
 
 ## Support
 
-For support, please refer to the GitLab repository.
+For support, please refer to the GitHub repository.
