@@ -1,0 +1,1 @@
+(()=>{var r={428:r=>{"use strict";r.exports=window.jQuery}},e={};(function t(o){var a=e[o];if(void 0!==a)return a.exports;var s=e[o]={exports:{}};return r[o](s,s.exports,t),s.exports})(428)(document).ready((function(r){var e=r("#show_avatars").closest("table"),t=e.prev("p");t.prev("h2").add(t).add(e).hide()}))})();
