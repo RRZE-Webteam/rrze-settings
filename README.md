@@ -13,7 +13,7 @@ RRZE Settings is a WordPress plugin that provides general settings and enhanceme
 1. Clone the repository:
 
     ```bash
-    git clone https://gitlab.rrze.fau.de/rrze-webteam/rrze-settings.git
+    git clone https://github.com/RRZE-Webteam/rrze-settings.git
 
     ```
 2. Place the plugin folder in your WordPress wp-content/plugins directory.
