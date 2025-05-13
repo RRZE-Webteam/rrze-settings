@@ -46,7 +46,6 @@ class Options
             'media' => [
                 'sanitize_filename' => 0,
                 'filter_nonimages_mimetypes' => 0,
-                'enhanced_media_search' => 0,
                 'enable_image_resize' => 0,
                 'max_width_height' => 2000,
                 'enable_sharpen_jpg_images' => 0,
