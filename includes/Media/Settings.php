@@ -58,8 +58,6 @@ class Settings extends MainSettings
 
         $input['filter_nonimages_mimetypes'] = !empty($input['filter_nonimages_mimetypes']) ? 1 : 0;
 
-        $input['enhanced_media_search'] = !empty($input['enhanced_media_search']) ? 1 : 0;
-
         $input['enable_image_resize'] = !empty($input['enable_image_resize']) ? 1 : 0;
 
         $defaultMaxWidthHeight = $this->defaultOptions->media->max_width_height;
@@ -113,15 +111,6 @@ class Settings extends MainSettings
             $this->menuPage,
             $this->sectionName
         );
-
-        // @todo This needs to be reviewed.
-        // add_settings_field(
-        //     'enhanced_media_search',
-        //     __('Enhanced Search', 'rrze-settings'),
-        //     [$this, 'enhancedMediaSearchField'],
-        //     $this->menuPage,
-        //     $this->sectionName
-        // );
 
         add_settings_field(
             'enable_image_resize',
@@ -208,21 +197,6 @@ class Settings extends MainSettings
         <label>
             <input type="checkbox" id="rrze-settings-filter-nonimages-mimetypes" name="<?php printf('%s[filter_nonimages_mimetypes]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->media->filter_nonimages_mimetypes, 1); ?>>
             <?php _e("Filters the image sizes generated for non-image mime types", 'rrze-settings'); ?>
-        </label>
-    <?php
-    }
-
-    /**
-     * Display the enhanced_media_search field
-     *
-     * @return void
-     */
-    public function enhancedMediaSearchField()
-    {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-enhanced-media-search" name="<?php printf('%s[enhanced_media_search]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->media->enhanced_media_search, 1); ?>>
-            <?php _e("Enables enhanced media search", 'rrze-settings'); ?>
         </label>
     <?php
     }
