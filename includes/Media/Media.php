@@ -52,12 +52,6 @@ class Media extends Main
             });
         }
 
-        // @todo This needs to be reviewed.
-        // Media search enhanced
-        // if ($this->siteOptions->media->enhanced_media_search) {
-        //     (new Search)->loaded();
-        // }
-
         // Resize images
         if ($this->siteOptions->media->enable_image_resize) {
             (new Resize($this->siteOptions))->loaded();
@@ -82,20 +76,6 @@ class Media extends Main
         if ($this->siteOptions->media->enable_file_replace) {
             (new Replace($this->siteOptions))->loaded();
         }
-
-        add_action('admin_menu', [$this, 'removeSubmenuPage']);
-    }
-
-    /**
-     * Removes the submenu page for media replacement
-     * 
-     * This is a tool submenu placeholder for the replace functionality.
-     * 
-     * @return void
-     */
-    public function removeSubmenuPage()
-    {
-        remove_submenu_page('tools.php', 'rrze-media-replace');
     }
 
     /**
