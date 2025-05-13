@@ -303,12 +303,27 @@ class Replace
         $action = !empty($_REQUEST['action']) ? $_REQUEST['action'] : '';
         $attachmentId = !empty($_REQUEST['id']) ? absint($_REQUEST['id']) : 0;
 
+        if (!in_array($action, ['media-replace', 'media-replace-upload']) || empty($attachmentId)) {
+            echo '<div class="notice notice-info">';
+            echo '<p>' . __('This is a placeholder for the media replace page.', 'rrze-settings') . '</p>';
+            echo '</div>';
+            return;
+        }
+
         if (!get_attached_file($attachmentId)) {
             wp_redirect(admin_url('upload.php'));
             exit;
         }
 
-        if ($this->isTrash || !current_user_can('edit_post', $attachmentId)) {
+        if ($this->isTrash) {
+            wp_die(__('You do not have permission to upload files.', 'rrze-settings'));
+        }
+
+        if (!current_user_can('upload_files')) {
+            wp_die(__('You do not have permission to upload files.', 'rrze-settings'));
+        }
+
+        if (!current_user_can('edit_post', $attachmentId)) {
             wp_die(__('You do not have permission to upload files.', 'rrze-settings'));
         }
 
@@ -385,5 +400,17 @@ class Replace
         $data['messages'] = $this->messages;
 
         return include 'Views/index.php';
+    }
+
+    /**
+     * Removes the submenu page for media replacement
+     * 
+     * This is a tool submenu placeholder for the replace functionality.
+     * 
+     * @return void
+     */
+    public function removeSubmenuPage()
+    {
+        remove_submenu_page('tools.php', 'rrze-media-replace');
     }
 }
