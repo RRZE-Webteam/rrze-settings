@@ -61,6 +61,8 @@ class Settings extends MainSettings
         $postLock = !empty($input['post_lock']) ? absint($input['post_lock']) : $this->minPostLock;
         $input['post_lock'] = $postLock > $this->minPostLock ? $postLock : $this->minPostLock;
 
+        $input['disable_custom_fields_metabox'] = !empty($input['disable_custom_fields_metabox']) ? 1 : 0;
+
         $input['enable_block_editor'] = !empty($input['enable_block_editor']) ? 1 : 0;
 
         // Classic editor field values
@@ -127,6 +129,14 @@ class Settings extends MainSettings
             'enable_post_lock',
             __('Post Lock', 'rrze-settings'),
             [$this, 'enablePostLockField'],
+            $this->menuPage,
+            'rrze-settings-writing-main'
+        );
+
+        add_settings_field(
+            'disable_custom_fields_metabox',
+            __('Disable Custom Fields Metabox', 'rrze-settings'),
+            [$this, 'disableCustomFieldsMetaboxField'],
             $this->menuPage,
             'rrze-settings-writing-main'
         );
@@ -327,6 +337,21 @@ class Settings extends MainSettings
         <label>
             <input type="checkbox" id="rrze-settings-enable-post-lock" name="<?php printf('%s[enable_post_lock]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->writing->enable_post_lock, 1); ?>>
             <?php _e("Enable the post lock feature", 'rrze-settings'); ?>
+        </label>
+    <?php
+    }
+
+    /**
+     * Disables the custom fields metabox
+     * 
+     * @return void
+     */
+    public function disableCustomFieldsMetaboxField()
+    {
+    ?>
+        <label>
+            <input type="checkbox" id="rrze-settings-disable-custom-fields-metabox" name="<?php printf('%s[disable_custom_fields_metabox]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->writing->disable_custom_fields_metabox, 1); ?>>
+            <?php _e("Disables the custom fields metabox", 'rrze-settings'); ?>
         </label>
     <?php
     }
