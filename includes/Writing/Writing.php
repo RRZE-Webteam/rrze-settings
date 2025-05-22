@@ -46,6 +46,15 @@ class Writing extends Main
             add_filter('wp_wp_check_post_lock_window', [$this, 'filterPostLock']);
         }
 
+        if ($this->siteOptions->writing->disable_custom_fields_metabox) {
+            add_action('admin_menu', function () {
+                $postTypes = get_post_types([], 'names');
+                foreach ($postTypes as $postType) {
+                    remove_meta_box('postcustom', $postType, 'normal');
+                }
+            });
+        }
+
         // Enable/Disable the block editor
         $this->maybeLoadBlockEditor();
 

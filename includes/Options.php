@@ -122,6 +122,7 @@ class Options
                 'disable_font_library_ui' => 1,
                 'disable_code_editor' => 1,
                 'code_editor_websites_exceptions' => '',
+                'disable_custom_fields_metabox' => 0,
             ],
             'mail' => [
                 'sender' => '',
