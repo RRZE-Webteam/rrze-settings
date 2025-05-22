@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: RRZE Settings\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-settings\n"
 "POT-Creation-Date: 2025-04-24T09:02:55+00:00\n"
-"PO-Revision-Date: 2025-04-24 11:03+0200\n"
+"PO-Revision-Date: 2025-05-22 11:43+0200\n"
 "Last-Translator: RRZE Webteam <webmaster@fau.de>\n"
 "Language-Team: Deutsch (Sie)\n"
 "Language: de\n"
@@ -423,11 +423,17 @@ msgstr ""
 "Die Datei %1s kann vom Webserver nicht gelöscht werden, höchstwahrscheinlich "
 "weil die Berechtigungen für die Datei falsch sind."
 
-#: includes/Media/Replace/Replace.php:312
+#: includes/Media/Replace/Replace.php:308
+msgid "This is a placeholder for the media replace page."
+msgstr "Dies ist ein Platzhalter für die Medien-Ersetzungsseite."
+
+#: includes/Media/Replace/Replace.php:319
+#: includes/Media/Replace/Replace.php:323
+#: includes/Media/Replace/Replace.php:327
 msgid "You do not have permission to upload files."
 msgstr "Du hast keine Berechtigung zum Hochladen von Dateien."
 
-#: includes/Media/Replace/Replace.php:321
+#: includes/Media/Replace/Replace.php:336
 msgid "Nothing selected."
 msgstr "Es wurde nichts ausgewählt."
 
@@ -439,7 +445,7 @@ msgstr "Fehler: %s"
 #. translators: %s: Media filename.
 #: includes/Media/Replace/Views/index.php:35
 msgid "You are about to replace the media file \"%s\"."
-msgstr "Du bist dabei, die Mediendatei „%s“ zu ersetzen."
+msgstr "Sie sind dabei, die Mediendatei „%s“ zu ersetzen."
 
 #: includes/Media/Replace/Views/index.php:44
 msgid "Select a file"
@@ -463,43 +469,43 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: includes/Media/Settings.php:41 includes/Media/Settings.php:42
-#: includes/Media/Settings.php:90
+#: includes/Media/Settings.php:88
 msgid "Media"
 msgstr "Medien"
 
-#: includes/Media/Settings.php:97
+#: includes/Media/Settings.php:95
 msgid "Sanitize filename"
 msgstr "Dateiname bereinigen"
 
-#: includes/Media/Settings.php:108
+#: includes/Media/Settings.php:106
 msgid "Filter Non-Images"
 msgstr "Nicht-Bilder filtern"
 
-#: includes/Media/Settings.php:128
+#: includes/Media/Settings.php:117
 msgid "Automatic Image Resizing"
 msgstr "Automatische Bildgrößenanpassung"
 
-#: includes/Media/Settings.php:136
+#: includes/Media/Settings.php:125
 msgid "Sharpen JPG Images"
 msgstr "JPG-Bilder schärfen"
 
-#: includes/Media/Settings.php:144
+#: includes/Media/Settings.php:133
 msgid "SVG Support"
 msgstr "SVG-Unterstützung"
 
-#: includes/Media/Settings.php:152
+#: includes/Media/Settings.php:141
 msgid "File Replace"
 msgstr "Datei ersetzen"
 
-#: includes/Media/Settings.php:160
+#: includes/Media/Settings.php:149
 msgid "File Size Column"
 msgstr "Dateigröße Spalte"
 
-#: includes/Media/Settings.php:168
+#: includes/Media/Settings.php:157
 msgid "Custom Mime Types"
 msgstr "Benutzerdefinierte Mime-Typen"
 
-#: includes/Media/Settings.php:182
+#: includes/Media/Settings.php:171
 msgid ""
 "Network administrators can centrally manage media settings across the "
 "multisite network. Options include sanitizing filenames, filtering non‑image "
@@ -516,40 +522,36 @@ msgstr ""
 "gewährleisten so eine konsistente, sichere Medienverwaltung auf jeder "
 "Website."
 
-#: includes/Media/Settings.php:195
+#: includes/Media/Settings.php:184
 msgid "Sanitize the filenames to avoid links with UTF-8 characters"
 msgstr "Bereinigt die Dateinamen, um Links mit UTF-8-Zeichen zu vermeiden"
 
-#: includes/Media/Settings.php:210
+#: includes/Media/Settings.php:199
 msgid "Filters the image sizes generated for non-image mime types"
 msgstr "Filtert die Bildgrößen, die für Mime-Typen ohne Bild erzeugt werden"
 
-#: includes/Media/Settings.php:225
-msgid "Enables enhanced media search"
-msgstr "Ermöglicht eine verbesserte Mediensuche"
-
 #. translators: %s: Number of pixels.
-#: includes/Media/Settings.php:242
+#: includes/Media/Settings.php:216
 msgid "Maximum width and height: %s pixels"
 msgstr "Maximale Breite und Höhe: %s Pixel"
 
-#: includes/Media/Settings.php:247
+#: includes/Media/Settings.php:221
 msgid "Size in pixels"
 msgstr "Größe in Pixel"
 
-#: includes/Media/Settings.php:262
+#: includes/Media/Settings.php:236
 msgid "Enables sharpening of JPG images"
 msgstr "Ermöglicht die Schärfung von JPG-Bildern"
 
-#: includes/Media/Settings.php:277
+#: includes/Media/Settings.php:251
 msgid "Enables support for SVG files"
 msgstr "Ermöglicht die Unterstützung von SVG-Dateien"
 
-#: includes/Media/Settings.php:292
+#: includes/Media/Settings.php:266
 msgid "Enables the file size column"
 msgstr "Aktiviert die Spalte Dateigröße"
 
-#: includes/Media/Settings.php:306
+#: includes/Media/Settings.php:280
 msgid ""
 "Enter custom Mime Types. Make sure to add the respective extensions in the "
 "Upload File Types settings."
@@ -558,7 +560,7 @@ msgstr ""
 "die entsprechenden Erweiterungen in den Einstellungen für Upload-Dateitypen "
 "hinzufügen."
 
-#: includes/Media/Settings.php:307
+#: includes/Media/Settings.php:281
 msgid ""
 "To leave a comment, type two forward slashes (//) followed by the text of "
 "your comment."
@@ -566,11 +568,11 @@ msgstr ""
 "Um einen Kommentar zu hinterlassen, geben Sie zwei Schrägstriche (//) "
 "gefolgt vom Text Ihres Kommentars ein."
 
-#: includes/Media/Settings.php:308
+#: includes/Media/Settings.php:282
 msgid "One custom Mime Type per line."
 msgstr "Ein benutzerdefinierter Mime-Typ pro Zeile."
 
-#: includes/Media/Settings.php:322
+#: includes/Media/Settings.php:296
 msgid "Allows to replace files of the same mime type"
 msgstr "Ermöglicht das Ersetzen von Dateien des gleichen Mime-Typs"
 
@@ -1204,32 +1206,32 @@ msgstr "Kontaktpersonen"
 msgid "Email Address:"
 msgstr "E-Mail-Adresse:"
 
-#: includes/Users/Roles.php:74 includes/Users/Settings.php:88
+#: includes/Users/Roles.php:74 includes/Users/Settings.php:89
 msgid "Pages Author"
 msgstr "Seitenautor"
 
-#: includes/Users/Roles.php:100 includes/Users/Settings.php:96
+#: includes/Users/Roles.php:100 includes/Users/Settings.php:97
 msgid "Super Author"
 msgstr "Superautor"
 
 #: includes/Users/Settings.php:41 includes/Users/Settings.php:42
-#: includes/Users/Settings.php:81
+#: includes/Users/Settings.php:82
 msgid "Users"
 msgstr "Benutzer"
 
-#: includes/Users/Settings.php:104
+#: includes/Users/Settings.php:105
 msgid "Search"
 msgstr "Suche"
 
-#: includes/Users/Settings.php:112
+#: includes/Users/Settings.php:113
 msgid "Contact Page"
 msgstr "Kontaktseite"
 
-#: includes/Users/Settings.php:120
+#: includes/Users/Settings.php:121
 msgid "Can view debug log"
 msgstr "Kann das Debug-Log anzeigen"
 
-#: includes/Users/Settings.php:134
+#: includes/Users/Settings.php:135
 msgid ""
 "Network administrators can configure user settings across the entire "
 "multisite network on this page, enabling special author roles, enhancing "
@@ -1244,19 +1246,19 @@ msgstr ""
 "so die Benutzerverwaltung optimieren sowie die administrative Kontrolle auf "
 "jeder Website stärken."
 
-#: includes/Users/Settings.php:147
+#: includes/Users/Settings.php:148
 msgid "Enables pages author role"
 msgstr "Aktiviert die Seitenautor-Rolle"
 
-#: includes/Users/Settings.php:162
+#: includes/Users/Settings.php:163
 msgid "Enables super author role"
 msgstr "Aktiviert die Superautor-Rolle"
 
-#: includes/Users/Settings.php:177
+#: includes/Users/Settings.php:178
 msgid "Enables enhanced users search"
 msgstr "Ermöglicht eine erweiterte Benutzersuche"
 
-#: includes/Users/Settings.php:192
+#: includes/Users/Settings.php:193
 msgid ""
 "Generate a virtual page (contact) with the contact list (administrators) of "
 "the website or blog. If the page already exists, the existing page is "
@@ -1266,7 +1268,7 @@ msgstr ""
 "(Administratoren) der Website oder des Blogs generiert. Wenn die Seite "
 "bereits vorhanden ist, wird die vorhandene Seite angezeigt."
 
-#: includes/Users/Settings.php:206
+#: includes/Users/Settings.php:207
 msgid ""
 "List of users who can view debug information on websites, if any. Enter one "
 "user login per line."
@@ -1275,80 +1277,84 @@ msgstr ""
 "(sofern vorhanden). Geben Sie pro Zeile einen Benutzernamen ein."
 
 #: includes/Writing/Settings.php:41 includes/Writing/Settings.php:42
-#: includes/Writing/Settings.php:121
+#: includes/Writing/Settings.php:123
 msgid "Writing"
 msgstr "Schreiben"
 
-#: includes/Writing/Settings.php:128
+#: includes/Writing/Settings.php:130
 msgid "Post Lock"
 msgstr "Post-Sperre"
 
-#: includes/Writing/Settings.php:136 includes/Writing/Settings.php:290
+#: includes/Writing/Settings.php:138
+msgid "Disable Custom Fields Metabox"
+msgstr "Metabox für benutzerdefinierte Felder deaktivieren"
+
+#: includes/Writing/Settings.php:146 includes/Writing/Settings.php:300
 msgid "Default Editor"
 msgstr "Standardeditor"
 
-#: includes/Writing/Settings.php:146 includes/Writing/Settings.php:504
+#: includes/Writing/Settings.php:156 includes/Writing/Settings.php:529
 msgid "Classic Editor"
 msgstr "Klassischer Editor"
 
-#: includes/Writing/Settings.php:154 includes/Writing/Settings.php:162
-#: includes/Writing/Settings.php:499
+#: includes/Writing/Settings.php:164 includes/Writing/Settings.php:172
+#: includes/Writing/Settings.php:524
 msgid "Block Editor"
 msgstr "Block-Editor"
 
-#: includes/Writing/Settings.php:171
+#: includes/Writing/Settings.php:181
 msgid "Post Types Exceptions"
 msgstr "Ausnahmen für Post-Types"
 
-#: includes/Writing/Settings.php:179
+#: includes/Writing/Settings.php:189
 msgid "Themes Exceptions"
 msgstr "Ausnahmen für Themes"
 
-#: includes/Writing/Settings.php:187
+#: includes/Writing/Settings.php:197
 msgid "Websites Exceptions"
 msgstr "Ausnahmen für Websites"
 
-#: includes/Writing/Settings.php:196
+#: includes/Writing/Settings.php:206
 msgid "Allowed Blocks"
 msgstr "Erlaubte Blöcke"
 
-#: includes/Writing/Settings.php:204
+#: includes/Writing/Settings.php:214
 msgid "Disabled Blocks"
 msgstr "Deaktivierte Blöcke"
 
-#: includes/Writing/Settings.php:212
+#: includes/Writing/Settings.php:222
 msgid "Disable Block Directory Assets"
 msgstr "Blockverzeichnis-Assets deaktivieren"
 
-#: includes/Writing/Settings.php:220
+#: includes/Writing/Settings.php:230
 msgid "Disable Remote Block Patterns"
 msgstr "Remote-Patterns deaktivieren"
 
-#: includes/Writing/Settings.php:228
+#: includes/Writing/Settings.php:238
 msgid "Disable Openverse Media"
 msgstr "Openverse Medien deaktivieren"
 
-#: includes/Writing/Settings.php:236
+#: includes/Writing/Settings.php:246
 msgid "Disable Font Library UI"
 msgstr "Schriftartenbibliothek-UI deaktivieren"
 
-#: includes/Writing/Settings.php:244
+#: includes/Writing/Settings.php:254
 msgid "Disable Code Editor"
 msgstr "Code-Editor deaktivieren"
 
-#: includes/Writing/Settings.php:252
+#: includes/Writing/Settings.php:262
 msgid "Code Editor Websites Exceptions"
 msgstr "Website-Ausnahmen für die Verwendung des Code-Editors"
 
-#: includes/Writing/Settings.php:275
+#: includes/Writing/Settings.php:285
 msgid "Post Lock Interval"
 msgstr "Post-Sperrintervall"
 
-#: includes/Writing/Settings.php:302
+#: includes/Writing/Settings.php:312
 msgid "Allow switching editors"
 msgstr "Erlaube das Wechseln von Editoren"
 
-#: includes/Writing/Settings.php:316
+#: includes/Writing/Settings.php:326
 msgid ""
 "This page enables network administrators to manage writing-related settings "
 "across the multisite network. Available options include enabling or "
@@ -1368,11 +1374,15 @@ msgstr ""
 "standardisierte und kontrollierte Schreibumgebung auf allen Websites zu "
 "gewährleisten."
 
-#: includes/Writing/Settings.php:329
+#: includes/Writing/Settings.php:339
 msgid "Enable the post lock feature"
 msgstr "Aktivieren der Post-Sperrfunktion"
 
-#: includes/Writing/Settings.php:343
+#: includes/Writing/Settings.php:354
+msgid "Disables the custom fields metabox"
+msgstr "Deaktiviert die Metabox für benutzerdefinierte Felder"
+
+#: includes/Writing/Settings.php:368
 msgid ""
 "List of post types that always have the block editor enabled and no block "
 "restrictions. Enter one post type per line."
@@ -1381,7 +1391,7 @@ msgstr ""
 "denen es keine Blockbeschränkungen gibt. Geben Sie einen Post-Type pro Zeile "
 "ein."
 
-#: includes/Writing/Settings.php:356
+#: includes/Writing/Settings.php:381
 msgid ""
 "List of themes that always have the block editor enabled and no block "
 "restrictions. Enter one theme name per line."
@@ -1389,7 +1399,7 @@ msgstr ""
 "Liste der Themes, bei denen der Blockeditor immer aktiviert ist und keine "
 "Blockbeschränkungen gelten. Geben Sie pro Zeile einen Theme-Namen ein."
 
-#: includes/Writing/Settings.php:368
+#: includes/Writing/Settings.php:393
 msgid ""
 "List of websites ids that always have the block editor enabled and no block "
 "restrictions. Enter one website id per line."
@@ -1397,50 +1407,50 @@ msgstr ""
 "Liste der Website-IDs, bei denen der Blockeditor immer aktiviert ist und "
 "keine Blockbeschränkungen bestehen. Geben Sie eine Website-ID pro Zeile ein."
 
-#: includes/Writing/Settings.php:381
+#: includes/Writing/Settings.php:406
 msgid ""
 "List of allowed blocks. The * wildcard is supported at the end of a string."
 msgstr ""
 "Liste der zulässigen Blöcke. Das Platzhalterzeichen * wird am Ende einer "
 "Zeichenfolge unterstützt."
 
-#: includes/Writing/Settings.php:382
+#: includes/Writing/Settings.php:407
 msgid "If this field is left empty, all registered blocks will be available."
 msgstr ""
 "Wenn dieses Feld leer bleibt, sind alle registrierten Blöcke verfügbar."
 
-#: includes/Writing/Settings.php:383 includes/Writing/Settings.php:397
+#: includes/Writing/Settings.php:408 includes/Writing/Settings.php:422
 msgid "Enter one block type per line."
 msgstr "Geben Sie pro Zeile einen Blocktyp ein."
 
-#: includes/Writing/Settings.php:396
+#: includes/Writing/Settings.php:421
 msgid ""
 "List of disabled blocks. The * wildcard is supported at the end of a string."
 msgstr ""
 "Liste der deaktivierten Blöcke. Der Platzhalter * wird am Ende einer "
 "Zeichenfolge unterstützt."
 
-#: includes/Writing/Settings.php:411
+#: includes/Writing/Settings.php:436
 msgid "Remove Block Directory assets"
 msgstr "Blockverzeichnis-Assets entfernen"
 
-#: includes/Writing/Settings.php:426
+#: includes/Writing/Settings.php:451
 msgid "Disable remote block patterns"
 msgstr "Remote-Patterns deaktivieren"
 
-#: includes/Writing/Settings.php:441
+#: includes/Writing/Settings.php:466
 msgid "Disable loading of Openverse Media"
 msgstr "Laden von Openverse Media deaktivieren"
 
-#: includes/Writing/Settings.php:456
+#: includes/Writing/Settings.php:481
 msgid "Disable the Font Library user interface"
 msgstr "Benutzeroberfläche der Font-Bibliothek deaktivieren"
 
-#: includes/Writing/Settings.php:471
+#: includes/Writing/Settings.php:496
 msgid "Disable the Code Editor option from the Block Editor settings"
 msgstr "Die Option Code-Editor in den Block-Editor-Einstellungen deaktivieren"
 
-#: includes/Writing/Settings.php:485
+#: includes/Writing/Settings.php:510
 msgid ""
 "List of websites ids that always have the code editor enabled. Enter one "
 "website id per line."
@@ -1448,31 +1458,31 @@ msgstr ""
 "Liste der Website-IDs, bei denen der Code-Editor immer aktiviert ist. Geben "
 "Sie pro Zeile eine Website-ID ein."
 
-#: includes/Writing/Settings.php:520
+#: includes/Writing/Settings.php:545
 msgid "Post Lock interval in seconds."
 msgstr "Post-Sperrinterval in Sekunden."
 
-#: includes/Writing/Settings.php:535
+#: includes/Writing/Settings.php:560
 msgid "Allow admins to switch editors"
 msgstr "Erlaube Administratoren, Editoren zu wechseln"
 
-#: includes/Writing/Settings.php:550
+#: includes/Writing/Settings.php:575
 msgid "Classic editor"
 msgstr "Klassischer Editor"
 
-#: includes/Writing/Settings.php:555
+#: includes/Writing/Settings.php:580
 msgid "Block editor"
 msgstr "Block-Editor"
 
-#: includes/Writing/Writing.php:234
+#: includes/Writing/Writing.php:240
 msgid "Editor"
 msgstr "Editor"
 
-#: includes/Writing/Writing.php:282
+#: includes/Writing/Writing.php:288
 msgid "Block"
 msgstr "Block"
 
-#: includes/Writing/Writing.php:282
+#: includes/Writing/Writing.php:288
 msgid "Classic"
 msgstr "Klassischer Editor"
 
@@ -1506,3 +1516,6 @@ msgstr ""
 #: rrze-settings.php:173
 msgid "Plugins: %1$s: %2$s"
 msgstr "Plugins: %1$s: %2$s"
+
+#~ msgid "Enables enhanced media search"
+#~ msgstr "Ermöglicht eine verbesserte Mediensuche"
