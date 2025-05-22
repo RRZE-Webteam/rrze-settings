@@ -10,4 +10,3 @@ Text Domain:        rrze-settings
 Domain Path:        /languages
 Requires at least:  6.8
 Requires PHP:       8.2
-Network:            true
