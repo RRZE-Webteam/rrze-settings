@@ -123,6 +123,7 @@ class Options
                 'disable_code_editor' => 1,
                 'code_editor_websites_exceptions' => '',
                 'disable_custom_fields_metabox' => 0,
+                'deactivated_plugins' => ''
             ],
             'mail' => [
                 'sender' => '',

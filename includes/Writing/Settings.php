@@ -95,6 +95,10 @@ class Settings extends MainSettings
             $input['code_editor_websites_exceptions'] = !empty($exceptions) ? $exceptions : '';
         }
 
+        if (isset($input['deactivated_plugins'])) {
+            $input['deactivated_plugins'] = $this->sanitizeTextarea($input['deactivated_plugins']);
+        }
+
         $input['disable_block_directory_assets'] = !empty($input['disable_block_directory_assets']) ? 1 : 0;
         $input['disable_remote_block_patterns'] = !empty($input['disable_remote_block_patterns']) ? 1 : 0;
         $input['disable_openverse_media'] = !empty($input['disable_openverse_media']) ? 1 : 0;
@@ -261,6 +265,14 @@ class Settings extends MainSettings
             'code_editor_websites_exceptions',
             __('Code Editor Websites Exceptions', 'rrze-settings'),
             [$this, 'codeEditorWebsitesExceptionsField'],
+            $this->menuPage,
+            'rrze-settings-writing-block-editor'
+        );
+
+        add_settings_field(
+            'deactivated_plugins',
+            __('Deactivated Plugins', 'rrze-settings'),
+            [$this, 'deactivatedPluginsField'],
             $this->menuPage,
             'rrze-settings-writing-block-editor'
         );
@@ -508,6 +520,15 @@ class Settings extends MainSettings
     ?>
         <textarea id="rrze-settings-code-editor-websites-exceptions" cols="50" rows="5" name="<?php printf('%s[code_editor_websites_exceptions]', $this->optionName); ?>"><?php echo esc_attr($this->getTextarea($this->siteOptions->writing->code_editor_websites_exceptions)); ?></textarea>
         <p class="description"><?php _e('List of websites ids that always have the code editor enabled. Enter one website id per line.', 'rrze-settings'); ?></p>
+    <?php
+    }
+
+    public function deactivatedPluginsField()
+    {
+    ?>
+        <textarea id="rrze-settings-deactivated-plugins" cols="50" rows="5" name="<?php printf('%s[deactivated_plugins]', $this->optionName); ?>"><?php echo esc_attr($this->getTextarea($this->siteOptions->writing->deactivated_plugins)); ?></textarea>
+        <p class="description"><?php _e('Plugins to disable when the block editor is active. Enter one plugin per line.', 'rrze-settings'); ?></p>
+        <p class="description"><?php _e('The plugin name must be the same as in the plugins folder.', 'rrze-settings'); ?></p>
     <?php
     }
 

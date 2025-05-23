@@ -6,6 +6,7 @@ defined('ABSPATH') || exit;
 
 use RRZE\Settings\Main;
 use RRZE\Settings\Options;
+use RRZE\Settings\Helper;
 use RRZE\Settings\Writing\BlockEditor\Editor as BlockEditor;
 use RRZE\Settings\Writing\BlockEditor\Blocks as Blocks;
 
@@ -115,6 +116,31 @@ class Writing extends Main
             }, 10, 2);
         } else {
             add_action('init', fn() => new Blocks($this->siteOptions));
+            $deactivatedPlugins = $this->siteOptions->writing->deactivated_plugins;
+            if (!empty($deactivatedPlugins) && is_array($deactivatedPlugins)) {
+                foreach ($deactivatedPlugins as $plugin) {
+                    add_action('admin_init', function () use ($plugin) {
+                        if (is_plugin_active($plugin) && !is_plugin_active_for_network($plugin)) {
+                            $pluginFile = WP_PLUGIN_DIR . '/' . $plugin;
+                            $pluginData = get_plugin_data($pluginFile);
+                            $pluginName = $pluginData['Name'];
+                            // $silent = true, $network_wide = false
+                            deactivate_plugins($plugin, true, false);
+                            $transient = 'rrze-settings-writing-' . sanitize_title($pluginName);
+                            set_transient($transient, true, 30);
+                            Helper::flashAdminNotice(
+                                $transient,
+                                sprintf(
+                                    /* translators: %s: Plugin name */
+                                    __('The plugin "%s" has been deactivated because the block editor is enabled on this website.', 'rrze-settings'),
+                                    $pluginName
+                                ),
+                                'error'
+                            );
+                        }
+                    }, 10, 0);
+                }
+            }
         }
     }
 

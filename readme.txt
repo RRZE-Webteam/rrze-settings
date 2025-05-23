@@ -1,6 +1,6 @@
 Plugin Name:        RRZE Settings
 Plugin URI:         https://gitlab.rrze.fau.de/rrze-webteam/rrze-settings
-Version:            2.0.2
+Version:            2.0.3
 Description:        General settings and enhancements for a WordPress multisite installation.
 Author:             RRZE Webteam
 Author URI:         https://blogs.fau.de/webworking/

@@ -117,4 +117,24 @@ class Helper
         $siteOptions = Options::getSiteOptions();
         return $siteOptions->plugins->dip_edu_api_key ?? '';
     }
+
+    /**
+     * Add an admin notice based on a transient
+     * 
+     * @param  string  $transient The transient name
+     * @param  string  $message The message to display
+     * @param  string  $type The type of notice (error, success, etc.)
+     * @param  int     $duration The duration of the notice in seconds
+     * @return void
+     */
+    public static function flashAdminNotice(string $transient, string $message, string $type = 'error', int $duration = 5): void
+    {
+        add_action('admin_notices', function () use ($transient, $message, $type, $duration) {
+            if (get_transient($transient)) {
+                echo '<div class="notice notice-' . esc_attr($type) . ' is-dismissible" data-duration="' . esc_attr($duration) . '">';
+                echo '<p>' . esc_html($message) . '</p>';
+                echo '</div>';
+            }
+        });
+    }
 }
