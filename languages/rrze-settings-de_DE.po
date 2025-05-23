@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RRZE Settings\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-settings\n"
-"POT-Creation-Date: 2025-05-22T09:40:07+00:00\n"
-"PO-Revision-Date: 2025-05-22 11:43+0200\n"
+"POT-Creation-Date: 2025-05-23T13:53:38+00:00\n"
+"PO-Revision-Date: 2025-05-23 15:55+0200\n"
 "Last-Translator: RRZE Webteam <webmaster@fau.de>\n"
 "Language-Team: Deutsch\n"
 "Language: de_DE\n"
@@ -1277,84 +1277,88 @@ msgstr ""
 "(sofern vorhanden). Geben Sie pro Zeile einen Benutzernamen ein."
 
 #: includes/Writing/Settings.php:41 includes/Writing/Settings.php:42
-#: includes/Writing/Settings.php:123
+#: includes/Writing/Settings.php:127
 msgid "Writing"
 msgstr "Schreiben"
 
-#: includes/Writing/Settings.php:130
+#: includes/Writing/Settings.php:134
 msgid "Post Lock"
 msgstr "Post-Sperre"
 
-#: includes/Writing/Settings.php:138
+#: includes/Writing/Settings.php:142
 msgid "Disable Custom Fields Metabox"
 msgstr "Metabox für benutzerdefinierte Felder deaktivieren"
 
-#: includes/Writing/Settings.php:146 includes/Writing/Settings.php:300
+#: includes/Writing/Settings.php:150 includes/Writing/Settings.php:312
 msgid "Default Editor"
 msgstr "Standardeditor"
 
-#: includes/Writing/Settings.php:156 includes/Writing/Settings.php:529
+#: includes/Writing/Settings.php:160 includes/Writing/Settings.php:550
 msgid "Classic Editor"
 msgstr "Klassischer Editor"
 
-#: includes/Writing/Settings.php:164 includes/Writing/Settings.php:172
-#: includes/Writing/Settings.php:524
+#: includes/Writing/Settings.php:168 includes/Writing/Settings.php:176
+#: includes/Writing/Settings.php:545
 msgid "Block Editor"
 msgstr "Block-Editor"
 
-#: includes/Writing/Settings.php:181
+#: includes/Writing/Settings.php:185
 msgid "Post Types Exceptions"
 msgstr "Ausnahmen für Post-Types"
 
-#: includes/Writing/Settings.php:189
+#: includes/Writing/Settings.php:193
 msgid "Themes Exceptions"
 msgstr "Ausnahmen für Themes"
 
-#: includes/Writing/Settings.php:197
+#: includes/Writing/Settings.php:201
 msgid "Websites Exceptions"
 msgstr "Ausnahmen für Websites"
 
-#: includes/Writing/Settings.php:206
+#: includes/Writing/Settings.php:210
 msgid "Allowed Blocks"
 msgstr "Erlaubte Blöcke"
 
-#: includes/Writing/Settings.php:214
+#: includes/Writing/Settings.php:218
 msgid "Disabled Blocks"
 msgstr "Deaktivierte Blöcke"
 
-#: includes/Writing/Settings.php:222
+#: includes/Writing/Settings.php:226
 msgid "Disable Block Directory Assets"
 msgstr "Blockverzeichnis-Assets deaktivieren"
 
-#: includes/Writing/Settings.php:230
+#: includes/Writing/Settings.php:234
 msgid "Disable Remote Block Patterns"
 msgstr "Remote-Patterns deaktivieren"
 
-#: includes/Writing/Settings.php:238
+#: includes/Writing/Settings.php:242
 msgid "Disable Openverse Media"
 msgstr "Openverse Medien deaktivieren"
 
-#: includes/Writing/Settings.php:246
+#: includes/Writing/Settings.php:250
 msgid "Disable Font Library UI"
 msgstr "Schriftartenbibliothek-UI deaktivieren"
 
-#: includes/Writing/Settings.php:254
+#: includes/Writing/Settings.php:258
 msgid "Disable Code Editor"
 msgstr "Code-Editor deaktivieren"
 
-#: includes/Writing/Settings.php:262
+#: includes/Writing/Settings.php:266
 msgid "Code Editor Websites Exceptions"
 msgstr "Website-Ausnahmen für die Verwendung des Code-Editors"
 
-#: includes/Writing/Settings.php:285
+#: includes/Writing/Settings.php:274
+msgid "Deactivated Plugins"
+msgstr "Deaktivierte Plugins"
+
+#: includes/Writing/Settings.php:297
 msgid "Post Lock Interval"
 msgstr "Post-Sperrintervall"
 
-#: includes/Writing/Settings.php:312
+#: includes/Writing/Settings.php:324
 msgid "Allow switching editors"
 msgstr "Erlaube das Wechseln von Editoren"
 
-#: includes/Writing/Settings.php:326
+#: includes/Writing/Settings.php:338
 msgid ""
 "This page enables network administrators to manage writing-related settings "
 "across the multisite network. Available options include enabling or "
@@ -1374,15 +1378,15 @@ msgstr ""
 "standardisierte und kontrollierte Schreibumgebung auf allen Websites zu "
 "gewährleisten."
 
-#: includes/Writing/Settings.php:339
+#: includes/Writing/Settings.php:351
 msgid "Enable the post lock feature"
 msgstr "Aktivieren der Post-Sperrfunktion"
 
-#: includes/Writing/Settings.php:354
+#: includes/Writing/Settings.php:366
 msgid "Disables the custom fields metabox"
 msgstr "Deaktiviert die Metabox für benutzerdefinierte Felder"
 
-#: includes/Writing/Settings.php:368
+#: includes/Writing/Settings.php:380
 msgid ""
 "List of post types that always have the block editor enabled and no block "
 "restrictions. Enter one post type per line."
@@ -1391,7 +1395,7 @@ msgstr ""
 "denen es keine Blockbeschränkungen gibt. Geben Sie einen Post-Type pro Zeile "
 "ein."
 
-#: includes/Writing/Settings.php:381
+#: includes/Writing/Settings.php:393
 msgid ""
 "List of themes that always have the block editor enabled and no block "
 "restrictions. Enter one theme name per line."
@@ -1399,7 +1403,7 @@ msgstr ""
 "Liste der Themes, bei denen der Blockeditor immer aktiviert ist und keine "
 "Blockbeschränkungen gelten. Geben Sie pro Zeile einen Theme-Namen ein."
 
-#: includes/Writing/Settings.php:393
+#: includes/Writing/Settings.php:405
 msgid ""
 "List of websites ids that always have the block editor enabled and no block "
 "restrictions. Enter one website id per line."
@@ -1407,50 +1411,50 @@ msgstr ""
 "Liste der Website-IDs, bei denen der Blockeditor immer aktiviert ist und "
 "keine Blockbeschränkungen bestehen. Geben Sie eine Website-ID pro Zeile ein."
 
-#: includes/Writing/Settings.php:406
+#: includes/Writing/Settings.php:418
 msgid ""
 "List of allowed blocks. The * wildcard is supported at the end of a string."
 msgstr ""
 "Liste der zulässigen Blöcke. Das Platzhalterzeichen * wird am Ende einer "
 "Zeichenfolge unterstützt."
 
-#: includes/Writing/Settings.php:407
+#: includes/Writing/Settings.php:419
 msgid "If this field is left empty, all registered blocks will be available."
 msgstr ""
 "Wenn dieses Feld leer bleibt, sind alle registrierten Blöcke verfügbar."
 
-#: includes/Writing/Settings.php:408 includes/Writing/Settings.php:422
+#: includes/Writing/Settings.php:420 includes/Writing/Settings.php:434
 msgid "Enter one block type per line."
 msgstr "Geben Sie pro Zeile einen Blocktyp ein."
 
-#: includes/Writing/Settings.php:421
+#: includes/Writing/Settings.php:433
 msgid ""
 "List of disabled blocks. The * wildcard is supported at the end of a string."
 msgstr ""
 "Liste der deaktivierten Blöcke. Der Platzhalter * wird am Ende einer "
 "Zeichenfolge unterstützt."
 
-#: includes/Writing/Settings.php:436
+#: includes/Writing/Settings.php:448
 msgid "Remove Block Directory assets"
 msgstr "Blockverzeichnis-Assets entfernen"
 
-#: includes/Writing/Settings.php:451
+#: includes/Writing/Settings.php:463
 msgid "Disable remote block patterns"
 msgstr "Remote-Patterns deaktivieren"
 
-#: includes/Writing/Settings.php:466
+#: includes/Writing/Settings.php:478
 msgid "Disable loading of Openverse Media"
 msgstr "Laden von Openverse Media deaktivieren"
 
-#: includes/Writing/Settings.php:481
+#: includes/Writing/Settings.php:493
 msgid "Disable the Font Library user interface"
 msgstr "Benutzeroberfläche der Font-Bibliothek deaktivieren"
 
-#: includes/Writing/Settings.php:496
+#: includes/Writing/Settings.php:508
 msgid "Disable the Code Editor option from the Block Editor settings"
 msgstr "Die Option Code-Editor in den Block-Editor-Einstellungen deaktivieren"
 
-#: includes/Writing/Settings.php:510
+#: includes/Writing/Settings.php:522
 msgid ""
 "List of websites ids that always have the code editor enabled. Enter one "
 "website id per line."
@@ -1458,31 +1462,52 @@ msgstr ""
 "Liste der Website-IDs, bei denen der Code-Editor immer aktiviert ist. Geben "
 "Sie pro Zeile eine Website-ID ein."
 
-#: includes/Writing/Settings.php:545
+#: includes/Writing/Settings.php:530
+msgid ""
+"Plugins to disable when the block editor is active. Enter one plugin per "
+"line."
+msgstr ""
+"Plugins, die deaktiviert werden sollen, wenn der Blockeditor aktiv ist. "
+"Geben Sie pro Zeile ein Plugin ein."
+
+#: includes/Writing/Settings.php:531
+msgid "The plugin name must be the same as in the plugins folder."
+msgstr "Der Plugin-Name muss mit dem im Plugin-Ordner übereinstimmen."
+
+#: includes/Writing/Settings.php:566
 msgid "Post Lock interval in seconds."
 msgstr "Post-Sperrinterval in Sekunden."
 
-#: includes/Writing/Settings.php:560
+#: includes/Writing/Settings.php:581
 msgid "Allow admins to switch editors"
 msgstr "Erlaube Administratoren, Editoren zu wechseln"
 
-#: includes/Writing/Settings.php:575
+#: includes/Writing/Settings.php:596
 msgid "Classic editor"
 msgstr "Klassischer Editor"
 
-#: includes/Writing/Settings.php:580
+#: includes/Writing/Settings.php:601
 msgid "Block editor"
 msgstr "Block-Editor"
 
-#: includes/Writing/Writing.php:240
+#. translators: %s: Plugin name
+#: includes/Writing/Writing.php:135
+msgid ""
+"The plugin \"%s\" has been deactivated because the block editor is enabled "
+"on this website."
+msgstr ""
+"Das Plugin „%s“ wurde deaktiviert, da der Blockeditor auf dieser Website "
+"aktiviert ist."
+
+#: includes/Writing/Writing.php:266
 msgid "Editor"
 msgstr "Editor"
 
-#: includes/Writing/Writing.php:288
+#: includes/Writing/Writing.php:314
 msgid "Block"
 msgstr "Block"
 
-#: includes/Writing/Writing.php:288
+#: includes/Writing/Writing.php:314
 msgid "Classic"
 msgstr "Klassischer Editor"
 
