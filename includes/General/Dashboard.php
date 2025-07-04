@@ -92,7 +92,7 @@ class Dashboard
 
         wp_add_dashboard_widget(
             'dashboard_custom_secondary',
-            __('Webworking News', 'rrze-settings'),
+            __('Webmaster News', 'rrze-settings'),
             [$this, 'customDashboardSecondary']
         );
     }
@@ -135,7 +135,7 @@ class Dashboard
     public function customDashboardSecondary()
     {
         echo '<div class="rss-widget">';
-        $this->feedOutput('https://blogs.fau.de/webworking/feed/', 180, [
+        $this->feedOutput('https://www.wp.rrze.fau.de/feed/', 180, [
             'items' => 4,
             'show_summary' => 0,
             'show_date' => 0

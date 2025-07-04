@@ -63,7 +63,7 @@ class Page
             $parentId = !empty($_GET['parentId']) ? absint($_GET['parentId']) : 0;
             if ($parentId) {
                 $dropdownOptions = [
-                    'show_option_none' => __('Alle Seitenebenen', 'fau'),
+                    'show_option_none' => __('All page levels', 'rrze-settings'),
                     'depth' => 6,
                     'hierarchical' => true,
                     'post_type' => 'page',
@@ -73,7 +73,7 @@ class Page
                 ];
             } else {
                 $dropdownOptions = [
-                    'show_option_none' => __('Alle Seitenebenen', 'fau'),
+                    'show_option_none' => __('All page levels', 'rrze-settings'),
                     'depth' => 6,
                     'hierarchical' => true,
                     'post_type' => 'page',

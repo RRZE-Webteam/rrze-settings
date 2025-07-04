@@ -55,10 +55,10 @@ class TheSEOFramework
                 add_filter(
                     'network_admin_plugin_action_links',
                     [$this, 'networkAdminPluginActionLinks'],
-                    10,
+                    99,
                     2
                 );
-                add_filter('all_plugins', [$this, 'allPlugins']);
+                add_filter('all_plugins', [$this, 'allPlugins'], 99);
             }
         }
     }
@@ -70,7 +70,6 @@ class TheSEOFramework
      */
     protected function maybeActivatePlugin()
     {
-        include_once(ABSPATH . 'wp-admin/includes/plugin.php');
         if (
             $this->isPluginActive('rrze-private-site/rrze-private-site.php')
             && $this->isPluginActive(self::PLUGIN)

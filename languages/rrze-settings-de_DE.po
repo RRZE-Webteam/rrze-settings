@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RRZE Settings\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-settings\n"
-"POT-Creation-Date: 2025-05-23T13:53:38+00:00\n"
-"PO-Revision-Date: 2025-05-23 15:55+0200\n"
+"POT-Creation-Date: 2025-07-04T13:07:46+00:00\n"
+"PO-Revision-Date: 2025-07-04 15:08+0200\n"
 "Last-Translator: RRZE Webteam <webmaster@fau.de>\n"
 "Language-Team: Deutsch\n"
 "Language: de_DE\n"
@@ -214,8 +214,8 @@ msgid "RRZE Maintenance and fault messages"
 msgstr "RRZE Wartungs- und Fehlermeldungen"
 
 #: includes/General/Dashboard.php:95
-msgid "Webworking News"
-msgstr "Webworking Nachrichten"
+msgid "Webmaster News"
+msgstr "Webmaster Nachrichten"
 
 #. translators: %s: RSS error message.
 #: includes/General/Dashboard.php:240
@@ -854,6 +854,10 @@ msgstr "Der FAUdir‑API‑Key zum Zugriff auf den API‑Dienst https://api.fau.
 #: includes/Plugins/Settings.php:581
 msgid "The B-ITE API key used for RRZE Jobs."
 msgstr "Der für RRZE-Jobs verwendete B—ITE-API-Key."
+
+#: includes/Posts/Page.php:66 includes/Posts/Page.php:76
+msgid "All page levels"
+msgstr "Alle Seitenebenen"
 
 #: includes/Posts/Settings.php:41 includes/Posts/Settings.php:42
 #: includes/Posts/Settings.php:72
@@ -1512,7 +1516,7 @@ msgid "Classic"
 msgstr "Klassischer Editor"
 
 #. translators: 1: Server WordPress version number, 2: Required WordPress version number.
-#: rrze-settings.php:121
+#: rrze-settings.php:147
 msgid ""
 "The server is running WordPress version %1$s. The plugin requires at least "
 "WordPress version %2$s."
@@ -1521,7 +1525,7 @@ msgstr ""
 "erfordert mindestens die WordPress-Version %2$s."
 
 #. translators: 1: Server PHP version number, 2: Required PHP version number.
-#: rrze-settings.php:129
+#: rrze-settings.php:154
 msgid ""
 "The server is running PHP version %1$s. The plugin requires at least PHP "
 "version %2$s."
@@ -1529,7 +1533,7 @@ msgstr ""
 "Auf dem Server wird die PHP-Version %1$s ausgeführt. Das Plugin erfordert "
 "mindestens die PHP-Version %2$s."
 
-#: rrze-settings.php:135
+#: rrze-settings.php:159
 msgid ""
 "The plugin can only be installed in a multisite installation and network-"
 "wide."
@@ -1538,7 +1542,7 @@ msgstr ""
 "installiert werden."
 
 #. translators: 1: The plugin name, 2: The error string.
-#: rrze-settings.php:173
+#: rrze-settings.php:168
 msgid "Plugins: %1$s: %2$s"
 msgstr "Plugins: %1$s: %2$s"
 

@@ -3,7 +3,7 @@
 /*
 Plugin Name:        RRZE Settings
 Plugin URI:         https://gitlab.rrze.fau.de/rrze-webteam/rrze-settings
-Version:            2.0.3
+Version:            2.0.4
 Description:        General settings and enhancements for a WordPress multisite installation.
 Author:             RRZE Webteam
 Author URI:         https://blogs.fau.de/webworking/
@@ -21,17 +21,12 @@ namespace RRZE\Settings;
 defined('ABSPATH') || exit;
 
 use RRZE\Settings\Plugins\WSForm;
-use WP_Error;
 
 // Composer autoloading
 require_once 'vendor/autoload.php';
 
 // Set the WS Form plugin license key if available
 WSForm::setWSFormLicenseKey();
-
-// Load the plugin's text domain for localization
-// Since WP 6.7.0, the text domain must be loaded using the 'init' action hook
-add_action('init', fn() => load_plugin_textdomain('rrze-settings', false, dirname(plugin_basename(__FILE__)) . '/languages'));
 
 // Register activation hook for the plugin
 register_activation_hook(__FILE__, __NAMESPACE__ . '\activation');
@@ -96,47 +91,17 @@ function plugin()
 }
 
 /**
- * Check system requirements for the plugin
- *
- * This method checks if the server environment meets the minimum WordPress and PHP version requirements
- * for the plugin to function properly.
- *
- * @return object|string An object containing an error message if the requirements are not met
+ * Callback function to load the plugin textdomain.
+ * 
+ * @return void
  */
-function systemRequirements()
+function loadTextdomain()
 {
-    // Get the global WordPress version
-    global $wp_version;
-
-    // Get the PHP version
-    $phpVersion = phpversion();
-
-    // Initialize an error message string
-    $error = '';
-
-    // Check if the WordPress version is compatible with the plugin's requirement
-    if (!is_wp_version_compatible(plugin()->getRequiresWP())) {
-        $error = sprintf(
-            /* translators: 1: Server WordPress version number, 2: Required WordPress version number. */
-            __('The server is running WordPress version %1$s. The plugin requires at least WordPress version %2$s.', 'rrze-settings'),
-            $wp_version,
-            plugin()->getRequiresWP()
-        );
-    } elseif (!is_php_version_compatible(plugin()->getRequiresPHP())) {
-        // Check if the PHP version is compatible with the plugin's requirement
-        $error = sprintf(
-            /* translators: 1: Server PHP version number, 2: Required PHP version number. */
-            __('The server is running PHP version %1$s. The plugin requires at least PHP version %2$s.', 'rrze-settings'),
-            $phpVersion,
-            plugin()->getRequiresPHP()
-        );
-    } elseif (!is_multisite() || !is_plugin_active_for_network(plugin()->getBaseName())) {
-        // Set an error message indicating that the plugin can only be installed in a multisite installation and network-wide
-        $error = __('The plugin can only be installed in a multisite installation and network-wide.', 'rrze-settings');
-    }
-
-    // Return an error object if there is an error, or an empty string if there are no errors
-    return $error ? new WP_Error('rrze-settings', $error) : '';
+    load_plugin_textdomain(
+        'rrze-settings',
+        false,
+        dirname(plugin_basename(__FILE__)) . '/languages'
+    );
 }
 
 /**
@@ -149,37 +114,67 @@ function systemRequirements()
  */
 function loaded()
 {
-    // Trigger the 'loaded' method of the main plugin instance
+    // Trigger the 'loaded' method of the main plugin instance.
     plugin()->loaded();
 
+    // Load the plugin textdomain for translations.
+    add_action(
+        'init',
+        __NAMESPACE__ . '\loadTextdomain'
+    );
+
     // Check system requirements.
-    $checkRequirements = systemRequirements();
-    if (is_wp_error($checkRequirements)) {
-        // If there is an error, add an action to display an admin notice with the error message
-        add_action('admin_init', function () use ($checkRequirements) {
-            // Check if the current user has the capability to activate plugins
+    if (
+        ! $wpCompatibe = is_wp_version_compatible(plugin()->getRequiresWP())
+            || ! $phpCompatible = is_php_version_compatible(plugin()->getRequiresPHP())
+                || ! $isMultisite = is_multisite()
+                    || ! $isPluginActiveForNetwork = is_plugin_active_for_network(plugin()->getBaseName())
+    ) {
+        // If the system requirements are not met, add an action to display an admin notice.
+        add_action('init', function () use ($wpCompatibe, $phpCompatible, $isMultisite, $isPluginActiveForNetwork) {
+            // Check if the current user has the capability to activate plugins.
             if (current_user_can('activate_plugins')) {
-                // Get plugin data to retrieve the plugin's name
+                // Determine the appropriate admin notice tag based on whether the plugin is network activated.
+                $hookName = is_plugin_active_for_network(plugin()->getBaseName()) ? 'network_admin_notices' : 'admin_notices';
+
+                // Get the plugin name for display in the admin notice.
                 $pluginName = plugin()->getName();
 
-                // Determine the admin notice tag based on network-wide activation
-                $tag = is_plugin_active_for_network(plugin()->getBaseName()) ? 'network_admin_notices' : 'admin_notices';
+                $error = '';
+                if (! $wpCompatibe) {
+                    $error = sprintf(
+                        /* translators: 1: Server WordPress version number, 2: Required WordPress version number. */
+                        __('The server is running WordPress version %1$s. The plugin requires at least WordPress version %2$s.', 'rrze-settings'),
+                        wp_get_wp_version(),
+                        plugin()->getRequiresWP()
+                    );
+                } elseif (! $phpCompatible) {
+                    $error = sprintf(
+                        /* translators: 1: Server PHP version number, 2: Required PHP version number. */
+                        __('The server is running PHP version %1$s. The plugin requires at least PHP version %2$s.', 'rrze-settings'),
+                        PHP_VERSION,
+                        plugin()->getRequiresPHP()
+                    );
+                } elseif (! $isMultisite || ! $isPluginActiveForNetwork) {
+                    $error = __('The plugin can only be installed in a multisite installation and network-wide.', 'rrze-settings');
+                }
 
-                // Add an action to display the admin notice
-                add_action($tag, function () use ($pluginName, $checkRequirements) {
+                // Display the error notice in the admin area.
+                // This will show a notice with the plugin name and the error message.
+                add_action($hookName, function () use ($pluginName, $error) {
                     printf(
                         '<div class="notice notice-error"><p>' .
                             /* translators: 1: The plugin name, 2: The error string. */
                             esc_html__('Plugins: %1$s: %2$s', 'rrze-settings') .
                             '</p></div>',
                         $pluginName,
-                        $checkRequirements->get_error_message()
+                        $error
                     );
                 });
             }
         });
 
-        // Return to prevent further initialization if there is an error
+        // If the system requirements are not met, the plugin initialization will not proceed.
         return;
     }
 
