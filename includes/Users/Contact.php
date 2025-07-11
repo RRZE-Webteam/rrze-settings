@@ -12,16 +12,34 @@ defined('ABSPATH') || exit;
 class Contact
 {
     /**
+     * Slug for the contact page
+     * 
+     * This slug is used to create a virtual page that lists the contact persons.
+     * It is not a real post, but a virtual one created on the fly.
+     * 
+     * The slug is set to 'contact' by default, but can be changed in the setPostArgs method.
      * @var string
      */
     protected $slug = '';
 
     /**
+     * Post arguments
+     * 
+     * This array contains the arguments for the virtual post that will be created.
+     * It includes the post name (slug), post title, and post content.
+     * 
+     * The content is generated dynamically based on the contact persons available in the current blog.
      * @var array
      */
     protected $args = [];
 
     /**
+     * Current blog ID
+     * 
+     * This variable holds the ID of the current blog in a multisite installation.
+     * It is used to fetch the contact persons for the current blog.
+     * 
+     * It is set in the loaded method and used in the getContactUsers method.
      * @var int
      */
     protected $currentBlogId;
@@ -44,7 +62,7 @@ class Contact
     }
 
     /**
-     * Set the post args
+     * Set the post arguments for the contact page
      * 
      * @return void
      */
@@ -61,7 +79,7 @@ class Contact
     }
 
     /**
-     * Map meta capability filter
+     * Filter the capabilities for meta capabilities
      * 
      * @param array $caps
      * @param string $cap
@@ -81,8 +99,13 @@ class Contact
         return $caps;
     }
 
+
     /**
-     * The posts filter
+     * Filter the posts to add a virtual contact page
+     * 
+     * This function checks if the current request is for the contact page.
+     * If it is, it creates a virtual post with the contact information.
+     * If there are already posts, it returns them unchanged.
      * 
      * @param array $posts
      * @return array
@@ -97,25 +120,31 @@ class Contact
             return $posts;
         }
 
-        $post = new \stdClass;
-        $post->post_author = 1;
-        $post->post_name = '';
-        $post->post_title = '';
-        $post->post_content = '';
-        $post->guid = get_bloginfo('wpurl') . '/' . $this->slug;
-        $post->post_type = 'page';
-        $post->ID = -1;
-        $post->post_status = 'publish';
-        $post->comment_status = 'closed';
-        $post->ping_status = 'closed';
-        $post->comment_count = 0;
-        $post->post_date = current_time('mysql');
-        $post->post_date_gmt = current_time('mysql', 1);
+        $post_array = array_merge([
+            'ID' => -1,
+            'post_author' => 1,
+            'post_name' => $this->slug,
+            'post_title' => $this->args['post_title'] ?? '',
+            'post_content' => $this->args['post_content'] ?? '',
+            'guid' => get_bloginfo('wpurl') . '/' . $this->slug,
+            'post_type' => 'page',
+            'post_status' => 'publish',
+            'comment_status' => 'closed',
+            'ping_status' => 'closed',
+            'comment_count' => 0,
+            'post_date' => current_time('mysql'),
+            'post_date_gmt' => current_time('mysql', 1),
+            'post_excerpt' => '',
+            'post_parent' => 0,
+            'menu_order' => 0,
+            'post_mime_type' => '',
+            'filter' => 'raw',
+        ], $this->args);
 
-        $post = (object) array_merge((array) $post, (array) $this->args);
-        $posts = null;
-        $posts[] = $post;
+        $post = (object) $post_array;
+        $posts = [$post];
 
+        // Set WP_Query vars
         $wp_query->is_page = true;
         $wp_query->is_singular = true;
         $wp_query->is_home = false;
@@ -129,7 +158,7 @@ class Contact
     }
 
     /**
-     * Get contact users
+     * Get the contact users for the current blog
      * 
      * @return array
      */
@@ -145,7 +174,7 @@ class Contact
     }
 
     /**
-     * Get the post content
+     * Get the content for the contact page
      * 
      * @return string
      */
@@ -159,7 +188,12 @@ class Contact
         $output = '<h3>' . __('Contact persons', 'rrze-settings') . '</h3>';
 
         foreach ($contactUsers as $user) {
-            $output .= sprintf('<p>%1$s<br/>%2$s %3$s</p>' . PHP_EOL, $user->display_name, __('Email Address:', 'rrze-settings'), make_clickable($user->user_email));
+            $output .= sprintf(
+                '<p>%1$s<br/>%2$s %3$s</p>' . PHP_EOL,
+                $user->display_name,
+                __('Email Address:', 'rrze-settings'),
+                make_clickable($user->user_email)
+            );
         }
 
         return $output;
