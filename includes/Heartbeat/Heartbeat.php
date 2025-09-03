@@ -167,7 +167,7 @@ class Heartbeat extends Main
                     return max(15, (int) $ov['editor']);
                 }
                 if (isset($ov['default'])) {
-                    return max(15, (int) $ov['default']);
+                    return max(60, (int) $ov['default']);
                 }
             }
         }
@@ -176,6 +176,6 @@ class Heartbeat extends Main
         if ($isEditor) {
             return max(15, (int) $this->siteOptions->heartbeat->editor_interval);
         }
-        return max(15, (int) $this->siteOptions->heartbeat->admin_interval);
+        return max(60, (int) $this->siteOptions->heartbeat->admin_interval);
     }
 }
