@@ -635,21 +635,30 @@ class Settings extends MainSettings
 <?php
     }
 
+    /**
+     * Renders a checkbox field
+     * 
+     * @param  array $args The field arguments
+     * @return void
+     */
     public function renderCheckboxField(array $args): void
     {
-        $key  = $args['key'];
+        $key = $args['key'];
         printf(
             '<label><input type="checkbox" name="%1$s[%2$s]" value="1" %3$s> %4$s</label>',
             $this->optionName,
             esc_attr($key),
-            checked(!empty($this->siteOptions->writing->$key), true, false),
-            esc_html__('Enable', 'rrze-settings')
+            checked(!empty($this->siteOptions->heartbeat->$key), true, false),
+            $args['description'] ? esc_html__($args['description']) : ''
         );
-        if (isset($args['description'])) {
-            echo ' <span class="description">' . esc_html($args['description']) . '</span>';
-        }
     }
 
+    /**
+     * Renders a number field
+     * 
+     * @param  array $args The field arguments
+     * @return void
+     */
     public function renderNumberField(array $args): void
     {
         $key  = $args['key'];
