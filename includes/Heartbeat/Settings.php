@@ -233,6 +233,12 @@ class Settings extends MainSettings
         esc_html_e('This page enables network administrators to manage heartbeat-related settings across the multisite network.', 'rrze-settings');
     }
 
+    /**
+     * Renders a checkbox field
+     * 
+     * @param  array $args The field arguments
+     * @return void
+     */
     public function renderCheckboxField(array $args): void
     {
         $key = $args['key'];
@@ -241,13 +247,16 @@ class Settings extends MainSettings
             $this->optionName,
             esc_attr($key),
             checked(!empty($this->siteOptions->heartbeat->$key), true, false),
-            esc_html__('Enable', 'rrze-settings')
+            $args['description'] ? esc_html__($args['description']) : ''
         );
-        if ($args['description']) {
-            echo '<p class="description">' . esc_html__($args['description']) . '</p>';
-        }
     }
 
+    /**
+     * Renders a number field
+     * 
+     * @param  array $args The field arguments
+     * @return void
+     */
     public function renderNumberField(array $args): void
     {
         $key = $args['key'];
@@ -269,6 +278,12 @@ class Settings extends MainSettings
         }
     }
 
+    /**
+     * Renders a textarea field for JSON input
+     * 
+     * @param  array $args The field arguments
+     * @return void
+     */
     public function renderTextareaJsonField(array $args): void
     {
         $key = $args['key'];
@@ -286,6 +301,12 @@ class Settings extends MainSettings
         }
     }
 
+    /**
+     * Renders a textarea field for line-separated input
+     * 
+     * @param  array $args The field arguments
+     * @return void
+     */
     public function renderTextareaLinesField(array $args): void
     {
         $key = $args['key'];
