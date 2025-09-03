@@ -4,12 +4,15 @@
 **/nbproject/
 ### PhpStorm ###
 .idea/
+*.css.map
 ### macOS ###
 .DS_Store
 ### Node ###
 node_modules/
-*.pot
+### WordPress ###
+/languages/*.pot
+/languages/*.mo
 ### Tmp ###
-_tmp/
+/_tmp/
 ### CSP ###
 content-security-policy.header
