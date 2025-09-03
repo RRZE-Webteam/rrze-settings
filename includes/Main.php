@@ -8,6 +8,7 @@ use RRZE\Settings\Settings;
 use RRZE\Settings\General\General;
 use RRZE\Settings\Posts\Posts;
 use RRZE\Settings\RestAPI\RestAPI;
+use RRZE\Settings\Heartbeat\Heartbeat;
 use RRZE\Settings\Users\Users;
 use RRZE\Settings\Menus\Menus;
 use RRZE\Settings\Tools\Tools;
@@ -128,6 +129,9 @@ class Main
 
         // Tools
         (new Tools())->loaded();
+
+        // Heartbeat
+        (new Heartbeat())->loaded();        
 
         // Rest API
         (new RestAPI())->loaded();
