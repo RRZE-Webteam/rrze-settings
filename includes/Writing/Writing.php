@@ -232,6 +232,13 @@ class Writing extends Main
         $postId = $context->post->ID ?? null;
         $blockEditor = new BlockEditor($this->siteOptions);
 
+        if (!empty($this->siteOptions->writing->sync_autosave)) {
+            // Sync: autosaveInterval = max(60, 2 × heartbeat->editor_interval)
+            $settings['autosaveInterval'] = max(60, 2 * (int) $this->siteOptions->heartbeat->editor_interval);
+        } else {
+            $settings['autosaveInterval'] = max(60, (int) $this->siteOptions->writing->autosave_interval);
+        }
+
         // Disable Openverse
         if ($this->siteOptions->writing->disable_openverse_media) {
             $settings['enableOpenverseMediaCategory'] = false;
