@@ -58,8 +58,9 @@ class Settings extends MainSettings
 
         $input['enable_post_lock'] = !empty($input['enable_post_lock']) ? 1 : 0;
 
-        $postLock = !empty($input['post_lock']) ? absint($input['post_lock']) : $this->minPostLock;
-        $input['post_lock'] = $postLock > $this->minPostLock ? $postLock : $this->minPostLock;
+        $input['post_lock'] = isset($input['post_lock']) ? (int) $input['post_lock'] : $input;
+        ['post_lock'];
+        $input['post_lock'] = max(150, $input['post_lock']);
 
         $input['disable_custom_fields_metabox'] = !empty($input['disable_custom_fields_metabox']) ? 1 : 0;
 
@@ -81,6 +82,10 @@ class Settings extends MainSettings
         }
 
         // Block editor field values
+        $input['autosave_interval'] = isset($raw['autosave_interval']) ? (int)$raw['autosave_interval'] : $input['autosave_interval'];
+        $input['autosave_interval'] = max(60, $input['autosave_interval']);
+        $input['sync_autosave'] = !empty($input['sync_autosave']);
+
         if (isset($input['allowed_block_types'])) {
             $input['allowed_block_types'] = $this->sanitizeAllowedBlockTypes($input['allowed_block_types']);
         }
@@ -205,6 +210,33 @@ class Settings extends MainSettings
         );
 
         // Block editor fields
+        add_settings_field(
+            'autosave_interval',
+            __('Autosave Interval', 'rrze-settings'),
+            [$this, 'renderNumberField'],
+            $this->menuPage,
+            'rrze-settings-writing-block-editor',
+            [
+                'key' => 'autosave_interval',
+                'min' => 15,
+                'step' => 1,
+                'unit' => __('seconds', 'rrze-settings'),
+                'description' => __('Interval in seconds for the autosave feature. Minimum is 15 seconds.', 'rrze-settings')
+            ]
+        );
+
+        add_settings_field(
+            'sync_autosave',
+            __('Sync Autosave Interval With Heartbeat', 'rrze-settings'),
+            [$this, 'renderCheckboxField'],
+            $this->menuPage,
+            'rrze-settings-writing-block-editor',
+            [
+                'key' => 'sync_autosave',
+                'description' => __('If enabled, the autosave interval will be synchronized with the Heartbeat API interval.', 'rrze-settings')
+            ]
+        );
+
         add_settings_field(
             'allowed_block_types',
             __('Allowed Blocks', 'rrze-settings'),
@@ -561,7 +593,7 @@ class Settings extends MainSettings
     public function postLockField()
     {
     ?>
-        <input type="text" class="small-text" id="rrze-settings-post-lock" name="<?php printf('%s[post_lock]', $this->optionName); ?>" value="<?php echo $this->options->writing->post_lock; ?>">
+        <input type="number" class="small-text" id="rrze-settings-post-lock" name="<?php printf('%s[post_lock]', $this->optionName); ?>" value="<?php echo $this->options->writing->post_lock; ?>" min="<?php echo $this->minPostLock; ?>" step="1">
         <p class="description">
             <?php _e('Post Lock interval in seconds.', 'rrze-settings'); ?>
         </p>
@@ -601,6 +633,51 @@ class Settings extends MainSettings
             <?php _e('Block editor', 'rrze-settings'); ?>
         </label>
 <?php
+    }
+
+    /**
+     * Renders a checkbox field
+     * 
+     * @param  array $args The field arguments
+     * @return void
+     */
+    public function renderCheckboxField(array $args): void
+    {
+        $key = $args['key'];
+        printf(
+            '<label><input type="checkbox" name="%1$s[%2$s]" value="1" %3$s> %4$s</label>',
+            $this->optionName,
+            esc_attr($key),
+            checked(!empty($this->siteOptions->heartbeat->$key), true, false),
+            $args['description'] ? esc_html__($args['description']) : ''
+        );
+    }
+
+    /**
+     * Renders a number field
+     * 
+     * @param  array $args The field arguments
+     * @return void
+     */
+    public function renderNumberField(array $args): void
+    {
+        $key  = $args['key'];
+        $min  = isset($args['min']) ? (int)$args['min'] : 0;
+        $step = isset($args['step']) ? (int)$args['step'] : 1;
+        printf(
+            '<input type="number" name="%1$s[%2$s]" value="%3$s" min="%4$d" step="%5$d" class="small-text">',
+            $this->optionName,
+            esc_attr($key),
+            esc_attr((string) $this->siteOptions->writing->$key),
+            $min,
+            $step
+        );
+        if (isset($args['unit'])) {
+            echo ' <span>' . esc_html__($args['unit']) . '</span>';
+        }
+        if (isset($args['description'])) {
+            echo ' <p class="description">' . esc_html($args['description']) . '</p>';
+        }
     }
 
     /**

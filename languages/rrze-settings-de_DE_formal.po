@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RRZE Settings\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-settings\n"
-"POT-Creation-Date: 2025-07-04T13:07:46+00:00\n"
-"PO-Revision-Date: 2025-07-04 15:08+0200\n"
+"POT-Creation-Date: 2025-09-03T13:16:03+00:00\n"
+"PO-Revision-Date: 2025-09-03 15:16+0200\n"
 "Last-Translator: RRZE Webteam <webmaster@fau.de>\n"
 "Language-Team: Deutsch (Sie)\n"
 "Language: de\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.7\n"
 
 #. Plugin Name of the plugin
 #: rrze-settings.php
@@ -219,6 +219,7 @@ msgstr "Webmaster Nachrichten"
 
 #. translators: %s: RSS error message.
 #: includes/General/Dashboard.php:240
+#, php-format
 msgid "RSS-Error: %s"
 msgstr "RSS-Fehler: %s"
 
@@ -318,6 +319,104 @@ msgstr "Aktiviert den White-Label-Modus"
 msgid "XML-RPC services are disabled on this site."
 msgstr "XML-RPC-Dienste sind auf dieser Site deaktiviert."
 
+#: includes/Heartbeat/Settings.php:34 includes/Heartbeat/Settings.php:35
+#: includes/Heartbeat/Settings.php:128
+msgid "Heartbeat"
+msgstr "Heartbeat"
+
+#: includes/Heartbeat/Settings.php:135
+msgid "Disable Heartbeat On Frontend"
+msgstr "Heartbeat im Frontend deaktivieren"
+
+#: includes/Heartbeat/Settings.php:141
+msgid ""
+"Disable Heartbeat on the frontend for non-logged-in users (e.g., visitors)."
+msgstr ""
+"Deaktiviere Heartbeat im Frontend für nicht eingeloggte Nutzer (z. B. "
+"Besucher)."
+
+#: includes/Heartbeat/Settings.php:147
+msgid "Disable Heartbeat In Admin Area"
+msgstr "Heartbeat im Admin-Bereich deaktivieren"
+
+#: includes/Heartbeat/Settings.php:153
+msgid "Disable Heartbeat in the admin area (except on post editor screens)."
+msgstr ""
+"Deaktiviere Heartbeat im Admin-Bereich (außer auf Posts-Editor-Screens)."
+
+#: includes/Heartbeat/Settings.php:159
+msgid "Force JS interval To Slow"
+msgstr "Erzwinge langsames JS-Intervall"
+
+#: includes/Heartbeat/Settings.php:165
+msgid ""
+"Set the JavaScript interval to “slow” (about 60s) in the admin area as a "
+"fallback if other settings do not apply."
+msgstr ""
+"Setze das JavaScript-Intervall im Admin-Bereich auf „slow“ (ca. 60 s) als "
+"Fallback, falls andere Einstellungen nicht greifen."
+
+#: includes/Heartbeat/Settings.php:171
+msgid "Editor interval"
+msgstr "Editor-Intervall"
+
+#: includes/Heartbeat/Settings.php:179 includes/Heartbeat/Settings.php:194
+#: includes/Writing/Settings.php:223
+msgid "seconds"
+msgstr "Sekunden"
+
+#: includes/Heartbeat/Settings.php:180
+msgid "Interval for post editors (seconds)."
+msgstr "Intervall für Posts-Editoren (Sekunden)."
+
+#: includes/Heartbeat/Settings.php:186
+msgid "Admin Interval"
+msgstr "Admin-Intervall"
+
+#: includes/Heartbeat/Settings.php:195
+msgid "Interval for other admin pages (seconds)."
+msgstr "Intervall für andere Admin-Seiten (Sekunden)."
+
+#: includes/Heartbeat/Settings.php:201
+msgid "Role Overrides"
+msgstr "Rollen-Überschreibungen"
+
+#: includes/Heartbeat/Settings.php:208
+msgid ""
+"Set custom Heartbeat intervals per role. Provide a JSON object where each "
+"role key contains two values: editor for post editor screens and default for "
+"other admin pages. Intervals are in seconds. Example: {\"administrator\":"
+"{\"editor\":15,\"default\":60},\"editor\":{\"editor\":30,\"default\":90},"
+"\"author\":{\"editor\":45,\"default\":120}}."
+msgstr ""
+"Benutzerdefinierte Heartbeat-Intervalle pro Rolle festlegen. Es ist ein JSON-"
+"Objekt anzugeben, bei dem jeder Rollenschlüssel zwei Werte enthält: „editor“ "
+"für Beitragseditor-Seiten und „default“ für andere Admin-Seiten. Die "
+"Intervalle werden in Sekunden angegeben. Beispiel: {\"administrator\":"
+"{\"editor\":15,\"default\":60},\"editor\":{\"editor\":30,\"default\":90},"
+"\"author\":{\"editor\":45,\"default\":120}}."
+
+#: includes/Heartbeat/Settings.php:214
+msgid "Allowed Admin Page Hooks"
+msgstr "Erlaubte Admin-Seiten-Hooks"
+
+#: includes/Heartbeat/Settings.php:221
+msgid ""
+"List of admin page hooks where Heartbeat is always allowed (one per line). "
+"Post editors (post.php, post-new.php) and the Site Editor are always allowed."
+msgstr ""
+"Liste der Admin-Seiten-Hooks, auf denen Heartbeat immer erlaubt ist (ein "
+"Eintrag pro Zeile). Beitrags-Editoren (post.php, post-new.php) und der Site-"
+"Editor sind immer erlaubt."
+
+#: includes/Heartbeat/Settings.php:233
+msgid ""
+"This page enables network administrators to manage heartbeat-related "
+"settings across the multisite network."
+msgstr ""
+"Auf dieser Seite können Netzwerk-Administratoren die Heartbeat-bezogenen "
+"Einstellungen im gesamten Multisite-Netzwerk verwalten."
+
 #: includes/Mail/AdminEmail.php:107
 msgid "Admin Email"
 msgstr "Admin E-Mail"
@@ -416,11 +515,12 @@ msgstr "Der Medientyp stimmt nicht mit der vorhandenen Datei überein."
 
 #. translators: %s: Media filename.
 #: includes/Media/Replace/Replace.php:264
+#, php-format
 msgid ""
 "The file %s can not be deleted by the web server, most likely because the "
 "permissions on the file are wrong."
 msgstr ""
-"Die Datei %1s kann vom Webserver nicht gelöscht werden, höchstwahrscheinlich "
+"Die Datei %s kann vom Webserver nicht gelöscht werden, höchstwahrscheinlich "
 "weil die Berechtigungen für die Datei falsch sind."
 
 #: includes/Media/Replace/Replace.php:308
@@ -439,11 +539,13 @@ msgstr "Es wurde nichts ausgewählt."
 
 #. translators: %s: Error message.
 #: includes/Media/Replace/Views/index.php:17
+#, php-format
 msgid "Error: %s"
 msgstr "Fehler: %s"
 
 #. translators: %s: Media filename.
 #: includes/Media/Replace/Views/index.php:35
+#, php-format
 msgid "You are about to replace the media file \"%s\"."
 msgstr "Sie sind dabei, die Mediendatei „%s“ zu ersetzen."
 
@@ -453,6 +555,7 @@ msgstr "Eine Datei auswählen"
 
 #. translators: %1$s: Mime type, %2$s: Media filename.
 #: includes/Media/Replace/Views/index.php:52
+#, php-format
 msgid ""
 "The file must be of the same media type (%1$s) as the one being replaced. "
 "The name of the file (%2$s) will stay the same."
@@ -532,6 +635,7 @@ msgstr "Filtert die Bildgrößen, die für Mime-Typen ohne Bild erzeugt werden"
 
 #. translators: %s: Number of pixels.
 #: includes/Media/Settings.php:216
+#, php-format
 msgid "Maximum width and height: %s pixels"
 msgstr "Maximale Breite und Höhe: %s Pixel"
 
@@ -1192,21 +1296,21 @@ msgstr "Deaktiviert die Datenschutzeinstellungen"
 msgid "You are not allowed to delete this website."
 msgstr "Es ist Ihnen nicht gestattet, diese Website zu löschen."
 
-#: includes/Users/Contact.php:54
+#: includes/Users/Contact.php:75
 msgctxt "post_name (slug)"
 msgid "contact"
 msgstr "kontakt"
 
-#: includes/Users/Contact.php:55
+#: includes/Users/Contact.php:76
 msgctxt "post_title"
 msgid "Contact"
 msgstr "Kontakt"
 
-#: includes/Users/Contact.php:159
+#: includes/Users/Contact.php:261
 msgid "Contact persons"
 msgstr "Kontaktpersonen"
 
-#: includes/Users/Contact.php:162
+#: includes/Users/Contact.php:267
 msgid "Email Address:"
 msgstr "E-Mail-Adresse:"
 
@@ -1281,88 +1385,109 @@ msgstr ""
 "(sofern vorhanden). Geben Sie pro Zeile einen Benutzernamen ein."
 
 #: includes/Writing/Settings.php:41 includes/Writing/Settings.php:42
-#: includes/Writing/Settings.php:127
+#: includes/Writing/Settings.php:132
 msgid "Writing"
 msgstr "Schreiben"
 
-#: includes/Writing/Settings.php:134
+#: includes/Writing/Settings.php:139
 msgid "Post Lock"
 msgstr "Post-Sperre"
 
-#: includes/Writing/Settings.php:142
+#: includes/Writing/Settings.php:147
 msgid "Disable Custom Fields Metabox"
 msgstr "Metabox für benutzerdefinierte Felder deaktivieren"
 
-#: includes/Writing/Settings.php:150 includes/Writing/Settings.php:312
+#: includes/Writing/Settings.php:155 includes/Writing/Settings.php:344
 msgid "Default Editor"
 msgstr "Standardeditor"
 
-#: includes/Writing/Settings.php:160 includes/Writing/Settings.php:550
+#: includes/Writing/Settings.php:165 includes/Writing/Settings.php:582
 msgid "Classic Editor"
 msgstr "Klassischer Editor"
 
-#: includes/Writing/Settings.php:168 includes/Writing/Settings.php:176
-#: includes/Writing/Settings.php:545
+#: includes/Writing/Settings.php:173 includes/Writing/Settings.php:181
+#: includes/Writing/Settings.php:577
 msgid "Block Editor"
 msgstr "Block-Editor"
 
-#: includes/Writing/Settings.php:185
+#: includes/Writing/Settings.php:190
 msgid "Post Types Exceptions"
 msgstr "Ausnahmen für Post-Types"
 
-#: includes/Writing/Settings.php:193
+#: includes/Writing/Settings.php:198
 msgid "Themes Exceptions"
 msgstr "Ausnahmen für Themes"
 
-#: includes/Writing/Settings.php:201
+#: includes/Writing/Settings.php:206
 msgid "Websites Exceptions"
 msgstr "Ausnahmen für Websites"
 
-#: includes/Writing/Settings.php:210
+#: includes/Writing/Settings.php:215
+msgid "Autosave Interval"
+msgstr "Autosave-Intervall"
+
+#: includes/Writing/Settings.php:224
+msgid "Interval in seconds for the autosave feature. Minimum is 15 seconds."
+msgstr ""
+"Intervall in Sekunden für die Autosave-Funktion. Minimum sind 15 Sekunden."
+
+#: includes/Writing/Settings.php:230
+msgid "Sync Autosave Interval With Heartbeat"
+msgstr "Autosave-Intervall mit Heartbeat synchronisieren"
+
+#: includes/Writing/Settings.php:236
+msgid ""
+"If enabled, the autosave interval will be synchronized with the Heartbeat "
+"API interval."
+msgstr ""
+"Wenn aktiviert, wird das Autosave-Intervall mit dem Heartbeat-API-Intervall "
+"synchronisiert."
+
+#: includes/Writing/Settings.php:242
 msgid "Allowed Blocks"
 msgstr "Erlaubte Blöcke"
 
-#: includes/Writing/Settings.php:218
+#: includes/Writing/Settings.php:250
 msgid "Disabled Blocks"
 msgstr "Deaktivierte Blöcke"
 
-#: includes/Writing/Settings.php:226
+#: includes/Writing/Settings.php:258
 msgid "Disable Block Directory Assets"
 msgstr "Blockverzeichnis-Assets deaktivieren"
 
-#: includes/Writing/Settings.php:234
+#: includes/Writing/Settings.php:266
 msgid "Disable Remote Block Patterns"
 msgstr "Remote-Patterns deaktivieren"
 
-#: includes/Writing/Settings.php:242
+#: includes/Writing/Settings.php:274
 msgid "Disable Openverse Media"
 msgstr "Openverse Medien deaktivieren"
 
-#: includes/Writing/Settings.php:250
+#: includes/Writing/Settings.php:282
 msgid "Disable Font Library UI"
 msgstr "Schriftartenbibliothek-UI deaktivieren"
 
-#: includes/Writing/Settings.php:258
+#: includes/Writing/Settings.php:290
 msgid "Disable Code Editor"
 msgstr "Code-Editor deaktivieren"
 
-#: includes/Writing/Settings.php:266
+#: includes/Writing/Settings.php:298
 msgid "Code Editor Websites Exceptions"
 msgstr "Website-Ausnahmen für die Verwendung des Code-Editors"
 
-#: includes/Writing/Settings.php:274
+#: includes/Writing/Settings.php:306
 msgid "Deactivated Plugins"
 msgstr "Deaktivierte Plugins"
 
-#: includes/Writing/Settings.php:297
+#: includes/Writing/Settings.php:329
 msgid "Post Lock Interval"
 msgstr "Post-Sperrintervall"
 
-#: includes/Writing/Settings.php:324
+#: includes/Writing/Settings.php:356
 msgid "Allow switching editors"
 msgstr "Erlaube das Wechseln von Editoren"
 
-#: includes/Writing/Settings.php:338
+#: includes/Writing/Settings.php:370
 msgid ""
 "This page enables network administrators to manage writing-related settings "
 "across the multisite network. Available options include enabling or "
@@ -1382,15 +1507,15 @@ msgstr ""
 "standardisierte und kontrollierte Schreibumgebung auf allen Websites zu "
 "gewährleisten."
 
-#: includes/Writing/Settings.php:351
+#: includes/Writing/Settings.php:383
 msgid "Enable the post lock feature"
 msgstr "Aktivieren der Post-Sperrfunktion"
 
-#: includes/Writing/Settings.php:366
+#: includes/Writing/Settings.php:398
 msgid "Disables the custom fields metabox"
 msgstr "Deaktiviert die Metabox für benutzerdefinierte Felder"
 
-#: includes/Writing/Settings.php:380
+#: includes/Writing/Settings.php:412
 msgid ""
 "List of post types that always have the block editor enabled and no block "
 "restrictions. Enter one post type per line."
@@ -1399,7 +1524,7 @@ msgstr ""
 "denen es keine Blockbeschränkungen gibt. Geben Sie einen Post-Type pro Zeile "
 "ein."
 
-#: includes/Writing/Settings.php:393
+#: includes/Writing/Settings.php:425
 msgid ""
 "List of themes that always have the block editor enabled and no block "
 "restrictions. Enter one theme name per line."
@@ -1407,7 +1532,7 @@ msgstr ""
 "Liste der Themes, bei denen der Blockeditor immer aktiviert ist und keine "
 "Blockbeschränkungen gelten. Geben Sie pro Zeile einen Theme-Namen ein."
 
-#: includes/Writing/Settings.php:405
+#: includes/Writing/Settings.php:437
 msgid ""
 "List of websites ids that always have the block editor enabled and no block "
 "restrictions. Enter one website id per line."
@@ -1415,50 +1540,50 @@ msgstr ""
 "Liste der Website-IDs, bei denen der Blockeditor immer aktiviert ist und "
 "keine Blockbeschränkungen bestehen. Geben Sie eine Website-ID pro Zeile ein."
 
-#: includes/Writing/Settings.php:418
+#: includes/Writing/Settings.php:450
 msgid ""
 "List of allowed blocks. The * wildcard is supported at the end of a string."
 msgstr ""
 "Liste der zulässigen Blöcke. Das Platzhalterzeichen * wird am Ende einer "
 "Zeichenfolge unterstützt."
 
-#: includes/Writing/Settings.php:419
+#: includes/Writing/Settings.php:451
 msgid "If this field is left empty, all registered blocks will be available."
 msgstr ""
 "Wenn dieses Feld leer bleibt, sind alle registrierten Blöcke verfügbar."
 
-#: includes/Writing/Settings.php:420 includes/Writing/Settings.php:434
+#: includes/Writing/Settings.php:452 includes/Writing/Settings.php:466
 msgid "Enter one block type per line."
 msgstr "Geben Sie pro Zeile einen Blocktyp ein."
 
-#: includes/Writing/Settings.php:433
+#: includes/Writing/Settings.php:465
 msgid ""
 "List of disabled blocks. The * wildcard is supported at the end of a string."
 msgstr ""
 "Liste der deaktivierten Blöcke. Der Platzhalter * wird am Ende einer "
 "Zeichenfolge unterstützt."
 
-#: includes/Writing/Settings.php:448
+#: includes/Writing/Settings.php:480
 msgid "Remove Block Directory assets"
 msgstr "Blockverzeichnis-Assets entfernen"
 
-#: includes/Writing/Settings.php:463
+#: includes/Writing/Settings.php:495
 msgid "Disable remote block patterns"
 msgstr "Remote-Patterns deaktivieren"
 
-#: includes/Writing/Settings.php:478
+#: includes/Writing/Settings.php:510
 msgid "Disable loading of Openverse Media"
 msgstr "Laden von Openverse Media deaktivieren"
 
-#: includes/Writing/Settings.php:493
+#: includes/Writing/Settings.php:525
 msgid "Disable the Font Library user interface"
 msgstr "Benutzeroberfläche der Font-Bibliothek deaktivieren"
 
-#: includes/Writing/Settings.php:508
+#: includes/Writing/Settings.php:540
 msgid "Disable the Code Editor option from the Block Editor settings"
 msgstr "Die Option Code-Editor in den Block-Editor-Einstellungen deaktivieren"
 
-#: includes/Writing/Settings.php:522
+#: includes/Writing/Settings.php:554
 msgid ""
 "List of websites ids that always have the code editor enabled. Enter one "
 "website id per line."
@@ -1466,7 +1591,7 @@ msgstr ""
 "Liste der Website-IDs, bei denen der Code-Editor immer aktiviert ist. Geben "
 "Sie pro Zeile eine Website-ID ein."
 
-#: includes/Writing/Settings.php:530
+#: includes/Writing/Settings.php:562
 msgid ""
 "Plugins to disable when the block editor is active. Enter one plugin per "
 "line."
@@ -1474,28 +1599,29 @@ msgstr ""
 "Plugins, die deaktiviert werden sollen, wenn der Blockeditor aktiv ist. "
 "Geben Sie pro Zeile ein Plugin ein."
 
-#: includes/Writing/Settings.php:531
+#: includes/Writing/Settings.php:563
 msgid "The plugin name must be the same as in the plugins folder."
 msgstr "Der Plugin-Name muss mit dem im Plugin-Ordner übereinstimmen."
 
-#: includes/Writing/Settings.php:566
+#: includes/Writing/Settings.php:598
 msgid "Post Lock interval in seconds."
 msgstr "Post-Sperrinterval in Sekunden."
 
-#: includes/Writing/Settings.php:581
+#: includes/Writing/Settings.php:613
 msgid "Allow admins to switch editors"
 msgstr "Erlaube Administratoren, Editoren zu wechseln"
 
-#: includes/Writing/Settings.php:596
+#: includes/Writing/Settings.php:628
 msgid "Classic editor"
 msgstr "Klassischer Editor"
 
-#: includes/Writing/Settings.php:601
+#: includes/Writing/Settings.php:633
 msgid "Block editor"
 msgstr "Block-Editor"
 
 #. translators: %s: Plugin name
 #: includes/Writing/Writing.php:135
+#, php-format
 msgid ""
 "The plugin \"%s\" has been deactivated because the block editor is enabled "
 "on this website."
@@ -1503,20 +1629,21 @@ msgstr ""
 "Das Plugin „%s“ wurde deaktiviert, da der Blockeditor auf dieser Website "
 "aktiviert ist."
 
-#: includes/Writing/Writing.php:266
+#: includes/Writing/Writing.php:273
 msgid "Editor"
 msgstr "Editor"
 
-#: includes/Writing/Writing.php:314
+#: includes/Writing/Writing.php:321
 msgid "Block"
 msgstr "Block"
 
-#: includes/Writing/Writing.php:314
+#: includes/Writing/Writing.php:321
 msgid "Classic"
 msgstr "Klassischer Editor"
 
 #. translators: 1: Server WordPress version number, 2: Required WordPress version number.
-#: rrze-settings.php:147
+#: rrze-settings.php:138
+#, php-format
 msgid ""
 "The server is running WordPress version %1$s. The plugin requires at least "
 "WordPress version %2$s."
@@ -1525,7 +1652,8 @@ msgstr ""
 "erfordert mindestens die WordPress-Version %2$s."
 
 #. translators: 1: Server PHP version number, 2: Required PHP version number.
-#: rrze-settings.php:154
+#: rrze-settings.php:146
+#, php-format
 msgid ""
 "The server is running PHP version %1$s. The plugin requires at least PHP "
 "version %2$s."
@@ -1533,7 +1661,7 @@ msgstr ""
 "Auf dem Server wird die PHP-Version %1$s ausgeführt. Das Plugin erfordert "
 "mindestens die PHP-Version %2$s."
 
-#: rrze-settings.php:159
+#: rrze-settings.php:151
 msgid ""
 "The plugin can only be installed in a multisite installation and network-"
 "wide."
@@ -1541,10 +1669,5 @@ msgstr ""
 "Das Plugin kann nur in einer Multisite-Installation und netzwerkweit "
 "installiert werden."
 
-#. translators: 1: The plugin name, 2: The error string.
-#: rrze-settings.php:168
-msgid "Plugins: %1$s: %2$s"
-msgstr "Plugins: %1$s: %2$s"
-
-#~ msgid "Enables enhanced media search"
-#~ msgstr "Ermöglicht eine verbesserte Mediensuche"
+#~ msgid "Enable"
+#~ msgstr "Aktivieren"

@@ -43,6 +43,19 @@ class Options
                 'connect_src' => '\'self\'',
                 'font_src' => '\'self\' data:',
             ],
+            'heartbeat' => [
+                'disable_frontend' => '0',
+                'disable_admin_non_editor' => '0',
+                'force_js_slow' => '0',
+                'editor_interval' => 15,
+                'admin_interval' => 60,
+                'role_overrides' => [
+                    'administrator' => ['editor' => 15, 'default' => 60],
+                    'editor'        => ['editor' => 30, 'default' => 90],
+                    'author'        => ['editor' => 45, 'default' => 120],
+                ],
+                'admin_allowlist_hooks' => ['index.php'],
+            ],
             'media' => [
                 'sanitize_filename' => 0,
                 'filter_nonimages_mimetypes' => 0,
@@ -108,6 +121,8 @@ class Options
             'writing' => [
                 'enable_post_lock' => 0,
                 'post_lock' => 150,
+                'autosave_interval' => 60,
+                'sync_autosave' => 0,
                 'enable_block_editor' => 0,
                 'try_enable_block_editor' => 0,
                 'enable_classic_editor' => 1,

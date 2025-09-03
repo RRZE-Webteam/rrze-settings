@@ -8,6 +8,7 @@ use RRZE\Settings\Settings;
 use RRZE\Settings\General\General;
 use RRZE\Settings\Posts\Posts;
 use RRZE\Settings\RestAPI\RestAPI;
+use RRZE\Settings\Heartbeat\Heartbeat;
 use RRZE\Settings\Users\Users;
 use RRZE\Settings\Menus\Menus;
 use RRZE\Settings\Tools\Tools;
@@ -28,27 +29,50 @@ use RRZE\Settings\Advanced\Advanced;
 class Main
 {
     /**
-     * @var string
+     * @var string Option name
+     * 
+     * This property holds the name of the option used to store settings for the RRZE Settings plugin.
+     * It is used to retrieve and save plugin settings in the WordPress database.
+     * 
+     * @see Options::getOptionName()
      */
     protected $optionName;
 
     /**
      * @var object
+     * 
+     * This property holds the options for the RRZE Settings plugin.
+     * It is used to store and retrieve plugin settings from the WordPress database.
+     * 
+     * @see Options::getOptions()
      */
     protected $options;
 
     /**
-     * @var object
+     * @var object Site options
+     * 
+     * This property holds the site options for the RRZE Settings plugin.
+     * It is used to store and retrieve site-specific settings in a multisite WordPress installation.
+     * 
+     * @see Options::getSiteOptions()
      */
     protected $siteOptions;
 
     /**
-     * @var object
+     * @var object Default options
+     * 
+     * This property holds the default options for the RRZE Settings plugin.
+     * It is used to provide a fallback configuration for the plugin settings.
+     * 
+     * @see Options::getDefaultOptions()
      */
     protected $defaultOptions;
 
     /**
      * Constructor
+     * 
+     * This method initializes the Main class by setting up the option name, options, site options, and default options.
+     * It also enqueues the admin scripts for the plugin.
      * 
      * @return void
      */
@@ -63,7 +87,7 @@ class Main
     }
 
     /**
-     * Load all classes
+     * Load all modules.
      * 
      * @return void
      */
@@ -105,6 +129,9 @@ class Main
 
         // Tools
         (new Tools())->loaded();
+
+        // Heartbeat
+        (new Heartbeat())->loaded();        
 
         // Rest API
         (new RestAPI())->loaded();
