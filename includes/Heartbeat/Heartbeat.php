@@ -29,10 +29,10 @@ class Heartbeat extends Main
             $this->defaultOptions
         ))->loaded();
 
-        add_filter('heartbeat_settings', [$this, 'filterHeartbeatSettings'], 10, 1);
+        add_filter('heartbeat_settings', [$this, 'filterHeartbeatSettings'], 1000, 1);
         add_action('wp_enqueue_scripts', [$this, 'maybeDisableFrontendHeartbeat'], 1);
         add_action('admin_enqueue_scripts', [$this, 'maybeDisableAdminHeartbeat'], 1);
-        add_action('admin_print_footer_scripts', [$this, 'maybeForceJsSlow'], 100);
+        add_action('admin_enqueue_scripts', [$this, 'maybeForceInlineAfter'], 1000);
     }
 
     /**
@@ -94,26 +94,24 @@ class Heartbeat extends Main
     }
 
     /**
-     * Maybe force JS slow interval
+     * Maybe force inline after for heartbeat
      * 
      * @return void
      */
-    public function maybeForceJsSlow(): void
+    public function maybeForceInlineAfter($hook = null): void
     {
         if (empty($this->siteOptions->heartbeat->force_js_slow)) {
             return;
         }
-?>
-        <script>
-            (function() {
-                if (window.wp && wp.heartbeat && typeof wp.heartbeat.interval === 'function') {
-                    try {
-                        wp.heartbeat.interval('slow');
-                    } catch (e) {}
-                }
-            })();
-        </script>
-<?php
+
+        $interval = $this->getEffectiveInterval();
+        $code = sprintf(
+            'jQuery(function(){ wp.heartbeat.interval(%d); console.log("[rrze-settings - heartbeat] forced inline after to %d"); });',
+            $interval,
+            $interval
+        );
+
+        wp_add_inline_script('heartbeat', $code, 'after');
     }
 
     /**
