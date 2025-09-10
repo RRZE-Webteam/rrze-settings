@@ -54,7 +54,7 @@ class Settings extends MainSettings
      */
     public function optionsValidate($input)
     {
-        $input['disable_discussion'] = !empty($input['disable_discussion']) ? 1 : 0;
+        $input['default_settings'] = !empty($input['default_settings']) ? 1 : 0;
         $input['disable_avatars'] = !empty($input['disable_avatars']) ? 1 : 0;
 
         return $this->parseOptionsValidate($input, 'discussion');

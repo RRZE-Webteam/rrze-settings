@@ -8,20 +8,16 @@ use RRZE\Settings\Main;
 use function RRZE\Settings\plugin;
 
 /**
- * Class Discussion
- *
- * This class handles the discussion settings in WordPress.
- *
+ * Handles hardening/streamlining of WordPress Discussion settings.
+ * 
  * @package RRZE\Settings\Discussion
  */
 class Discussion extends Main
 {
     /**
-     * Plugin loaded action
-     *
-     * @return void
+     * Bootstrap plugin feature.
      */
-    public function loaded()
+    public function loaded(): void
     {
         (new Settings(
             $this->optionName,
@@ -30,139 +26,118 @@ class Discussion extends Main
             $this->defaultOptions
         ))->loaded();
 
-        if ($this->siteOptions->discussion->default_settings) {
-            // Do not attempt to notify any blogs linked to from the post
-            update_option('default_pingback_flag', 0);
+        $discussion = $this->siteOptions->discussion ?? null;
 
-            // Do not allow link notifications from other blogs (pingbacks and trackbacks) on new posts
-            update_option('default_ping_status', 0);
+        if (!empty($discussion) && !empty($discussion->default_settings)) {
+            // Apply discussion defaults only when a new site is created (multisite).
+            add_action('wp_initialize_site', [$this, 'setDefaultSettingsForNewSite'], 10, 2);
 
-            // Users must be registered and logged in to comment (Signup has been disabled. Only members of this site can comment.)
-            update_option('comment_registration', 1);
-
-            // Disable comments for new posts/pages by default.
+            // Close comments by default only when creating new posts/pages.
             add_filter('wp_insert_post_data', [$this, 'disableCommentsByDefault'], 10, 2);
 
-            // Allow comments only for logged-in users.
+            // Only logged-in users can comment.
             add_filter('comments_open', [$this, 'allowCommentsLoggedInOnly'], 10, 2);
-
-            // Fires when a new site's initialization routine should be executed.
-            add_action('wp_initialize_site', [$this, 'setDefaultSettingsForNewSite']);
         }
 
-        if ($this->siteOptions->discussion->disable_avatars) {
-            // Hide the avatar settings on the Discussion Settings page
-            add_action('admin_footer', [$this, 'hideAvatarSettings']);
+        if (!empty($discussion) && !empty($discussion->disable_avatars)) {
+            // Hide avatar settings only on the Discussion settings screen.
+            add_action('admin_enqueue_scripts', [$this, 'enqueueHideAvatarSettings']);
 
-            // Disable show avatars
-            $this->disableShowAvatars();
+            // Disable avatars globally.
+            if (get_option('show_avatars') !== '0') {
+                update_option('show_avatars', 0);
+            }
 
-            // Set the default avatar to 'mystery'
-            $this->setDefaultAvatar();
+            // Set default avatar to 'mystery'.
+            if (get_option('avatar_default') !== 'mystery') {
+                update_option('avatar_default', 'mystery');
+            }
         }
     }
 
     /**
-     * Disable comments by default for new posts/pages
+     * Close comments by default ONLY when creating new posts/pages.
      *
-     * @param array $data Post data
-     * @param array $postarr Post array
-     * @return array Modified post data
+     * @param array<string,mixed> $data    Sanitized post data to be inserted/updated.
+     * @param array<string,mixed> $postarr Raw post array (may include 'ID' when updating).
+     * @return array<string,mixed>
      */
-    public function disableCommentsByDefault($data, $postarr)
+    public function disableCommentsByDefault(array $data, array $postarr): array
     {
-        // If the post type is a post/page, disable comments by default
-        if (in_array($data['post_type'], ['post', 'page'])) {
-            $data['comment_status'] = 'closed';
+        $is_new = empty($postarr['ID']);
+
+        if (
+            $is_new
+            && !empty($data['post_type'])
+            && post_type_supports((string) $data['post_type'], 'comments')
+            && in_array((string) $data['post_type'], ['post', 'page'], true)
+        ) {
+            // Respect an explicit editor choice if provided in $postarr.
+            if (!isset($postarr['comment_status'])) {
+                $data['comment_status'] = 'closed';
+            }
         }
 
         return $data;
     }
 
     /**
-     * Allow comments only for logged-in users
+     * Allow comments only for logged-in users.
      *
-     * @param bool $open Current comment status
-     * @param int $postId Post ID
-     * @return bool Modified comment status
+     * @param bool $open    Whether the comments are open.
+     * @param int  $postId  Post ID.
+     * @return bool
      */
-    public function allowCommentsLoggedInOnly($open, $postId)
+    public function allowCommentsLoggedInOnly(bool $open, int $postId): bool
     {
-        if (is_user_logged_in()) {
-            return $open; // Keep comment status as is.
-        }
-        return false; // Disable comments for non-logged-in users.
+        return is_user_logged_in() ? $open : false;
     }
 
     /**
-     * Set default settings for new websites
+     * Apply discussion defaults only when a new site is created (multisite).
      *
-     * @param int|WP_Site $blogId Blog ID or WP_Site object
+     * @param WP_Site $site The site being initialized.
+     * @param array    $args  Array of arguments for the new site.
      * @return void
      */
-    public function setDefaultSettingsForNewSite($blogId)
+    public function setDefaultSettingsForNewSite(\WP_Site $site, array $args = []): void
     {
-        if (is_a($blogId, 'WP_Site')) {
-            $blogId = $blogId->blog_id;
-        }
+        switch_to_blog((int) $site->blog_id);
 
-        // Switch to the new site
-        switch_to_blog($blogId);
-
-        // Do not attempt to notify any blogs linked to from the post
         update_option('default_pingback_flag', 0);
-        // Do not allow link notifications from other blogs (pingbacks and trackbacks) on new posts
         update_option('default_ping_status', 0);
-        // Do not allow people to submit comments on new posts
-        update_option('default_comment_status', 0);
-        // Users must be registered and logged in to comment (Signup has been disabled. Only members of this site can comment.)
+        update_option('default_comment_status', 'closed');
         update_option('comment_registration', 1);
 
-        // Restore the original site
         restore_current_blog();
     }
 
     /**
-     * Hide the avatar settings on the Discussion Settings page
+     * Enqueue a small admin script to hide avatar UI on Discussion settings.
      *
+     * @param string $hookSuffix Current admin page hook.
      * @return void
      */
-    public function hideAvatarSettings()
+    public function enqueueHideAvatarSettings(string $hookSuffix): void
     {
-        // Only load this script on the Discussion Settings page
-        $screen = get_current_screen();
-        if ($screen && $screen->base === 'options-discussion') {
-            // Enqueue the script to hide avatar settings
-            $assetFile = include(plugin()->getPath('build') . 'discussion/avatars.asset.php');
-            wp_enqueue_script(
-                'rrze-settings-discussion-avatars',
-                plugins_url('build/discussion/avatars.js', plugin()->getBasename()),
-                $assetFile['dependencies'] ?? [],
-                $assetFile['version'] ?? plugin()->getVersion(),
-                true
-            );
+        if ($hookSuffix !== 'options-discussion.php') {
+            return;
         }
-    }
 
-    /**
-     * Disable show avatars
-     *
-     * @return void
-     */
-    public function disableShowAvatars()
-    {
-        // Set the 'show_avatars' option to 0
-        update_option('show_avatars', 0);
-    }
+        $buildDir  = trailingslashit(plugin()->getPath('build')) . 'discussion/';
+        $assetPath = $buildDir . 'avatars.asset.php';
+        $scriptUrl = plugins_url('build/discussion/avatars.js', plugin()->getBasename());
 
-    /**
-     * Set the default avatar to 'mystery'
-     *
-     * @return void
-     */
-    public function setDefaultAvatar()
-    {
-        // Set the 'avatar_default' option to 'mystery'
-        update_option('avatar_default', 'mystery');
+        $deps = [];
+        $ver  = plugin()->getVersion();
+
+        if (file_exists($assetPath)) {
+            /** @var array{dependencies?:string[],version?:string} $asset */
+            $asset = include $assetPath;
+            $deps  = $asset['dependencies'] ?? [];
+            $ver   = $asset['version'] ?? $ver;
+        }
+
+        wp_enqueue_script('rrze-settings-discussion-avatars', $scriptUrl, $deps, $ver, true);
     }
 }
