@@ -187,37 +187,48 @@ class Contact
     /**
      * Collect site admins for this blog.
      *
-     * @return array{ID:int,display_name:string,user_email:string}[]
+     * @return array<int, object{ID:int,display_name:string,user_email:string}>
      */
-    protected function getContactUsers()
+    protected function getContactUsers(): array
     {
-        return get_users([
+        // WP_User_Query con "fields" como lista devuelve stdClass por cada user
+        $users = get_users([
             'blog_id'  => $this->currentBlogId,
             'role__in' => ['administrator'],
             'fields'   => ['ID', 'display_name', 'user_email'],
         ]);
+
+        // Normaliza a array (por si algún plugin devuelve traversable raro)
+        return is_array($users) ? $users : [];
     }
 
     /**
      * Render the page content (simple HTML list of admins).
-     *
-     * @return string
+     * 
+     * @return string The post content
      */
-    protected function getPostContent()
+    protected function getPostContent(): string
     {
         $users = $this->getContactUsers();
         if (empty($users)) {
             return '';
         }
 
-        $out = '<h3>' . esc_html__('Contact persons', 'rrze-settings') . '</h3>';
+        $out  = '<h3>' . esc_html__('Contact persons', 'rrze-settings') . '</h3>';
 
+        /** @var object{ID:int,display_name:string,user_email:string} $user */
         foreach ($users as $user) {
+            // Sanitiza y ofusca el email, y construye el mailto de forma explícita
+            $email_raw   = sanitize_email($user->user_email);
+            $email_disp  = antispambot($email_raw);
+            $mailto_href = sprintf('mailto:%s', rawurlencode($email_raw));
+
             $out .= sprintf(
-                '<p>%1$s<br/>%2$s %3$s</p>' . PHP_EOL,
+                '<p>%1$s<br/>%2$s <a href="%3$s">%4$s</a></p>' . PHP_EOL,
                 esc_html($user->display_name),
                 esc_html__('Email Address:', 'rrze-settings'),
-                make_clickable(esc_html($user->user_email))
+                esc_attr($mailto_href),
+                esc_html($email_disp)
             );
         }
 
