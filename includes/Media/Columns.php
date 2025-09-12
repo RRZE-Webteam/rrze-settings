@@ -117,26 +117,24 @@ class Columns
     {
         global $pagenow;
 
-        if (is_admin() && $query->is_main_query() & in_array($pagenow, ['upload.php', 'tools.php'])) {
+        $pt = (array) $query->get('post_type');
+        if (in_array('customize_changeset', $pt, true)) {
+            return;
+        }
+
+        if (is_admin() && $query->is_main_query() && in_array($pagenow, ['upload.php', 'tools.php'], true)) {
             $orderby = $query->get('orderby');
-            if (!is_array($orderby)) {
-                $orderby = [
-                    $orderby => $query->get('order'),
-                ];
+            if (! is_array($orderby)) {
+                $orderby = [$orderby => $query->get('order')];
             }
 
-            if (in_array(self::metaFileSize, array_keys($orderby), true)) {
-                $metaQuery = $query->get('meta_query');
-                if (!$metaQuery) {
-                    $metaQuery = [];
-                }
-
+            if (array_key_exists(self::metaFileSize, $orderby)) {
+                $metaQuery = $query->get('meta_query') ?: [];
                 $metaQuery[self::metaFileSize] = [
                     'key'     => self::metaFileSize,
                     'type'    => 'NUMERIC',
                     'compare' => 'EXISTS',
                 ];
-
                 $query->set('meta_query', $metaQuery);
             }
         }

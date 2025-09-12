@@ -44,7 +44,7 @@ class Menus extends Main
 
         // Filter 'menu-quick-search' results
         if ($this->siteOptions->menus->enhanced_menu_search) {
-            add_action('pre_get_posts', [$this, 'preGetPosts'], 10, 2);
+            add_action('pre_get_posts', [$this, 'preGetPosts']);
         }
     }
 
@@ -93,11 +93,20 @@ class Menus extends Main
      */
     public function preGetPosts($query)
     {
-        if (isset($_POST['action']) && $_POST['action'] == "menu-quick-search" && isset($_POST['menu-settings-column-nonce'])) {
-            if (is_a($query->query_vars['walker'], '\Walker_Nav_Menu_Checklist')) {
-                $query->query_vars['posts_per_page'] = 100;
+        $pt = (array) $query->get('post_type');
+        if (in_array('customize_changeset', $pt, true)) {
+            return;
+        }
+
+        if (
+            wp_doing_ajax()
+            && isset($_POST['action'], $_POST['menu-settings-column-nonce'])
+            && $_POST['action'] === 'menu-quick-search'
+        ) {
+            $walker = $query->get('walker');
+            if ($walker && is_a($walker, '\Walker_Nav_Menu_Checklist')) {
+                $query->set('posts_per_page', 100);
             }
         }
-        return $query;
     }
 }
