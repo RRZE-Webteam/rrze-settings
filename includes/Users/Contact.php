@@ -7,15 +7,16 @@ defined('ABSPATH') || exit;
 /**
  * Contact
  *
- * Creates a virtual frontend page (/contact) that lists site admins.
- * Carefully scoped so it never interferes with the Customizer changeset
- * or other admin/ajax queries (prevents "missing_post" errors).
+ * Creates a virtual frontend page (/contact) that lists site admins —
+ * but only if there is NO real page with the same slug.
+ * The implementation is carefully scoped so it never interferes with
+ * Customizer changesets or admin/ajax queries (prevents "missing_post").
  * 
  * @package RRZE\Settings\Users
  */
 class Contact
 {
-    /** @var string Slug for the virtual page */
+    /** @var string Slug for the virtual page (empty string disables the feature) */
     protected $slug = '';
 
     /** @var array Arguments (title/content) for the virtual page */
@@ -25,24 +26,41 @@ class Contact
     protected $currentBlogId;
 
     /**
-     * Use a negative ID to avoid collisions and to make it obvious this is not a real DB post.
+     * Use a negative ID to avoid collisions and make it obvious this is not a real DB post.
      */
     const VIRTUAL_CONTACT_ID = -999999;
 
     /**
-     * Bootstrap hooks
+     * Entry point: defer bootstrapping to `init` so translations and core are fully ready.
+     * 
+     * @return void
      */
-    public function loaded()
+    public function loaded(): void
     {
-        // Do nothing on the main site
+        // Skip on main site (as per original logic)
         if (function_exists('is_main_site') && is_main_site()) {
             return;
         }
 
         $this->currentBlogId = get_current_blog_id();
 
-        // Prepare content early
-        add_action('init', [$this, 'setPostArgs']);
+        // Build args and only then attach filters if we actually need the virtual page
+        add_action('init', [$this, 'bootstrap']);
+    }
+
+    /**
+     * Build page args and attach filters only when no real page with this slug exists.
+     * 
+     * @return void
+     */
+    public function bootstrap(): void
+    {
+        $this->setPostArgs();
+
+        // If slug is empty, a real page exists or something went wrong → do not hook anything
+        if (empty($this->slug)) {
+            return;
+        }
 
         // Only these two filters are needed to inject a virtual post.
         // Accept 2 args to inspect the WP_Query instance and bail out safely.
@@ -55,11 +73,24 @@ class Contact
 
     /**
      * Initialize slug/title/content for the virtual page.
+     * If a real page with the same slug already exists, disable the virtual page.
+     * 
+     * @return void
      */
-    public function setPostArgs()
+    public function setPostArgs(): void
     {
+        $slug = _x('contact', 'post_name (slug)', 'rrze-settings');
+
+        // If a real page with this path exists, disable the virtual page by keeping slug empty.
+        $existing = get_page_by_path($slug, OBJECT, 'page');
+        if ($existing instanceof \WP_Post) {
+            $this->slug = '';
+            $this->args = [];
+            return;
+        }
+
         $args = [
-            'post_name'    => _x('contact', 'post_name (slug)', 'rrze-settings'),
+            'post_name'    => $slug,
             'post_title'   => _x('Contact', 'post_title', 'rrze-settings'),
             'post_content' => $this->getPostContent(),
         ];
@@ -76,8 +107,13 @@ class Contact
      * @param \WP_Query  $query
      * @return \WP_Post[]
      */
-    public function postsResultsFilter($posts, $query)
+    public function postsResultsFilter($posts, $query): array
     {
+        // If virtual page was disabled (real page exists), do nothing
+        if (empty($this->slug)) {
+            return $posts;
+        }
+
         // Hard exits to avoid interfering with Customizer/admin flows
         if (is_admin() || wp_doing_ajax() || (function_exists('is_customize_preview') && is_customize_preview())) {
             return $posts;
@@ -98,15 +134,19 @@ class Contact
     }
 
     /**
-     * Fallback hook at the loop level. If no posts were found but the request
+     * Fallback at the loop level. If no posts were found but the request
      * matches the slug, provide the virtual post. Same safety bails as above.
      *
      * @param \WP_Post[] $posts
      * @param \WP_Query  $query
      * @return \WP_Post[]
      */
-    public function thePostsFilter($posts, $query)
+    public function thePostsFilter($posts, $query): array
     {
+        if (empty($this->slug)) {
+            return $posts;
+        }
+
         if (is_admin() || wp_doing_ajax() || (function_exists('is_customize_preview') && is_customize_preview())) {
             return $posts;
         }
@@ -132,15 +172,15 @@ class Contact
      * @param array  $args
      * @return array
      */
-    public function mapMetaCapFilter($caps, $cap, $user_id, $args)
+    public function mapMetaCapFilter($caps, $cap, $user_id, $args): array
     {
         // Only intercept for post-edit/delete caps
-        if (! in_array($cap, ['edit_post', 'delete_post', 'edit_page', 'delete_page'], true)) {
+        if (!in_array($cap, ['edit_post', 'delete_post', 'edit_page', 'delete_page'], true)) {
             return $caps;
         }
 
         // If the target is our virtual ID, deny
-        if (! empty($args) && (int) $args[0] === self::VIRTUAL_CONTACT_ID) {
+        if (!empty($args) && (int) $args[0] === self::VIRTUAL_CONTACT_ID) {
             return ['do_not_allow'];
         }
 
@@ -152,7 +192,7 @@ class Contact
      *
      * @return \WP_Post
      */
-    protected function getVirtualWPPost()
+    protected function getVirtualWPPost(): \WP_Post
     {
         $post_array = array_merge([
             'ID'                    => self::VIRTUAL_CONTACT_ID,
@@ -187,25 +227,37 @@ class Contact
     /**
      * Collect site admins for this blog.
      *
-     * @return array<int, object{ID:int,display_name:string,user_email:string}>
+     * @return array<int, array{ID:int,display_name:string,user_email:string}>
      */
     protected function getContactUsers(): array
     {
-        // WP_User_Query con "fields" como lista devuelve stdClass por cada user
-        $users = get_users([
+        $raw = get_users([
             'blog_id'  => $this->currentBlogId,
             'role__in' => ['administrator'],
             'fields'   => ['ID', 'display_name', 'user_email'],
         ]);
 
-        // Normaliza a array (por si algún plugin devuelve traversable raro)
-        return is_array($users) ? $users : [];
+        $out = [];
+        if (!is_array($raw)) {
+            return $out;
+        }
+
+        foreach ($raw as $u) {
+            // $u is stdClass with the requested props
+            $out[] = [
+                'ID'           => (int) ($u->ID ?? 0),
+                'display_name' => (string) ($u->display_name ?? ''),
+                'user_email'   => (string) ($u->user_email ?? ''),
+            ];
+        }
+
+        return $out;
     }
 
     /**
      * Render the page content (simple HTML list of admins).
-     * 
-     * @return string The post content
+     *
+     * @return string
      */
     protected function getPostContent(): string
     {
@@ -214,18 +266,16 @@ class Contact
             return '';
         }
 
-        $out  = '<h3>' . esc_html__('Contact persons', 'rrze-settings') . '</h3>';
+        $out = '<h3>' . esc_html__('Contact persons', 'rrze-settings') . '</h3>';
 
-        /** @var object{ID:int,display_name:string,user_email:string} $user */
         foreach ($users as $user) {
-            // Sanitiza y ofusca el email, y construye el mailto de forma explícita
-            $email_raw   = sanitize_email($user->user_email);
+            $email_raw   = sanitize_email($user['user_email']);
             $email_disp  = antispambot($email_raw);
             $mailto_href = sprintf('mailto:%s', rawurlencode($email_raw));
 
             $out .= sprintf(
                 '<p>%1$s<br/>%2$s <a href="%3$s">%4$s</a></p>' . PHP_EOL,
-                esc_html($user->display_name),
+                esc_html($user['display_name']),
                 esc_html__('Email Address:', 'rrze-settings'),
                 esc_attr($mailto_href),
                 esc_html($email_disp)
