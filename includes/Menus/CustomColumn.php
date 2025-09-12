@@ -154,30 +154,37 @@ class CustomColumn
      * Modify the posts clauses for the nav menu
      *
      * @param array $clauses The clauses
-     * @param object $wpQuery The WP_Query object
+     * @param \WP_Query $q The WP_Query object
      * @return array The modified clauses
      */
-    public function navMenuPostsClauses($clauses, $wpQuery)
+    public function navMenuPostsClauses($clauses, $q)
     {
         global $wpdb, $pagenow;
 
-        $objects = [];
-        $navMenuTermId = absint($wpQuery->get('nav_menu', ''));
-
-        if ($navMenuTermId && $pagenow == 'edit.php') {
-            foreach ($this->navMenusObject as $termId => $menuObject) {
-                if ($navMenuTermId == $termId) {
-                    $objects[] = wp_list_pluck($menuObject['items'], 'object_id');
-                }
-            }
-
-            if (!empty($objects[0])) {
-                $objects = implode(',', $objects[0]);
-                $clauses['where'] .= " AND $wpdb->posts.ID IN ($objects)";
-                $clauses['groupby'] = "$wpdb->posts.ID";
-            }
+        // No tocar changeset del Customizer
+        $pt = (array) $q->get('post_type');
+        if (in_array('customize_changeset', $pt, true)) {
+            return $clauses;
         }
 
+        // Solo en la tabla de páginas (edit.php) y cuando venga el query var nav_menu
+        if ($pagenow !== 'edit.php') {
+            return $clauses;
+        }
+
+        $navMenuTermId = absint($q->get('nav_menu', ''));
+        if (! $navMenuTermId || empty($this->navMenusObject[$navMenuTermId]['items'])) {
+            return $clauses;
+        }
+
+        $objects = wp_list_pluck($this->navMenusObject[$navMenuTermId]['items'], 'object_id');
+        if (empty($objects)) {
+            return $clauses;
+        }
+
+        $ids = implode(',', array_map('intval', $objects));
+        $clauses['where']  .= " AND {$wpdb->posts}.ID IN ({$ids})";
+        $clauses['groupby'] = "{$wpdb->posts}.ID";
         return $clauses;
     }
 
