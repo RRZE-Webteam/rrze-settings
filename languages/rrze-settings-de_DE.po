@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RRZE Settings\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-settings\n"
-"POT-Creation-Date: 2025-09-03T13:16:03+00:00\n"
-"PO-Revision-Date: 2025-09-03 15:16+0200\n"
+"POT-Creation-Date: 2025-09-18T10:52:15+00:00\n"
+"PO-Revision-Date: 2025-09-18 12:59+0200\n"
 "Last-Translator: RRZE Webteam <webmaster@fau.de>\n"
 "Language-Team: Deutsch\n"
 "Language: de_DE\n"
@@ -1296,21 +1296,21 @@ msgstr "Deaktiviert die Datenschutzeinstellungen"
 msgid "You are not allowed to delete this website."
 msgstr "Es ist Ihnen nicht gestattet, diese Website zu löschen."
 
-#: includes/Users/Contact.php:75
+#: includes/Users/Contact.php:82
 msgctxt "post_name (slug)"
 msgid "contact"
 msgstr "kontakt"
 
-#: includes/Users/Contact.php:76
+#: includes/Users/Contact.php:94
 msgctxt "post_title"
 msgid "Contact"
 msgstr "Kontakt"
 
-#: includes/Users/Contact.php:261
+#: includes/Users/Contact.php:269
 msgid "Contact persons"
 msgstr "Kontaktpersonen"
 
-#: includes/Users/Contact.php:267
+#: includes/Users/Contact.php:279
 msgid "Email Address:"
 msgstr "E-Mail-Adresse:"
 
@@ -1620,7 +1620,7 @@ msgid "Block editor"
 msgstr "Block-Editor"
 
 #. translators: %s: Plugin name
-#: includes/Writing/Writing.php:135
+#: includes/Writing/Writing.php:145
 #, php-format
 msgid ""
 "The plugin \"%s\" has been deactivated because the block editor is enabled "
@@ -1629,17 +1629,25 @@ msgstr ""
 "Das Plugin „%s“ wurde deaktiviert, da der Blockeditor auf dieser Website "
 "aktiviert ist."
 
-#: includes/Writing/Writing.php:273
+#: includes/Writing/Writing.php:283
 msgid "Editor"
 msgstr "Editor"
 
-#: includes/Writing/Writing.php:321
+#: includes/Writing/Writing.php:318 includes/Writing/Writing.php:342
 msgid "Block"
 msgstr "Block"
 
-#: includes/Writing/Writing.php:321
+#: includes/Writing/Writing.php:318 includes/Writing/Writing.php:345
 msgid "Classic"
-msgstr "Klassischer Editor"
+msgstr "Klassisch"
+
+#: includes/Writing/Writing.php:337
+msgid "Filter by editor"
+msgstr "Nach Editor filtern"
+
+#: includes/Writing/Writing.php:340
+msgid "All editors"
+msgstr "Alle Editoren"
 
 #. translators: 1: Server WordPress version number, 2: Required WordPress version number.
 #: rrze-settings.php:138
@@ -1668,6 +1676,3 @@ msgid ""
 msgstr ""
 "Das Plugin kann nur in einer Multisite-Installation und netzwerkweit "
 "installiert werden."
-
-#~ msgid "Enable"
-#~ msgstr "Aktivieren"
