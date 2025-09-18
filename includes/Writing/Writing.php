@@ -40,6 +40,16 @@ class Writing extends Main
         add_filter('manage_sites-network_columns', [$this, 'addSitesColumns']);
         add_action('manage_sites_custom_column', [$this, 'manageSitesColumn'], 10, 3);
 
+        // Add a filter dropdown to filter websites by editor in Network → Sites
+        add_action('manage_sites_extra_tablenav', [$this, 'addSitesEditorFilter'], 10, 1);
+        add_filter('ms_sites_list_table_query_args', [$this, 'filterSitesByEditor'], 10, 1);
+
+        // Make the "Editor" column sortable in Network → Sites
+        add_filter('manage_sites-network_sortable_columns', [$this, 'manageSitesSortableColumns'], 10, 1);
+
+        // Custom sort implementation for our virtual "site_editor" orderby
+        add_filter('sites_pre_query', [$this, 'maybeSortSitesByEditor'], 10, 2);
+
         // Enable/Disable post lock networkwide
         if ($this->siteOptions->writing->enable_post_lock) {
             // Filter the post lock window duration.
@@ -276,19 +286,6 @@ class Writing extends Main
     }
 
     /**
-     * Manage websites sortable columns
-     *
-     * @param array $columns
-     * @return array
-     */
-    public function manageSitesSortableColumns($columns)
-    {
-        $columns['site_editor'] = 'site_editor';
-
-        return $columns;
-    }
-
-    /**
      * Manage websites column
      *
      * @param string $columnName
@@ -319,5 +316,253 @@ class Writing extends Main
         restore_current_blog();
 
         echo $isBlockEditorEnabled ? __('Block', 'rrze-settings') : __('Classic', 'rrze-settings');
+    }
+
+    /**
+     * Render Block/Classic filter dropdown on Network → Sites.
+     *
+     * @param string $which 'top' or 'bottom'
+     * @return void
+     */
+    public function addSitesEditorFilter($which)
+    {
+        if ($which !== 'top') {
+            return;
+        }
+
+        $current = isset($_GET['site_editor']) ? sanitize_text_field(wp_unslash($_GET['site_editor'])) : '';
+?>
+        <div class="alignleft actions">
+            <label for="filter-by-site-editor" class="screen-reader-text">
+                <?php esc_html_e('Filter by editor', 'rrze-settings'); ?>
+            </label>
+            <select name="site_editor" id="filter-by-site-editor">
+                <option value=""><?php esc_html_e('All editors', 'rrze-settings'); ?></option>
+                <option value="block" <?php selected($current, 'block'); ?>>
+                    <?php esc_html_e('Block', 'rrze-settings'); ?>
+                </option>
+                <option value="classic" <?php selected($current, 'classic'); ?>>
+                    <?php esc_html_e('Classic', 'rrze-settings'); ?>
+                </option>
+            </select>
+            <?php submit_button(__('Filter'), 'secondary', 'filter_action', false); ?>
+        </div>
+<?php
+    }
+
+    /**
+     * Filter the sites query by editor type using site__in.
+     *
+     * @param array $args
+     * @return array
+     */
+    public function filterSitesByEditor($args)
+    {
+        if (empty($_GET['site_editor'])) {
+            return $args;
+        }
+
+        $filter = sanitize_text_field(wp_unslash($_GET['site_editor']));
+        if (!in_array($filter, ['block', 'classic'], true)) {
+            return $args;
+        }
+
+        if (!empty($args['site__in']) && is_array($args['site__in'])) {
+            $baseIds = array_map('absint', $args['site__in']);
+        } else {
+            $queryArgs = [
+                'fields' => 'ids',
+                'number' => 0,
+                'count'  => false, // important
+            ];
+            $baseIds = get_sites($queryArgs);
+            if (is_int($baseIds)) {
+                $baseIds = [];
+            }
+        }
+
+        if (empty($baseIds)) {
+            $args['site__in'] = [0];
+            return $args;
+        }
+
+        $map = $this->getEditorMapCached($baseIds);
+        $wanted = [];
+        foreach ($baseIds as $id) {
+            if (($map[$id] ?? null) === $filter) {
+                $wanted[] = $id;
+            }
+        }
+
+        $args['site__in'] = !empty($wanted) ? $wanted : [0];
+        return $args;
+    }
+
+    /**
+     * Build (and cache) a map of site_id => 'block'|'classic' for a given ID set.
+     *
+     * @param int[] $siteIds
+     * @param int   $ttl Cache TTL in seconds
+     * @return array<int,string> Map of blog_id => 'block'|'classic'
+     */
+    protected function getEditorMapCached(array $siteIds, int $ttl = 120): array
+    {
+        if (!is_array($siteIds)) {
+            $siteIds = [];
+        }
+
+        // Normalize key: stable across order; bump $version to invalidate globally if logic changes.
+        sort($siteIds, SORT_NUMERIC);
+        $version = 'v1';
+        $key     = 'rrze_sites_editor_map_' . $version . '_' . md5(implode(',', $siteIds));
+
+        $cached = get_transient($key);
+        if (is_array($cached)) {
+            return $cached;
+        }
+
+        $map = $this->computeEditorMap($siteIds);
+        set_transient($key, $map, $ttl);
+        return $map;
+    }
+
+    /**
+     * Compute a map of site_id => 'block'|'classic' using per-site options.
+     *
+     * @param int[] $siteIds
+     * @return array<int,string>
+     */
+    protected function computeEditorMap(array $siteIds): array
+    {
+        $map = [];
+
+        foreach ($siteIds as $blogId) {
+            $blogId = absint($blogId);
+            if ($blogId <= 0) {
+                continue;
+            }
+
+            switch_to_blog($blogId);
+
+            // Mirror the same logic used in the column.
+            $optionsArr = (array) get_option(Options::OPTION_NAME);
+            $opts       = Options::parseOptions($optionsArr);
+
+            $isBlock = false;
+
+            if ($this->siteOptions->writing->enable_block_editor) {
+                $isBlock = true;
+            }
+            if ($opts->writing->try_enable_block_editor && !$opts->writing->enable_classic_editor) {
+                $isBlock = true;
+            }
+
+            restore_current_blog();
+
+            $map[$blogId] = $isBlock ? 'block' : 'classic';
+        }
+
+        return $map;
+    }
+
+    /**
+     * Declare the "Editor" column sortable.
+     *
+     * @param array $columns
+     * @return array
+     */
+    public function manageSitesSortableColumns($columns)
+    {
+        $columns['site_editor'] = 'site_editor';
+        return $columns;
+    }
+
+    /**
+     * Implement custom sorting for orderby=site_editor via sites_pre_query short-circuit.
+     * Asc: Block first, then Classic. Desc: Classic first, then Block.
+     *
+     * @param null|array     $results If non-null, short-circuits WP_Site_Query and returns these results.
+     * @param \WP_Site_Query $query   The ongoing site query.
+     * @return null|array
+     */
+    public function maybeSortSitesByEditor($results, $query)
+    {
+        // Re-entrancy guard: avoid infinite recursion when we call get_sites() below.
+        static $inProgress = false;
+        if ($inProgress) {
+            return $results;
+        }
+
+        // WP_Site_Query doesn't have ->get(); read from ->query_vars.
+        $vars = (is_object($query) && isset($query->query_vars) && is_array($query->query_vars)) ? $query->query_vars : [];
+
+        // Do not touch COUNT queries — the list table needs an integer.
+        if (!empty($vars['count'])) {
+            return $results;
+        }
+
+        $orderby = isset($vars['orderby']) ? $vars['orderby'] : '';
+        if ($orderby !== 'site_editor') {
+            return $results; // Not our custom order; do nothing.
+        }
+
+        $order = strtolower(isset($vars['order']) ? (string) $vars['order'] : 'asc');
+        $order = in_array($order, ['asc', 'desc'], true) ? $order : 'asc';
+
+        // Base args: remove our virtual orderby so core doesn't choke; fetch IDs to sort in PHP.
+        $base = $vars;
+        unset($base['orderby'], $base['order']);
+        $base['fields'] = 'ids';
+
+        // Capture pagination then remove it; we'll slice after sorting.
+        $number = isset($base['number']) ? (int) $base['number'] : 100;
+        $offset = isset($base['offset']) ? (int) $base['offset'] : 0;
+        unset($base['number'], $base['offset']);
+
+        // Force non-count result (avoid integer).
+        unset($base['count']);
+        $base['count'] = false;
+
+        // Prevent re-entry of this filter when calling get_sites().
+        $inProgress = true;
+        $candidateIds = get_sites($base);
+        $inProgress = false;
+
+        if (is_int($candidateIds) || !is_array($candidateIds) || empty($candidateIds)) {
+            return []; // Return empty list of WP_Site objects if anything odd happens.
+        }
+
+        // Use cached editor map and sort by groups.
+        $map = $this->getEditorMapCached($candidateIds);
+
+        // Stable partition
+        $blockIds   = [];
+        $classicIds = [];
+        foreach ($candidateIds as $id) {
+            $type = $map[$id] ?? 'classic';
+            if ($type === 'block') {
+                $blockIds[] = $id;
+            } else {
+                $classicIds[] = $id;
+            }
+        }
+
+        $sortedIds = ($order === 'asc')
+            ? array_merge($blockIds, $classicIds)
+            : array_merge($classicIds, $blockIds);
+
+        // Apply pagination after sorting
+        $sortedPaged = array_slice($sortedIds, $offset, $number);
+
+        // Convert IDs to WP_Site objects.
+        $sites = [];
+        foreach ($sortedPaged as $id) {
+            $site = get_site($id);
+            if ($site instanceof \WP_Site) {
+                $sites[] = $site;
+            }
+        }
+
+        return $sites; // Short-circuit: final array of WP_Site objects.
     }
 }

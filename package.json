@@ -14,7 +14,9 @@
     "lint:js": "wp-scripts lint-js src",
     "check-engines": "wp-scripts check-engines",
     "check-licenses": "wp-scripts check-licenses --prod --gpl3",
-    "packages-update": "wp-scripts packages-update"
+    "packages-update": "wp-scripts packages-update",
+    "make-pot": "wp i18n make-pot ./ languages/rrze-settings.pot --domain=rrze-settings --exclude=vendor,node_modules,_tmp",
+    "make-php": "wp i18n make-php languages"
   },
   "dependencies": {
     "@wordpress/block-library": "latest",
@@ -30,5 +32,5 @@
     "axios": "^1.6.8",
     "classnames": "^2.5.1"
   },
-  "version": "2.0.11"
+  "version": "2.0.12"
 }
