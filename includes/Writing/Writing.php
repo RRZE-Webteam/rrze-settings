@@ -44,6 +44,9 @@ class Writing extends Main
         add_action('manage_sites_extra_tablenav', [$this, 'addSitesEditorFilter'], 10, 1);
         add_filter('ms_sites_list_table_query_args', [$this, 'filterSitesByEditor'], 10, 1);
 
+        // Preserve current query args (e.g., site_editor, search, orderby) in status view links
+        add_filter('views_sites-network', [$this, 'preserveQueryArgsInStatusViews'], 10, 1);
+
         // Make the "Editor" column sortable in Network → Sites
         add_filter('manage_sites-network_sortable_columns', [$this, 'manageSitesSortableColumns'], 10, 1);
 
@@ -396,6 +399,43 @@ class Writing extends Main
 
         $args['site__in'] = !empty($wanted) ? $wanted : [0];
         return $args;
+    }
+
+    /**
+     * Preserve current query args (e.g., site_editor, search, orderby) in status view links.
+     *
+     * @param array $views Array of HTML links (status filters) keyed by view slug.
+     * @return array
+     */
+    public function preserveQueryArgsInStatusViews(array $views): array
+    {
+        // Build a whitelist of current GET params to preserve across status switches.
+        $preserve = [];
+        foreach ($_GET as $key => $value) {
+            // Skip WP internals and params that views will overwrite (status/pagination/actions).
+            if (in_array($key, ['status', 'paged', 'action', 'action2', 'filter_action', '_wpnonce', '_wp_http_referer'], true)) {
+                continue;
+            }
+            if (is_scalar($value) && $value !== '') {
+                $preserve[$key] = sanitize_text_field(wp_unslash($value));
+            }
+        }
+
+        if (empty($preserve)) {
+            return $views;
+        }
+
+        // Inject preserved args into each <a href="..."> in the views array.
+        foreach ($views as $slug => $html) {
+            if (preg_match('/href="([^"]+)"/', $html, $m)) {
+                $url = $m[1];
+                $url = add_query_arg($preserve, $url);
+                // Replace the href in the original HTML.
+                $views[$slug] = str_replace($m[1], esc_url($url), $html);
+            }
+        }
+
+        return $views;
     }
 
     /**
