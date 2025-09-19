@@ -90,7 +90,6 @@ class Settings extends MainSettings
         }
 
         if (isset($input['admin_allowlist_hooks'])) {
-            error_log(print_r($input['admin_allowlist_hooks'], true));
             $text = is_array($input['admin_allowlist_hooks'])
                 ? implode("\n", array_map('strval', $input['admin_allowlist_hooks']))
                 : (string) $input['admin_allowlist_hooks'];
