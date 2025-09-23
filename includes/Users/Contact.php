@@ -72,6 +72,23 @@ class Contact
     }
 
     /**
+     * Get the requested path from the WP_Query. Trim slashes.
+     * 
+     * @param \WP_Query $query
+     * @return string
+     */
+    protected function getRequestedPath(\WP_Query $query): string
+    {
+        $requested = (string) $query->get('pagename');
+        if ($requested === '') {
+            // If pagename is missing, we can't reliably distinguish hierarchy.
+            // Bail by returning empty to skip virtual injection.
+            return '';
+        }
+        return trim($requested, '/');
+    }
+
+    /**
      * Initialize slug/title/content for the virtual page.
      * If a real page with the same slug already exists, disable the virtual page.
      * 
@@ -81,22 +98,46 @@ class Contact
     {
         $slug = _x('contact', 'post_name (slug)', 'rrze-settings');
 
-        // If a real page with this path exists, disable the virtual page by keeping slug empty.
+        // 1) Direct hierarchical path 'contact' (top-level only) – quick check
         $existing = get_page_by_path($slug, OBJECT, 'page');
+
+        // 2) Fallback: find ANY page whose post_name equals the localized slug, no matter the parent
+        if (!$existing) {
+            $q = new \WP_Query([
+                'post_type'      => 'page',
+                'name'           => $slug, // matches post_name
+                'post_status'    => ['publish', 'private', 'draft', 'pending', 'future'],
+                'posts_per_page' => 1,
+                'no_found_rows'  => true,
+                'fields'         => 'ids',
+            ]);
+            if (!empty($q->posts)) {
+                $existing = get_post((int) $q->posts[0]);
+            }
+        }
+
+        // 3) Safety net: resolve absolute URL to a post (covers odd permalinks)
+        if (!$existing) {
+            $maybeId = url_to_postid(home_url('/' . $slug . '/'));
+            if ($maybeId) {
+                $existing = get_post($maybeId);
+            }
+        }
+
+        // If any real page exists (at any depth), disable virtual
         if ($existing instanceof \WP_Post) {
             $this->slug = '';
             $this->args = [];
             return;
         }
 
-        $args = [
+        // Otherwise define virtual page args
+        $this->args = [
             'post_name'    => $slug,
             'post_title'   => _x('Contact', 'post_title', 'rrze-settings'),
             'post_content' => $this->getPostContent(),
         ];
-
-        $this->args = $args;
-        $this->slug = $args['post_name'];
+        $this->slug = $slug;
     }
 
     /**
@@ -109,28 +150,23 @@ class Contact
      */
     public function postsResultsFilter($posts, $query): array
     {
-        // If virtual page was disabled (real page exists), do nothing
-        if (empty($this->slug)) {
-            return $posts;
-        }
+        if (empty($this->slug)) return $posts;
+        if (is_admin() || wp_doing_ajax() || (function_exists('is_customize_preview') && is_customize_preview())) return $posts;
 
-        // Hard exits to avoid interfering with Customizer/admin flows
-        if (is_admin() || wp_doing_ajax() || (function_exists('is_customize_preview') && is_customize_preview())) {
-            return $posts;
-        }
-
-        // Never touch the Customizer changeset queries
         $pt = (array) $query->get('post_type');
-        if (in_array('customize_changeset', $pt, true)) {
-            return $posts;
-        }
+        if (in_array('customize_changeset', $pt, true)) return $posts;
+        if (!$query->is_main_query()) return $posts;
 
-        // Only act on the main frontend query requesting the exact slug
-        if ($query->is_main_query() && $query->get('pagename') === $this->slug) {
-            return [$this->getVirtualWPPost()];
-        }
+        $requested = $this->getRequestedPath($query);
+        if ($requested === '') return $posts;          // can't trust hierarchy ⇒ skip
+        if ($requested !== $this->slug) return $posts; // strict: no 'parent/child'
 
-        return $posts;
+        // One more safety: if this URL resolves to a real post, do nothing
+        $absUrl   = home_url('/' . $requested . '/');
+        $realPost = url_to_postid($absUrl);
+        if ($realPost) return $posts;
+
+        return [$this->getVirtualWPPost()];
     }
 
     /**
@@ -143,24 +179,23 @@ class Contact
      */
     public function thePostsFilter($posts, $query): array
     {
-        if (empty($this->slug)) {
-            return $posts;
-        }
-
-        if (is_admin() || wp_doing_ajax() || (function_exists('is_customize_preview') && is_customize_preview())) {
-            return $posts;
-        }
+        if (empty($this->slug)) return $posts;
+        if (is_admin() || wp_doing_ajax() || (function_exists('is_customize_preview') && is_customize_preview())) return $posts;
 
         $pt = (array) $query->get('post_type');
-        if (in_array('customize_changeset', $pt, true)) {
-            return $posts;
-        }
+        if (in_array('customize_changeset', $pt, true)) return $posts;
 
-        if ($query->is_main_query() && empty($posts) && $query->get('pagename') === $this->slug) {
-            return [$this->getVirtualWPPost()];
-        }
+        if (!$query->is_main_query() || !empty($posts)) return $posts;
 
-        return $posts;
+        $requested = $this->getRequestedPath($query);
+        if ($requested === '') return $posts;          // ambiguous ⇒ skip
+        if ($requested !== $this->slug) return $posts; // must be exact /{slug}
+
+        $absUrl   = home_url('/' . $requested . '/');
+        $realPost = url_to_postid($absUrl);
+        if ($realPost) return $posts;
+
+        return [$this->getVirtualWPPost()];
     }
 
     /**
@@ -194,7 +229,7 @@ class Contact
      */
     protected function getVirtualWPPost(): \WP_Post
     {
-        $post_array = array_merge([
+        $postArray = array_merge([
             'ID'                    => self::VIRTUAL_CONTACT_ID,
             'post_author'           => 1,
             'post_date'             => current_time('mysql'),
@@ -213,7 +248,7 @@ class Contact
             'post_modified_gmt'     => current_time('mysql', true),
             'post_content_filtered' => '',
             'post_parent'           => 0,
-            'guid'                  => trailingslashit(get_bloginfo('wpurl')) . $this->slug,
+            'guid'                  => trailingslashit(home_url()) . $this->slug,
             'menu_order'            => 0,
             'post_type'             => 'page',
             'post_mime_type'        => '',
@@ -221,7 +256,7 @@ class Contact
             'filter'                => 'raw',
         ], $this->args);
 
-        return new \WP_Post((object) $post_array);
+        return new \WP_Post((object) $postArray);
     }
 
     /**
