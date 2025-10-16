@@ -95,6 +95,7 @@ class Options
                 'faudir_public_apiKey' => '',
                 'bite_api_key' => '',
                 'dip_edu_api_key' => '',
+                'rrze_search_engine_keys' => '',
             ],
             'rest' => [
                 'disabled' => '0',
