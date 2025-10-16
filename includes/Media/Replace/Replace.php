@@ -60,7 +60,6 @@ class Replace
         add_action('admin_menu', [$this, 'mediaReplacePage']);
         add_filter('media_row_actions', [$this, 'mediaReplaceRowActions'], 10, 2);
         add_action('attachment_submitbox_misc_actions', [$this, 'mediaReplaceEdit'], 99);
-        add_filter('attachment_fields_to_edit', [$this, 'mediaReplaceModalEdit'], 99, 2);
     }
 
     /**
@@ -135,26 +134,6 @@ class Replace
         echo '<div class="misc-pub-section misc-pub-rrze-media">';
         echo '<a href="' . esc_url($this->mediaReplaceUrl($post->ID)) . '" class="button-secondary button-large" title="' . esc_attr(__('Replace this file.', 'rrze-settings')) . '">' . __('Replace File', 'rrze-settings') . '</a>';
         echo '</div>';
-    }
-
-    /**
-     * Add the media replace button to the attachment edit modal
-     *
-     * @param array $formFields Form fields
-     * @param object $post Post object
-     * @return array Modified form fields
-     */
-    public function mediaReplaceModalEdit($formFields, $post)
-    {
-        $formFields['media_replace'] = [
-            'label' => '',
-            'input' => 'html',
-            'html' => '<a href="' . esc_url($this->mediaReplaceUrl($post->ID)) . '" class="button-secondary button-large" title="' . esc_attr(__('Replace this file.', 'rrze-settings')) . '">' . __('Replace File', 'rrze-settings') . '</a>',
-            'show_in_modal' => true,
-            'show_in_edit' => false,
-        ];
-
-        return $formFields;
     }
 
     /**
