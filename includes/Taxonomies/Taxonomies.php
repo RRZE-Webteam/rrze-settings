@@ -5,6 +5,7 @@ namespace RRZE\Settings\Taxonomies;
 defined('ABSPATH') || exit;
 
 use RRZE\Settings\Main;
+use function RRZE\Settings\plugin;
 
 /**
  * Taxonomies class
@@ -34,22 +35,46 @@ class Taxonomies extends Main
 
         // Register taxonomy attachment_document
         if ($this->siteOptions->taxonomies->taxonomy_attachment_document) {
-            (new AttachmentDocument)->loaded();
+            new AttachmentDocument();
+        }
+
+        $isRRZEDownloadsActive = is_plugin_active('rrze-downloads/rrze-downloads.php');
+
+        if (!$isRRZEDownloadsActive) {
+            // Register taxonomy attachment_category
+            if ($this->siteOptions->taxonomies->taxonomy_attachment_category) {
+                new AttachmentCategory();
+                // new AttachmentCategoryUI();
+            }
+
+            // Register taxonomy attachment_tag
+            if ($this->siteOptions->taxonomies->taxonomy_attachment_tag) {
+                new AttachmentTag();
+            }
+
+            // Set taxonomy media filters
+            if (
+                $this->siteOptions->taxonomies->taxonomy_attachment_document
+                || $this->siteOptions->taxonomies->taxonomy_attachment_category
+                || $this->siteOptions->taxonomies->taxonomy_attachment_tag
+            ) {
+                new AttachmentMediaFilters($this->siteOptions);
+            }
         }
 
         // Register taxonomy page_category
         if ($this->siteOptions->taxonomies->taxonomy_page_category) {
-            (new PageCategory)->loaded();
+            new PageCategory();
         }
 
         // Register taxonomy page_tag
         if ($this->siteOptions->taxonomies->taxonomy_page_tag) {
-            (new PageTag)->loaded();
+            new PageTag();
         }
 
         // Exclude posts tagged 'nosearch' in queries
         if ($this->siteOptions->taxonomies->exclude_nosearch_posts) {
-            (new Search())->loaded();
+            new Search();
         }
     }
 
