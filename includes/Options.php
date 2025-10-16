@@ -105,6 +105,8 @@ class Options
             'taxonomies' => [
                 'exclude_nosearch_posts' => 0,
                 'taxonomy_attachment_document' => 0,
+                'taxonomy_attachment_category' => 0,
+                'taxonomy_attachment_tag' => 0,                
                 'taxonomy_page_category' => 0,
                 'taxonomy_page_tag' => 0,
             ],
