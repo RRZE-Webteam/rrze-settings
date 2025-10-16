@@ -114,6 +114,8 @@ class Settings extends MainSettings
 
         $input['dip_edu_api_key'] = !empty($input['dip_edu_api_key']) ? sanitize_text_field($input['dip_edu_api_key']) : '';
 
+        $input['rrze_search_engine_keys'] = $this->sanitizeTextarea($input['rrze_search_engine_keys'], false);
+
         return $this->parseOptionsValidate($input, 'plugins');
     }
 
@@ -188,6 +190,24 @@ class Settings extends MainSettings
                 [$this, 'biteApiKeyField'],
                 $this->menuPage,
                 'rrze-settings-plugins-rrzejobs'
+            );
+        }
+
+        // RRZE Search
+        if ($this->pluginExists( RRZESearch::PLUGIN )) {
+            add_settings_section(
+                'rrze-settings-plugins-rrze-search',
+                __('RRZE Settings', 'rrze-settings'),
+                '__return_false',
+                $this->menuPage
+            );
+
+            add_settings_field(
+                'rrze_search_engine_keys',
+                __('Search Engine Keys', 'rrze-settings'),
+                [$this, 'rrzeSearchEngineKeysField'],
+                $this->menuPage,
+                'rrze-settings-plugins-rrze-search'
             );
         }
 
@@ -380,6 +400,34 @@ class Settings extends MainSettings
     public function mainSectionDescription()
     {
         esc_html_e('Network administrators can oversee and configure plugin settings across a multisite environment. The page automatically detects supported plugins and presents dedicated sections and fields for each one. Network administrators can enter API keys, adjust plugin‑specific options, and maintain efficient, consistent management of all websites in the network.', 'rrze-settings');
+    }
+
+    /**
+     * RRZE Search - Global Search Engine Field
+     *
+     * Expected format (per engine):
+     *   Line 1: Name
+     *   Line 2: CX
+     *   Line 3: API
+     * Optional line 4 (future): Description
+     *
+     * Multiple engines = multiple 3/4-line blocks back-to-back.
+     */
+    public function rrzeSearchEngineKeysField()
+    {
+        $option = $this->siteOptions->plugins->rrze_search_engine_keys;
+        echo '<textarea id="rrze-settings-rrze-search-engine-keys" cols="50" rows="8" name="', sprintf('%s[rrze_search_engine_keys]', $this->optionName), '">',
+        esc_textarea($this->getTextarea($option)),
+        '</textarea>';
+
+        echo '<p class="description">';
+        echo esc_html__('Enter one search engine per block (3 or 4 lines):', 'rrze-settings'), '<br>';
+        echo '<code>', esc_html__("Line 1: Name", 'rrze-settings'), '</code><br>';
+        echo '<code>', esc_html__("Line 2: CX", 'rrze-settings'), '</code><br>';
+        echo '<code>', esc_html__("Line 3: API", 'rrze-settings'), '</code><br>';
+        echo esc_html__('Optional line 4: Description', 'rrze-settings'), '<br>';
+        echo esc_html__('Add multiple engines by adding additional 3/4-line blocks (no empty lines required).', 'rrze-settings');
+        echo '</p>';
     }
 
     /**
