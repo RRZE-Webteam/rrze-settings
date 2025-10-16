@@ -11,37 +11,46 @@ use RRZE\Settings\Taxonomies\AttachmentDocumentDropdown;
  *
  * @package RRZE\Settings\Taxonomies
  */
-class AttachmentDocument
+class AttachmentDocument extends BaseTaxonomy
 {
     /**
+     * The object type this taxonomy attaches to.
+     * 
      * @var string
      */
     protected $postType = 'attachment';
 
     /**
+     * The taxonomy slug.
+     * 
      * @var string
      */
     protected $taxonomy = 'attachment_document';
 
     /**
-     * Plugin loaded action
+     * Constructor
+     * Sets up the taxonomy and recount hooks.
      * 
      * @return void
      */
-    public function loaded()
+    public function __construct()
     {
-        add_action('init', [$this, 'set']);
-        add_action('admin_init', [$this, 'register']);
+        parent::__construct();
+
+        // Recount hooks
+        add_action('set_object_terms', ['RRZE\\Settings\\Helper', 'recountOnSet'], 10, 4);
+        add_action('deleted_term_relationships', ['RRZE\\Settings\\Helper', 'recountOnDelete'], 10, 2);
+        add_action('rest_after_insert_attachment', ['RRZE\\Settings\\Helper', 'recountOnRest'], 10, 3);
     }
 
     /**
-     * Set taxonomy
-     *
-     * @return void
+     * Labels for register_taxonomy().
+     * 
+     * @return array
      */
-    public function set()
+    protected function getLabels(): array
     {
-        $labels = [
+        return [
             'name' => __('Documents', 'rrze-settings'),
             'singular_name' => __('Document', 'rrze-settings'),
             'search_items' => __('Search Documents', 'rrze-settings'),
@@ -54,105 +63,59 @@ class AttachmentDocument
             'new_item_name' => __('Name', 'rrze-settings'),
             'menu_name' => __('Documents', 'rrze-settings')
         ];
-
-        register_taxonomy(
-            $this->taxonomy,
-            $this->postType,
-            [
-                'hierarchical' => true,
-                'labels' => $labels,
-                'show_ui' => true,
-                'show_admin_column' => true,
-                'show_in_nav_menus' => false,
-                'query_var' => true,
-                'rewrite' => ['slug' => $this->taxonomy],
-                'update_count_callback' => '_update_generic_term_count'
-            ]
-        );
     }
 
     /**
-     * Register taxonomy
-     *
-     * @return void
+     * Additional/override args for register_taxonomy().
+     * 
+     * @return array
      */
-    public function register()
+    protected function getTaxonomyArgs(): array
     {
-        register_taxonomy_for_object_type($this->taxonomy, $this->postType);
-        add_action('restrict_manage_posts', [$this, 'filterList']);
-        add_filter('parse_query', [$this, 'filtering']);
-
-        add_action('admin_enqueue_scripts', [$this, 'adminEnqueueScripts']);
+        return [
+            'hierarchical'          => true,
+            'public'                => false,
+            'show_ui'               => true,
+            'show_admin_column'     => true,
+            'show_in_nav_menus'     => false,
+            'show_in_rest'          => true,
+            'query_var'             => true,
+            'update_count_callback' => ['RRZE\\Settings\\Helper', 'updateAttachmentTermCount'],
+        ];
     }
 
     /**
-     * Filter list
-     *
-     * @return void
+     * Whether the dropdown should be shown on the current screen.
+     * Default: Page list screen (to match the original two classes).
+     * 
+     * @param \WP_Screen $screen
+     * @return bool
      */
-    public function filterList()
+    protected function shouldRenderDropdown(\WP_Screen $screen): bool
     {
-        global $wp_query;
-        $screen = get_current_screen();
-        if ($screen->parent_file == 'upload.php' && get_terms($this->taxonomy)) {
-            wp_dropdown_categories([
-                'show_option_all' => __('All Documents', 'rrze-settings'),
-                'taxonomy' => $this->taxonomy,
-                'name' => $this->taxonomy,
-                'orderby' => 'name',
-                'selected' => (isset($wp_query->query[$this->taxonomy]) ? $wp_query->query[$this->taxonomy] : ''),
-                'hierarchical' => true,
-                'depth' => 6,
-                'show_count' => false,
-                'hide_empty' => true,
-            ]);
-        }
+        // Media Library list table.
+        return ($screen->parent_file === 'upload.php');
     }
 
     /**
-     * Filter query
-     *
-     * @param object $query
-     * @return void
+     * Arguments for wp_dropdown_categories().
+     * Child classes may override to tweak labels/hierarchy.
+     * 
+     * @param \WP_Query $wp_query
+     * @return array
      */
-    public function filtering($query)
+    protected function getDropdownArgs($wp_query): array
     {
-        $qv = &$query->query_vars;
-        if (!empty($qv[$this->taxonomy]) && is_numeric($qv[$this->taxonomy])) {
-            $term = get_term_by('id', $qv[$this->taxonomy], $this->taxonomy);
-            $qv[$this->taxonomy] = $term->slug;
-        }
-    }
-
-    /**
-     * Enqueue admin scripts
-     *
-     * @return void
-     */
-    public function adminEnqueueScripts()
-    {
-        global $pagenow, $wp_query;
-
-        if (wp_script_is('media-editor') && 'upload.php' == $pagenow) {
-            $dropdownOptions = [
-                'taxonomy' => $this->taxonomy,
-                'hide_empty' => true,
-                'hierarchical' => true,
-                'orderby' => 'name',
-                'selected' => isset($wp_query->query[$this->taxonomy]) ? $wp_query->query[$this->taxonomy] : '',
-                'show_count' => false,
-                'walker' => new AttachmentDocumentDropdown(),
-                'value' => 'id',
-                'echo' => false
-            ];
-
-            $attachmentTerms = wp_dropdown_categories($dropdownOptions);
-            $attachmentTerms = preg_replace(['/<select([^>]*)>/', '/<\/select>/'], '', $attachmentTerms);
-
-            echo PHP_EOL;
-            echo '<script type="text/javascript">' . PHP_EOL;
-            echo 'var attachment_document = {"' . $this->taxonomy . '":{"list_title":"' . html_entity_decode(__('All Documents', 'rrze-settings'), ENT_QUOTES, 'UTF-8') . '","term_list":[' . substr($attachmentTerms, 2) . ']}};' . PHP_EOL;
-            echo '</script>' . PHP_EOL;
-        }
+        return [
+            'show_option_all' => __('All Documents', 'rrze-settings'),
+            'taxonomy'        => $this->taxonomy,
+            'name'            => $this->taxonomy,
+            'orderby'         => 'name',
+            'selected'        => isset($wp_query->query[$this->taxonomy]) ? $wp_query->query[$this->taxonomy] : '',
+            'hierarchical'    => true,
+            'depth'           => 6,
+            'show_count'      => false,
+            'hide_empty'      => true,
+        ];
     }
 }
