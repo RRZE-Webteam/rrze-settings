@@ -95,6 +95,11 @@ class Options
                 'faudir_public_apiKey' => '',
                 'bite_api_key' => '',
                 'dip_edu_api_key' => '',
+                'rrze_search_engine_keys' => '',
+                'rrze_webt_api_url' => '',
+                'rrze_webt_application_name' => '',
+                'rrze_webt_password' => '',
+                'rrze_webt_exceptions' => '',
             ],
             'rest' => [
                 'disabled' => '0',
@@ -104,6 +109,8 @@ class Options
             'taxonomies' => [
                 'exclude_nosearch_posts' => 0,
                 'taxonomy_attachment_document' => 0,
+                'taxonomy_attachment_category' => 0,
+                'taxonomy_attachment_tag' => 0,
                 'taxonomy_page_category' => 0,
                 'taxonomy_page_tag' => 0,
             ],

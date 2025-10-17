@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: RRZE Settings\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-settings\n"
 "POT-Creation-Date: 2025-09-03T13:16:03+00:00\n"
-"PO-Revision-Date: 2025-09-18 12:59+0200\n"
+"PO-Revision-Date: 2025-10-17 14:34+0200\n"
 "Last-Translator: RRZE Webteam <webmaster@fau.de>\n"
 "Language-Team: Deutsch (Sie)\n"
 "Language: de\n"
@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 3.8\n"
 
 #. Plugin Name of the plugin
-#: rrze-settings.php
+#: rrze-settings.php includes/Plugins/Settings.php:210
 msgid "RRZE Settings"
 msgstr "RRZE-Einstellungen"
 
@@ -320,35 +320,35 @@ msgid "XML-RPC services are disabled on this site."
 msgstr "XML-RPC-Dienste sind auf dieser Site deaktiviert."
 
 #: includes/Heartbeat/Settings.php:34 includes/Heartbeat/Settings.php:35
-#: includes/Heartbeat/Settings.php:128
+#: includes/Heartbeat/Settings.php:127
 msgid "Heartbeat"
 msgstr "Heartbeat"
 
-#: includes/Heartbeat/Settings.php:135
+#: includes/Heartbeat/Settings.php:134
 msgid "Disable Heartbeat On Frontend"
 msgstr "Heartbeat im Frontend deaktivieren"
 
-#: includes/Heartbeat/Settings.php:141
+#: includes/Heartbeat/Settings.php:140
 msgid ""
 "Disable Heartbeat on the frontend for non-logged-in users (e.g., visitors)."
 msgstr ""
 "Deaktiviere Heartbeat im Frontend für nicht eingeloggte Nutzer (z. B. "
 "Besucher)."
 
-#: includes/Heartbeat/Settings.php:147
+#: includes/Heartbeat/Settings.php:146
 msgid "Disable Heartbeat In Admin Area"
 msgstr "Heartbeat im Admin-Bereich deaktivieren"
 
-#: includes/Heartbeat/Settings.php:153
+#: includes/Heartbeat/Settings.php:152
 msgid "Disable Heartbeat in the admin area (except on post editor screens)."
 msgstr ""
 "Deaktiviere Heartbeat im Admin-Bereich (außer auf Posts-Editor-Screens)."
 
-#: includes/Heartbeat/Settings.php:159
+#: includes/Heartbeat/Settings.php:158
 msgid "Force JS interval To Slow"
 msgstr "Erzwinge langsames JS-Intervall"
 
-#: includes/Heartbeat/Settings.php:165
+#: includes/Heartbeat/Settings.php:164
 msgid ""
 "Set the JavaScript interval to “slow” (about 60s) in the admin area as a "
 "fallback if other settings do not apply."
@@ -356,32 +356,32 @@ msgstr ""
 "Setze das JavaScript-Intervall im Admin-Bereich auf „slow“ (ca. 60 s) als "
 "Fallback, falls andere Einstellungen nicht greifen."
 
-#: includes/Heartbeat/Settings.php:171
+#: includes/Heartbeat/Settings.php:170
 msgid "Editor interval"
 msgstr "Editor-Intervall"
 
-#: includes/Heartbeat/Settings.php:179 includes/Heartbeat/Settings.php:194
+#: includes/Heartbeat/Settings.php:178 includes/Heartbeat/Settings.php:193
 #: includes/Writing/Settings.php:223
 msgid "seconds"
 msgstr "Sekunden"
 
-#: includes/Heartbeat/Settings.php:180
+#: includes/Heartbeat/Settings.php:179
 msgid "Interval for post editors (seconds)."
 msgstr "Intervall für Posts-Editoren (Sekunden)."
 
-#: includes/Heartbeat/Settings.php:186
+#: includes/Heartbeat/Settings.php:185
 msgid "Admin Interval"
 msgstr "Admin-Intervall"
 
-#: includes/Heartbeat/Settings.php:195
+#: includes/Heartbeat/Settings.php:194
 msgid "Interval for other admin pages (seconds)."
 msgstr "Intervall für andere Admin-Seiten (Sekunden)."
 
-#: includes/Heartbeat/Settings.php:201
+#: includes/Heartbeat/Settings.php:200
 msgid "Role Overrides"
 msgstr "Rollen-Überschreibungen"
 
-#: includes/Heartbeat/Settings.php:208
+#: includes/Heartbeat/Settings.php:207
 msgid ""
 "Set custom Heartbeat intervals per role. Provide a JSON object where each "
 "role key contains two values: editor for post editor screens and default for "
@@ -396,11 +396,11 @@ msgstr ""
 "{\"editor\":15,\"default\":60},\"editor\":{\"editor\":30,\"default\":90},"
 "\"author\":{\"editor\":45,\"default\":120}}."
 
-#: includes/Heartbeat/Settings.php:214
+#: includes/Heartbeat/Settings.php:213
 msgid "Allowed Admin Page Hooks"
 msgstr "Erlaubte Admin-Seiten-Hooks"
 
-#: includes/Heartbeat/Settings.php:221
+#: includes/Heartbeat/Settings.php:220
 msgid ""
 "List of admin page hooks where Heartbeat is always allowed (one per line). "
 "Post editors (post.php, post-new.php) and the Site Editor are always allowed."
@@ -409,7 +409,7 @@ msgstr ""
 "Eintrag pro Zeile). Beitrags-Editoren (post.php, post-new.php) und der Site-"
 "Editor sind immer erlaubt."
 
-#: includes/Heartbeat/Settings.php:233
+#: includes/Heartbeat/Settings.php:232
 msgid ""
 "This page enables network administrators to manage heartbeat-related "
 "settings across the multisite network."
@@ -473,48 +473,46 @@ msgstr ""
 msgid "Size"
 msgstr "Größe"
 
-#: includes/Media/Replace/Replace.php:74 includes/Media/Replace/Replace.php:75
+#: includes/Media/Replace/Replace.php:73 includes/Media/Replace/Replace.php:74
 msgid "Replace Media"
 msgstr "Ersetzen von Medien"
 
-#: includes/Media/Replace/Replace.php:117
-#: includes/Media/Replace/Replace.php:136
-#: includes/Media/Replace/Replace.php:152
+#: includes/Media/Replace/Replace.php:116
+#: includes/Media/Replace/Replace.php:135
 msgid "Replace this file."
 msgstr "Diese Datei ersetzen."
 
-#: includes/Media/Replace/Replace.php:117
+#: includes/Media/Replace/Replace.php:116
 msgctxt "action of rrze-media-replace"
 msgid "Replace File"
 msgstr "Datei ersetzen"
 
-#: includes/Media/Replace/Replace.php:136
-#: includes/Media/Replace/Replace.php:152
+#: includes/Media/Replace/Replace.php:135
 msgid "Replace File"
 msgstr "Datei ersetzen"
 
-#: includes/Media/Replace/Replace.php:174
+#: includes/Media/Replace/Replace.php:153
 msgid "Current file does not exist."
 msgstr "Die aktuelle Datei existiert nicht."
 
-#: includes/Media/Replace/Replace.php:193
+#: includes/Media/Replace/Replace.php:172
 msgid "Please select a file to upload."
 msgstr "Bitte wählen Sie eine Datei zum Hochladen aus."
 
-#: includes/Media/Replace/Replace.php:197
+#: includes/Media/Replace/Replace.php:176
 msgid "It was not possible to upload the file."
 msgstr "Es war nicht möglich, die Datei hochzuladen."
 
-#: includes/Media/Replace/Replace.php:206
+#: includes/Media/Replace/Replace.php:185
 msgid "This media type is not permitted for security reasons."
 msgstr "Dieser Medientyp ist aus Sicherheitsgründen nicht zulässig."
 
-#: includes/Media/Replace/Replace.php:212
+#: includes/Media/Replace/Replace.php:191
 msgid "The media type does not match existing file."
 msgstr "Der Medientyp stimmt nicht mit der vorhandenen Datei überein."
 
 #. translators: %s: Media filename.
-#: includes/Media/Replace/Replace.php:264
+#: includes/Media/Replace/Replace.php:243
 #, php-format
 msgid ""
 "The file %s can not be deleted by the web server, most likely because the "
@@ -523,17 +521,17 @@ msgstr ""
 "Die Datei %s kann vom Webserver nicht gelöscht werden, höchstwahrscheinlich "
 "weil die Berechtigungen für die Datei falsch sind."
 
-#: includes/Media/Replace/Replace.php:308
+#: includes/Media/Replace/Replace.php:287
 msgid "This is a placeholder for the media replace page."
 msgstr "Dies ist ein Platzhalter für die Medien-Ersetzungsseite."
 
-#: includes/Media/Replace/Replace.php:319
-#: includes/Media/Replace/Replace.php:323
-#: includes/Media/Replace/Replace.php:327
+#: includes/Media/Replace/Replace.php:298
+#: includes/Media/Replace/Replace.php:302
+#: includes/Media/Replace/Replace.php:306
 msgid "You do not have permission to upload files."
 msgstr "Du hast keine Berechtigung zum Hochladen von Dateien."
 
-#: includes/Media/Replace/Replace.php:336
+#: includes/Media/Replace/Replace.php:315
 msgid "Nothing selected."
 msgstr "Es wurde nichts ausgewählt."
 
@@ -733,119 +731,140 @@ msgid "Enhanced menu search"
 msgstr "Erweiterte Menüsuche"
 
 #: includes/Plugins/Settings.php:37 includes/Plugins/Settings.php:38
-#: includes/Plugins/Settings.php:129
+#: includes/Plugins/Settings.php:141
 msgid "Plugins"
 msgstr "Plugins"
 
-#: includes/Plugins/Settings.php:137
+#: includes/Plugins/Settings.php:149
 msgid "DIP"
 msgstr "DIP"
 
-#: includes/Plugins/Settings.php:144
+#: includes/Plugins/Settings.php:156
 msgid "DIP API Key"
 msgstr "DIP API-Key"
 
-#: includes/Plugins/Settings.php:152
+#: includes/Plugins/Settings.php:164
 msgid "DIP Edu API key"
 msgstr "DIP Edu-API-Key"
 
-#: includes/Plugins/Settings.php:162
+#: includes/Plugins/Settings.php:174
 msgid "FAUdir"
 msgstr "FAUdir"
 
-#: includes/Plugins/Settings.php:169
+#: includes/Plugins/Settings.php:181
 msgid "FAUdir API Key"
 msgstr "FAUdir-API-Key"
 
-#: includes/Plugins/Settings.php:180
+#: includes/Plugins/Settings.php:192
 msgid "RRZE Jobs"
 msgstr "RRZE-Jobs"
 
-#: includes/Plugins/Settings.php:187
+#: includes/Plugins/Settings.php:199
 msgid "B-ITE API Key"
 msgstr "B-ITE-API-Key"
 
-#: includes/Plugins/Settings.php:198
-msgid "RRZE Newsletter"
-msgstr "RRZE-Newsletter"
+#: includes/Plugins/Settings.php:217
+msgid "Search Engine Keys"
+msgstr "API-Schlüssel für Suchmaschinen"
 
-#: includes/Plugins/Settings.php:205
-msgid "Global Settings"
-msgstr "Globale Einstellungen"
+#: includes/Plugins/Settings.php:228
+msgid "RRZE WebT"
+msgstr "RRZE-WebT"
 
-#: includes/Plugins/Settings.php:214 includes/Plugins/Settings.php:315
+#: includes/Plugins/Settings.php:235
+msgid "API Endpoint URL"
+msgstr "API-Endpunkt-URL"
+
+#: includes/Plugins/Settings.php:243
+msgid "Application Name"
+msgstr "Anwendungsname"
+
+#: includes/Plugins/Settings.php:251
+msgid "Password"
+msgstr "Passwort"
+
+#: includes/Plugins/Settings.php:259 includes/Plugins/Settings.php:286
+#: includes/Plugins/Settings.php:387
 msgid "Exceptions"
 msgstr "Ausnahmen"
 
-#: includes/Plugins/Settings.php:222
+#: includes/Plugins/Settings.php:270
+msgid "RRZE Newsletter"
+msgstr "RRZE-Newsletter"
+
+#: includes/Plugins/Settings.php:277
+msgid "Global Settings"
+msgstr "Globale Einstellungen"
+
+#: includes/Plugins/Settings.php:294
 msgid "Allowed domains for Envelope Sender"
 msgstr "Zulässige Domains für Envelope-Sender"
 
-#: includes/Plugins/Settings.php:230
+#: includes/Plugins/Settings.php:302
 msgid "Send Limit"
 msgstr "Sende-Limit"
 
-#: includes/Plugins/Settings.php:238
+#: includes/Plugins/Settings.php:310
 msgid "Max. Retries"
 msgstr "Max. Wiederholungen"
 
-#: includes/Plugins/Settings.php:246
+#: includes/Plugins/Settings.php:318
 msgid "Disable subscription"
 msgstr "Abonnement deaktivieren"
 
-#: includes/Plugins/Settings.php:254
+#: includes/Plugins/Settings.php:326
 msgid "Allowed domains for recipients"
 msgstr "Zulässige Domains für Empfänger"
 
-#: includes/Plugins/Settings.php:266
+#: includes/Plugins/Settings.php:338
 msgid "CMS Workflow"
 msgstr "CMS-Workflow"
 
-#: includes/Plugins/Settings.php:273
+#: includes/Plugins/Settings.php:345
 msgid "Not Allowed Post Types"
 msgstr "Nicht zulässige Post-Types"
 
-#: includes/Plugins/Settings.php:284
+#: includes/Plugins/Settings.php:356
 msgid "WS Form"
 msgstr "WS-Form"
 
-#: includes/Plugins/Settings.php:291
+#: includes/Plugins/Settings.php:363
 msgid "License Key"
 msgstr "Lizenz-Key"
 
-#: includes/Plugins/Settings.php:299
+#: includes/Plugins/Settings.php:371
 msgid "PDF Add-On License Key"
 msgstr "PDF Add-On Lizenz-Key"
 
-#: includes/Plugins/Settings.php:307
+#: includes/Plugins/Settings.php:379
 msgid "Not Allowed Field Types"
 msgstr "Nicht zulässige Feldtypen"
 
-#: includes/Plugins/Settings.php:326
+#: includes/Plugins/Settings.php:398
 msgid "Contact Form 7"
 msgstr "CF7"
 
-#: includes/Plugins/Settings.php:333
+#: includes/Plugins/Settings.php:405
 msgid "Dequeue scripts"
 msgstr "Skripte aus Queue entfernen"
 
-#: includes/Plugins/Settings.php:344
+#: includes/Plugins/Settings.php:416
 msgid "SEO Framework"
 msgstr "SEO-Framework"
 
-#: includes/Plugins/Settings.php:351
+#: includes/Plugins/Settings.php:423
 msgid "Force activation"
 msgstr "Aktivierung erzwingen"
 
-#: includes/Plugins/Settings.php:361
+#: includes/Plugins/Settings.php:433
 msgid "Siteimprove"
 msgstr "Siteimprove"
 
-#: includes/Plugins/Settings.php:368
+#: includes/Plugins/Settings.php:440
 msgid "Crawler IP addresses"
 msgstr "Crawler-IP-Adressen"
 
-#: includes/Plugins/Settings.php:382
+#: includes/Plugins/Settings.php:454
 msgid ""
 "Network administrators can oversee and configure plugin settings across a "
 "multisite environment. The page automatically detects supported plugins and "
@@ -860,37 +879,48 @@ msgstr ""
 "eingeben, plugin‑spezifische Optionen anpassen und so eine effiziente, "
 "konsistente Verwaltung aller Websites im Netzwerk gewährleisten."
 
-#: includes/Plugins/Settings.php:392
-msgid "Activate the global settings of the plugin"
-msgstr "Die globalen Einstellungen des Plugins aktivieren"
+#: includes/Plugins/Settings.php:476
+msgid "Enter one search engine per block (3 or 4 lines):"
+msgstr "Bitte pro Block genau eine Suchmaschine angeben (3–4 Zeilen):"
 
-#: includes/Plugins/Settings.php:403
-msgid "List of allowed domains for envelope sender. Enter one domain per line."
+#: includes/Plugins/Settings.php:477
+msgid "Line 1: Name"
+msgstr "1. Zeile: Name"
+
+#: includes/Plugins/Settings.php:478
+msgid "Line 2: CX"
+msgstr "2. Zeile: CX"
+
+#: includes/Plugins/Settings.php:479
+msgid "Line 3: API"
+msgstr "3. Zeile: API"
+
+#: includes/Plugins/Settings.php:480
+msgid "Optional line 4: Description"
+msgstr "(Optional) 4. Zeile: Beschreibung"
+
+#: includes/Plugins/Settings.php:481
+msgid ""
+"Add multiple engines by adding additional 3/4-line blocks (no empty lines "
+"required)."
 msgstr ""
-"Liste der zulässigen Domänen für Envelope-Sender. Geben Sie eine Domäne pro "
-"Zeile ein."
+"Mehrere Suchmaschinen können durch zusätzliche 3/4-Zeilen-Blöcke hinzugefügt "
+"werden – Leerzeilen sind nicht erforderlich."
 
-#: includes/Plugins/Settings.php:412
-msgid "Maximum number of emails that can be sent per minute."
-msgstr "Maximale Anzahl von E-Mails, die pro Minute gesendet werden können."
+#: includes/Plugins/Settings.php:491
+msgid "The WebT API Url used for RRZE Webt."
+msgstr "Die WebT-API-URL, die von RRZE Webt verwendet wird."
 
-#: includes/Plugins/Settings.php:421
-msgid "Maximum number of retries until an email is sent successfully."
-msgstr ""
-"Maximale Anzahl von Wiederholungsversuchen, bis eine E-Mail erfolgreich "
-"gesendet wurde."
+#: includes/Plugins/Settings.php:500
+msgid "The WebT application name used for RRZE Webt."
+msgstr "Der WebT-Anwendungsname, der von RRZE Webt verwendet wird."
 
-#: includes/Plugins/Settings.php:431
-msgid "Disables the subscription and mailing lists"
-msgstr "Deaktiviert die Abonnement und Mail-Listen"
+#: includes/Plugins/Settings.php:509
+msgid "The WebT password used for RRZE Webt."
+msgstr "Das WebT-Passwort, das von RRZE Webt verwendet wird."
 
-#: includes/Plugins/Settings.php:442
-msgid "List of allowed domains for recipients. Enter one domain per line."
-msgstr ""
-"Liste der zulässigen Domänen für Empfänger. Geben Sie eine Domäne pro Zeile "
-"ein."
-
-#: includes/Plugins/Settings.php:452 includes/Plugins/Settings.php:545
+#: includes/Plugins/Settings.php:519 includes/Plugins/Settings.php:589
+#: includes/Plugins/Settings.php:682
 msgid ""
 "List of IDS of websites that are exempt to all global settings. Enter one "
 "website ID per line."
@@ -898,13 +928,43 @@ msgstr ""
 "Liste der IDs von Websites, die alle globalen Einstellungen befreit sind. "
 "Geben Sie eine Website-ID pro Zeile ein."
 
-#: includes/Plugins/Settings.php:462
+#: includes/Plugins/Settings.php:529
+msgid "Activate the global settings of the plugin"
+msgstr "Die globalen Einstellungen des Plugins aktivieren"
+
+#: includes/Plugins/Settings.php:540
+msgid "List of allowed domains for envelope sender. Enter one domain per line."
+msgstr ""
+"Liste der zulässigen Domänen für Envelope-Sender. Geben Sie eine Domäne pro "
+"Zeile ein."
+
+#: includes/Plugins/Settings.php:549
+msgid "Maximum number of emails that can be sent per minute."
+msgstr "Maximale Anzahl von E-Mails, die pro Minute gesendet werden können."
+
+#: includes/Plugins/Settings.php:558
+msgid "Maximum number of retries until an email is sent successfully."
+msgstr ""
+"Maximale Anzahl von Wiederholungsversuchen, bis eine E-Mail erfolgreich "
+"gesendet wurde."
+
+#: includes/Plugins/Settings.php:568
+msgid "Disables the subscription and mailing lists"
+msgstr "Deaktiviert die Abonnement und Mail-Listen"
+
+#: includes/Plugins/Settings.php:579
+msgid "List of allowed domains for recipients. Enter one domain per line."
+msgstr ""
+"Liste der zulässigen Domänen für Empfänger. Geben Sie eine Domäne pro Zeile "
+"ein."
+
+#: includes/Plugins/Settings.php:599
 msgid "List of not allowed post types. Enter one post type per line."
 msgstr ""
 "Liste der nicht erlaubten Post-Types. Geben Sie einen Post-Type pro Zeile "
 "ein."
 
-#: includes/Plugins/Settings.php:472
+#: includes/Plugins/Settings.php:609
 msgid ""
 "List of allowed IP addresses of the Siteimprove crawler in case there are "
 "access restrictions to the content of the website. Enter one IP address per "
@@ -913,16 +973,16 @@ msgstr ""
 "Liste der zulässigen IP-Adressen des Siteimprove-Crawlers. Geben Sie eine IP-"
 "Adresse pro Zeile ein."
 
-#: includes/Plugins/Settings.php:482
+#: includes/Plugins/Settings.php:619
 msgid "Disables custom columns and metaboxes"
 msgstr "Deaktiviert benutzerdefinierte Spalten und Metaboxen"
 
-#: includes/Plugins/Settings.php:493
+#: includes/Plugins/Settings.php:630
 msgid "Dequeue Contact Form 7 scripts on the posts where it is not needed"
 msgstr ""
 "Dequeue Contact-Form-7-Skripte an den Posts, an denen es nicht benötigt wird"
 
-#: includes/Plugins/Settings.php:504
+#: includes/Plugins/Settings.php:641
 msgid ""
 "Forces the activation of the plugin if it exists and has not yet been "
 "activated"
@@ -930,32 +990,32 @@ msgstr ""
 "Erzwingt die Aktivierung des Plugins, wenn es existiert und noch nicht "
 "aktiviert wurde"
 
-#: includes/Plugins/Settings.php:515
+#: includes/Plugins/Settings.php:652
 msgid "This license key will apply to all websites."
 msgstr "Dieser Lizenz-Key gilt für alle Websites."
 
-#: includes/Plugins/Settings.php:525
+#: includes/Plugins/Settings.php:662
 msgid "This add-on license key will apply to all websites."
 msgstr "Dieser Add-On-Lizenz-Key gilt für alle Websites."
 
-#: includes/Plugins/Settings.php:535
+#: includes/Plugins/Settings.php:672
 msgid "List of not allowed field types. Enter one field type per line."
 msgstr ""
 "Liste der nicht zulässigen Feldtypen. Geben Sie einen Feldtyp pro Zeile ein."
 
-#: includes/Plugins/Settings.php:554
+#: includes/Plugins/Settings.php:691
 msgid "The DIP API key used by some plugins."
 msgstr "Der DIP‑API‑Key, der von einigen Plugins verwendet wird."
 
-#: includes/Plugins/Settings.php:563
+#: includes/Plugins/Settings.php:700
 msgid "The DIP Edu API key used by some plugins."
 msgstr "Der DIP Edu‑API‑Key, der von einigen Plugins verwendet wird."
 
-#: includes/Plugins/Settings.php:572
+#: includes/Plugins/Settings.php:709
 msgid "The FAUdir API key to access the API service https://api.fau.de/."
 msgstr "Der FAUdir‑API‑Key zum Zugriff auf den API‑Dienst https://api.fau.de/."
 
-#: includes/Plugins/Settings.php:581
+#: includes/Plugins/Settings.php:718
 msgid "The B-ITE API key used for RRZE Jobs."
 msgstr "Der für RRZE-Jobs verwendete B—ITE-API-Key."
 
@@ -1074,155 +1134,205 @@ msgstr "Änderungen speichern"
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert."
 
-#: includes/Taxonomies/AttachmentDocument.php:45
-#: includes/Taxonomies/AttachmentDocument.php:55
-msgid "Documents"
-msgstr "Dokumente"
+#: includes/Taxonomies/AttachmentCategory.php:52
+msgid "Attachment Categories"
+msgstr "Medienkategorien"
 
-#: includes/Taxonomies/AttachmentDocument.php:46
-msgid "Document"
-msgstr "Dokument"
+#: includes/Taxonomies/AttachmentCategory.php:53
+msgid "Attachment Category"
+msgstr "Medienkategorie"
 
-#: includes/Taxonomies/AttachmentDocument.php:47
-msgid "Search Documents"
-msgstr "Dokumente suchen"
-
-#: includes/Taxonomies/AttachmentDocument.php:48
-#: includes/Taxonomies/AttachmentDocument.php:99
-#: includes/Taxonomies/AttachmentDocument.php:154
-msgid "All Documents"
-msgstr "Alle Dokumente"
-
-#: includes/Taxonomies/AttachmentDocument.php:49
-msgid "Parent Document"
-msgstr "Übergeordnet"
-
-#: includes/Taxonomies/AttachmentDocument.php:50
-msgid "Parent Document:"
-msgstr "Übergeordnet:"
-
-#: includes/Taxonomies/AttachmentDocument.php:51
-#: includes/Taxonomies/PageCategory.php:49
-msgid "Edit Category"
-msgstr "Kategorie bearbeiten"
-
-#: includes/Taxonomies/AttachmentDocument.php:52
-#: includes/Taxonomies/PageCategory.php:50
-msgid "Update Category"
-msgstr "Kategorie aktualisieren"
-
-#: includes/Taxonomies/AttachmentDocument.php:53
-#: includes/Taxonomies/PageCategory.php:51
-msgid "Add New Category"
-msgstr "Neue Kategorie hinzufügen"
-
-#: includes/Taxonomies/AttachmentDocument.php:54
-#: includes/Taxonomies/PageCategory.php:52 includes/Taxonomies/PageTag.php:53
-msgid "Name"
-msgstr "Name"
-
-#: includes/Taxonomies/PageCategory.php:43
-msgid "Page Categories"
-msgstr "Seitenkategorien"
-
-#: includes/Taxonomies/PageCategory.php:44
-msgid "Page Category"
-msgstr "Seitenkategorie"
-
-#: includes/Taxonomies/PageCategory.php:45
+#: includes/Taxonomies/AttachmentCategory.php:54
+#: includes/Taxonomies/PageCategory.php:38
 msgid "Search Categories"
 msgstr "Kategorien suchen"
 
-#: includes/Taxonomies/PageCategory.php:46
+#: includes/Taxonomies/AttachmentCategory.php:55
+#: includes/Taxonomies/PageCategory.php:39
 msgid "Alle Categories"
 msgstr "Alle Kategorien"
 
-#: includes/Taxonomies/PageCategory.php:47
+#: includes/Taxonomies/AttachmentCategory.php:56
+#: includes/Taxonomies/PageCategory.php:40
 msgid "Parent Category"
 msgstr "Übergeordnet"
 
-#: includes/Taxonomies/PageCategory.php:48
+#: includes/Taxonomies/AttachmentCategory.php:57
+#: includes/Taxonomies/PageCategory.php:41
 msgid "Parent Category:"
 msgstr "Übergeordnet:"
 
-#: includes/Taxonomies/PageCategory.php:53
+#: includes/Taxonomies/AttachmentCategory.php:58
+#: includes/Taxonomies/AttachmentDocument.php:60
+#: includes/Taxonomies/PageCategory.php:42
+msgid "Edit Category"
+msgstr "Kategorie bearbeiten"
+
+#: includes/Taxonomies/AttachmentCategory.php:59
+#: includes/Taxonomies/AttachmentDocument.php:61
+#: includes/Taxonomies/PageCategory.php:43
+msgid "Update Category"
+msgstr "Kategorie aktualisieren"
+
+#: includes/Taxonomies/AttachmentCategory.php:60
+#: includes/Taxonomies/AttachmentDocument.php:62
+#: includes/Taxonomies/PageCategory.php:44
+msgid "Add New Category"
+msgstr "Neue Kategorie hinzufügen"
+
+#: includes/Taxonomies/AttachmentCategory.php:61
+#: includes/Taxonomies/AttachmentDocument.php:63
+#: includes/Taxonomies/AttachmentTag.php:62
+#: includes/Taxonomies/PageCategory.php:45 includes/Taxonomies/PageTag.php:28
+msgid "Name"
+msgstr "Name"
+
+#: includes/Taxonomies/AttachmentCategory.php:62
+#: includes/Taxonomies/PageCategory.php:46
 msgid "Categories"
 msgstr "Kategorien"
 
-#: includes/Taxonomies/PageCategory.php:93
-msgid "All Categories"
-msgstr "Alle Kategorien"
+#: includes/Taxonomies/AttachmentCategoryUI.php:76
+msgid "— No category —"
+msgstr "— Keine Kategorie —"
 
-#: includes/Taxonomies/PageTag.php:43
-msgid "Page Tags"
-msgstr "Seitenschlagworte"
+#: includes/Taxonomies/AttachmentCategoryUI.php:82
+msgid "Category"
+msgstr "Kategorie"
 
-#: includes/Taxonomies/PageTag.php:44
-msgid "Page Tag"
-msgstr "Seitenschlagwort"
+#: includes/Taxonomies/AttachmentCategoryUI.php:85
+msgid ""
+"Choose a category for this file. If left empty, a default will be assigned."
+msgstr ""
+"Bitte eine Kategorie für diese Datei wählen. Wird keine angegeben, erfolgt "
+"eine automatische Standardzuweisung."
 
-#: includes/Taxonomies/PageTag.php:45
+#: includes/Taxonomies/AttachmentDocument.php:54
+#: includes/Taxonomies/AttachmentDocument.php:64
+msgid "Documents"
+msgstr "Dokumente"
+
+#: includes/Taxonomies/AttachmentDocument.php:55
+msgid "Document"
+msgstr "Dokument"
+
+#: includes/Taxonomies/AttachmentDocument.php:56
+msgid "Search Documents"
+msgstr "Dokumente suchen"
+
+#: includes/Taxonomies/AttachmentDocument.php:57
+#: includes/Taxonomies/AttachmentDocument.php:110
+msgid "All Documents"
+msgstr "Alle Dokumente"
+
+#: includes/Taxonomies/AttachmentDocument.php:58
+msgid "Parent Document"
+msgstr "Übergeordnet"
+
+#: includes/Taxonomies/AttachmentDocument.php:59
+msgid "Parent Document:"
+msgstr "Übergeordnet:"
+
+#: includes/Taxonomies/AttachmentTag.php:52
+msgid "Attachment Tags"
+msgstr "Medienschlagwörter"
+
+#: includes/Taxonomies/AttachmentTag.php:53
+msgid "Attachment Tag"
+msgstr "Medienschlagwort"
+
+#: includes/Taxonomies/AttachmentTag.php:54 includes/Taxonomies/PageTag.php:20
 msgid "Search Tags"
 msgstr "Schlagwörter suchen"
 
-#: includes/Taxonomies/PageTag.php:46
+#: includes/Taxonomies/AttachmentTag.php:55 includes/Taxonomies/PageTag.php:21
 msgid "Popular Tags"
 msgstr "Beliebte Schlagwörter"
 
-#: includes/Taxonomies/PageTag.php:47 includes/Taxonomies/PageTag.php:99
+#: includes/Taxonomies/AttachmentTag.php:56
+#: includes/Taxonomies/AttachmentTag.php:110 includes/Taxonomies/PageTag.php:22
+#: includes/Taxonomies/PageTag.php:70
 msgid "All Tags"
 msgstr "Alle Schlagwörter"
 
-#: includes/Taxonomies/PageTag.php:50
+#: includes/Taxonomies/AttachmentTag.php:59 includes/Taxonomies/PageTag.php:25
 msgid "Edit Tag"
 msgstr "Schlagwort bearbeiten"
 
-#: includes/Taxonomies/PageTag.php:51
+#: includes/Taxonomies/AttachmentTag.php:60 includes/Taxonomies/PageTag.php:26
 msgid "Update Tag"
 msgstr "Schlagwort aktualisieren"
 
-#: includes/Taxonomies/PageTag.php:52
+#: includes/Taxonomies/AttachmentTag.php:61 includes/Taxonomies/PageTag.php:27
 msgid "Add New Tag"
 msgstr "Neues Schlagwort erstellen"
 
-#: includes/Taxonomies/PageTag.php:54
+#: includes/Taxonomies/AttachmentTag.php:63 includes/Taxonomies/PageTag.php:29
 msgid "Separate tags with commas"
 msgstr "Trenne Schlagwörter durch Kommas"
 
-#: includes/Taxonomies/PageTag.php:55
+#: includes/Taxonomies/AttachmentTag.php:64 includes/Taxonomies/PageTag.php:30
 msgid "Add"
 msgstr "Hinzu"
 
-#: includes/Taxonomies/PageTag.php:56
+#: includes/Taxonomies/AttachmentTag.php:65 includes/Taxonomies/PageTag.php:31
 msgid "Choose from the most used tags"
 msgstr "Wähle aus den häufig genutzten Schlagwörter"
 
-#: includes/Taxonomies/PageTag.php:57
+#: includes/Taxonomies/AttachmentTag.php:66 includes/Taxonomies/PageTag.php:32
 msgid "Tags"
 msgstr "Schlagwörter"
 
+#: includes/Taxonomies/BaseTaxonomy.php:177
+msgid "All Categories"
+msgstr "Alle Kategorien"
+
+#: includes/Taxonomies/PageCategory.php:36
+msgid "Page Categories"
+msgstr "Seitenkategorien"
+
+#: includes/Taxonomies/PageCategory.php:37
+msgid "Page Category"
+msgstr "Seitenkategorie"
+
+#: includes/Taxonomies/PageTag.php:18
+msgid "Page Tags"
+msgstr "Seitenschlagworte"
+
+#: includes/Taxonomies/PageTag.php:19
+msgid "Page Tag"
+msgstr "Seitenschlagwort"
+
 #: includes/Taxonomies/Settings.php:41 includes/Taxonomies/Settings.php:42
-#: includes/Taxonomies/Settings.php:74
+#: includes/Taxonomies/Settings.php:76
 msgid "Taxonomies"
 msgstr "Taxonomien"
 
-#: includes/Taxonomies/Settings.php:81
+#: includes/Taxonomies/Settings.php:83
 msgid "Register Attachment Document"
 msgstr "Mediendokument registrieren"
 
-#: includes/Taxonomies/Settings.php:88
+#: includes/Taxonomies/Settings.php:90
+msgid "Register Attachment Category"
+msgstr "Medienkategorie registrieren"
+
+#: includes/Taxonomies/Settings.php:97
+msgid "Register Attachment Tag"
+msgstr "Medienschlagwort registrieren"
+
+#: includes/Taxonomies/Settings.php:105
 msgid "Register Page Category"
 msgstr "Seitenkategorie registrieren"
 
-#: includes/Taxonomies/Settings.php:95
+#: includes/Taxonomies/Settings.php:112
 msgid "Register Page Tag"
 msgstr "Seitenschlagwort registrieren"
 
-#: includes/Taxonomies/Settings.php:103
+#: includes/Taxonomies/Settings.php:120
 msgid "No-Search Posts"
 msgstr "No-Search-Posts"
 
-#: includes/Taxonomies/Settings.php:117
+#: includes/Taxonomies/Settings.php:134
 msgid ""
 "Network administrators can configure taxonomy settings across the entire "
 "multisite network on this page, register custom taxonomies for attachments "
@@ -1237,23 +1347,31 @@ msgstr ""
 "Kontrolle über Inhaltsorganisation und Suchverhalten auf jeder Website "
 "gewährleisten."
 
-#: includes/Taxonomies/Settings.php:130
+#: includes/Taxonomies/Settings.php:147
 msgid "Exclude from search nosearch-tagged posts"
 msgstr "Posts mit dem Schlagwort nosearch von der Suche ausschließen"
 
-#: includes/Taxonomies/Settings.php:145
+#: includes/Taxonomies/Settings.php:162
 msgid "Register attachment document taxonomy"
 msgstr "Mediendokument-Taxonomie registrieren"
 
-#: includes/Taxonomies/Settings.php:160
+#: includes/Taxonomies/Settings.php:177
+msgid "Register attachment category taxonomy"
+msgstr "Medienkategorie-Taxonomie registrieren"
+
+#: includes/Taxonomies/Settings.php:192
+msgid "Register attachment tag taxonomy"
+msgstr "Medienschlagwort-Taxonomie registrieren"
+
+#: includes/Taxonomies/Settings.php:207
 msgid "Register page category taxonomy"
 msgstr "Seitenkategorie-Taxonomie registrieren"
 
-#: includes/Taxonomies/Settings.php:175
+#: includes/Taxonomies/Settings.php:222
 msgid "Register page tag taxonomy"
 msgstr "Seitenschlagwort-Taxonomie registrieren"
 
-#: includes/Taxonomies/Taxonomies.php:127
+#: includes/Taxonomies/Taxonomies.php:152
 msgid "The term can not be deleted."
 msgstr "Der Term kann nicht gelöscht werden."
 
@@ -1296,21 +1414,21 @@ msgstr "Deaktiviert die Datenschutzeinstellungen"
 msgid "You are not allowed to delete this website."
 msgstr "Es ist Ihnen nicht gestattet, diese Website zu löschen."
 
-#: includes/Users/Contact.php:82
+#: includes/Users/Contact.php:99
 msgctxt "post_name (slug)"
 msgid "contact"
 msgstr "kontakt"
 
-#: includes/Users/Contact.php:94
+#: includes/Users/Contact.php:137
 msgctxt "post_title"
 msgid "Contact"
 msgstr "Kontakt"
 
-#: includes/Users/Contact.php:269
+#: includes/Users/Contact.php:304
 msgid "Contact persons"
 msgstr "Kontaktpersonen"
 
-#: includes/Users/Contact.php:279
+#: includes/Users/Contact.php:314
 msgid "Email Address:"
 msgstr "E-Mail-Adresse:"
 
@@ -1620,7 +1738,7 @@ msgid "Block editor"
 msgstr "Block-Editor"
 
 #. translators: %s: Plugin name
-#: includes/Writing/Writing.php:145
+#: includes/Writing/Writing.php:148
 #, php-format
 msgid ""
 "The plugin \"%s\" has been deactivated because the block editor is enabled "
@@ -1629,28 +1747,28 @@ msgstr ""
 "Das Plugin „%s“ wurde deaktiviert, da der Blockeditor auf dieser Website "
 "aktiviert ist."
 
-#: includes/Writing/Writing.php:283
+#: includes/Writing/Writing.php:286
 msgid "Editor"
 msgstr "Editor"
 
-#: includes/Writing/Writing.php:318 includes/Writing/Writing.php:342
+#: includes/Writing/Writing.php:321 includes/Writing/Writing.php:345
 msgid "Block"
 msgstr "Block"
 
-#: includes/Writing/Writing.php:318 includes/Writing/Writing.php:345
+#: includes/Writing/Writing.php:321 includes/Writing/Writing.php:348
 msgid "Classic"
 msgstr "Klassisch"
 
-#: includes/Writing/Writing.php:337
+#: includes/Writing/Writing.php:340
 msgid "Filter by editor"
 msgstr "Nach Editor filtern"
 
-#: includes/Writing/Writing.php:340
+#: includes/Writing/Writing.php:343
 msgid "All editors"
 msgstr "Alle Editoren"
 
 #. translators: 1: Server WordPress version number, 2: Required WordPress version number.
-#: rrze-settings.php:138
+#: rrze-settings.php:142
 #, php-format
 msgid ""
 "The server is running WordPress version %1$s. The plugin requires at least "
@@ -1660,7 +1778,7 @@ msgstr ""
 "erfordert mindestens die WordPress-Version %2$s."
 
 #. translators: 1: Server PHP version number, 2: Required PHP version number.
-#: rrze-settings.php:146
+#: rrze-settings.php:150
 #, php-format
 msgid ""
 "The server is running PHP version %1$s. The plugin requires at least PHP "
@@ -1669,7 +1787,7 @@ msgstr ""
 "Auf dem Server wird die PHP-Version %1$s ausgeführt. Das Plugin erfordert "
 "mindestens die PHP-Version %2$s."
 
-#: rrze-settings.php:151
+#: rrze-settings.php:155
 msgid ""
 "The plugin can only be installed in a multisite installation and network-"
 "wide."

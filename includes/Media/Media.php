@@ -114,15 +114,6 @@ class Media extends Main
             plugin()->getVersion()
         );
 
-        $assetFile = include(plugin()->getPath('build') . 'media/replace.asset.php');
-        wp_register_script(
-            'rrze-media-replace',
-            plugins_url('build/media/replace.js', plugin()->getBasename()),
-            $assetFile['dependencies'] ?? [],
-            plugin()->getVersion(),
-            true
-        );
-
         if (in_array($hook, ['upload.php', 'tools_page_media-duplicates'])) {
             wp_enqueue_style('rrze-media-columns');
         }

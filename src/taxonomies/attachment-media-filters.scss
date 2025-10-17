@@ -1,0 +1,32 @@
+/* Attachment Media Filters
+   Styles for Document, Category and Tag dropdowns in the Media Modal (grid) */
+
+.media-frame .media-toolbar-secondary {
+    /* space between our custom selects and WP’s built-in ones */
+    .rrze-attachment-document-filter,
+    .rrze-attachment-category-filter,
+    .rrze-attachment-tag-filter {
+        margin-left: 8px; // small gap after the date filter
+        max-width: 180px; // keeps dropdowns compact, adjust as needed
+    }
+
+    /* Align text for hierarchical taxonomy indentation */
+    .rrze-attachment-document-filter option,
+    .rrze-attachment-category-filter option {
+        font-family: inherit;
+        // visually indent based on "— " prefix
+    }
+
+    /* Keep Tag dropdown width smaller */
+    .rrze-attachment-tag-filter {
+        max-width: 150px;
+    }
+}
+
+/* Make sure in list view (upload.php) they don’t break layout */
+.upload-php .tablenav .rrze-attachment-document-filter,
+.upload-php .tablenav .rrze-attachment-category-filter,
+.upload-php .tablenav .rrze-attachment-tag-filter {
+    margin-right: 6px;
+    vertical-align: middle;
+}

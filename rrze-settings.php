@@ -3,7 +3,7 @@
 /*
 Plugin Name:        RRZE Settings
 Plugin URI:         https://gitlab.rrze.fau.de/rrze-webteam/rrze-settings
-Version:            2.0.14
+Version:            2.0.15
 Description:        General settings and enhancements for a WordPress multisite installation.
 Author:             RRZE Webteam
 Author URI:         https://blogs.fau.de/webworking/
@@ -23,6 +23,7 @@ defined('ABSPATH') || exit;
 use RRZE\Settings\Main;
 use RRZE\Settings\Plugin;
 use RRZE\Settings\Plugins\WSForm;
+use RRZE\Settings\Plugins\RRZESearch;
 
 // Filter to prevent the 'doing_it_wrong' error for the '_load_textdomain_just_in_time' function.
 // This filter checks if the function is called during the 'plugins_loaded' action or if it has already been called.
@@ -40,6 +41,9 @@ require_once 'vendor/autoload.php';
 
 // Set the WS Form plugin license key if available.
 WSForm::setWSFormLicenseKey();
+
+// Set the RRZE Search Engines if available
+RRZESearch::setRRZESearchSearchEngines();
 
 // Register activation hook for the plugin.
 register_activation_hook(__FILE__, __NAMESPACE__ . '\activation');

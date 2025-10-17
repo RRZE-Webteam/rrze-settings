@@ -114,6 +114,18 @@ class Settings extends MainSettings
 
         $input['dip_edu_api_key'] = !empty($input['dip_edu_api_key']) ? sanitize_text_field($input['dip_edu_api_key']) : '';
 
+        $input['rrze_search_engine_keys'] = isset($input['rrze_search_engine_keys']) ? $input['rrze_search_engine_keys'] : '';
+        $searchEngineKeys = $this->sanitizeTextarea($input['rrze_search_engine_keys']);
+        $input['rrze_search_engine_keys'] = !empty($searchEngineKeys) ? $searchEngineKeys : '';
+
+        $input['rrze_webt_api_url'] = !empty($input['rrze_webt_api_url']) ? sanitize_text_field($input['rrze_webt_api_url']) : '';
+        $input['rrze_webt_application_name'] = !empty($input['rrze_webt_application_name']) ? sanitize_text_field($input['rrze_webt_application_name']) : '';
+        $input['rrze_webt_password'] = !empty($input['rrze_webt_password']) ? sanitize_text_field($input['rrze_webt_password']) : '';
+        $input['rrze_webt_exceptions'] = isset($input['rrze_webt_exceptions']) ? $input['rrze_webt_exceptions'] : '';
+        $exceptions = $this->sanitizeTextarea($input['rrze_webt_exceptions']);
+        $exceptions = !empty($exceptions) ? $this->sanitizeWebsitesExceptions($exceptions) : '';
+        $input['rrze_webt_exceptions'] = !empty($exceptions) ? $exceptions : '';
+
         return $this->parseOptionsValidate($input, 'plugins');
     }
 
@@ -188,6 +200,66 @@ class Settings extends MainSettings
                 [$this, 'biteApiKeyField'],
                 $this->menuPage,
                 'rrze-settings-plugins-rrzejobs'
+            );
+        }
+
+        // RRZE Search
+        if ($this->pluginExists(RRZESearch::PLUGIN)) {
+            add_settings_section(
+                'rrze-settings-plugins-rrze-search',
+                __('RRZE Settings', 'rrze-settings'),
+                '__return_false',
+                $this->menuPage
+            );
+
+            add_settings_field(
+                'rrze_search_engine_keys',
+                __('Search Engine Keys', 'rrze-settings'),
+                [$this, 'rrzeSearchEngineKeysField'],
+                $this->menuPage,
+                'rrze-settings-plugins-rrze-search'
+            );
+        }
+
+        // RRZE WebT
+        if ($this->pluginExists(WebT::PLUGIN)) {
+            add_settings_section(
+                'rrze-settings-plugins-rrzewebt',
+                __('RRZE WebT', 'rrze-settings'),
+                '__return_false',
+                $this->menuPage
+            );
+
+            add_settings_field(
+                'rrze_webt_api_url',
+                __('API Endpoint URL', 'rrze-settings'),
+                [$this, 'webtApiUrlField'],
+                $this->menuPage,
+                'rrze-settings-plugins-rrzewebt'
+            );
+
+            add_settings_field(
+                'rrze_webt_application_name',
+                __('Application Name', 'rrze-settings'),
+                [$this, 'webtApplicationNameField'],
+                $this->menuPage,
+                'rrze-settings-plugins-rrzewebt'
+            );
+
+            add_settings_field(
+                'rrze_webt_password',
+                __('Password', 'rrze-settings'),
+                [$this, 'webtPasswordField'],
+                $this->menuPage,
+                'rrze-settings-plugins-rrzewebt'
+            );
+
+            add_settings_field(
+                'rrze_webt_exceptions',
+                __('Exceptions', 'rrze-settings'),
+                [$this, 'webtExceptionsField'],
+                $this->menuPage,
+                'rrze-settings-plugins-rrzewebt'
             );
         }
 
@@ -380,6 +452,71 @@ class Settings extends MainSettings
     public function mainSectionDescription()
     {
         esc_html_e('Network administrators can oversee and configure plugin settings across a multisite environment. The page automatically detects supported plugins and presents dedicated sections and fields for each one. Network administrators can enter API keys, adjust plugin‑specific options, and maintain efficient, consistent management of all websites in the network.', 'rrze-settings');
+    }
+
+    /**
+     * RRZE Search - Global Search Engine Field
+     *
+     * Expected format (per engine):
+     *   Line 1: Name
+     *   Line 2: CX
+     *   Line 3: API
+     * Optional line 4 (future): Description
+     *
+     * Multiple engines = multiple 3/4-line blocks back-to-back.
+     */
+    public function rrzeSearchEngineKeysField()
+    {
+        $option = $this->siteOptions->plugins->rrze_search_engine_keys;
+        echo '<textarea id="rrze-settings-rrze-search-engine-keys" cols="50" rows="8" name="', sprintf('%s[rrze_search_engine_keys]', $this->optionName), '">',
+        esc_textarea($this->getTextarea($option)),
+        '</textarea>';
+
+        echo '<p class="description">';
+        echo esc_html__('Enter one search engine per block (3 or 4 lines):', 'rrze-settings'), '<br>';
+        echo '<code>', esc_html__("Line 1: Name", 'rrze-settings'), '</code><br>';
+        echo '<code>', esc_html__("Line 2: CX", 'rrze-settings'), '</code><br>';
+        echo '<code>', esc_html__("Line 3: API", 'rrze-settings'), '</code><br>';
+        echo esc_html__('Optional line 4: Description', 'rrze-settings'), '<br>';
+        echo esc_html__('Add multiple engines by adding additional 3/4-line blocks (no empty lines required).', 'rrze-settings');
+        echo '</p>';
+    }
+
+    /**
+     * RRZE WebT - API URL Field
+     */
+    public function webtApiUrlField()
+    {
+        echo '<input type="text" id="rrze-settings-rrze-webt-api-url" name="', sprintf('%s[rrze_webt_api_url]', $this->optionName), '" value="', $this->siteOptions->plugins->rrze_webt_api_url, '" class="regular-text" placeholder="https://api.example.com/translate">';
+        echo '<p class="description">', __('The WebT API Url used for RRZE Webt.', 'rrze-settings'), '</p>';
+    }
+
+    /**
+     * RRZE WebT - Application Name Field
+     */
+    public function webtApplicationNameField()
+    {
+        echo '<input type="text" id="rrze-settings-rrze-webt-application-name" name="', sprintf('%s[rrze_webt_application_name]', $this->optionName), '" value="', $this->siteOptions->plugins->rrze_webt_application_name, '" class="regular-text" autocomplete="off">';
+        echo '<p class="description">', __('The WebT application name used for RRZE Webt.', 'rrze-settings'), '</p>';
+    }
+
+    /**
+     * RRZE WebT - Password Field
+     */
+    public function webtPasswordField()
+    {
+        echo '<input type="password" id="rrze-settings-rrze-webt-password" name="', sprintf('%s[rrze_webt_password]', $this->optionName), '" value="', $this->siteOptions->plugins->rrze_webt_password, '" class="regular-text" autocomplete="off">';
+        echo '<p class="description">', __('The WebT password used for RRZE Webt.', 'rrze-settings'), '</p>';
+    }
+
+    /**
+     * RRZE WebT - Websites that are exempt to all global settings
+     */
+    public function webtExceptionsField()
+    {
+        $option = $this->siteOptions->plugins->rrze_webt_exceptions;
+        echo '<textarea id="rrze-webt-exceptions" cols="50" rows="5" name="', sprintf('%s[rrze_webt_exceptions]', $this->optionName), '">', esc_attr($this->getTextarea($option)), '</textarea>';
+        echo '<p class="description">', __('List of IDS of websites that are exempt to all global settings. Enter one website ID per line.', 'rrze-settings'), '</p>';
     }
 
     /**

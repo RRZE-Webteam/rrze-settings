@@ -1,119 +1,112 @@
 name: Publish
 
 on:
-  push:
-    branches:
-      - dev
-  pull_request:
-    branches:
-      - dev
+    pull_request:
+        types: [closed] # Only when a PR is closed
+        branches:
+            - main # ...and the base branch is main
+
+permissions:
+    contents: write # Required to create tags and releases
 
 jobs:
-  publish:
-    runs-on: ubuntu-latest
+    publish:
+        # Ensure the PR was actually merged (not just closed)
+        if: github.event.pull_request.merged == true
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        steps:
+            - name: Checkout the merge commit
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+                  # Use the actual merge commit SHA for reproducible releases
+                  ref: ${{ github.event.pull_request.merge_commit_sha }}
 
-      - name: Update package.json version & update README using plugin data
-        id: version_update
-        run: |
-          # Define plugin filename
-          plugin_file="rrze-settings.php"
+            - name: Ensure jq is installed
+              shell: bash
+              run: |
+                  if ! command -v jq >/dev/null 2>&1; then
+                    sudo apt-get update
+                    sudo apt-get install -y jq
+                  fi
 
-          # Extract current version from plugin file
-          version=$(grep -oP 'Version:\s*\K[0-9]+\.[0-9]+\.[0-9]+' "$plugin_file")
-          if [ -z "$version" ]; then
-            echo "Version not found in plugin file. Exiting."
-            exit 1
-          fi
-          echo "Current version: $version"
+            - name: Read plugin version from header (rrze-settings.php)
+              id: meta
+              shell: bash
+              run: |
+                  plugin_file="rrze-settings.php"
+                  if [ ! -f "$plugin_file" ]; then
+                    echo "❌ Plugin file '$plugin_file' not found."
+                    exit 1
+                  fi
 
-          # Set version as an environment variable
-          echo "version=$version" >> $GITHUB_ENV
+                  # Extract semantic version from plugin header
+                  version=$(grep -oP 'Version:\s*\K[0-9]+\.[0-9]+\.[0-9]+' "$plugin_file" || true)
+                  if [ -z "$version" ]; then
+                    echo "❌ Version not found in plugin header."
+                    exit 1
+                  fi
 
-          # Update version in package.json if it exists
-          if [ -f "package.json" ]; then
-            jq --arg new_version "$version" '.version = $new_version' package.json > tmp.json && mv tmp.json package.json
-          else
-            echo "package.json not found, skipping version update in package.json"
-          fi
+                  # Make version available to later shell steps
+                  echo "version=$version" >> "$GITHUB_ENV"
+                  # Make version available to GitHub Expressions context (steps.meta.outputs.version)
+                  echo "version=$version" >> "$GITHUB_OUTPUT"
 
-          # Extract plugin data from plugin file
-          plugin_data=$(awk '/^[ \t]*\*?[ \t]*(Plugin Name|Plugin URI|Version|Description|Author|Author URI|License|License URI|Text Domain|Domain Path|Requires at least|Requires PHP|Update URI):/ { gsub(/^[ \t]*\*?[ \t]*/, ""); print $0 }' "$plugin_file")
-          echo "$plugin_data"
+                  echo "✅ Detected version: $version"
 
-          # Write plugin data to readme.txt if it exists
-          if [ -f "readme.txt" ]; then
-            # Update readme.txt content
-            echo "$plugin_data" > readme.txt
-          else
-            echo "readme.txt not found, skipping plugin data update in readme.txt"
-          fi
+                  # Optional consistency check with package.json (do not modify files on main here)
+                  if [ -f package.json ]; then
+                    pkg_version=$(jq -r '.version // empty' package.json)
+                    if [ -n "$pkg_version" ] && [ "$pkg_version" != "$version" ]; then
+                      echo "❌ package.json version ($pkg_version) does not match plugin header version ($version)"
+                      exit 1
+                    fi
+                  fi
 
-      - name: Commit version changes to dev
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git add .
-          git commit -m "Publish" || echo "No changes to commit"
-          git push origin dev || { echo "Error: Push to dev branch failed"; exit 1; }
+            - name: Check if tag already exists
+              id: tag
+              shell: bash
+              run: |
+                  git fetch --tags
+                  if git show-ref --tags --quiet --verify -- "refs/tags/${{ steps.meta.outputs.version }}"; then
+                    echo "exists=true" >> "$GITHUB_OUTPUT"
+                    echo "⚠️ Tag ${{ steps.meta.outputs.version }} already exists."
+                  else
+                    echo "exists=false" >> "$GITHUB_OUTPUT"
+                  fi
 
-      - name: Check if tag or release exists
-        env:
-          version: ${{ env.version }}
-        run: |
-          if git rev-parse "${{ env.version }}" >/dev/null 2>&1; then
-            echo "Tag ${{ env.version }} already exists. Skipping release."
-            exit 1
-          fi
+            - name: Create GitHub Release
+              if: steps.tag.outputs.exists == 'false'
+              id: create_release
+              uses: actions/create-release@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  tag_name: "${{ steps.meta.outputs.version }}"
+                  release_name: "v${{ steps.meta.outputs.version }}"
+                  draft: false
+                  prerelease: false
 
-      - name: Check out the main branch
-        run: |
-          git fetch origin
-          git checkout main
-          git pull origin main
+            - name: Verify release creation
+              if: steps.tag.outputs.exists == 'false' && steps.create_release.outputs.id == ''
+              shell: bash
+              run: |
+                  echo "❌ Release creation failed."
+                  exit 1
 
-      - name: Merge dev into main
-        run: |
-          git merge origin/dev --no-ff -m "Merging from dev to main" || { echo "Error: Merge failed"; exit 1; }
-
-      - name: Push changes to main branch
-        run: |
-          git push origin main || { echo "Error: Push to main branch failed"; exit 1; }
-
-      - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          version: ${{ env.version }}
-        with:
-          tag_name: "${{ env.version }}"
-          release_name: "v${{ env.version }}"
-          draft: false
-          prerelease: false
-
-      - name: Check if Release was Created
-        if: steps.create_release.outputs.id == ''
-        run: |
-          echo "Release creation failed"
-          exit 1
-          
-      - name: Send Matrix notification
-        env:
-          MATRIX_ACCESS_TOKEN: ${{ secrets.MATRIX_ACCESS_TOKEN }}
-          MATRIX_ROOM_ID: "%21wyUpkRsFMDGzzGmxBf%3Afau.de" # HTML-encoded room ID
-        run: |
-          response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "https://matrix.fau.de/_matrix/client/r0/rooms/${MATRIX_ROOM_ID}/send/m.room.message?access_token=${MATRIX_ACCESS_TOKEN}" \
-            -H "Content-Type: application/json" \
-            -d "{
-              \"msgtype\": \"m.text\",
-              \"body\": \"New release created for ${GITHUB_REPOSITORY} by ${GITHUB_ACTOR}. 🎉\"
-            }")
-          if [ "$response" -ne 200 ]; then
-            echo "Error: Failed to send notification to Matrix. HTTP status code: $response"
-          fi
+            - name: Send Matrix notification
+              if: steps.tag.outputs.exists == 'false'
+              env:
+                  MATRIX_ACCESS_TOKEN: ${{ secrets.MATRIX_ACCESS_TOKEN }}
+                  MATRIX_ROOM_ID: "%21wyUpkRsFMDGzzGmxBf%3Afau.de" # HTML-encoded room ID
+              run: |
+                  response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "https://matrix.fau.de/_matrix/client/r0/rooms/${MATRIX_ROOM_ID}/send/m.room.message?access_token=${MATRIX_ACCESS_TOKEN}" \
+                    -H "Content-Type: application/json" \
+                    -d "{
+                      \"msgtype\": \"m.text\",
+                      \"body\": \"New release created for ${GITHUB_REPOSITORY} by ${GITHUB_ACTOR}. 🎉\"
+                    }")
+                  if [ "$response" -ne 200 ]; then
+                    echo "Error: Failed to send notification to Matrix. HTTP status code: $response"
+                  fi

@@ -5,51 +5,88 @@ namespace RRZE\Settings\Taxonomies;
 defined('ABSPATH') || exit;
 
 /**
- * Search class
+ * Search
  *
+ * Exclude any object from front-end main search when it has the term slug
+ * "nosearch" in any of the configured taxonomies.
+ * 
  * @package RRZE\Settings\Taxonomies
  */
 class Search
 {
     /**
-     * Plugin loaded action
+     * Taxonomies where "nosearch" should have effect.
+     *
+     * @var string[]
+     */
+    protected $taxonomies = ['post_tag', 'page_tag', 'attachment_tag'];
+
+    /**
+     * Term slug to exclude.
+     * @var string
+     */
+    protected $excludeSlug = 'nosearch';
+
+    /**
+     * Constructor
      * 
      * @return void
      */
-    public function loaded()
+    public function __construct()
     {
-        // Exclude posts tagged 'nosearch' in queries
-        add_filter('posts_where', [$this, 'excludeNosearchPostsWhere'], 10, 2);
+        add_action('pre_get_posts', [$this, 'excludeNosearch']);
     }
 
     /**
-     * Exclude posts tagged 'nosearch' in queries
+     * Add NOT IN tax_query clauses for the configured taxonomies.
      *
-     * @param string $where
      * @param \WP_Query $q
-     * @return string
+     * @return void
      */
-    public function excludeNosearchPostsWhere($where, $q)
+    public function excludeNosearch($q)
     {
+        if (!($q instanceof \WP_Query)) {
+            return;
+        }
+
+        // Do not affect admin, non-main queries, or non-search requests.
+        if (is_admin() || !$q->is_main_query() || !$q->is_search()) {
+            return;
+        }
+
+        // Avoid Customizer changesets and similar virtual types.
         $pt = (array) $q->get('post_type');
         if (in_array('customize_changeset', $pt, true)) {
-            return $where;
+            return;
         }
 
-        if (is_admin() || ! $q->is_main_query() || ! $q->is_search()) {
-            return $where;
+        // Build NOT IN clauses per taxonomy (only for existing taxonomies).
+        $tax_query = (array) $q->get('tax_query');
+        $added = 0;
+
+        foreach ($this->taxonomies as $tax) {
+            if (!taxonomy_exists($tax)) {
+                continue;
+            }
+
+            // Find the term by slug in this taxonomy.
+            $term = get_term_by('slug', $this->excludeSlug, $tax);
+            if ($term && !is_wp_error($term)) {
+                $tax_query[] = [
+                    'taxonomy'         => $tax,
+                    'field'            => 'term_id',
+                    'terms'            => [(int) $term->term_id],
+                    'operator'         => 'NOT IN',
+                    'include_children' => true, // usual behavior for hierarchical tax.
+                ];
+                $added++;
+            }
         }
 
-        global $wpdb;
-
-        $where .= " AND {$wpdb->posts}.ID NOT IN (
-        SELECT tr.object_id
-        FROM {$wpdb->term_relationships} AS tr
-        INNER JOIN {$wpdb->term_taxonomy} AS tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
-        INNER JOIN {$wpdb->terms} AS t ON t.term_id = tt.term_id
-        WHERE t.slug = 'nosearch'
-    )";
-
-        return $where;
+        if ($added > 0) {
+            // If there are existing conditions, leave them ANDed by default.
+            // You can set relation explicitly if you need advanced logic.
+            $q->set('tax_query', $tax_query);
+        }
     }
 }
