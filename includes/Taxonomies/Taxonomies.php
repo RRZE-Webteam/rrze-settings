@@ -51,15 +51,15 @@ class Taxonomies extends Main
             if ($this->siteOptions->taxonomies->taxonomy_attachment_tag) {
                 new AttachmentTag();
             }
+        }
 
-            // Set taxonomy media filters
-            if (
-                $this->siteOptions->taxonomies->taxonomy_attachment_document
-                || $this->siteOptions->taxonomies->taxonomy_attachment_category
-                || $this->siteOptions->taxonomies->taxonomy_attachment_tag
-            ) {
-                new AttachmentMediaFilters($this->siteOptions);
-            }
+        // Set taxonomy media filters
+        if (
+            $this->siteOptions->taxonomies->taxonomy_attachment_document
+            || $this->siteOptions->taxonomies->taxonomy_attachment_category
+            || $this->siteOptions->taxonomies->taxonomy_attachment_tag
+        ) {
+            new AttachmentMediaFilters($this->siteOptions);
         }
 
         // Register taxonomy page_category
