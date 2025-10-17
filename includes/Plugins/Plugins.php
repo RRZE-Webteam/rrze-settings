@@ -29,15 +29,23 @@ class Plugins extends Main
             $this->defaultOptions
         ))->loaded();
 
-        (new Siteimprove($this->siteOptions))->loaded();
-
         (new CF7($this->siteOptions))->loaded();
 
         (new CMSWorkflow($this->siteOptions))->loaded();
 
+        (new FAUdir($this->siteOptions))->loaded();
+
+        (new Jobs($this->siteOptions))->loaded();
+
         (new Newsletter($this->siteOptions))->loaded();
 
+        (new RRZESearch($this->siteOptions))->loaded();
+
+        (new Siteimprove($this->siteOptions))->loaded();
+
         (new TheSEOFramework($this->siteOptions))->loaded();
+
+        (new WebT($this->siteOptions))->loaded();
 
         (new WSForm($this->siteOptions))->loaded();
     }
