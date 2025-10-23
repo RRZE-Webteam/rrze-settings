@@ -115,7 +115,7 @@ class Settings extends MainSettings
         $input['dip_edu_api_key'] = !empty($input['dip_edu_api_key']) ? sanitize_text_field($input['dip_edu_api_key']) : '';
 
         $input['rrze_search_engine_keys'] = isset($input['rrze_search_engine_keys']) ? $input['rrze_search_engine_keys'] : '';
-        $searchEngineKeys = $this->sanitizeTextarea($input['rrze_search_engine_keys']);
+        $searchEngineKeys = $this->sanitizeTextarea($input['rrze_search_engine_keys'], false);
         $input['rrze_search_engine_keys'] = !empty($searchEngineKeys) ? $searchEngineKeys : '';
 
         $input['rrze_webt_api_url'] = !empty($input['rrze_webt_api_url']) ? sanitize_text_field($input['rrze_webt_api_url']) : '';
