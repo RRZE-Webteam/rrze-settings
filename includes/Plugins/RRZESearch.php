@@ -34,9 +34,17 @@ class RRZESearch
      *
      * @param object $siteOptions Site options
      */
-    public function __construct($siteOptions)
+    public function __construct()
     {
-        $this->siteOptions = $siteOptions;
+        add_action('rrze_search_increment', [$this, 'handleIncrement'], 10, 1);
+
+        // Cron Handlers
+        add_action('rrze_search_reset_hour',  [$this, 'cronResetHour']);
+        add_action('rrze_search_reset_week',  [$this, 'cronResetWeek']);
+        add_action('rrze_search_reset_month', [$this, 'cronResetMonth']);
+        add_action('rrze_search_reset_year',  [$this, 'cronResetYear']);
+
+        add_action('init', [$this, 'maybeScheduleCronEvents']);
     }
 
     /**
@@ -49,6 +57,297 @@ class RRZESearch
         if (!$this->pluginExists(self::PLUGIN) || !$this->isPluginActive(self::PLUGIN)) {
             return;
         }
+    }
+
+    /**
+     * Nur auf der Haupt-Site Cron-Events planen, falls noch nicht vorhanden.
+     */
+    public function maybeScheduleCronEvents(): void
+    {
+        if ( ! is_multisite() || ! is_main_site() ) return;
+
+        try {
+            $this->scheduleIfMissing('rrze_search_reset_hour',  $this->nextBoundary('hour'));
+            $this->scheduleIfMissing('rrze_search_reset_week',  $this->nextBoundary('week'));
+            $this->scheduleIfMissing('rrze_search_reset_month', $this->nextBoundary('month'));
+            $this->scheduleIfMissing('rrze_search_reset_year',  $this->nextBoundary('year'));
+        } catch (\Throwable $e) {
+            $now = time();
+            $this->scheduleIfMissing('rrze_search_reset_hour',  $now + HOUR_IN_SECONDS);
+            $this->scheduleIfMissing('rrze_search_reset_week',  $now + WEEK_IN_SECONDS);
+            $this->scheduleIfMissing('rrze_search_reset_month', $now + MONTH_IN_SECONDS);
+            $this->scheduleIfMissing('rrze_search_reset_year',  $now + YEAR_IN_SECONDS);
+        }
+    }
+
+    private function scheduleIfMissing(string $hook, int $timestamp): void
+    {
+        if ( ! wp_next_scheduled($hook) ) {
+            wp_schedule_single_event($timestamp, $hook);
+        }
+    }
+
+    /**
+     * Berechnet den nächsten UTC-Grenzzeitpunkt für hour/week/month/year.
+     * @throws \DateMalformedStringException
+     */
+    private function nextBoundary(string $unit): int
+    {
+        $tz  = new \DateTimeZone('UTC');
+        $now = new \DateTimeImmutable('now', $tz);
+
+        switch ($unit) {
+            case 'week':
+                $next = $now->modify('next monday')->setTime(0, 0, 0);
+                break;
+
+            case 'month':
+                $y = (int)$now->format('Y');
+                $m = (int)$now->format('m');
+                if ($m === 12) { $y += 1; $m = 1; } else { $m += 1; }
+                $next = $now->setDate($y, $m, 1)->setTime(0, 0, 0);
+                break;
+
+            case 'year':
+                $y = (int)$now->format('Y') + 1;
+                $next = $now->setDate($y, 1, 1)->setTime(0, 0, 0);
+                break;
+
+            default:
+                $next = $now->setTime((int)$now->format('H'), 0, 0)->modify('+1 hour');
+                break;
+        }
+
+        return $next->getTimestamp(); // UTC Unix Timestamp
+    }
+
+
+    /**
+     * If the Setting rrze_search_network_limits_and_statistics is not available, initialize it with
+     * $limit_per_hour, $limit_per_day, $limit_per_week, $limit_per_month, $limit_per_year and the counters $total_hour, $total_day, $total_week
+     * $total_month and $total_year.
+     *
+     * @param $limit_per_hour - API Limit per Hour
+     * @param $limit_per_day - API Limit per Day
+     * @param $limit_per_week - API Limit per Week
+     * @param $limit_per_month - API Limit per Month
+     * @param $limit_per_year - API Limit per Year
+     * @return void
+     */
+    public static function initializeNetworkSettings($limit_per_hour, $limit_per_day, $limit_per_week, $limit_per_month, $limit_per_year): void
+    {
+        if ( ! is_multisite() )
+        {
+            return;
+        }
+
+        $option_name = 'rrze_search_network_limits_and_stats';
+        $existing = get_site_option($option_name, null);
+        if ($existing !== null) {
+            return;
+        }
+
+        $limits = [
+            'hour'  => max(0, (int) $limit_per_hour),
+            'day'   => max(0, (int) $limit_per_day),
+            'week'  => max(0, (int) $limit_per_week),
+            'month' => max(0, (int) $limit_per_month),
+            'year'  => max(0, (int) $limit_per_year),
+        ];
+
+        $totals = [
+            'hour'  => 0,
+            'day'   => 0,
+            'week'  => 0,
+            'month' => 0,
+            'year'  => 0,
+        ];
+
+        $payload = [
+            'limits' => $limits,
+            'totals' => $totals,
+        ];
+
+        add_site_option($option_name, $payload);
+    }
+
+    /**
+     * A Search Request was used. Inkrements the right stats Option values by 1.
+     *
+     * Receives the current UTC timestamp and adds it to the relevant Stats inside the options initialized before.
+     */
+    public function incrementRRZESearchStats(): void
+    {
+        if ( ! is_multisite() ) {
+            return;
+        }
+
+        $option_name  = 'rrze_search_network_limits_and_stats';
+        $lock_key     = $option_name . '_lock';
+        $lock_acquired = false;
+        $max_attempts  = 6;     // ~1.2s gesamt
+        $sleep_us      = 200000; // 200ms
+        $lock_ttl      = 3;     // Seconds
+
+        for ($i = 0; $i < $max_attempts; $i++) {
+            if ( function_exists('wp_cache_add') && wp_cache_add($lock_key, 1, '', $lock_ttl) ) {
+                $lock_acquired = true;
+                break;
+            }
+            usleep($sleep_us);
+        }
+
+        if ( ! $lock_acquired ) {
+            return;
+        }
+
+        try {
+            $data = get_site_option($option_name, null);
+
+            if ( ! is_array($data) ) {
+                $this->initializeNetworkSettings(0, 0, 0, 0, 0);
+
+                $data = get_site_option($option_name, null);
+                if ( ! is_array($data) ) {
+                    return;
+                }
+            }
+
+            if (empty($data['totals']) || !is_array($data['totals'])) {
+                $data['totals'] = [];
+            }
+            foreach (['hour','day','week','month','year'] as $k) {
+                if (!isset($data['totals'][$k]) || !is_int($data['totals'][$k])) {
+                    $data['totals'][$k] = 0;
+                }
+            }
+
+            $data['totals']['hour']  += 1;
+            $data['totals']['day']   += 1;
+            $data['totals']['week']  += 1;
+            $data['totals']['month'] += 1;
+            $data['totals']['year']  += 1;
+
+            update_site_option($option_name, $data);
+        } finally {
+            if ( function_exists('wp_cache_delete') ) {
+                wp_cache_delete($lock_key, '');
+            }
+        }
+    }
+
+    /**
+     * Available Hook-Handler: Fired by do_action('rrze_search_increment', $context).
+     *
+     * @param array $context Frei wählbare Metadaten (z. B. ['source' => 'my-plugin', 'site_id' => get_current_blog_id()])
+     * @return void
+     */
+    public function handleIncrement(array $context = []): void
+    {
+        $should_increment = apply_filters('rrze_search_should_increment', true, $context);
+
+        if ( ! $should_increment ) {
+            return;
+        }
+
+        $this->incrementRRZESearchStats();
+
+        do_action('rrze_search_after_increment', $context);
+    }
+
+    public function cronResetHour(): void
+    {
+        if ( ! $this->isMainSiteCron() ) {
+            return;
+        }
+        $this->resetTotals(['hour']);
+        wp_schedule_single_event($this->nextBoundary('hour'), 'rrze_search_reset_hour');
+    }
+
+    public function cronResetWeek(): void
+    {
+        if ( ! $this->isMainSiteCron() ) {
+            return;
+        }
+        $this->resetTotals(['week']);
+        wp_schedule_single_event($this->nextBoundary('week'), 'rrze_search_reset_week');
+    }
+
+    public function cronResetMonth(): void
+    {
+        if ( ! $this->isMainSiteCron() ) {
+            return;
+        }
+        $this->resetTotals(['month']);
+        wp_schedule_single_event($this->nextBoundary('month'), 'rrze_search_reset_month');
+    }
+
+    public function cronResetYear(): void
+    {
+        if ( ! $this->isMainSiteCron() ) {
+            return;
+        }
+        $this->resetTotals(['year']);
+        wp_schedule_single_event($this->nextBoundary('year'), 'rrze_search_reset_year');
+    }
+
+    /**
+     * Resettet die angegebenen Keys in totals auf 0 (mit Soft-Lock).
+     */
+    private function resetTotals(array $keys): void
+    {
+        if ( ! is_multisite() ) {
+            return;
+        }
+
+        $option_name   = 'rrze_search_network_limits_and_stats';
+        $lock_key      = $option_name . '_lock';
+        $lock_acquired = false;
+        $max_attempts  = 6;
+        $sleep_us      = 200000; // 200ms
+        $lock_ttl      = 3;
+
+        for ($i = 0; $i < $max_attempts; $i++) {
+            if ( function_exists('wp_cache_add') && wp_cache_add($lock_key, 1, '', $lock_ttl) ) {
+                $lock_acquired = true;
+                break;
+            }
+            usleep($sleep_us);
+        }
+
+        if ( ! $lock_acquired ) {
+            return;
+        }
+
+        try {
+            $data = get_site_option($option_name, null);
+            if ( ! is_array($data) ) {
+                return;
+            }
+
+            if (empty($data['totals']) || !is_array($data['totals'])) {
+                $data['totals'] = [];
+            }
+
+            foreach ($keys as $k) {
+                if (!isset($data['totals'][$k]) || !is_int($data['totals'][$k])) {
+                    $data['totals'][$k] = 0;
+                } else {
+                    $data['totals'][$k] = 0;
+                }
+            }
+
+            update_site_option($option_name, $data);
+        } finally {
+            if ( function_exists('wp_cache_delete') ) {
+                wp_cache_delete($lock_key, '');
+            }
+        }
+    }
+
+    private function isMainSiteCron(): bool
+    {
+        return ( is_multisite() && is_main_site() );
     }
 
     /**
