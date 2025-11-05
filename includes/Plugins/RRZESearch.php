@@ -57,6 +57,8 @@ class RRZESearch
         if (!$this->pluginExists(self::PLUGIN) || !$this->isPluginActive(self::PLUGIN)) {
             return;
         }
+
+        $this->maybeInitializeNetworkLimitsFromSettings();
     }
 
     /**
@@ -169,6 +171,106 @@ class RRZESearch
         ];
 
         add_site_option($option_name, $payload);
+    }
+
+    /**
+     * Update the stored RRZE Search limits without altering the collected totals.
+     *
+     * @param array<string,int> $limits
+     * @return void
+     */
+    public static function updateNetworkLimits(array $limits): void
+    {
+        if ( ! is_multisite() ) {
+            return;
+        }
+
+        $allowedKeys = ['hour', 'day', 'week', 'month', 'year'];
+        $normalized = [];
+        foreach ($allowedKeys as $key) {
+            if (array_key_exists($key, $limits)) {
+                $normalized[$key] = max(0, (int) $limits[$key]);
+            }
+        }
+
+        $option_name = 'rrze_search_network_limits_and_stats';
+        $data = get_site_option($option_name, null);
+
+        if ( ! is_array($data) ) {
+            self::initializeNetworkSettings(
+                $normalized['hour'] ?? 0,
+                $normalized['day'] ?? 0,
+                $normalized['week'] ?? 0,
+                $normalized['month'] ?? 0,
+                $normalized['year'] ?? 0
+            );
+
+            $data = get_site_option($option_name, null);
+            if ( ! is_array($data) ) {
+                return;
+            }
+        }
+
+        if (empty($data['limits']) || !is_array($data['limits'])) {
+            $data['limits'] = [];
+        }
+
+        foreach ($normalized as $period => $value) {
+            $data['limits'][$period] = $value;
+        }
+
+        update_site_option($option_name, $data);
+    }
+
+    /**
+     * Fetch the configured RRZE Search limits.
+     *
+     * @return array<string,int>
+     */
+    public static function getNetworkLimits(): array
+    {
+        if ( ! is_multisite() ) {
+            return [];
+        }
+
+        $option = get_site_option('rrze_search_network_limits_and_stats', null);
+        if ( ! is_array($option) || empty($option['limits']) || !is_array($option['limits']) ) {
+            return [];
+        }
+
+        $limits = [];
+        foreach (['hour', 'day', 'week', 'month', 'year'] as $period) {
+            if (isset($option['limits'][$period])) {
+                $limits[$period] = max(0, (int) $option['limits'][$period]);
+            }
+        }
+
+        return $limits;
+    }
+
+    /**
+     * Ensure the limits option exists by seeding it from stored plugin settings.
+     */
+    protected function maybeInitializeNetworkLimitsFromSettings(): void
+    {
+        if ( ! is_multisite() || ! is_main_site() ) {
+            return;
+        }
+
+        $option = get_site_option('rrze_search_network_limits_and_stats', null);
+        if (is_array($option) && isset($option['limits'])) {
+            return;
+        }
+
+        $siteOptions = Options::getSiteOptions();
+        $pluginOptions = $siteOptions->plugins ?? null;
+
+        $limitDay = isset($pluginOptions->rrze_search_limit_daily) ? max(0, (int) $pluginOptions->rrze_search_limit_daily) : 0;
+        $limitWeek = isset($pluginOptions->rrze_search_limit_weekly) ? max(0, (int) $pluginOptions->rrze_search_limit_weekly) : 0;
+        $limitMonth = isset($pluginOptions->rrze_search_limit_monthly) ? max(0, (int) $pluginOptions->rrze_search_limit_monthly) : 0;
+        $limitYear = isset($pluginOptions->rrze_search_limit_yearly) ? max(0, (int) $pluginOptions->rrze_search_limit_yearly) : 0;
+
+        self::initializeNetworkSettings(0, $limitDay, $limitWeek, $limitMonth, $limitYear);
     }
 
     /**

@@ -118,6 +118,16 @@ class Settings extends MainSettings
         $searchEngineKeys = $this->sanitizeTextarea($input['rrze_search_engine_keys'], false);
         $input['rrze_search_engine_keys'] = !empty($searchEngineKeys) ? $searchEngineKeys : '';
 
+        $limitDaily = $this->sanitizeSearchLimit($input['rrze_search_limit_daily'] ?? '');
+        $limitWeekly = $this->sanitizeSearchLimit($input['rrze_search_limit_weekly'] ?? '');
+        $limitMonthly = $this->sanitizeSearchLimit($input['rrze_search_limit_monthly'] ?? '');
+        $limitYearly = $this->sanitizeSearchLimit($input['rrze_search_limit_yearly'] ?? '');
+
+        $input['rrze_search_limit_daily'] = $limitDaily;
+        $input['rrze_search_limit_weekly'] = $limitWeekly;
+        $input['rrze_search_limit_monthly'] = $limitMonthly;
+        $input['rrze_search_limit_yearly'] = $limitYearly;
+
         $input['rrze_webt_api_url'] = !empty($input['rrze_webt_api_url']) ? sanitize_text_field($input['rrze_webt_api_url']) : '';
         $input['rrze_webt_application_name'] = !empty($input['rrze_webt_application_name']) ? sanitize_text_field($input['rrze_webt_application_name']) : '';
         $input['rrze_webt_password'] = !empty($input['rrze_webt_password']) ? sanitize_text_field($input['rrze_webt_password']) : '';
@@ -126,7 +136,18 @@ class Settings extends MainSettings
         $exceptions = !empty($exceptions) ? $this->sanitizeWebsitesExceptions($exceptions) : '';
         $input['rrze_webt_exceptions'] = !empty($exceptions) ? $exceptions : '';
 
-        return $this->parseOptionsValidate($input, 'plugins');
+        $options = $this->parseOptionsValidate($input, 'plugins');
+
+        if (is_multisite() && $this->pluginExists(RRZESearch::PLUGIN)) {
+            RRZESearch::updateNetworkLimits([
+                'day' => $limitDaily,
+                'week' => $limitWeekly,
+                'month' => $limitMonthly,
+                'year' => $limitYearly,
+            ]);
+        }
+
+        return $options;
     }
 
     /**
@@ -207,7 +228,7 @@ class Settings extends MainSettings
         if ($this->pluginExists(RRZESearch::PLUGIN)) {
             add_settings_section(
                 'rrze-settings-plugins-rrze-search',
-                __('RRZE Settings', 'rrze-settings'),
+                __('RRZE Search Settings', 'rrze-settings'),
                 '__return_false',
                 $this->menuPage
             );
@@ -216,6 +237,38 @@ class Settings extends MainSettings
                 'rrze_search_engine_keys',
                 __('Search Engine Keys', 'rrze-settings'),
                 [$this, 'rrzeSearchEngineKeysField'],
+                $this->menuPage,
+                'rrze-settings-plugins-rrze-search'
+            );
+
+            add_settings_field(
+                'rrze_search_limit_daily',
+                __('Daily Limit', 'rrze-settings'),
+                [$this, 'rrzeSearchLimitDailyField'],
+                $this->menuPage,
+                'rrze-settings-plugins-rrze-search'
+            );
+
+            add_settings_field(
+                'rrze_search_limit_weekly',
+                __('Weekly Limit', 'rrze-settings'),
+                [$this, 'rrzeSearchLimitWeeklyField'],
+                $this->menuPage,
+                'rrze-settings-plugins-rrze-search'
+            );
+
+            add_settings_field(
+                'rrze_search_limit_monthly',
+                __('Monthly Limit', 'rrze-settings'),
+                [$this, 'rrzeSearchLimitMonthlyField'],
+                $this->menuPage,
+                'rrze-settings-plugins-rrze-search'
+            );
+
+            add_settings_field(
+                'rrze_search_limit_yearly',
+                __('Yearly Limit', 'rrze-settings'),
+                [$this, 'rrzeSearchLimitYearlyField'],
                 $this->menuPage,
                 'rrze-settings-plugins-rrze-search'
             );
@@ -480,6 +533,104 @@ class Settings extends MainSettings
         echo esc_html__('Optional line 4: Description', 'rrze-settings'), '<br>';
         echo esc_html__('Add multiple engines by adding additional 3/4-line blocks (no empty lines required).', 'rrze-settings');
         echo '</p>';
+    }
+
+    /**
+     * RRZE Search – Daily limit field.
+     */
+    public function rrzeSearchLimitDailyField()
+    {
+        $this->renderSearchLimitField(
+            'rrze_search_limit_daily',
+            'day',
+            'rrze-search-limit-daily',
+            __('Maximum number of RRZE Search requests per day. Use 0 for unlimited.', 'rrze-settings')
+        );
+    }
+
+    /**
+     * RRZE Search – Weekly limit field.
+     */
+    public function rrzeSearchLimitWeeklyField()
+    {
+        $this->renderSearchLimitField(
+            'rrze_search_limit_weekly',
+            'week',
+            'rrze-search-limit-weekly',
+            __('Maximum number of RRZE Search requests per week. Use 0 for unlimited.', 'rrze-settings')
+        );
+    }
+
+    /**
+     * RRZE Search – Monthly limit field.
+     */
+    public function rrzeSearchLimitMonthlyField()
+    {
+        $this->renderSearchLimitField(
+            'rrze_search_limit_monthly',
+            'month',
+            'rrze-search-limit-monthly',
+            __('Maximum number of RRZE Search requests per month. Use 0 for unlimited.', 'rrze-settings')
+        );
+    }
+
+    /**
+     * RRZE Search – Yearly limit field.
+     */
+    public function rrzeSearchLimitYearlyField()
+    {
+        $this->renderSearchLimitField(
+            'rrze_search_limit_yearly',
+            'year',
+            'rrze-search-limit-yearly',
+            __('Maximum number of RRZE Search requests per year. Use 0 for unlimited.', 'rrze-settings')
+        );
+    }
+
+    /**
+     * Render a numeric input for RRZE Search limits.
+     *
+     * @param string $optionKey
+     * @param string $periodKey
+     * @param string $inputId
+     * @param string $description
+     * @return void
+     */
+    protected function renderSearchLimitField(string $optionKey, string $periodKey, string $inputId, string $description): void
+    {
+        $value = $this->getSearchLimitValue($optionKey, $periodKey);
+        $name = sprintf('%s[%s]', $this->optionName, $optionKey);
+
+        printf(
+            '<input type="number" class="small-text" id="%1$s" name="%2$s" value="%3$s" min="0" step="1" placeholder="0">',
+            esc_attr($inputId),
+            esc_attr($name),
+            esc_attr($value)
+        );
+
+        echo '<p class="description">', esc_html($description), '</p>';
+    }
+
+    /**
+     * Resolve the value that should be shown for a RRZE Search limit field.
+     *
+     * @param string $optionKey
+     * @param string $periodKey
+     * @return string
+     */
+    protected function getSearchLimitValue(string $optionKey, string $periodKey): string
+    {
+        $optionValue = $this->siteOptions->plugins->$optionKey;
+
+        if ($optionValue === null || $optionValue === '') {
+            $networkLimits = RRZESearch::getNetworkLimits();
+            if (isset($networkLimits[$periodKey])) {
+                return (string) max(0, (int) $networkLimits[$periodKey]);
+            }
+            return '';
+        }
+
+        return (string) max(0, (int) $optionValue);
     }
 
     /**
@@ -793,6 +944,25 @@ class Settings extends MainSettings
         }
         ksort($exceptions);
         return $exceptions;
+    }
+
+    /**
+     * Sanitize RRZE Search limit values.
+     *
+     * @param mixed $value
+     * @return int
+     */
+    protected function sanitizeSearchLimit($value): int
+    {
+        if ($value === null || $value === '') {
+            return 0;
+        }
+
+        if (!is_numeric($value)) {
+            return 0;
+        }
+
+        return max(0, (int) $value);
     }
 
     /**
