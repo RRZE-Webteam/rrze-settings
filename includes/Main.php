@@ -4,6 +4,7 @@ namespace RRZE\Settings;
 
 defined('ABSPATH') || exit;
 
+use RRZE\Settings\Plugins\RRZESearch;
 use RRZE\Settings\Settings;
 use RRZE\Settings\General\General;
 use RRZE\Settings\Posts\Posts;
@@ -144,6 +145,9 @@ class Main
 
         // Advanced
         (new Advanced())->loaded();
+
+        // RRZE Search
+        new RRZESearch();
     }
 
     /**
