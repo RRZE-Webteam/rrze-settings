@@ -161,7 +161,7 @@ class CSP extends Main
                 $output[] = sprintf('%1$s %2$s%3$s', $this->sanitizeKey($key), $this->sanitizeValue($this->siteOptions->csp->$key), $oembedDomains);
             }
         }
-        return implode('; ', $output);
+        return implode('; ', $output) . ';';
     }
 
     /**
