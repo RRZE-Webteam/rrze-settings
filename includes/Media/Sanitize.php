@@ -30,7 +30,7 @@ class Sanitize
      */
     public function sanitizeFilename($filename = '')
     {
-        if (seems_utf8($filename)) {
+        if (wp_is_valid_utf8($filename)) {
             $filename = $this->transliterator($filename);
         }
         $fileParts = explode('.', $filename);
