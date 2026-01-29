@@ -40,8 +40,9 @@ class Options
                 'script_src' => '\'self\' \'unsafe-inline\'',
                 'style_src' => '\'self\' \'unsafe-inline\'',
                 'img_src' => '\'self\' data: *.gravatar.com',
-                'connect_src' => '\'self\'',
                 'font_src' => '\'self\' data:',
+                'connect_src' => '\'self\'',
+                'frame_src' => '\'self\'',
             ],
             'heartbeat' => [
                 'disable_frontend' => '0',
