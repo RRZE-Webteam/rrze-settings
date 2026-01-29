@@ -87,6 +87,10 @@ class Settings extends MainSettings
             $input['connect_src'] = $this->sanitizeDirectiveField($input, 'connect_src');
         }
 
+        if (isset($input['frame_src'])) {
+            $input['frame_src'] = $this->sanitizeDirectiveField($input, 'frame_src');
+        }
+
         return $this->parseOptionsValidate($input, 'csp');
     }
 
@@ -164,6 +168,14 @@ class Settings extends MainSettings
                 'connect_src',
                 __('connect-src', 'rrze-settings'),
                 [$this, 'connectSrcField'],
+                $this->menuPage,
+                $this->directivesSectionName
+            );
+
+            add_settings_field(
+                'frame_src',
+                __('frame-src', 'rrze-settings'),
+                [$this, 'frameSrcField'],
                 $this->menuPage,
                 $this->directivesSectionName
             );
@@ -280,6 +292,19 @@ class Settings extends MainSettings
     ?>
         <textarea rows="5" cols="55" id="rrze-settings-connect-src" class="regular-text" name="<?php printf('%s[connect_src]', $this->optionName); ?>" aria-describedby="rrze-settings-connect-src"><?php echo $this->getDirectiveOption($this->siteOptions->csp->connect_src, 'connect_src'); ?></textarea>
         <p class="description"><?php _e('Applies to XMLHttpRequest (AJAX), WebSocket or EventSource. If not allowed the browser emulates a 400 HTTP status code.', 'rrze-settings'); ?></p>
+    <?php
+    }
+
+    /**
+     * Display the frame_src field
+     * 
+     * @return void
+     */
+    public function frameSrcField()
+    {
+    ?>
+        <textarea rows="5" cols="55" id="rrze-settings-frame-src" class="regular-text" name="<?php printf('%s[frame_src]', $this->optionName); ?>" aria-describedby="rrze-settings-frame-src"><?php echo $this->getDirectiveOption($this->siteOptions->csp->frame_src, 'frame_src'); ?></textarea>
+        <p class="description"><?php echo esc_html__('Defines valid sources for embedding the resource using <frame> or <iframe>.', 'rrze-settings'); ?></p>
 <?php
     }
 
@@ -296,7 +321,8 @@ class Settings extends MainSettings
         $inputAry = explode(PHP_EOL, sanitize_text_field($input));
         $inputAry = array_filter(array_map('trim', $inputAry));
         if (empty($inputAry)) {
-            return $this->defaultOptions->csp->$directive;
+            // return $this->defaultOptions->csp->$directive;
+            return '';
         }
         $none = '\'none\'';
         $isNone = false;
@@ -324,8 +350,9 @@ class Settings extends MainSettings
         $inputAry = array_map('stripslashes', explode(' ', $input));
         $inputAry = array_filter(array_map('trim', $inputAry));
         if (empty($inputAry)) {
-            $inputAry = explode(' ', $this->defaultOptions->csp->$directive);
-            $inputAry = array_filter(array_map('trim', $inputAry));
+            // $inputAry = explode(' ', $this->defaultOptions->csp->$directive);
+            // $inputAry = array_filter(array_map('trim', $inputAry));
+            $inputAry = [];
         }
         return implode(PHP_EOL, $inputAry);
     }
