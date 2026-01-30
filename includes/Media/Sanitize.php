@@ -30,9 +30,13 @@ class Sanitize
      */
     public function sanitizeFilename($filename = '')
     {
-        if (wp_is_valid_utf8($filename)) {
+        if (
+            (function_exists('wp_is_valid_utf8') && wp_is_valid_utf8($filename))
+            || (!function_exists('wp_is_valid_utf8') && seems_utf8($filename))
+        ) {
             $filename = $this->transliterator($filename);
         }
+
         $fileParts = explode('.', $filename);
         $extension = array_pop($fileParts);
         $extension = mb_strtolower($extension);
