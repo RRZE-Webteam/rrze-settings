@@ -33,7 +33,7 @@ The following methods can be used by other plugins:
 
 Requirements
 
--WP >= 6.7
+-WP >= 6.8
 -PHP >= 8.2
 -Node.js >= 22.8.0
 -npm >= 10.8.2
