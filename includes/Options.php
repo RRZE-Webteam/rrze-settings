@@ -136,6 +136,7 @@ class Options
                 'autosave_interval' => 60,
                 'sync_autosave' => 0,
                 'enable_block_editor' => 0,
+                'enable_block_editor_new_sites' => 0,
                 'try_enable_block_editor' => 0,
                 'enable_classic_editor' => 1,
                 'allowed_post_types' => '',
