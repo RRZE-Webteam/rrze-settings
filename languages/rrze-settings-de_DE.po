@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RRZE Settings\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-settings\n"
-"POT-Creation-Date: 2025-10-17T12:19:58+00:00\n"
-"PO-Revision-Date: 2025-10-17 14:34+0200\n"
+"POT-Creation-Date: 2026-02-19T11:50:54+00:00\n"
+"PO-Revision-Date: 2026-02-19 12:58+0100\n"
 "Last-Translator: RRZE Webteam <webmaster@fau.de>\n"
 "Language-Team: Deutsch\n"
 "Language: de_DE\n"
@@ -14,7 +14,7 @@ msgstr ""
 "X-Generator: Poedit 3.8\n"
 
 #. Plugin Name of the plugin
-#: rrze-settings.php includes/Plugins/Settings.php:210
+#: rrze-settings.php
 msgid "RRZE Settings"
 msgstr "RRZE-Einstellungen"
 
@@ -81,43 +81,47 @@ msgstr ""
 msgid "Content Security Police"
 msgstr "Content-Security-Police"
 
-#: includes/CSP/Settings.php:49 includes/CSP/Settings.php:102
+#: includes/CSP/Settings.php:49 includes/CSP/Settings.php:106
 msgid "CSP"
 msgstr "CSP"
 
-#: includes/CSP/Settings.php:109
+#: includes/CSP/Settings.php:113
 msgid "Enable CSP"
 msgstr "CSP aktivieren"
 
-#: includes/CSP/Settings.php:118
+#: includes/CSP/Settings.php:122
 msgid "Directives"
 msgstr "Direktiven"
 
-#: includes/CSP/Settings.php:125
+#: includes/CSP/Settings.php:129
 msgid "default-src"
 msgstr "default-src"
 
-#: includes/CSP/Settings.php:133
+#: includes/CSP/Settings.php:137
 msgid "script-src"
 msgstr "script-src"
 
-#: includes/CSP/Settings.php:141
+#: includes/CSP/Settings.php:145
 msgid "style-src"
 msgstr "style-src"
 
-#: includes/CSP/Settings.php:149
+#: includes/CSP/Settings.php:153
 msgid "img-src"
 msgstr "img-src"
 
-#: includes/CSP/Settings.php:157
+#: includes/CSP/Settings.php:161
 msgid "font-src"
 msgstr "font-src"
 
-#: includes/CSP/Settings.php:165
+#: includes/CSP/Settings.php:169
 msgid "connect-src"
 msgstr "connect-src"
 
-#: includes/CSP/Settings.php:180
+#: includes/CSP/Settings.php:177
+msgid "frame-src"
+msgstr "frame-src"
+
+#: includes/CSP/Settings.php:192
 msgid ""
 "The Content-Security-Policy HTTP response header helps to reduce XSS risks "
 "on modern browsers by declaring, which dynamic resources are allowed to load."
@@ -126,7 +130,7 @@ msgstr ""
 "modernen Browsern zu reduzieren, indem er angibt, welche dynamischen "
 "Ressourcen geladen werden dürfen."
 
-#: includes/CSP/Settings.php:190
+#: includes/CSP/Settings.php:202
 msgid ""
 "The Content-Security-Policy header value is made up of one or more "
 "directives (defined below). All of these directives ending in -src support "
@@ -139,11 +143,11 @@ msgstr ""
 "Mehrere Quelllistenwerte können durch eine neue Zeile getrennt werden, mit "
 "Ausnahme von 'none', das der einzige Wert sein sollte."
 
-#: includes/CSP/Settings.php:203
+#: includes/CSP/Settings.php:215
 msgid "Enable Content Security Police"
 msgstr "Content-Security-Policy aktivieren"
 
-#: includes/CSP/Settings.php:217
+#: includes/CSP/Settings.php:229
 msgid ""
 "The default-src is the default policy for loading content such as "
 "JavaScript, Images, CSS, Fonts, AJAX requests, Frames, HTML5 Media."
@@ -151,29 +155,36 @@ msgstr ""
 "Das default-src ist die Standard-Policy für das Laden von Inhalten wie "
 "JavaScript, Bilder, CSS, Schriften, AJAX-Anfragen, Frames, HTML5-Medien."
 
-#: includes/CSP/Settings.php:230
+#: includes/CSP/Settings.php:242
 msgid "Defines valid sources of JavaScript."
 msgstr "Definiert gültige Quellen von JavaScript."
 
-#: includes/CSP/Settings.php:243
+#: includes/CSP/Settings.php:255
 msgid "Defines valid sources of stylesheets."
 msgstr "Definiert gültige Quellen von Stylesheets."
 
-#: includes/CSP/Settings.php:256
+#: includes/CSP/Settings.php:268
 msgid "Defines valid sources of images."
 msgstr "Definiert gültige Bildquellen."
 
-#: includes/CSP/Settings.php:269
+#: includes/CSP/Settings.php:281
 msgid "Defines valid sources of fonts."
 msgstr "Definiert gültige Schriftquellen."
 
-#: includes/CSP/Settings.php:282
+#: includes/CSP/Settings.php:294
 msgid ""
 "Applies to XMLHttpRequest (AJAX), WebSocket or EventSource. If not allowed "
 "the browser emulates a 400 HTTP status code."
 msgstr ""
 "Gilt für XMLHttpRequest (AJAX), WebSocket oder EventSource. Wenn nicht "
 "erlaubt, emuliert der Browser einen 400 HTTP-Statuscode."
+
+#: includes/CSP/Settings.php:307
+msgid ""
+"Defines valid sources for embedding the resource using <frame> or <iframe>."
+msgstr ""
+"Legt gültige Quellen fest, über die die Ressource mittels <frame> oder "
+"<iframe> eingebettet werden darf."
 
 #: includes/Discussion/Settings.php:41 includes/Discussion/Settings.php:42
 #: includes/Discussion/Settings.php:72
@@ -361,7 +372,7 @@ msgid "Editor interval"
 msgstr "Editor-Intervall"
 
 #: includes/Heartbeat/Settings.php:178 includes/Heartbeat/Settings.php:193
-#: includes/Writing/Settings.php:223
+#: includes/Writing/Settings.php:231
 msgid "seconds"
 msgstr "Sekunden"
 
@@ -731,140 +742,160 @@ msgid "Enhanced menu search"
 msgstr "Erweiterte Menüsuche"
 
 #: includes/Plugins/Settings.php:37 includes/Plugins/Settings.php:38
-#: includes/Plugins/Settings.php:141
+#: includes/Plugins/Settings.php:162
 msgid "Plugins"
 msgstr "Plugins"
 
-#: includes/Plugins/Settings.php:149
+#: includes/Plugins/Settings.php:170
 msgid "DIP"
 msgstr "DIP"
 
-#: includes/Plugins/Settings.php:156
+#: includes/Plugins/Settings.php:177
 msgid "DIP API Key"
 msgstr "DIP API-Key"
 
-#: includes/Plugins/Settings.php:164
+#: includes/Plugins/Settings.php:185
 msgid "DIP Edu API key"
 msgstr "DIP Edu-API-Key"
 
-#: includes/Plugins/Settings.php:174
+#: includes/Plugins/Settings.php:195
 msgid "FAUdir"
 msgstr "FAUdir"
 
-#: includes/Plugins/Settings.php:181
+#: includes/Plugins/Settings.php:202
 msgid "FAUdir API Key"
 msgstr "FAUdir-API-Key"
 
-#: includes/Plugins/Settings.php:192
+#: includes/Plugins/Settings.php:213
 msgid "RRZE Jobs"
 msgstr "RRZE-Jobs"
 
-#: includes/Plugins/Settings.php:199
+#: includes/Plugins/Settings.php:220
 msgid "B-ITE API Key"
 msgstr "B-ITE-API-Key"
 
-#: includes/Plugins/Settings.php:217
+#: includes/Plugins/Settings.php:231
+msgid "RRZE Search Settings"
+msgstr "RRZE-Sucheinstellungen"
+
+#: includes/Plugins/Settings.php:238
 msgid "Search Engine Keys"
 msgstr "API-Schlüssel für Suchmaschinen"
 
-#: includes/Plugins/Settings.php:228
+#: includes/Plugins/Settings.php:246
+msgid "Daily Limit"
+msgstr "Tageslimit"
+
+#: includes/Plugins/Settings.php:254
+msgid "Weekly Limit"
+msgstr "Wochenlimit"
+
+#: includes/Plugins/Settings.php:262
+msgid "Monthly Limit"
+msgstr "Monatslimit"
+
+#: includes/Plugins/Settings.php:270
+msgid "Yearly Limit"
+msgstr "Jahreslimit"
+
+#: includes/Plugins/Settings.php:281
 msgid "RRZE WebT"
 msgstr "RRZE-WebT"
 
-#: includes/Plugins/Settings.php:235
+#: includes/Plugins/Settings.php:288
 msgid "API Endpoint URL"
 msgstr "API-Endpunkt-URL"
 
-#: includes/Plugins/Settings.php:243
+#: includes/Plugins/Settings.php:296
 msgid "Application Name"
 msgstr "Anwendungsname"
 
-#: includes/Plugins/Settings.php:251
+#: includes/Plugins/Settings.php:304
 msgid "Password"
 msgstr "Passwort"
 
-#: includes/Plugins/Settings.php:259 includes/Plugins/Settings.php:286
-#: includes/Plugins/Settings.php:387
+#: includes/Plugins/Settings.php:312 includes/Plugins/Settings.php:339
+#: includes/Plugins/Settings.php:440
 msgid "Exceptions"
 msgstr "Ausnahmen"
 
-#: includes/Plugins/Settings.php:270
+#: includes/Plugins/Settings.php:323
 msgid "RRZE Newsletter"
 msgstr "RRZE-Newsletter"
 
-#: includes/Plugins/Settings.php:277
+#: includes/Plugins/Settings.php:330
 msgid "Global Settings"
 msgstr "Globale Einstellungen"
 
-#: includes/Plugins/Settings.php:294
+#: includes/Plugins/Settings.php:347
 msgid "Allowed domains for Envelope Sender"
 msgstr "Zulässige Domains für Envelope-Sender"
 
-#: includes/Plugins/Settings.php:302
+#: includes/Plugins/Settings.php:355
 msgid "Send Limit"
 msgstr "Sende-Limit"
 
-#: includes/Plugins/Settings.php:310
+#: includes/Plugins/Settings.php:363
 msgid "Max. Retries"
 msgstr "Max. Wiederholungen"
 
-#: includes/Plugins/Settings.php:318
+#: includes/Plugins/Settings.php:371
 msgid "Disable subscription"
 msgstr "Abonnement deaktivieren"
 
-#: includes/Plugins/Settings.php:326
+#: includes/Plugins/Settings.php:379
 msgid "Allowed domains for recipients"
 msgstr "Zulässige Domains für Empfänger"
 
-#: includes/Plugins/Settings.php:338
+#: includes/Plugins/Settings.php:391
 msgid "CMS Workflow"
 msgstr "CMS-Workflow"
 
-#: includes/Plugins/Settings.php:345
+#: includes/Plugins/Settings.php:398
 msgid "Not Allowed Post Types"
 msgstr "Nicht zulässige Post-Types"
 
-#: includes/Plugins/Settings.php:356
+#: includes/Plugins/Settings.php:409
 msgid "WS Form"
 msgstr "WS-Form"
 
-#: includes/Plugins/Settings.php:363
+#: includes/Plugins/Settings.php:416
 msgid "License Key"
 msgstr "Lizenz-Key"
 
-#: includes/Plugins/Settings.php:371
+#: includes/Plugins/Settings.php:424
 msgid "PDF Add-On License Key"
 msgstr "PDF Add-On Lizenz-Key"
 
-#: includes/Plugins/Settings.php:379
+#: includes/Plugins/Settings.php:432
 msgid "Not Allowed Field Types"
 msgstr "Nicht zulässige Feldtypen"
 
-#: includes/Plugins/Settings.php:398
+#: includes/Plugins/Settings.php:451
 msgid "Contact Form 7"
 msgstr "CF7"
 
-#: includes/Plugins/Settings.php:405
+#: includes/Plugins/Settings.php:458
 msgid "Dequeue scripts"
 msgstr "Skripte aus Queue entfernen"
 
-#: includes/Plugins/Settings.php:416
+#: includes/Plugins/Settings.php:469
 msgid "SEO Framework"
 msgstr "SEO-Framework"
 
-#: includes/Plugins/Settings.php:423
+#: includes/Plugins/Settings.php:476
 msgid "Force activation"
 msgstr "Aktivierung erzwingen"
 
-#: includes/Plugins/Settings.php:433
+#: includes/Plugins/Settings.php:486
 msgid "Siteimprove"
 msgstr "Siteimprove"
 
-#: includes/Plugins/Settings.php:440
+#: includes/Plugins/Settings.php:493
 msgid "Crawler IP addresses"
 msgstr "Crawler-IP-Adressen"
 
-#: includes/Plugins/Settings.php:454
+#: includes/Plugins/Settings.php:507
 msgid ""
 "Network administrators can oversee and configure plugin settings across a "
 "multisite environment. The page automatically detects supported plugins and "
@@ -879,27 +910,27 @@ msgstr ""
 "eingeben, plugin‑spezifische Optionen anpassen und so eine effiziente, "
 "konsistente Verwaltung aller Websites im Netzwerk gewährleisten."
 
-#: includes/Plugins/Settings.php:476
+#: includes/Plugins/Settings.php:529
 msgid "Enter one search engine per block (3 or 4 lines):"
 msgstr "Bitte pro Block genau eine Suchmaschine angeben (3–4 Zeilen):"
 
-#: includes/Plugins/Settings.php:477
+#: includes/Plugins/Settings.php:530
 msgid "Line 1: Name"
 msgstr "1. Zeile: Name"
 
-#: includes/Plugins/Settings.php:478
+#: includes/Plugins/Settings.php:531
 msgid "Line 2: CX"
 msgstr "2. Zeile: CX"
 
-#: includes/Plugins/Settings.php:479
+#: includes/Plugins/Settings.php:532
 msgid "Line 3: API"
 msgstr "3. Zeile: API"
 
-#: includes/Plugins/Settings.php:480
+#: includes/Plugins/Settings.php:533
 msgid "Optional line 4: Description"
 msgstr "(Optional) 4. Zeile: Beschreibung"
 
-#: includes/Plugins/Settings.php:481
+#: includes/Plugins/Settings.php:534
 msgid ""
 "Add multiple engines by adding additional 3/4-line blocks (no empty lines "
 "required)."
@@ -907,20 +938,44 @@ msgstr ""
 "Mehrere Suchmaschinen können durch zusätzliche 3/4-Zeilen-Blöcke hinzugefügt "
 "werden – Leerzeilen sind nicht erforderlich."
 
-#: includes/Plugins/Settings.php:491
+#: includes/Plugins/Settings.php:547
+msgid "Maximum number of RRZE Search requests per day. Use 0 for unlimited."
+msgstr ""
+"Maximale Anzahl an RRZE-Search-Anfragen pro Tag. Verwenden Sie 0 für "
+"unbegrenzt."
+
+#: includes/Plugins/Settings.php:560
+msgid "Maximum number of RRZE Search requests per week. Use 0 for unlimited."
+msgstr ""
+"Maximale Anzahl an RRZE-Search-Anfragen pro Woche. Verwenden Sie 0 für "
+"unbegrenzt."
+
+#: includes/Plugins/Settings.php:573
+msgid "Maximum number of RRZE Search requests per month. Use 0 for unlimited."
+msgstr ""
+"Maximale Anzahl an RRZE-Search-Anfragen pro Monat. Verwenden Sie 0 für "
+"unbegrenzt."
+
+#: includes/Plugins/Settings.php:586
+msgid "Maximum number of RRZE Search requests per year. Use 0 for unlimited."
+msgstr ""
+"Maximale Anzahl an RRZE-Search-Anfragen pro Jahr. Verwenden Sie 0 für "
+"unbegrenzt."
+
+#: includes/Plugins/Settings.php:642
 msgid "The WebT API Url used for RRZE Webt."
 msgstr "Die WebT-API-URL, die von RRZE Webt verwendet wird."
 
-#: includes/Plugins/Settings.php:500
+#: includes/Plugins/Settings.php:651
 msgid "The WebT application name used for RRZE Webt."
 msgstr "Der WebT-Anwendungsname, der von RRZE Webt verwendet wird."
 
-#: includes/Plugins/Settings.php:509
+#: includes/Plugins/Settings.php:660
 msgid "The WebT password used for RRZE Webt."
 msgstr "Das WebT-Passwort, das von RRZE Webt verwendet wird."
 
-#: includes/Plugins/Settings.php:519 includes/Plugins/Settings.php:589
-#: includes/Plugins/Settings.php:682
+#: includes/Plugins/Settings.php:670 includes/Plugins/Settings.php:740
+#: includes/Plugins/Settings.php:833
 msgid ""
 "List of IDS of websites that are exempt to all global settings. Enter one "
 "website ID per line."
@@ -928,43 +983,43 @@ msgstr ""
 "Liste der IDs von Websites, die alle globalen Einstellungen befreit sind. "
 "Geben Sie eine Website-ID pro Zeile ein."
 
-#: includes/Plugins/Settings.php:529
+#: includes/Plugins/Settings.php:680
 msgid "Activate the global settings of the plugin"
 msgstr "Die globalen Einstellungen des Plugins aktivieren"
 
-#: includes/Plugins/Settings.php:540
+#: includes/Plugins/Settings.php:691
 msgid "List of allowed domains for envelope sender. Enter one domain per line."
 msgstr ""
 "Liste der zulässigen Domänen für Envelope-Sender. Geben Sie eine Domäne pro "
 "Zeile ein."
 
-#: includes/Plugins/Settings.php:549
+#: includes/Plugins/Settings.php:700
 msgid "Maximum number of emails that can be sent per minute."
 msgstr "Maximale Anzahl von E-Mails, die pro Minute gesendet werden können."
 
-#: includes/Plugins/Settings.php:558
+#: includes/Plugins/Settings.php:709
 msgid "Maximum number of retries until an email is sent successfully."
 msgstr ""
 "Maximale Anzahl von Wiederholungsversuchen, bis eine E-Mail erfolgreich "
 "gesendet wurde."
 
-#: includes/Plugins/Settings.php:568
+#: includes/Plugins/Settings.php:719
 msgid "Disables the subscription and mailing lists"
 msgstr "Deaktiviert die Abonnement und Mail-Listen"
 
-#: includes/Plugins/Settings.php:579
+#: includes/Plugins/Settings.php:730
 msgid "List of allowed domains for recipients. Enter one domain per line."
 msgstr ""
 "Liste der zulässigen Domänen für Empfänger. Geben Sie eine Domäne pro Zeile "
 "ein."
 
-#: includes/Plugins/Settings.php:599
+#: includes/Plugins/Settings.php:750
 msgid "List of not allowed post types. Enter one post type per line."
 msgstr ""
 "Liste der nicht erlaubten Post-Types. Geben Sie einen Post-Type pro Zeile "
 "ein."
 
-#: includes/Plugins/Settings.php:609
+#: includes/Plugins/Settings.php:760
 msgid ""
 "List of allowed IP addresses of the Siteimprove crawler in case there are "
 "access restrictions to the content of the website. Enter one IP address per "
@@ -973,16 +1028,16 @@ msgstr ""
 "Liste der zulässigen IP-Adressen des Siteimprove-Crawlers. Geben Sie eine IP-"
 "Adresse pro Zeile ein."
 
-#: includes/Plugins/Settings.php:619
+#: includes/Plugins/Settings.php:770
 msgid "Disables custom columns and metaboxes"
 msgstr "Deaktiviert benutzerdefinierte Spalten und Metaboxen"
 
-#: includes/Plugins/Settings.php:630
+#: includes/Plugins/Settings.php:781
 msgid "Dequeue Contact Form 7 scripts on the posts where it is not needed"
 msgstr ""
 "Dequeue Contact-Form-7-Skripte an den Posts, an denen es nicht benötigt wird"
 
-#: includes/Plugins/Settings.php:641
+#: includes/Plugins/Settings.php:792
 msgid ""
 "Forces the activation of the plugin if it exists and has not yet been "
 "activated"
@@ -990,32 +1045,32 @@ msgstr ""
 "Erzwingt die Aktivierung des Plugins, wenn es existiert und noch nicht "
 "aktiviert wurde"
 
-#: includes/Plugins/Settings.php:652
+#: includes/Plugins/Settings.php:803
 msgid "This license key will apply to all websites."
 msgstr "Dieser Lizenz-Key gilt für alle Websites."
 
-#: includes/Plugins/Settings.php:662
+#: includes/Plugins/Settings.php:813
 msgid "This add-on license key will apply to all websites."
 msgstr "Dieser Add-On-Lizenz-Key gilt für alle Websites."
 
-#: includes/Plugins/Settings.php:672
+#: includes/Plugins/Settings.php:823
 msgid "List of not allowed field types. Enter one field type per line."
 msgstr ""
 "Liste der nicht zulässigen Feldtypen. Geben Sie einen Feldtyp pro Zeile ein."
 
-#: includes/Plugins/Settings.php:691
+#: includes/Plugins/Settings.php:842
 msgid "The DIP API key used by some plugins."
 msgstr "Der DIP‑API‑Key, der von einigen Plugins verwendet wird."
 
-#: includes/Plugins/Settings.php:700
+#: includes/Plugins/Settings.php:851
 msgid "The DIP Edu API key used by some plugins."
 msgstr "Der DIP Edu‑API‑Key, der von einigen Plugins verwendet wird."
 
-#: includes/Plugins/Settings.php:709
+#: includes/Plugins/Settings.php:860
 msgid "The FAUdir API key to access the API service https://api.fau.de/."
 msgstr "Der FAUdir‑API‑Key zum Zugriff auf den API‑Dienst https://api.fau.de/."
 
-#: includes/Plugins/Settings.php:718
+#: includes/Plugins/Settings.php:869
 msgid "The B-ITE API key used for RRZE Jobs."
 msgstr "Der für RRZE-Jobs verwendete B—ITE-API-Key."
 
@@ -1515,45 +1570,49 @@ msgstr "Post-Sperre"
 msgid "Disable Custom Fields Metabox"
 msgstr "Metabox für benutzerdefinierte Felder deaktivieren"
 
-#: includes/Writing/Settings.php:155 includes/Writing/Settings.php:344
+#: includes/Writing/Settings.php:155 includes/Writing/Settings.php:352
 msgid "Default Editor"
 msgstr "Standardeditor"
 
-#: includes/Writing/Settings.php:165 includes/Writing/Settings.php:582
+#: includes/Writing/Settings.php:163
+msgid "Enable Block Editor for New Sites"
+msgstr "Block-Editor für neue Websites aktivieren"
+
+#: includes/Writing/Settings.php:173 includes/Writing/Settings.php:590
 msgid "Classic Editor"
 msgstr "Klassischer Editor"
 
-#: includes/Writing/Settings.php:173 includes/Writing/Settings.php:181
-#: includes/Writing/Settings.php:577
+#: includes/Writing/Settings.php:181 includes/Writing/Settings.php:189
+#: includes/Writing/Settings.php:585
 msgid "Block Editor"
 msgstr "Block-Editor"
 
-#: includes/Writing/Settings.php:190
+#: includes/Writing/Settings.php:198
 msgid "Post Types Exceptions"
 msgstr "Ausnahmen für Post-Types"
 
-#: includes/Writing/Settings.php:198
+#: includes/Writing/Settings.php:206
 msgid "Themes Exceptions"
 msgstr "Ausnahmen für Themes"
 
-#: includes/Writing/Settings.php:206
+#: includes/Writing/Settings.php:214
 msgid "Websites Exceptions"
 msgstr "Ausnahmen für Websites"
 
-#: includes/Writing/Settings.php:215
+#: includes/Writing/Settings.php:223
 msgid "Autosave Interval"
 msgstr "Autosave-Intervall"
 
-#: includes/Writing/Settings.php:224
+#: includes/Writing/Settings.php:232
 msgid "Interval in seconds for the autosave feature. Minimum is 15 seconds."
 msgstr ""
 "Intervall in Sekunden für die Autosave-Funktion. Minimum sind 15 Sekunden."
 
-#: includes/Writing/Settings.php:230
+#: includes/Writing/Settings.php:238
 msgid "Sync Autosave Interval With Heartbeat"
 msgstr "Autosave-Intervall mit Heartbeat synchronisieren"
 
-#: includes/Writing/Settings.php:236
+#: includes/Writing/Settings.php:244
 msgid ""
 "If enabled, the autosave interval will be synchronized with the Heartbeat "
 "API interval."
@@ -1561,51 +1620,51 @@ msgstr ""
 "Wenn aktiviert, wird das Autosave-Intervall mit dem Heartbeat-API-Intervall "
 "synchronisiert."
 
-#: includes/Writing/Settings.php:242
+#: includes/Writing/Settings.php:250
 msgid "Allowed Blocks"
 msgstr "Erlaubte Blöcke"
 
-#: includes/Writing/Settings.php:250
+#: includes/Writing/Settings.php:258
 msgid "Disabled Blocks"
 msgstr "Deaktivierte Blöcke"
 
-#: includes/Writing/Settings.php:258
+#: includes/Writing/Settings.php:266
 msgid "Disable Block Directory Assets"
 msgstr "Blockverzeichnis-Assets deaktivieren"
 
-#: includes/Writing/Settings.php:266
+#: includes/Writing/Settings.php:274
 msgid "Disable Remote Block Patterns"
 msgstr "Remote-Patterns deaktivieren"
 
-#: includes/Writing/Settings.php:274
+#: includes/Writing/Settings.php:282
 msgid "Disable Openverse Media"
 msgstr "Openverse Medien deaktivieren"
 
-#: includes/Writing/Settings.php:282
+#: includes/Writing/Settings.php:290
 msgid "Disable Font Library UI"
 msgstr "Schriftartenbibliothek-UI deaktivieren"
 
-#: includes/Writing/Settings.php:290
+#: includes/Writing/Settings.php:298
 msgid "Disable Code Editor"
 msgstr "Code-Editor deaktivieren"
 
-#: includes/Writing/Settings.php:298
+#: includes/Writing/Settings.php:306
 msgid "Code Editor Websites Exceptions"
 msgstr "Website-Ausnahmen für die Verwendung des Code-Editors"
 
-#: includes/Writing/Settings.php:306
+#: includes/Writing/Settings.php:314
 msgid "Deactivated Plugins"
 msgstr "Deaktivierte Plugins"
 
-#: includes/Writing/Settings.php:329
+#: includes/Writing/Settings.php:337
 msgid "Post Lock Interval"
 msgstr "Post-Sperrintervall"
 
-#: includes/Writing/Settings.php:356
+#: includes/Writing/Settings.php:364
 msgid "Allow switching editors"
 msgstr "Erlaube das Wechseln von Editoren"
 
-#: includes/Writing/Settings.php:370
+#: includes/Writing/Settings.php:378
 msgid ""
 "This page enables network administrators to manage writing-related settings "
 "across the multisite network. Available options include enabling or "
@@ -1625,15 +1684,15 @@ msgstr ""
 "standardisierte und kontrollierte Schreibumgebung auf allen Websites zu "
 "gewährleisten."
 
-#: includes/Writing/Settings.php:383
+#: includes/Writing/Settings.php:391
 msgid "Enable the post lock feature"
 msgstr "Aktivieren der Post-Sperrfunktion"
 
-#: includes/Writing/Settings.php:398
+#: includes/Writing/Settings.php:406
 msgid "Disables the custom fields metabox"
 msgstr "Deaktiviert die Metabox für benutzerdefinierte Felder"
 
-#: includes/Writing/Settings.php:412
+#: includes/Writing/Settings.php:420
 msgid ""
 "List of post types that always have the block editor enabled and no block "
 "restrictions. Enter one post type per line."
@@ -1642,7 +1701,7 @@ msgstr ""
 "denen es keine Blockbeschränkungen gibt. Geben Sie einen Post-Type pro Zeile "
 "ein."
 
-#: includes/Writing/Settings.php:425
+#: includes/Writing/Settings.php:433
 msgid ""
 "List of themes that always have the block editor enabled and no block "
 "restrictions. Enter one theme name per line."
@@ -1650,7 +1709,7 @@ msgstr ""
 "Liste der Themes, bei denen der Blockeditor immer aktiviert ist und keine "
 "Blockbeschränkungen gelten. Geben Sie pro Zeile einen Theme-Namen ein."
 
-#: includes/Writing/Settings.php:437
+#: includes/Writing/Settings.php:445
 msgid ""
 "List of websites ids that always have the block editor enabled and no block "
 "restrictions. Enter one website id per line."
@@ -1658,50 +1717,50 @@ msgstr ""
 "Liste der Website-IDs, bei denen der Blockeditor immer aktiviert ist und "
 "keine Blockbeschränkungen bestehen. Geben Sie eine Website-ID pro Zeile ein."
 
-#: includes/Writing/Settings.php:450
+#: includes/Writing/Settings.php:458
 msgid ""
 "List of allowed blocks. The * wildcard is supported at the end of a string."
 msgstr ""
 "Liste der zulässigen Blöcke. Das Platzhalterzeichen * wird am Ende einer "
 "Zeichenfolge unterstützt."
 
-#: includes/Writing/Settings.php:451
+#: includes/Writing/Settings.php:459
 msgid "If this field is left empty, all registered blocks will be available."
 msgstr ""
 "Wenn dieses Feld leer bleibt, sind alle registrierten Blöcke verfügbar."
 
-#: includes/Writing/Settings.php:452 includes/Writing/Settings.php:466
+#: includes/Writing/Settings.php:460 includes/Writing/Settings.php:474
 msgid "Enter one block type per line."
 msgstr "Geben Sie pro Zeile einen Blocktyp ein."
 
-#: includes/Writing/Settings.php:465
+#: includes/Writing/Settings.php:473
 msgid ""
 "List of disabled blocks. The * wildcard is supported at the end of a string."
 msgstr ""
 "Liste der deaktivierten Blöcke. Der Platzhalter * wird am Ende einer "
 "Zeichenfolge unterstützt."
 
-#: includes/Writing/Settings.php:480
+#: includes/Writing/Settings.php:488
 msgid "Remove Block Directory assets"
 msgstr "Blockverzeichnis-Assets entfernen"
 
-#: includes/Writing/Settings.php:495
+#: includes/Writing/Settings.php:503
 msgid "Disable remote block patterns"
 msgstr "Remote-Patterns deaktivieren"
 
-#: includes/Writing/Settings.php:510
+#: includes/Writing/Settings.php:518
 msgid "Disable loading of Openverse Media"
 msgstr "Laden von Openverse Media deaktivieren"
 
-#: includes/Writing/Settings.php:525
+#: includes/Writing/Settings.php:533
 msgid "Disable the Font Library user interface"
 msgstr "Benutzeroberfläche der Font-Bibliothek deaktivieren"
 
-#: includes/Writing/Settings.php:540
+#: includes/Writing/Settings.php:548
 msgid "Disable the Code Editor option from the Block Editor settings"
 msgstr "Die Option Code-Editor in den Block-Editor-Einstellungen deaktivieren"
 
-#: includes/Writing/Settings.php:554
+#: includes/Writing/Settings.php:562
 msgid ""
 "List of websites ids that always have the code editor enabled. Enter one "
 "website id per line."
@@ -1709,7 +1768,7 @@ msgstr ""
 "Liste der Website-IDs, bei denen der Code-Editor immer aktiviert ist. Geben "
 "Sie pro Zeile eine Website-ID ein."
 
-#: includes/Writing/Settings.php:562
+#: includes/Writing/Settings.php:570
 msgid ""
 "Plugins to disable when the block editor is active. Enter one plugin per "
 "line."
@@ -1717,28 +1776,32 @@ msgstr ""
 "Plugins, die deaktiviert werden sollen, wenn der Blockeditor aktiv ist. "
 "Geben Sie pro Zeile ein Plugin ein."
 
-#: includes/Writing/Settings.php:563
+#: includes/Writing/Settings.php:571
 msgid "The plugin name must be the same as in the plugins folder."
 msgstr "Der Plugin-Name muss mit dem im Plugin-Ordner übereinstimmen."
 
-#: includes/Writing/Settings.php:598
+#: includes/Writing/Settings.php:606
+msgid "Enable Block Editor for new sites"
+msgstr "Block-Editor für neue Websites aktivieren"
+
+#: includes/Writing/Settings.php:621
 msgid "Post Lock interval in seconds."
 msgstr "Post-Sperrinterval in Sekunden."
 
-#: includes/Writing/Settings.php:613
+#: includes/Writing/Settings.php:636
 msgid "Allow admins to switch editors"
 msgstr "Erlaube Administratoren, Editoren zu wechseln"
 
-#: includes/Writing/Settings.php:628
+#: includes/Writing/Settings.php:651
 msgid "Classic editor"
 msgstr "Klassischer Editor"
 
-#: includes/Writing/Settings.php:633
+#: includes/Writing/Settings.php:656
 msgid "Block editor"
 msgstr "Block-Editor"
 
 #. translators: %s: Plugin name
-#: includes/Writing/Writing.php:148
+#: includes/Writing/Writing.php:168
 #, php-format
 msgid ""
 "The plugin \"%s\" has been deactivated because the block editor is enabled "
@@ -1747,23 +1810,23 @@ msgstr ""
 "Das Plugin „%s“ wurde deaktiviert, da der Blockeditor auf dieser Website "
 "aktiviert ist."
 
-#: includes/Writing/Writing.php:286
+#: includes/Writing/Writing.php:306
 msgid "Editor"
 msgstr "Editor"
 
-#: includes/Writing/Writing.php:321 includes/Writing/Writing.php:345
+#: includes/Writing/Writing.php:341 includes/Writing/Writing.php:365
 msgid "Block"
 msgstr "Block"
 
-#: includes/Writing/Writing.php:321 includes/Writing/Writing.php:348
+#: includes/Writing/Writing.php:341 includes/Writing/Writing.php:368
 msgid "Classic"
 msgstr "Klassisch"
 
-#: includes/Writing/Writing.php:340
+#: includes/Writing/Writing.php:360
 msgid "Filter by editor"
 msgstr "Nach Editor filtern"
 
-#: includes/Writing/Writing.php:343
+#: includes/Writing/Writing.php:363
 msgid "All editors"
 msgstr "Alle Editoren"
 
