@@ -158,6 +158,14 @@ class Settings extends MainSettings
             'rrze-settings-writing-main'
         );
 
+        add_settings_field(
+            'enable_block_editor_new_sites',
+            __('Enable Block Editor for New Sites', 'rrze-settings'),
+            [$this, 'enableBlockEditorNewSitesField'],
+            $this->menuPage,
+            'rrze-settings-writing-main'
+        );
+
         if (!$this->siteOptions->writing->enable_block_editor) {
             // Classic editor section
             add_settings_section(
@@ -582,6 +590,21 @@ class Settings extends MainSettings
             <?php _e('Classic Editor', 'rrze-settings'); ?>
         </label>
 
+    <?php
+    }
+
+    /**
+     * Renders the checkbox for enabling the block editor for new sites
+     * 
+     * @return void
+     */
+    public function enableBlockEditorNewSitesField()
+    {
+    ?>
+        <label>
+            <input type="checkbox" id="rrze-settings-enable-block-editor-new-sites" name="<?php printf('%s[enable_block_editor_new_sites]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->writing->enable_block_editor_new_sites, 1); ?>>
+            <?php _e("Enable Block Editor for new sites", 'rrze-settings'); ?>
+        </label>
     <?php
     }
 
