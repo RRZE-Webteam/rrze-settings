@@ -37,6 +37,26 @@ class Writing extends Main
             $this->defaultOptions
         ))->loaded();
 
+        add_action('wp_initialize_site', function ($newSite) {
+            if (!$this->siteOptions->writing->enable_block_editor_new_sites) {
+                return;
+            }
+
+            switch_to_blog($newSite->blog_id);
+
+            $this->options->writing->try_enable_block_editor = 0;
+            $this->options->writing->enable_classic_editor = 0;
+            update_option(Options::OPTION_NAME, $this->options);
+
+            $stylesheet = 'FAU-Elemental';
+            $allowed = (array) get_site_option('allowedthemes', []);
+            if (isset($allowed[$stylesheet])) {
+                switch_theme($stylesheet);
+            }
+
+            restore_current_blog();
+        });
+
         add_filter('manage_sites-network_columns', [$this, 'addSitesColumns']);
         add_action('manage_sites_custom_column', [$this, 'manageSitesColumn'], 10, 3);
 
