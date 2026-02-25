@@ -51,7 +51,7 @@ class Sanitizer
         $slugs = explode(',', $slugs_string);
         $sanitized_slugs = [];
         foreach ($slugs as $slug) {
-            $sanitized_slugs[] = sanitize_key(trim($slug));
+            $sanitized_slugs[] = sanitize_text_field(trim($slug));
         }
 
         return implode(', ', array_filter($sanitized_slugs));
