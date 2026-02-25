@@ -57,6 +57,10 @@ class Settings extends MainSettings
         $input['frontend_style'] = trim(wp_strip_all_tags($input['frontend_style']));
         $input['backend_style'] = trim(wp_strip_all_tags($input['backend_style']));
 
+        $input['block_editor_iframe_body_class'] = trim(wp_strip_all_tags($input['block_editor_iframe_body_class']));
+        $input['block_editor_theme_exceptions'] = trim(wp_strip_all_tags($input['block_editor_theme_exceptions']));
+        $input['block_editor_auto_theme_classes'] = isset($input['block_editor_auto_theme_classes']) ? 1 : 0;
+
         return $this->parseOptionsValidate($input, 'advanced');
     }
 
@@ -86,6 +90,30 @@ class Settings extends MainSettings
             'backend_style',
             __('Backend Style', 'rrze-settings'),
             [$this, 'backendStyleField'],
+            $this->menuPage,
+            $this->sectionName
+        );
+
+        add_settings_field(
+            'block_editor_iframe_body_class',
+            __('BlockEditor iFrame Body Class', 'rrze-settings'),
+            [$this, 'BEIframeBodyClassField'],
+            $this->menuPage,
+            $this->sectionName
+        );
+
+        add_settings_field(
+            'block_editor_theme_exceptions',
+            __('Theme Exceptions', 'rrze-settings'),
+            [$this, 'themeExceptionsField'],
+            $this->menuPage,
+            $this->sectionName
+        );
+
+        add_settings_field(
+            'block_editor_auto_theme_classes',
+            __('Auto-generate Theme Classes', 'rrze-settings'),
+            [$this, 'autoThemeClassesField'],
             $this->menuPage,
             $this->sectionName
         );
@@ -123,5 +151,43 @@ class Settings extends MainSettings
         $css = esc_textarea($this->siteOptions->advanced->backend_style);
         echo '<textarea rows="5" cols="55" id="rrze-settings-advanced-backend-style" class="regular-text" name="', sprintf('%s[backend_style]', $this->optionName), '">', $css, '</textarea>';
         echo '<p class="description">' . __('Enter the CSS code which will be added to the backend of all websites.', 'rrze-settings') . '</p>';
+    }
+
+    /**
+     * Display the block_editor_iframe_body_class field
+     *
+     * @return void
+     * @since 2.1.1
+     */
+    public function BEIframeBodyClassField(): void
+    {
+        $css = esc_textarea($this->siteOptions->advanced->block_editor_iframe_body_class);
+        echo '<textarea rows="5" cols="55" id="rrze-settings-advanced-blockeditor-iframe-body-class" class="regular-text" name="', sprintf('%s[block_editor_iframe_body_class]', $this->optionName), '">', $css,
+        '</textarea>';
+        echo '<p class="description">' . __('Enter a comma separated List of CSS-Classes which will be injected to the body-Tag within the iFrame of the BlockEditor.', 'rrze-settings') . '</p>';
+    }
+
+    /**
+     * Display the block_editor_theme_exceptions field
+     *
+     * @return void
+     */
+    public function themeExceptionsField()
+    {
+        $value = esc_textarea($this->siteOptions->advanced->block_editor_theme_exceptions);
+        echo '<textarea rows="5" cols="55" id="rrze-settings-advanced-block-editor-theme-exceptions" class="regular-text" name="', sprintf('%s[block_editor_theme_exceptions]', $this->optionName), '">', $value, '</textarea>';
+        echo '<p class="description">' . __('Enter a comma separated list of themes where the BlockEditor Body class Injection should not be active.', 'rrze-settings') . '</p>';
+    }
+
+    /**
+     * Display the block_editor_auto_theme_classes field
+     *
+     * @return void
+     */
+    public function autoThemeClassesField()
+    {
+        $checked = checked(1, $this->siteOptions->advanced->block_editor_auto_theme_classes, false);
+        echo '<input type="checkbox" id="rrze-settings-advanced-block-editor-auto-theme-classes" name="', sprintf('%s[block_editor_auto_theme_classes]', $this->optionName), '" value="1" ', $checked, '>';
+        echo '<p class="description">' . __('Automatically generate theme classes and inject them into the iFrame body tag.', 'rrze-settings') . '</p>';
     }
 }
