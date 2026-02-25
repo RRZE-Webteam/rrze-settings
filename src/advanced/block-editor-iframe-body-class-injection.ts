@@ -42,7 +42,7 @@ const ensureClasses = (element: HTMLElement, classesToApply: string[]): void => 
  * Monitors the editor iframe for DOM changes and reapplies required theme classes.
  *
  * This is necessary because React re-renders within the iframe can remove classes
- * set manually on the '.editor-styles-wrapper' element.
+ * set manually on the body element.
  *
  * @param {HTMLIFrameElement} iframe         The editor iframe element ("editor-canvas").
  * @param {string[]}          classesToApply Array of sanitized class names to maintain.
@@ -60,28 +60,30 @@ const observeIframe = (iframe: HTMLIFrameElement, classesToApply: string[]): voi
 
     /**
      * Callback for the MutationObserver.
-     * Searches for the editor wrapper and ensures it has the required classes.
+     * Targets the iframe's body and ensures it has the required classes.
      */
     observer = new MutationObserver(() => {
-      const wrapper = contentDoc.querySelector('.editor-styles-wrapper') as HTMLElement | null;
-      if (wrapper) {
-        ensureClasses(wrapper, classesToApply);
+      const { body } = contentDoc;
+      if (body) {
+        ensureClasses(body, classesToApply);
       }
     });
 
-    // Observe the entire document to catch the initial mounting of the wrapper.
+    // Observe the entire document to catch re-renders that might replace the body attributes.
     observer.observe(contentDoc.documentElement, {
       childList: true,
       subtree: true,
+      attributes: true,
+      attributeFilter: ['class'],
     });
 
-    // Initial check in case the wrapper is already present when observation starts.
-    const wrapper = contentDoc.querySelector('.editor-styles-wrapper') as HTMLElement | null;
-    if (wrapper) {
-      ensureClasses(wrapper, classesToApply);
+    // Initial check in case the body is already present when observation starts.
+    const { body } = contentDoc;
+    if (body) {
+      ensureClasses(body, classesToApply);
     }
   } catch (error) {
-    console.warn('RRZE Elements: Could not observe editor iframe.', error);
+    console.warn('RRZE Settings: Could not observe editor iframe.', error);
   }
 };
 
@@ -89,7 +91,7 @@ const observeIframe = (iframe: HTMLIFrameElement, classesToApply: string[]): voi
  * Main initialization logic.
  *
  * Hooks into the WordPress Block Editor lifecycle to ensure theme-specific classes
- * (like post-type or theme name) are preserved within the iframe-based canvas (WP 7+).
+ * (like post-type or theme name) are preserved within the iframe-based canvas.
  */
 domReady(() => {
   const data = window.iframeBodyData;
@@ -112,7 +114,7 @@ domReady(() => {
    */
   subscribe(() => {
     // @ts-ignore - The 'core/editor' store is standard but might not be in every environment's types.
-    const isEditorReady = select('core/editor')?.isEditorReady?.();
+    const isEditorReady = select('core/editor')?.__unstableIsEditorReady?.();
 
     if (!isEditorReady) {
       // Cleanup when navigating away from the editor.
@@ -133,7 +135,8 @@ domReady(() => {
     // Initialize observation only if a new iframe instance is detected.
     if (iframe && iframe !== activeIframe) {
       activeIframe = iframe;
-      observeIframe(iframe, classesToApply);
+      // It can take a moment for the iframe's contentDocument to be accessible
+      setTimeout(() => observeIframe(iframe, classesToApply), 50);
     }
   });
 });

@@ -90,12 +90,15 @@ class Advanced extends Main
         }
 
         $classes_string = implode(' ', array_filter(array_unique($classes_to_inject)));
+        
+        $script_path = plugin_dir_path(dirname(__FILE__, 2)) . 'build/advanced/block-editor-iframe-body-class-injection.js';
+        $script_url = plugins_url('build/advanced/block-editor-iframe-body-class-injection.js', plugin()->getBasename());
 
         wp_enqueue_script(
             'custom-iframe-classes',
-            plugins_url('build/advanced/block-editor-iframe-body-class-injection.js', plugin()->getBasename()),
-            ['wp-blocks', 'wp-dom-ready', 'wp-edit-post'],
-            filemtime(plugins_url('build/advanced/block-editor-iframe-body-class-injection.js', plugin()->getBasename())),
+            $script_url,
+            ['wp-data', 'wp-editor', 'wp-blocks', 'wp-dom-ready', 'wp-edit-post'],
+            filemtime($script_path),
             true
         );
 
