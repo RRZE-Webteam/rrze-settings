@@ -18,14 +18,31 @@ use function RRZE\Settings\plugin;
 class AdminRoleThresholdWarning
 {
     /**
-     * The threshold for the number of administrators before the warning is triggered.
-     */
-    private const THRESHOLD = 3;
-
-    /**
      * Script handle (used for wp_enqueue_script + wp_set_script_translations)
      */
     private const HANDLE = 'ms-admin-role-threshold-warning';
+
+    /**
+     * @var object
+     */
+    protected $siteOptions;
+
+    /** 
+     * The threshold for the number of administrators before the warning is triggered.
+     * 
+     * @var int
+     */
+    protected $threshold;
+
+    /**
+     * Constructor
+     *
+     * @param object $siteOptions Site options object
+     */
+    public function __construct($siteOptions)
+    {
+        $this->siteOptions = $siteOptions;
+    }
 
     /**
      * Register hooks for this feature.
@@ -33,10 +50,16 @@ class AdminRoleThresholdWarning
      * 
      * @return void
      */
-    public static function loaded(): void
+    public function loaded(): void
     {
-        add_action('admin_enqueue_scripts', [__CLASS__, 'enqueue']);
-        add_action('wp_ajax_ms_admin_role_warning_check', [__CLASS__, 'ajax_check']);
+        if ($this->siteOptions->general->admin_role_threshold_warning) {
+            $this->threshold = max(
+                3, // minimum threshold of 3 to avoid false positives (since a site typically has at least 1-2 admins)
+                (int) $this->siteOptions->general->admin_role_threshold_warning_threshold
+            );
+            add_action('admin_enqueue_scripts', [$this, 'enqueue']);
+            add_action('wp_ajax_ms_admin_role_warning_check', [$this, 'ajax_check']);
+        }
     }
 
     /**
@@ -46,7 +69,7 @@ class AdminRoleThresholdWarning
      * @param string $hook The current admin page hook suffix.
      * @return void
      */
-    public static function enqueue(string $hook): void
+    public function enqueue(string $hook): void
     {
         if (!is_multisite() || is_network_admin()) {
             return;
@@ -90,7 +113,7 @@ class AdminRoleThresholdWarning
         wp_localize_script(self::HANDLE, 'MSAdminRoleWarning', [
             'ajaxUrl'   => admin_url('admin-ajax.php'),
             'nonce'     => wp_create_nonce('ms_admin_role_warning'),
-            'threshold' => self::THRESHOLD,
+            'threshold' => $this->threshold,
             'phrase'    => __('Yes, I understand the consequences and still want to create more administrators.', 'rrze-settings'),
         ]);
     }
@@ -115,7 +138,7 @@ class AdminRoleThresholdWarning
      * 
      * @return void
      */
-    public static function ajax_check(): void
+    public function ajax_check(): void
     {
         if (!is_multisite() || is_network_admin()) {
             wp_send_json_error(['message' => 'invalid_context'], 400);
@@ -134,7 +157,7 @@ class AdminRoleThresholdWarning
                 'needWarning' => false,
                 'adminCount'  => 0,
                 'newAdmins'   => 0,
-                'threshold'   => self::THRESHOLD,
+                'threshold'   => $this->threshold,
             ]);
         }
 
@@ -187,13 +210,13 @@ class AdminRoleThresholdWarning
         }
 
         // Need warning if already at/over threshold and this action would create at least one new admin.
-        $need = ($admin_count >= self::THRESHOLD) && ($new_admins > 0);
+        $need = ($admin_count >= $this->threshold) && ($new_admins > 0);
 
         wp_send_json_success([
             'needWarning' => $need,
             'adminCount'  => $admin_count,
             'newAdmins'   => $new_admins,
-            'threshold'   => self::THRESHOLD,
+            'threshold'   => $this->threshold,
         ]);
     }
 }

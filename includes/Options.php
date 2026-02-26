@@ -32,7 +32,9 @@ class Options
                 'disable_emoji' => 0,
                 'disable_google_fonts' => 0,
                 'custom_error_page' => 0,
-                'white_label' => 0
+                'white_label' => 0,
+                'admin_role_threshold_warning' => 0,
+                'admin_role_threshold_warning_threshold' => 3,
             ],
             'csp' => [
                 'enabled' => '0',
