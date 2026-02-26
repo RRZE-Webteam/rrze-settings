@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RRZE Settings\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-settings\n"
-"POT-Creation-Date: 2025-09-03T13:16:03+00:00\n"
-"PO-Revision-Date: 2026-02-19 12:59+0100\n"
+"POT-Creation-Date: 2026-02-26T08:11:53+00:00\n"
+"PO-Revision-Date: 2026-02-26 09:13+0100\n"
 "Last-Translator: RRZE Webteam <webmaster@fau.de>\n"
 "Language-Team: Deutsch (Sie)\n"
 "Language: de\n"
@@ -41,20 +41,32 @@ msgstr "RRZE-Webteam"
 msgid "https://blogs.fau.de/webworking/"
 msgstr "https://blogs.fau.de/webworking/"
 
-#: includes/Advanced/Settings.php:41 includes/Advanced/Settings.php:42
-#: includes/Advanced/Settings.php:72
+#: includes/Advanced/Settings.php:42 includes/Advanced/Settings.php:43
+#: includes/Advanced/Settings.php:81
 msgid "Advanced"
 msgstr "Erweitert"
 
-#: includes/Advanced/Settings.php:79
+#: includes/Advanced/Settings.php:88
 msgid "Frontend Style"
 msgstr "Frontend Style"
 
-#: includes/Advanced/Settings.php:87
+#: includes/Advanced/Settings.php:96
 msgid "Backend Style"
 msgstr "Backend Style"
 
-#: includes/Advanced/Settings.php:101
+#: includes/Advanced/Settings.php:104
+msgid "BlockEditor iFrame Body Class"
+msgstr "Body-Klasse im Block-Editor-iFrame"
+
+#: includes/Advanced/Settings.php:112
+msgid "Theme Exceptions"
+msgstr "Ausnahmen für Themes"
+
+#: includes/Advanced/Settings.php:120
+msgid "Auto-generate Theme Classes"
+msgstr "Theme-Klassen automatisch generieren"
+
+#: includes/Advanced/Settings.php:134
 msgid ""
 "This page enables network administrators to centrally manage custom CSS "
 "styles for both the frontend and backend of every website in a multisite "
@@ -67,15 +79,40 @@ msgstr ""
 "Organisieren von CSS-Code und gewährleistet so erweiterte Anpassungen sowie "
 "ein konsistentes Branding im gesamten Netzwerk."
 
-#: includes/Advanced/Settings.php:113
+#: includes/Advanced/Settings.php:146
 msgid "Enter the CSS code which will be added to the frontend of all websites."
 msgstr ""
 "Geben Sie den CSS-Code ein, der dem Frontend aller Websites hinzugefügt wird."
 
-#: includes/Advanced/Settings.php:125
+#: includes/Advanced/Settings.php:158
 msgid "Enter the CSS code which will be added to the backend of all websites."
 msgstr ""
 "Geben Sie den CSS-Code ein, der dem Backend aller Websites hinzugefügt wird."
+
+#: includes/Advanced/Settings.php:172
+msgid ""
+"Enter a comma-separated list of CSS classes which will be injected into the "
+"body tag within the iFrame of the Block Editor."
+msgstr ""
+"Geben Sie eine durch Kommas getrennte Liste von CSS-Klassen ein. Diese "
+"werden dem <body>-Element im iFrame des Block-Editors hinzugefügt."
+
+#: includes/Advanced/Settings.php:184
+msgid ""
+"Enter a comma-separated list of theme slugs (e.g., twentytwentyone, astra) "
+"where the Block Editor Body Class Injection should not be active."
+msgstr ""
+"Geben Sie eine durch Kommas getrennte Liste von Theme-Slugs (z. B. "
+"twentytwentyone, astra) ein, bei denen die Body-Klassen-Injektion im Block-"
+"Editor nicht aktiv sein soll."
+
+#: includes/Advanced/Settings.php:196
+msgid ""
+"Automatically generate theme classes and inject them into the iFrame body "
+"tag."
+msgstr ""
+"Theme-Klassen werden automatisch generiert und dem Body-Tag des Block-Editor-"
+"iFrames hinzugefügt."
 
 #: includes/CSP/Settings.php:48
 msgid "Content Security Police"
@@ -219,6 +256,14 @@ msgstr "Festlegen der Standardeinstellungen für neue Websites"
 #: includes/Discussion/Settings.php:125
 msgid "Disable avatars settings"
 msgstr "Avatareinstellungen deaktivieren"
+
+#: includes/General/AdminRoleThresholdWarning.php:79
+msgid ""
+"Yes, I understand the consequences and still want to create more "
+"administrators."
+msgstr ""
+"Ja, ich verstehe die Konsequenzen und möchte dennoch weitere Administratoren "
+"erstellen."
 
 #: includes/General/Dashboard.php:89 includes/General/Dashboard.php:109
 msgid "RRZE Maintenance and fault messages"
@@ -577,6 +622,8 @@ msgid "Upload"
 msgstr "Hochladen"
 
 #: includes/Media/Replace/Views/index.php:58
+#: build/general/admin-role-threshold-warning.js:1
+#: src/general/admin-role-threshold-warning.js:124
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -1857,3 +1904,57 @@ msgid ""
 msgstr ""
 "Das Plugin kann nur in einer Multisite-Installation und netzwerkweit "
 "installiert werden."
+
+#: build/general/admin-role-threshold-warning.js:1
+#: src/general/admin-role-threshold-warning.js:37
+msgid "Too many administrators"
+msgstr "Maximale Anzahl von Administratoren erreicht"
+
+#: build/general/admin-role-threshold-warning.js:1
+#: src/general/admin-role-threshold-warning.js:44
+msgid "This site already has %d user with the Administrator role."
+msgid_plural "This site already has %d users with the Administrator role."
+msgstr[0] "Diese Website hat bereits %d Benutzer mit der Rolle Administrator."
+msgstr[1] "Diese Website hat bereits %d Benutzer mit der Rolle Administrator."
+
+#: build/general/admin-role-threshold-warning.js:1
+msgid ""
+"Having too many administrators can cause:\n"
+"• Risk of accidental configuration changes\n"
+"• Reduced traceability and accountability\n"
+"• Larger attack surface if an account is compromised\n"
+"• Governance and support complexity\n"
+"\n"
+"If you still wish to proceed, type EXACTLY the confirmation phrase below:"
+msgstr ""
+"Eine zu hohe Anzahl von Administratoren kann folgende Risiken verursachen:\n"
+"\n"
+"• Risiko unbeabsichtigter Konfigurationsänderungen\n"
+"• Geringere Nachvollziehbarkeit und Verantwortlichkeit\n"
+"• Größere Angriffsfläche bei kompromittierten Benutzerkonten\n"
+"• Erhöhte Komplexität in Governance und Support\n"
+"\n"
+"Wenn Sie dennoch fortfahren möchten, geben Sie bitte EXAKT die untenstehende "
+"Bestätigungsphrase ein:"
+
+#: build/general/admin-role-threshold-warning.js:1
+#: src/general/admin-role-threshold-warning.js:70
+msgid "Confirmation phrase"
+msgstr "Bestätigungstext"
+
+#: build/general/admin-role-threshold-warning.js:1
+#: src/general/admin-role-threshold-warning.js:97
+msgid "You must type the phrase exactly as shown (case-sensitive)."
+msgstr ""
+"Sie müssen die Phrase exakt wie angezeigt eingeben (Groß- und "
+"Kleinschreibung beachten)."
+
+#: build/general/admin-role-threshold-warning.js:1
+#: src/general/admin-role-threshold-warning.js:106
+msgid "The phrase does not match."
+msgstr "Die Bestätigungsphrase stimmt nicht überein."
+
+#: build/general/admin-role-threshold-warning.js:1
+#: src/general/admin-role-threshold-warning.js:129
+msgid "Proceed anyway"
+msgstr "Trotzdem fortfahren"
