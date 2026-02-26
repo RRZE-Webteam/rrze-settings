@@ -22,7 +22,8 @@ module.exports = {
             "./src/writing/block-editor-preferences.js",
         "discussion/avatars": "./src/discussion/avatars.js",
         "advanced/placeholder": "./src/advanced/placeholder.js",
-        "advanced/block-editor-iframe-body-class-injection": "./src/advanced/block-editor-iframe-body-class-injection.ts"
+        "advanced/block-editor-iframe-body-class-injection": "./src/advanced/block-editor-iframe-body-class-injection.ts",
+        "general/admin-role-threshold-warning": "./src/general/admin-role-threshold-warning.js",
     },
     plugins: [
         ...defaults.plugins,
