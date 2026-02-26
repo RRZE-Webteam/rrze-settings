@@ -165,6 +165,9 @@ class Options
             'advanced' => [
                 'frontend_style' => '',
                 'backend_style' => '',
+                'block_editor_iframe_body_class' => '',
+                'block_editor_theme_exceptions' => '',
+                'block_editor_auto_theme_classes' => 0,
             ],
             'posts' => [
                 'last_modified_custom_column' => 0,

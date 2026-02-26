@@ -25,12 +25,14 @@
     "@wordpress/element": "latest",
     "@wordpress/hooks": "latest",
     "@wordpress/i18n": "latest",
-    "@wordpress/preferences": "^4.10.0"
+    "@wordpress/preferences": "^4.40.0"
   },
   "devDependencies": {
+    "axios": "^1.13.5",
+    "classnames": "^2.5.1",
     "@wordpress/scripts": "latest",
-    "axios": "^1.6.8",
-    "classnames": "^2.5.1"
+    "@types/wordpress__dom-ready": "^2.9.0",
+    "@types/wordpress__block-editor": "^15.0.3"
   },
-  "version": "2.1.0"
+  "version": "2.2.0"
 }
