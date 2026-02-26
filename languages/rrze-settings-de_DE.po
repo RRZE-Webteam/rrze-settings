@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RRZE Settings\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-settings\n"
-"POT-Creation-Date: 2026-02-26T08:11:53+00:00\n"
-"PO-Revision-Date: 2026-02-26 09:13+0100\n"
+"POT-Creation-Date: 2026-02-26T11:26:03+00:00\n"
+"PO-Revision-Date: 2026-02-26 12:29+0100\n"
 "Last-Translator: RRZE Webteam <webmaster@fau.de>\n"
 "Language-Team: Deutsch\n"
 "Language: de_DE\n"
@@ -257,7 +257,7 @@ msgstr "Festlegen der Standardeinstellungen für neue Websites"
 msgid "Disable avatars settings"
 msgstr "Avatareinstellungen deaktivieren"
 
-#: includes/General/AdminRoleThresholdWarning.php:79
+#: includes/General/AdminRoleThresholdWarning.php:117
 msgid ""
 "Yes, I understand the consequences and still want to create more "
 "administrators."
@@ -284,43 +284,47 @@ msgid "Untitled"
 msgstr "Ohne Titel"
 
 #: includes/General/Settings.php:41 includes/General/Settings.php:42
-#: includes/General/Settings.php:78
+#: includes/General/Settings.php:80
 msgid "General"
 msgstr "Allgemein"
 
-#: includes/General/Settings.php:85
+#: includes/General/Settings.php:87
 msgid "Textdomain Fallback"
 msgstr "Textdomäne Fallback"
 
-#: includes/General/Settings.php:92
+#: includes/General/Settings.php:94
 msgid "Welcome Panel"
 msgstr "Willkommen Panel"
 
-#: includes/General/Settings.php:99
+#: includes/General/Settings.php:101
 msgid "XML-RPC"
 msgstr "XML-RPC"
 
-#: includes/General/Settings.php:106
+#: includes/General/Settings.php:108
 msgid "Admin email verification"
 msgstr "Admin-E-Mail-Bestätigung"
 
-#: includes/General/Settings.php:113
+#: includes/General/Settings.php:115
 msgid "Emoji"
 msgstr "Emoji"
 
-#: includes/General/Settings.php:120
+#: includes/General/Settings.php:122
 msgid "Google Fonts"
 msgstr "Google-Schriften"
 
-#: includes/General/Settings.php:127
+#: includes/General/Settings.php:129
 msgid "Custom Error Page"
 msgstr "Benutzerdefinierte Fehlerseite"
 
-#: includes/General/Settings.php:134
+#: includes/General/Settings.php:136
 msgid "White Label"
 msgstr "White Label"
 
-#: includes/General/Settings.php:148
+#: includes/General/Settings.php:143
+msgid "Admin Role Threshold Warning"
+msgstr "Administrator-Grenzwert-Warnung"
+
+#: includes/General/Settings.php:157
 msgid ""
 "Network administrators can centrally manage general settings for every "
 "website in a multisite network on this page, with options to enable or "
@@ -337,39 +341,47 @@ msgstr ""
 "deaktivieren – wodurch konsistente Konfigurationen und eine schlanke "
 "Verwaltung im gesamten Netzwerk gewährleistet werden."
 
-#: includes/General/Settings.php:161
+#: includes/General/Settings.php:170
 msgid "Sets a default language as fallback for unavailable language files"
 msgstr ""
 "Setzt eine Standardsprache als Fallback für nicht verfügbare Sprachdateien"
 
-#: includes/General/Settings.php:176
+#: includes/General/Settings.php:185
 msgid "Disables the welcome panel that introduces users to WordPress"
 msgstr ""
 "Deaktiviert das Begrüßungsfenster, das stellt den Benutzern WordPress vor"
 
-#: includes/General/Settings.php:191
+#: includes/General/Settings.php:200
 msgid "Disables the XML-RPC API"
 msgstr "Deaktiviert die XML-RPC-API"
 
-#: includes/General/Settings.php:206
+#: includes/General/Settings.php:215
 msgid "Disables the admin email verification check"
 msgstr "Deaktiviert die Überprüfung der Administrator-E-Mail-Verifizierung"
 
-#: includes/General/Settings.php:221
+#: includes/General/Settings.php:230
 msgid "Disables Emoji graphics"
 msgstr "Deaktiviert Emoji-Grafiken"
 
-#: includes/General/Settings.php:236
+#: includes/General/Settings.php:245
 msgid "Disables loading of Google Fonts"
 msgstr "Deaktiviert das Laden von Google-Schriften"
 
-#: includes/General/Settings.php:251
+#: includes/General/Settings.php:260
 msgid "Enables custom error page"
 msgstr "Aktiviert eine benutzerdefinierte Fehlerseite"
 
-#: includes/General/Settings.php:266
+#: includes/General/Settings.php:275
 msgid "Enables white label mode"
 msgstr "Aktiviert den White-Label-Modus"
+
+#: includes/General/Settings.php:292
+msgid ""
+"Enables a warning when the number of administrators exceeds a certain "
+"threshold"
+msgstr ""
+"Wenn aktiviert, wird eine Warnung angezeigt, sobald die Anzahl der "
+"Administratoren einen festgelegten Schwellenwert überschreitet"
 
 #: includes/General/XMLRPC.php:53
 msgid "XML-RPC services are disabled on this site."
