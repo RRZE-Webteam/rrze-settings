@@ -6,8 +6,23 @@ defined('ABSPATH') || exit;
 
 use RRZE\Settings\Main;
 
+/**
+ * Class General
+ *
+ * This class serves as the main entry point for the general settings of the plugin. 
+ * It initializes and loads all the related features such as dashboard modifications, 
+ * emoji handling, Google Fonts management, custom error pages, textdomain fallbacks, 
+ * white labeling, XMLRPC disabling, and the admin role threshold warning.
+ *
+ * @package RRZE\Settings\General
+ */
 class General extends Main
 {
+    /**
+     * Plugin loaded action
+     *
+     * @return void
+     */
     public function loaded()
     {
         (new Settings(
@@ -32,5 +47,7 @@ class General extends Main
         (new WhiteLabel($this->siteOptions))->loaded();
 
         (new XMLRPC($this->siteOptions))->loaded();
+
+        (new AdminRoleThresholdWarning($this->siteOptions))->loaded();
     }
 }
