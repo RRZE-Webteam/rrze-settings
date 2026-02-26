@@ -62,6 +62,8 @@ class Settings extends MainSettings
         $input['disable_emoji'] = !empty($input['disable_emoji']) ? 1 : 0;
         $input['custom_error_page'] = !empty($input['custom_error_page']) ? 1 : 0;
         $input['white_label'] = !empty($input['white_label']) ? 1 : 0;
+        $input['admin_role_threshold_warning'] = !empty($input['admin_role_threshold_warning']) ? 1 : 0;
+        $input['admin_role_threshold_warning_threshold'] = isset($input['admin_role_threshold_warning_threshold']) ? max(3, (int) $input['admin_role_threshold_warning_threshold']) : 3;
 
         return $this->parseOptionsValidate($input, 'general');
     }
@@ -133,6 +135,13 @@ class Settings extends MainSettings
             'white_label',
             __('White Label', 'rrze-settings'),
             [$this, 'whiteLabelField'],
+            $this->menuPage,
+            $this->sectionName
+        );
+        add_settings_field(
+            'admin_role_threshold_warning',
+            __('Admin Role Threshold Warning', 'rrze-settings'),
+            [$this, 'adminRoleThresholdWarningField'],
             $this->menuPage,
             $this->sectionName
         );
@@ -264,6 +273,23 @@ class Settings extends MainSettings
         <label>
             <input type="checkbox" id="rrze-settings-white-label" name="<?php printf('%s[white_label]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->general->white_label, 1); ?>>
             <?php _e("Enables white label mode", 'rrze-settings'); ?>
+        </label>
+    <?php
+    }
+
+    /**
+     * Display the admin_role_threshold_warning field
+     * 
+     * @return void
+     */
+    public function adminRoleThresholdWarningField()
+    {
+    ?>
+        <label>
+            <input type="checkbox" id="rrze-settings-admin-role-threshold-warning" name="<?php printf('%s[admin_role_threshold_warning]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->general->admin_role_threshold_warning, 1); ?>>
+            <input type="number" name="<?php printf('%s[admin_role_threshold_warning_threshold]', $this->optionName); ?>" value="<?php echo esc_attr((string) $this->siteOptions->general->admin_role_threshold_warning_threshold); ?>" min="3" step="1" class="small-text">
+            <br>
+            <?php _e("Enables a warning when the number of administrators exceeds a certain threshold", 'rrze-settings'); ?>
         </label>
 <?php
     }
