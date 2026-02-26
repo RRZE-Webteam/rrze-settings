@@ -191,7 +191,7 @@ class Settings extends MainSettings
      */
     public function autoThemeClassesField(): void
     {
-        $checked = checked(1, $this->siteOptions->advanced->block_editor_auto_theme_classes, false);
+        $checked = checked($this->siteOptions->advanced->block_editor_auto_theme_classes, 1, false);
         echo '<input type="checkbox" id="rrze-settings-advanced-block-editor-auto-theme-classes" name="', sprintf('%s[block_editor_auto_theme_classes]', $this->optionName), '" value="1" ', $checked, '>';
         echo '<p class="description">' . __('Automatically generate theme classes and inject them into the iFrame body tag.', 'rrze-settings') . '</p>';
     }
