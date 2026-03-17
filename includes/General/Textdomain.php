@@ -1,18 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace RRZE\Settings\General;
 
 defined('ABSPATH') || exit;
 
 /**
- * Textdomain fallback loader (supports .mo and .l10n.php)
+ * Textdomain fallback loader for PHP and JS translations.
  *
- * - Works with legacy MO filter (load_textdomain_mofile)
- * - Works with modern WP translation loader (load_translation_file) for .l10n.php + .mo
- * - Fallback locales are derived from:
- *   1) Plugin settings (allowed/installed languages list)
- *   2) WP installed languages (get_available_languages)
- *   3) A small last-resort map (de_*, es_*, en_*) if no pool exists
+ * Supports:
+ * - .mo
+ * - .l10n.php
+ * - Gutenberg script translation JSON files:
+ *   domain-locale-hash.json
+ *
+ * Fallback order:
+ * 1) Simplified locale variant (de_DE_formal -> de_DE)
+ * 2) Other same-language locales from installed/allowed pool
+ * 3) Language-only locale (de)
+ * 4) Same-language last-resort locale (de_DE)
+ * 5) Global English fallback (en_GB / en_US)
  */
 class Textdomain
 {
@@ -20,6 +28,27 @@ class Textdomain
      * @var object
      */
     protected $siteOptions;
+
+    /**
+     * Cache fallback chains per locale.
+     *
+     * @var array<string, array<int, string>>
+     */
+    private array $fallbackChainCache = [];
+
+    /**
+     * Cache resolved candidate file per requested file+locale.
+     *
+     * @var array<string, string>
+     */
+    private array $resolvedFileCache = [];
+
+    /**
+     * Cache locale pool per request.
+     *
+     * @var array<int, string>|null
+     */
+    private ?array $installedLocalesPool = null;
 
     public function __construct($siteOptions)
     {
@@ -30,18 +59,23 @@ class Textdomain
      * Register filters.
      *
      * Call this on/after plugins_loaded.
+     *
+     * @return void
      */
-    public function loaded()
+    public function loaded(): void
     {
         if (empty($this->siteOptions->general->textdomain_fallback)) {
             return;
         }
 
-        // Legacy: affects only .mo.
+        // Legacy PHP translations (.mo).
         add_filter('load_textdomain_mofile', [$this, 'filterMoFile'], 10, 2);
 
-        // Modern: affects .mo and .l10n.php.
+        // Modern PHP translations (.mo and .l10n.php).
         add_filter('load_translation_file', [$this, 'filterTranslationFile'], 10, 3);
+
+        // Script translations (Gutenberg / JS JSON).
+        add_filter('load_script_translation_file', [$this, 'filterScriptTranslationFile'], 10, 3);
     }
 
     /**
@@ -51,9 +85,10 @@ class Textdomain
      * @param string $domain
      * @return string
      */
-    public function filterMoFile($mofile, $domain)
+    public function filterMoFile($mofile, $domain): string
     {
         $locale = function_exists('determine_locale') ? determine_locale() : get_locale();
+
         return $this->applyLocaleFallback((string) $mofile, (string) $locale, (string) $domain);
     }
 
@@ -65,21 +100,47 @@ class Textdomain
      * @param string $locale
      * @return string
      */
-    public function filterTranslationFile($file, $domain, $locale)
+    public function filterTranslationFile($file, $domain, $locale): string
     {
         return $this->applyLocaleFallback((string) $file, (string) $locale, (string) $domain);
     }
 
     /**
-     * Apply locale fallback chain if the requested file does not exist/readable.
+     * Filter for script translation JSON files.
      *
-     * @param string $file   Translation file path (.mo or .l10n.php).
-     * @param string $locale Requested locale.
-     * @param string $domain Textdomain (for context / future use).
+     * Signature:
+     * load_script_translation_file( string|false $file, string $handle, string $domain )
+     *
+     * Locale is not passed directly here, so we resolve it from the current request.
+     *
+     * @param string|false $file
+     * @param string       $handle
+     * @param string       $domain
+     * @return string|false
+     */
+    public function filterScriptTranslationFile($file, $handle, $domain)
+    {
+        if ($file === false || $file === '') {
+            return $file;
+        }
+
+        $locale = function_exists('determine_locale') ? determine_locale() : get_locale();
+
+        return $this->applyLocaleFallback((string) $file, (string) $locale, (string) $domain);
+    }
+
+    /**
+     * Apply locale fallback chain if the requested file is not readable.
+     *
+     * @param string $file
+     * @param string $locale
+     * @param string $domain
      * @return string
      */
-    private function applyLocaleFallback($file, $locale, $domain)
+    private function applyLocaleFallback(string $file, string $locale, string $domain): string
     {
+        unset($domain); // reserved for future domain-specific logic
+
         if ($file === '' || $locale === '') {
             return $file;
         }
@@ -88,17 +149,18 @@ class Textdomain
             return $file;
         }
 
+        $cacheKey = $file . '|' . $locale;
+
+        if (isset($this->resolvedFileCache[$cacheKey])) {
+            return $this->resolvedFileCache[$cacheKey];
+        }
+
         $dir  = dirname($file);
         $base = basename($file);
 
-        // Build fallback list based on installed/allowed languages.
-        $fallbackLocales = $this->getFallbackLocalesFromInstalledPool($locale);
-
-        // Try each fallback locale and return the first existing file.
-        foreach ($fallbackLocales as $fallbackLocale) {
+        foreach ($this->getFallbackLocales($locale) as $fallbackLocale) {
             $candidateBase = $this->replaceLocaleInFilename($base, $locale, $fallbackLocale);
 
-            // If we couldn't produce a different filename, skip.
             if ($candidateBase === $base) {
                 continue;
             }
@@ -106,121 +168,110 @@ class Textdomain
             $candidate = $dir . DIRECTORY_SEPARATOR . $candidateBase;
 
             if (is_readable($candidate)) {
+                $this->resolvedFileCache[$cacheKey] = $candidate;
                 return $candidate;
             }
         }
+
+        $this->resolvedFileCache[$cacheKey] = $file;
 
         return $file;
     }
 
     /**
-     * Build an ordered fallback chain using:
-     *  1) plugin settings languages (if present)
-     *  2) WP installed languages (get_available_languages)
-     *  3) last-resort mapping if pool is empty
-     *
-     * For a requested locale like "en_UK":
-     *  - prefer other installed locales with same language "en_*" (in pool order)
-     *  - then try language-only "en" (rare but harmless)
+     * Return ordered fallback locales for a requested locale.
      *
      * @param string $locale
      * @return string[]
      */
-    private function getFallbackLocalesFromInstalledPool($locale)
+    private function getFallbackLocales(string $locale): array
     {
-        $locale = (string) $locale;
-        $pool   = $this->getInstalledLocalesPool();
+        if ($locale === '') {
+            return [];
+        }
 
-        $lang = $this->getLanguageFromLocale($locale);
+        if (isset($this->fallbackChainCache[$locale])) {
+            return $this->fallbackChainCache[$locale];
+        }
 
+        $pool      = $this->getInstalledLocalesPool();
+        $lang      = $this->getLanguageFromLocale($locale);
         $fallbacks = [];
 
-        // 1) same-language regional fallbacks from pool, excluding original locale
-        foreach ($pool as $l) {
-            if (!is_string($l) || $l === '' || $l === $locale) {
+        // 1) Simplified locale, e.g. de_DE_formal -> de_DE
+        $simplifiedLocale = $this->getSimplifiedLocale($locale);
+        if ($simplifiedLocale !== '' && $simplifiedLocale !== $locale) {
+            $fallbacks[] = $simplifiedLocale;
+        }
+
+        // 2) Other same-language locales from pool
+        foreach ($pool as $poolLocale) {
+            if ($poolLocale === '' || $poolLocale === $locale || $poolLocale === $simplifiedLocale) {
                 continue;
             }
-            if (strpos($l, $lang . '_') === 0) {
-                $fallbacks[] = $l;
+
+            if ($lang !== '' && strpos($poolLocale, $lang . '_') === 0) {
+                $fallbacks[] = $poolLocale;
             }
         }
 
-        // 2) language-only
+        // 3) Language-only fallback
         if ($lang !== '' && $lang !== $locale) {
             $fallbacks[] = $lang;
         }
 
-        // 3) If pool empty (or no same-language options), use a small last-resort map
-        if (empty($fallbacks)) {
-            foreach ($this->getLastResortFallbacks($locale) as $lr) {
-                if ($lr !== $locale) {
-                    $fallbacks[] = $lr;
-                }
-            }
-            if ($lang !== '' && $lang !== $locale) {
-                $fallbacks[] = $lang;
+        // 4) Same-language last-resort map
+        foreach ($this->getLastResortFallbacks($locale) as $lastResortLocale) {
+            if ($lastResortLocale !== $locale) {
+                $fallbacks[] = $lastResortLocale;
             }
         }
 
-        // Deduplicate while preserving order.
-        $out = [];
-        foreach ($fallbacks as $f) {
-            if (!is_string($f) || $f === '' || $f === $locale) {
-                continue;
-            }
-            if (!in_array($f, $out, true)) {
-                $out[] = $f;
+        // 5) Global English fallback
+        foreach ($this->getGlobalFallbackLocales() as $globalFallbackLocale) {
+            if ($globalFallbackLocale !== $locale) {
+                $fallbacks[] = $globalFallbackLocale;
             }
         }
 
-        return $out;
+        $fallbacks = $this->deduplicateLocales($fallbacks, $locale);
+        $this->fallbackChainCache[$locale] = $fallbacks;
+
+        return $fallbacks;
     }
 
     /**
-     * Pool of "installed/allowed" locales.
-     *
-     * Adjust the settings key if your plugin stores it differently.
+     * Pool of installed/allowed locales.
      *
      * @return string[]
      */
-    private function getInstalledLocalesPool()
+    private function getInstalledLocalesPool(): array
     {
-        $fromSettings = $this->getLocalesFromSettings();
-        $fromWP       = function_exists('get_available_languages') ? (array) get_available_languages() : [];
-
-        // Also consider site locale (often not in get_available_languages for default en_US edge cases)
-        $siteLocale = function_exists('determine_locale') ? determine_locale() : get_locale();
-        $extras     = [$siteLocale];
-
-        $pool = array_merge($fromSettings, $fromWP, $extras);
-
-        // Normalize + dedupe
-        $out = [];
-        foreach ($pool as $l) {
-            $l = is_string($l) ? trim($l) : '';
-            if ($l === '') {
-                continue;
-            }
-            if (!in_array($l, $out, true)) {
-                $out[] = $l;
-            }
+        if (is_array($this->installedLocalesPool)) {
+            return $this->installedLocalesPool;
         }
 
-        return $out;
+        $fromSettings = $this->getLocalesFromSettings();
+        $fromWP       = function_exists('get_available_languages') ? (array) get_available_languages() : [];
+        $siteLocale   = function_exists('determine_locale') ? determine_locale() : get_locale();
+
+        $pool = array_merge($fromSettings, $fromWP, [$siteLocale]);
+
+        $this->installedLocalesPool = $this->deduplicateLocales($pool);
+
+        return $this->installedLocalesPool;
     }
 
     /**
      * Read locales from plugin settings.
      *
      * Supports:
-     * - array: ['de_DE', 'en_GB', ...]
+     * - array: ['de_DE', 'en_GB']
      * - string: 'de_DE,en_GB,es_ES'
-     *
-     * Change this method to match your real options structure if needed.
      *
      * @return string[]
      */
-    private function getLocalesFromSettings()
+    private function getLocalesFromSettings(): array
     {
         $val = $this->siteOptions->general->languages ?? null;
 
@@ -241,43 +292,49 @@ class Textdomain
     /**
      * Replace locale in filename safely.
      *
-     * Typical filenames:
-     *  - domain-de_DE.mo
-     *  - domain-de_DE.l10n.php
-     *  - some/path/domain-de_DE-1234.l10n.php (rare)
-     *
-     * We try:
-     *  1) Replace "-<locale>." with "-<fallbackLocale>."
-     *  2) Else fallback to simple str_replace (only within base)
+     * Supported patterns:
+     * - domain-de_DE.mo
+     * - domain-de_DE.l10n.php
+     * - domain_de_DE.mo
+     * - domain-de_DE-<hash>.json
+     * - domain-de_DE.json
      *
      * @param string $base
      * @param string $locale
      * @param string $fallbackLocale
      * @return string
      */
-    private function replaceLocaleInFilename($base, $locale, $fallbackLocale)
+    private function replaceLocaleInFilename(string $base, string $locale, string $fallbackLocale): string
     {
-        $base = (string) $base;
-        $locale = (string) $locale;
-        $fallbackLocale = (string) $fallbackLocale;
-
         if ($base === '' || $locale === '' || $fallbackLocale === '' || $locale === $fallbackLocale) {
             return $base;
         }
 
-        // Prefer replacing -LOCALE. (most common WordPress naming)
+        // Most common PHP translation naming.
         $needle = '-' . $locale . '.';
         if (strpos($base, $needle) !== false) {
             return str_replace($needle, '-' . $fallbackLocale . '.', $base);
         }
 
-        // Some edge cases include _LOCALE (less common), try it too.
+        // Alternative underscore naming.
         $needle2 = '_' . $locale . '.';
         if (strpos($base, $needle2) !== false) {
             return str_replace($needle2, '_' . $fallbackLocale . '.', $base);
         }
 
-        // Fallback: replace any occurrence (still only within filename).
+        // Gutenberg/JS JSON with hash: domain-locale-hash.json
+        $needle3 = '-' . $locale . '-';
+        if (strpos($base, $needle3) !== false) {
+            return str_replace($needle3, '-' . $fallbackLocale . '-', $base);
+        }
+
+        // JSON without hash: domain-locale.json
+        $needle4 = '-' . $locale . '.json';
+        if (strpos($base, $needle4) !== false) {
+            return str_replace($needle4, '-' . $fallbackLocale . '.json', $base);
+        }
+
+        // Very last fallback.
         return str_replace($locale, $fallbackLocale, $base);
     }
 
@@ -287,9 +344,8 @@ class Textdomain
      * @param string $locale
      * @return string
      */
-    private function getLanguageFromLocale($locale)
+    private function getLanguageFromLocale(string $locale): string
     {
-        $locale = (string) $locale;
         if ($locale === '') {
             return '';
         }
@@ -303,24 +359,125 @@ class Textdomain
     }
 
     /**
-     * Last-resort fallback suggestions if no installed pool exists.
+     * Simplify locale by removing the last segment if there are more than 2.
+     *
+     * Examples:
+     * - de_DE_formal -> de_DE
+     * - ca_ES_valencia -> ca_ES
+     * - de_DE -> de_DE
+     * - de -> de
+     *
+     * @param string $locale
+     * @return string
+     */
+    private function getSimplifiedLocale(string $locale): string
+    {
+        if ($locale === '') {
+            return '';
+        }
+
+        $parts = explode('_', $locale);
+
+        if (count($parts) <= 2) {
+            return $locale;
+        }
+
+        array_pop($parts);
+
+        return implode('_', $parts);
+    }
+
+    /**
+     * Same-language last-resort fallback suggestions.
      *
      * @param string $locale
      * @return string[]
      */
-    private function getLastResortFallbacks($locale)
+    private function getLastResortFallbacks(string $locale): array
     {
-        if (strpos($locale, 'de_') === 0) {
+        if (strpos($locale, 'de_') === 0 || $locale === 'de') {
             return ['de_DE'];
         }
-        if (strpos($locale, 'es_') === 0) {
+
+        if (strpos($locale, 'es_') === 0 || $locale === 'es') {
             return ['es_ES'];
         }
-        if (strpos($locale, 'en_') === 0) {
-            // Many installs prefer en_GB; then en_US.
-            return ['en_GB', 'en_US'];
+
+        if (strpos($locale, 'en_') === 0 || $locale === 'en') {
+            return $this->getPreferredEnglishLocales();
+        }
+
+        if (strpos($locale, 'fr_') === 0 || $locale === 'fr') {
+            return ['fr_FR'];
+        }
+
+        if (strpos($locale, 'it_') === 0 || $locale === 'it') {
+            return ['it_IT'];
+        }
+
+        if (strpos($locale, 'pt_') === 0 || $locale === 'pt') {
+            return ['pt_PT', 'pt_BR'];
         }
 
         return [];
+    }
+
+    /**
+     * Global fallback locales used as final fallback.
+     *
+     * @return string[]
+     */
+    private function getGlobalFallbackLocales(): array
+    {
+        return $this->getPreferredEnglishLocales();
+    }
+
+    /**
+     * Return preferred English locale order.
+     *
+     * Supported setting examples:
+     * - en_GB
+     * - en_US
+     *
+     * Default: en_GB first, then en_US
+     *
+     * @return string[]
+     */
+    private function getPreferredEnglishLocales(): array
+    {
+        $preferred = $this->siteOptions->general->english_fallback_locale ?? 'en_GB';
+        $preferred = is_string($preferred) ? trim($preferred) : 'en_GB';
+
+        if ($preferred === 'en_US') {
+            return ['en_US', 'en_GB'];
+        }
+
+        return ['en_GB', 'en_US'];
+    }
+
+    /**
+     * Deduplicate locales preserving order.
+     *
+     * @param array $locales
+     * @param string $excludeLocale
+     * @return string[]
+     */
+    private function deduplicateLocales(array $locales, string $excludeLocale = ''): array
+    {
+        $out = [];
+
+        foreach ($locales as $locale) {
+            $locale = is_string($locale) ? trim($locale) : '';
+
+            if ($locale === '' || $locale === $excludeLocale) {
+                continue;
+            }
+
+            if (!in_array($locale, $out, true)) {
+                $out[] = $locale;
+            }
+        }
+
+        return $out;
     }
 }
