@@ -7,22 +7,22 @@ namespace Composer\Autoload;
 class ComposerStaticInit45fb479a073f5079a92369872d0463b7
 {
     public static $prefixLengthsPsr4 = array (
-        'e' => 
+        'e' =>
         array (
             'enshrined\\svgSanitize\\' => 22,
         ),
-        'R' => 
+        'R' =>
         array (
             'RRZE\\Settings\\' => 14,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'enshrined\\svgSanitize\\' => 
+        'enshrined\\svgSanitize\\' =>
         array (
             0 => __DIR__ . '/..' . '/enshrined/svg-sanitize/src',
         ),
-        'RRZE\\Settings\\' => 
+        'RRZE\\Settings\\' =>
         array (
             0 => __DIR__ . '/../..' . '/includes',
         ),
