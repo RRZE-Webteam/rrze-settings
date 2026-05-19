@@ -30,6 +30,11 @@ class Advanced extends Main
             add_action('admin_enqueue_scripts', [$this, 'enqueueBackendStyle'], 100);
         }
 
+        if (!empty($this->siteOptions->advanced->disable_ai_functionality)) {
+            add_filter('wp_supports_ai', '__return_false', PHP_INT_MAX);
+            add_filter('wp_ai_client_prevent_prompt', '__return_true', PHP_INT_MAX);
+        }
+
         if (!empty($this->siteOptions->advanced->block_editor_iframe_body_class) || !empty($this->siteOptions->advanced->block_editor_auto_theme_classes)) {
             add_action('enqueue_block_editor_assets', [$this, 'loadInjectBlockEditorIframeWithBodyClassScripts']);
         }
