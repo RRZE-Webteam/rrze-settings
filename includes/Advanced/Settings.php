@@ -67,6 +67,7 @@ class Settings extends MainSettings
         // FIELDS FOR IFRAME CLASS INJECTION END
 
         $input['disable_ai_functionality'] = isset($input['disable_ai_functionality']) ? 1 : 0;
+        $input['hide_ai_connector_page'] = isset($input['hide_ai_connector_page']) ? 1 : 0;
 
         return $this->parseOptionsValidate($input, 'advanced');
     }
@@ -129,6 +130,14 @@ class Settings extends MainSettings
             'disable_ai_functionality',
             __('Disable AI Functionality', 'rrze-settings'),
             [$this, 'disableAIFunctionalityField'],
+            $this->menuPage,
+            $this->sectionName
+        );
+
+        add_settings_field(
+            'hide_ai_connector_page',
+            __('Hide AI Connector Page for Users', 'rrze-settings'),
+            [$this, 'hideAIConnectorPageField'],
             $this->menuPage,
             $this->sectionName
         );
@@ -216,5 +225,17 @@ class Settings extends MainSettings
         $checked = checked($this->siteOptions->advanced->disable_ai_functionality, 1, false);
         echo '<input type="checkbox" id="rrze-settings-advanced-disable-ai-functionality" name="', sprintf('%s[disable_ai_functionality]', $this->optionName), '" value="1" ', $checked, '>';
         echo '<p class="description">' . __('Disable AI functionality in WordPress.', 'rrze-settings') . '</p>';
+    }
+
+    /**
+     * Display the hide_ai_connector_page field
+     *
+     * @return void
+     */
+    public function hideAIConnectorPageField(): void
+    {
+        $checked = checked($this->siteOptions->advanced->hide_ai_connector_page, 1, false);
+        echo '<input type="checkbox" id="rrze-settings-advanced-hide-ai-connector-page" name="', sprintf('%s[hide_ai_connector_page]', $this->optionName), '" value="1" ', $checked, '>';
+        echo '<p class="description">' . __('Hide the AI Connectors settings page for users and block direct access.', 'rrze-settings') . '</p>';
     }
 }

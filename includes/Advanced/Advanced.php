@@ -35,6 +35,11 @@ class Advanced extends Main
             add_filter('wp_ai_client_prevent_prompt', '__return_true', PHP_INT_MAX);
         }
 
+        if (!empty($this->siteOptions->advanced->hide_ai_connector_page)) {
+            add_action('admin_menu', [$this, 'hideAIConnectorPage'], PHP_INT_MAX);
+            add_action('admin_init', [$this, 'blockAIConnectorPageAccess'], 0);
+        }
+
         if (!empty($this->siteOptions->advanced->block_editor_iframe_body_class) || !empty($this->siteOptions->advanced->block_editor_auto_theme_classes)) {
             add_action('enqueue_block_editor_assets', [$this, 'loadInjectBlockEditorIframeWithBodyClassScripts']);
         }
@@ -65,6 +70,34 @@ class Advanced extends Main
             plugin()->getVersion()
         );
         wp_add_inline_style('rrze-settings-advanced-backend-style', esc_textarea($this->siteOptions->advanced->backend_style));
+    }
+
+    public function hideAIConnectorPage(): void
+    {
+        if (is_network_admin()) {
+            return;
+        }
+
+        remove_submenu_page('options-general.php', 'options-connectors.php');
+    }
+
+    public function blockAIConnectorPageAccess(): void
+    {
+        global $pagenow;
+
+        if (is_network_admin()) {
+            return;
+        }
+
+        $is_connectors_page = 'options-connectors.php' === $pagenow;
+        $is_legacy_connectors_page = 'options-general.php' === $pagenow
+            && isset($_GET['page'])
+            && 'options-connectors' === sanitize_key(wp_unslash($_GET['page']));
+
+        if ($is_connectors_page || $is_legacy_connectors_page) {
+            wp_safe_redirect(admin_url());
+            exit;
+        }
     }
 
     public function loadInjectBlockEditorIframeWithBodyClassScripts(): void
