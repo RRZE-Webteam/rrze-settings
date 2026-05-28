@@ -25,6 +25,37 @@ class Editor
     }
 
     /**
+     * Register block editor filters.
+     *
+     * @return void
+     */
+    public function loaded(): void
+    {
+        if ($this->shouldDisableCustomCss()) {
+            add_filter('block_type_metadata', [$this, 'disableCustomCssSupport']);
+        }
+    }
+
+    /**
+     * Disable Custom CSS support for block metadata.
+     *
+     * @param array $metadata Block type metadata.
+     * @return array
+     */
+    public function disableCustomCssSupport(array $metadata): array
+    {
+        if (!$this->shouldDisableCustomCss()) {
+            return $metadata;
+        }
+
+        if (isset($metadata['supports']) && is_array($metadata['supports'])) {
+            $metadata['supports']['customCSS'] = false;
+        }
+
+        return $metadata;
+    }
+
+    /**
      * Check if the block editor can be loaded
      * 
      * @param  boolean $canEdit Whether the post can be edited or not
@@ -81,6 +112,35 @@ class Editor
             return true;
         }
         return false;
+    }
+
+    /**
+     * Check whether Custom CSS support should be disabled for the current theme.
+     *
+     * @return boolean
+     */
+    public function shouldDisableCustomCss(): bool
+    {
+        if (empty($this->siteOptions->writing->disable_block_editor_custom_css)) {
+            return false;
+        }
+
+        $customCssThemes = array_filter(array_map('trim', (array) $this->siteOptions->writing->disable_block_editor_custom_css_themes));
+        if (empty($customCssThemes)) {
+            return true;
+        }
+
+        $theme = wp_get_theme();
+        $themeNames = array_filter([
+            $theme->get('Name'),
+            $theme->get_stylesheet(),
+            $theme->get_template(),
+        ]);
+
+        return !empty(array_intersect(
+            array_map('strtolower', $themeNames),
+            array_map('strtolower', $customCssThemes)
+        ));
     }
 
     /**
