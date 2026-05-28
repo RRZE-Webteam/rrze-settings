@@ -109,6 +109,11 @@ class Settings extends MainSettings
         $input['disable_openverse_media'] = !empty($input['disable_openverse_media']) ? 1 : 0;
         $input['disable_font_library_ui'] = !empty($input['disable_font_library_ui']) ? 1 : 0;
         $input['disable_code_editor'] = !empty($input['disable_code_editor']) ? 1 : 0;
+        $input['disable_block_editor_custom_css'] = !empty($input['disable_block_editor_custom_css']) ? 1 : 0;
+
+        if (isset($input['disable_block_editor_custom_css_themes'])) {
+            $input['disable_block_editor_custom_css_themes'] = $this->sanitizeTextarea($input['disable_block_editor_custom_css_themes']);
+        }
 
         // Try block editor field values
         if (is_super_admin() && !$this->siteOptions->writing->enable_block_editor) {
@@ -297,6 +302,22 @@ class Settings extends MainSettings
             'disable_code_editor',
             __('Disable Code Editor', 'rrze-settings'),
             [$this, 'disableCodeEditorField'],
+            $this->menuPage,
+            'rrze-settings-writing-block-editor'
+        );
+
+        add_settings_field(
+            'disable_block_editor_custom_css',
+            __('Disable Custom CSS', 'rrze-settings'),
+            [$this, 'disableBlockEditorCustomCssField'],
+            $this->menuPage,
+            'rrze-settings-writing-block-editor'
+        );
+
+        add_settings_field(
+            'disable_block_editor_custom_css_themes',
+            __('Disable Custom CSS Themes', 'rrze-settings'),
+            [$this, 'disableBlockEditorCustomCssThemesField'],
             $this->menuPage,
             'rrze-settings-writing-block-editor'
         );
@@ -547,6 +568,34 @@ class Settings extends MainSettings
         <label for="rrze-settings-disable-code-editor">
             <?php _e('Disable the Code Editor option from the Block Editor settings', 'rrze-settings'); ?>
         </label>
+    <?php
+    }
+
+    /**
+     * Renders the checkbox for disabling Custom CSS support in the Block Editor
+     *
+     * @return void
+     */
+    public function disableBlockEditorCustomCssField()
+    {
+    ?>
+        <input type="checkbox" id="rrze-settings-disable-block-editor-custom-css" name="<?php printf('%s[disable_block_editor_custom_css]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->writing->disable_block_editor_custom_css, 1); ?>>
+        <label for="rrze-settings-disable-block-editor-custom-css">
+            <?php _e('Disable Custom CSS support in Block Editor blocks', 'rrze-settings'); ?>
+        </label>
+    <?php
+    }
+
+    /**
+     * Renders the theme list for disabling Custom CSS support in the Block Editor
+     *
+     * @return void
+     */
+    public function disableBlockEditorCustomCssThemesField()
+    {
+    ?>
+        <textarea id="rrze-settings-disable-block-editor-custom-css-themes" cols="50" rows="5" name="<?php printf('%s[disable_block_editor_custom_css_themes]', $this->optionName); ?>"><?php echo esc_attr($this->getTextarea($this->siteOptions->writing->disable_block_editor_custom_css_themes)); ?></textarea>
+        <p class="description"><?php _e('List of themes where Custom CSS support should be disabled in the Block Editor. Enter one theme name or stylesheet per line. Leave empty to apply to all themes.', 'rrze-settings'); ?></p>
     <?php
     }
 

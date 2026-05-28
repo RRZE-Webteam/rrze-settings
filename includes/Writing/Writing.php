@@ -90,6 +90,7 @@ class Writing extends Main
         }
 
         // Enable/Disable the block editor
+        (new BlockEditor($this->siteOptions))->loaded();
         $this->maybeLoadBlockEditor();
 
         // Disables loading of the block directory assets

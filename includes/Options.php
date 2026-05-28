@@ -151,6 +151,8 @@ class Options
                 'disable_openverse_media' => 1,
                 'disable_font_library_ui' => 1,
                 'disable_code_editor' => 1,
+                'disable_block_editor_custom_css' => 0,
+                'disable_block_editor_custom_css_themes' => '',
                 'code_editor_websites_exceptions' => '',
                 'disable_custom_fields_metabox' => 0,
                 'deactivated_plugins' => ''
