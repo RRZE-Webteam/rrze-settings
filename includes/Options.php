@@ -175,6 +175,7 @@ class Options
                 'disable_ai_functionality' => 1,
                 'hide_ai_connector_page' => 1,
                 'sentry_mode' => 0,
+                'sentry_mode_monitor_deletions' => 0,
             ],
             'posts' => [
                 'last_modified_custom_column' => 0,

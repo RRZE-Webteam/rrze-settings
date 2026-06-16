@@ -48,6 +48,11 @@ class Advanced extends Main
 
         if (!empty($this->siteOptions->advanced->sentry_mode)) {
             add_action('upgrader_process_complete', [$this, 'recordSentryUpdate'], 10, 2);
+
+            if (!empty($this->siteOptions->advanced->sentry_mode_monitor_deletions)) {
+                add_action('deleted_plugin', [$this, 'recordSentryDeletedPlugin'], 10, 2);
+                add_action('deleted_theme', [$this, 'recordSentryDeletedTheme'], 10, 2);
+            }
         }
     }
 
@@ -180,6 +185,52 @@ class Advanced extends Main
             'type' => $type,
             'bulk' => !empty($options['bulk']),
             'items' => $this->getSentryUpdateItems($type, $options),
+        ]);
+    }
+
+    /**
+     * Write the sentry marker after WordPress successfully deletes a plugin.
+     *
+     * @param string $pluginFile Plugin file relative to the plugins directory.
+     * @param bool   $deleted Whether WordPress successfully deleted the plugin.
+     * @return void
+     */
+    public function recordSentryDeletedPlugin(string $pluginFile, bool $deleted): void
+    {
+        if (!$deleted) {
+            return;
+        }
+
+        $this->writeSentryMarkerFile([
+            'last_update_unix' => time(),
+            'last_update_utc' => gmdate('c'),
+            'action' => 'delete',
+            'type' => 'plugin',
+            'bulk' => false,
+            'items' => $this->sanitizeSentryItems($pluginFile),
+        ]);
+    }
+
+    /**
+     * Write the sentry marker after WordPress successfully deletes a theme.
+     *
+     * @param string $stylesheet Stylesheet of the deleted theme.
+     * @param bool   $deleted Whether WordPress successfully deleted the theme.
+     * @return void
+     */
+    public function recordSentryDeletedTheme(string $stylesheet, bool $deleted): void
+    {
+        if (!$deleted) {
+            return;
+        }
+
+        $this->writeSentryMarkerFile([
+            'last_update_unix' => time(),
+            'last_update_utc' => gmdate('c'),
+            'action' => 'delete',
+            'type' => 'theme',
+            'bulk' => false,
+            'items' => $this->sanitizeSentryItems($stylesheet),
         ]);
     }
 
