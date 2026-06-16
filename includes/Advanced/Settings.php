@@ -69,6 +69,7 @@ class Settings extends MainSettings
         $input['disable_ai_functionality'] = isset($input['disable_ai_functionality']) ? 1 : 0;
         $input['hide_ai_connector_page'] = isset($input['hide_ai_connector_page']) ? 1 : 0;
         $input['sentry_mode'] = isset($input['sentry_mode']) ? 1 : 0;
+        $input['sentry_mode_monitor_deletions'] = isset($input['sentry_mode_monitor_deletions']) ? 1 : 0;
 
         return $this->parseOptionsValidate($input, 'advanced');
     }
@@ -147,6 +148,14 @@ class Settings extends MainSettings
             'sentry_mode',
             __('Sentry Mode', 'rrze-settings'),
             [$this, 'sentryModeField'],
+            $this->menuPage,
+            $this->sectionName
+        );
+
+        add_settings_field(
+            'sentry_mode_monitor_deletions',
+            __('Monitor Deleted Themes and Plugins', 'rrze-settings'),
+            [$this, 'sentryModeMonitorDeletionsField'],
             $this->menuPage,
             $this->sectionName
         );
@@ -258,5 +267,17 @@ class Settings extends MainSettings
         $checked = checked($this->siteOptions->advanced->sentry_mode, 1, false);
         echo '<input type="checkbox" id="rrze-settings-advanced-sentry-mode" name="', sprintf('%s[sentry_mode]', $this->optionName), '" value="1" ', $checked, '>';
         echo '<p class="description">' . __('Write a sentry marker file in the WordPress base directory whenever WordPress completes a core, plugin, theme, or translation install/update.', 'rrze-settings') . '</p>';
+    }
+
+    /**
+     * Display the sentry_mode_monitor_deletions field
+     *
+     * @return void
+     */
+    public function sentryModeMonitorDeletionsField(): void
+    {
+        $checked = checked($this->siteOptions->advanced->sentry_mode_monitor_deletions, 1, false);
+        echo '<input type="checkbox" id="rrze-settings-advanced-sentry-mode-monitor-deletions" name="', sprintf('%s[sentry_mode_monitor_deletions]', $this->optionName), '" value="1" ', $checked, '>';
+        echo '<p class="description">' . __('When Sentry Mode is active, also update the sentry marker file after successful plugin or theme deletions.', 'rrze-settings') . '</p>';
     }
 }
