@@ -13,6 +13,8 @@ use function RRZE\Settings\plugin;
  */
 class Advanced extends Main
 {
+    private const SENTRY_MARKER_FILE = '.rrze-settings-sentry.json';
+
     public function loaded(): void
     {
         (new Settings(
@@ -42,6 +44,10 @@ class Advanced extends Main
 
         if (!empty($this->siteOptions->advanced->block_editor_iframe_body_class) || !empty($this->siteOptions->advanced->block_editor_auto_theme_classes)) {
             add_action('enqueue_block_editor_assets', [$this, 'loadInjectBlockEditorIframeWithBodyClassScripts']);
+        }
+
+        if (!empty($this->siteOptions->advanced->sentry_mode)) {
+            add_action('upgrader_process_complete', [$this, 'recordSentryUpdate'], 10, 2);
         }
     }
 
@@ -143,5 +149,127 @@ class Advanced extends Main
         wp_localize_script('custom-iframe-classes', 'iframeBodyData', [
             'classes' => $classes_string,
         ]);
+    }
+
+    /**
+     * Write the sentry marker after WordPress completes an upgrade process.
+     *
+     * @param mixed $upgrader The upgrader instance passed by WordPress.
+     * @param array $options Upgrade metadata from WordPress.
+     * @return void
+     */
+    public function recordSentryUpdate($upgrader, array $options): void
+    {
+        unset($upgrader);
+
+        $type = sanitize_key($options['type'] ?? '');
+        $action = sanitize_key($options['action'] ?? '');
+
+        if (!in_array($type, ['core', 'plugin', 'theme', 'translation'], true)) {
+            return;
+        }
+
+        if (!in_array($action, ['install', 'update'], true)) {
+            return;
+        }
+
+        $this->writeSentryMarkerFile([
+            'last_update_unix' => time(),
+            'last_update_utc' => gmdate('c'),
+            'action' => $action,
+            'type' => $type,
+            'bulk' => !empty($options['bulk']),
+            'items' => $this->getSentryUpdateItems($type, $options),
+        ]);
+    }
+
+    /**
+     * Store the latest update metadata in the WordPress base directory.
+     *
+     * @param array $payload Sentry marker payload.
+     * @return void
+     */
+    private function writeSentryMarkerFile(array $payload): void
+    {
+        $file = trailingslashit(ABSPATH) . self::SENTRY_MARKER_FILE;
+        $json = wp_json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+
+        if (!is_string($json)) {
+            $json = '';
+        }
+
+        if (false === @file_put_contents($file, $json . PHP_EOL, LOCK_EX)) {
+            @touch($file);
+        }
+    }
+
+    /**
+     * Extract the updated items WordPress reports for each upgrade type.
+     *
+     * @param string $type Upgrade type.
+     * @param array  $options Upgrade metadata from WordPress.
+     * @return array
+     */
+    private function getSentryUpdateItems(string $type, array $options): array
+    {
+        switch ($type) {
+            case 'plugin':
+                return $this->sanitizeSentryItems($options['plugins'] ?? ($options['plugin'] ?? []));
+            case 'theme':
+                return $this->sanitizeSentryItems($options['themes'] ?? ($options['theme'] ?? []));
+            case 'translation':
+                return $this->sanitizeSentryTranslations($options['translations'] ?? []);
+            case 'core':
+                return array_filter([
+                    'version' => sanitize_text_field(get_bloginfo('version')),
+                ]);
+        }
+
+        return [];
+    }
+
+    /**
+     * Sanitize plugin or theme identifiers for the marker payload.
+     *
+     * @param mixed $items Plugin basenames or theme slugs.
+     * @return array
+     */
+    private function sanitizeSentryItems($items): array
+    {
+        $items = is_array($items) ? $items : [$items];
+
+        return array_values(array_filter(array_map(
+            static fn($item) => is_scalar($item) ? sanitize_text_field((string) $item) : '',
+            $items
+        )));
+    }
+
+    /**
+     * Sanitize translation metadata for the marker payload.
+     *
+     * @param mixed $translations Translation metadata from WordPress.
+     * @return array
+     */
+    private function sanitizeSentryTranslations($translations): array
+    {
+        if (!is_array($translations)) {
+            return [];
+        }
+
+        $sanitizedTranslations = [];
+        foreach ($translations as $translation) {
+            if (!is_array($translation)) {
+                continue;
+            }
+
+            $sanitizedTranslations[] = array_filter([
+                'type' => sanitize_key($translation['type'] ?? ''),
+                'slug' => sanitize_text_field((string) ($translation['slug'] ?? '')),
+                'language' => sanitize_text_field((string) ($translation['language'] ?? '')),
+                'version' => sanitize_text_field((string) ($translation['version'] ?? '')),
+            ]);
+        }
+
+        return $sanitizedTranslations;
     }
 }

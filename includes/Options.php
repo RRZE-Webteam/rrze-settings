@@ -174,6 +174,7 @@ class Options
                 'block_editor_auto_theme_classes' => 0,
                 'disable_ai_functionality' => 1,
                 'hide_ai_connector_page' => 1,
+                'sentry_mode' => 0,
             ],
             'posts' => [
                 'last_modified_custom_column' => 0,
