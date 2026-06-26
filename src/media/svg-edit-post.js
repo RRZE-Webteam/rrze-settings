@@ -1,1 +1,1 @@
-import "./svg-edit-post.scss";
+/* SVG edit post */

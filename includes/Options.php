@@ -132,6 +132,11 @@ class Options
                 'contact_page' => 0,
                 'can_view_debug_log' => [],
             ],
+            'governance' => [
+                'websupport_enabled' => 0,
+                'websupport_role_name' => 'Websupport',
+                'websupport_users' => [],
+            ],
             'writing' => [
                 'enable_post_lock' => 0,
                 'post_lock' => 150,

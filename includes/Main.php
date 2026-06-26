@@ -11,6 +11,7 @@ use RRZE\Settings\Posts\Posts;
 use RRZE\Settings\RestAPI\RestAPI;
 use RRZE\Settings\Heartbeat\Heartbeat;
 use RRZE\Settings\Users\Users;
+use RRZE\Settings\Governance\Governance;
 use RRZE\Settings\Menus\Menus;
 use RRZE\Settings\Tools\Tools;
 use RRZE\Settings\Writing\Writing;
@@ -106,6 +107,9 @@ class Main
 
         // Users
         (new Users())->loaded();
+
+        // Governance
+        (new Governance())->loaded();
 
         // Posts
         (new Posts())->loaded();
