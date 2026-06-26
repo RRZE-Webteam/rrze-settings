@@ -1,5 +1,3 @@
-import "./attachment-media-filters.scss";
-
 (function ($, _, wp) {
     "use strict";
     if (!wp || !wp.media) return;

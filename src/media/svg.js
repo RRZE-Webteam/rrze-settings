@@ -1,1 +1,1 @@
-import "./svg.scss";
+/* SVG media */

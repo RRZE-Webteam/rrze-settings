@@ -1,1 +1,1 @@
-import "./columns.scss";
+/* Media columns */

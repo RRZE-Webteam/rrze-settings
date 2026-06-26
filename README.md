@@ -1,3 +1,9 @@
+[![Aktuelle Version](https://img.shields.io/github/package-json/v/rrze-webteam/rrze-settings/main?label=Version)](https://github.com/RRZE-Webteam/rrze-settings)
+[![Release Version](https://img.shields.io/github/v/release/rrze-webteam/rrze-settings?label=Release+Version)](https://github.com/rrze-webteam/rrze-settings/releases/)
+[![GitHub License](https://img.shields.io/github/license/rrze-webteam/rrze-settings)](https://github.com/RRZE-Webteam/rrze-settings)
+[![GitHub issues](https://img.shields.io/github/issues/RRZE-Webteam/rrze-settings)](https://github.com/RRZE-Webteam/rrze-settings/issues)
+
+
 # RRZE Settings
 
 RRZE Settings is a WordPress plugin that provides general settings and enhancements for multisite installations.

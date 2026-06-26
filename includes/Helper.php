@@ -138,6 +138,56 @@ class Helper
     }
 
     /**
+     * Check if the user has websupport access
+     *
+     * @param int $userId User ID. Defaults to the current user.
+     * @return bool True if the user has websupport access
+     */
+    public static function isWebsupportUser(int $userId = 0): bool
+    {
+        if (!$userId) {
+            $userId = get_current_user_id();
+        }
+
+        if (!$userId) {
+            return false;
+        }
+
+        $siteOptions = Options::getSiteOptions();
+        if (empty($siteOptions->governance->websupport_enabled)) {
+            return false;
+        }
+
+        $userIds = (array) ($siteOptions->governance->websupport_users ?? []);
+        $userIds = array_map('intval', $userIds);
+
+        return in_array($userId, $userIds, true);
+    }
+
+    /**
+     * Get the visible websupport role name
+     *
+     * @return string Role name
+     */
+    public static function getWebsupportRoleName(): string
+    {
+        $siteOptions = Options::getSiteOptions();
+        $roleName = trim((string) ($siteOptions->governance->websupport_role_name ?? ''));
+
+        return $roleName !== '' ? $roleName : 'Websupport';
+    }
+
+    /**
+     * Check if the current user has websupport access
+     *
+     * @return bool True if the current user has websupport access
+     */
+    public static function currentUserCanWebsupport(): bool
+    {
+        return self::isWebsupportUser();
+    }
+
+    /**
      * Check if the user can view the debug log
      * 
      * @deprecated 2.0.0 Use self::userCanViewDebugLog() instead
