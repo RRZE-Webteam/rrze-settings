@@ -1,5 +1,5 @@
 === Plugin Name: RRZE Settings ===
-Version: 2.2.10
+Version: 2.2.11
 Plugin URI: https://github.com/RRZE-Webteam/rrze-settings
 GitHub Issue URL: https://github.com/RRZE-Webteam/rrze-settings/issues
 Author: RRZE Webteam

@@ -1,7 +1,7 @@
 {
   "name": "rrze-settings",
   "title": "RRZE Settings",
-  "version": "2.2.10",
+  "version": "2.2.11",
   "description": "General settings and enhancements for a WordPress multisite installation.",
   "main": "rrze-settings.php",
   "textdomain": "rrze-settings",
@@ -60,23 +60,23 @@
   "licenseurl": "https://www.gnu.org/licenses/gpl-3.0.html",
   "tags": "Plugin, WordPress, Multisite, RRZE, FAU, Settings",
   "dependencies": {
-    "@wordpress/block-library": "latest",
-    "@wordpress/blocks": "latest",
+    "@wordpress/block-library": "^10.0.0",
+    "@wordpress/blocks": "^15.22.0",
     "@wordpress/data": "^10.44.0",
     "@wordpress/dom-ready": "^4.44.0",
-    "@wordpress/edit-post": "latest",
+    "@wordpress/edit-post": "^8.49.0",
     "@wordpress/element": "latest",
     "@wordpress/hooks": "latest",
     "@wordpress/i18n": "latest",
     "@wordpress/preferences": "^4.44.0"
   },
   "devDependencies": {
+    "@types/wordpress__block-editor": "^11.5.13",
+    "@types/wordpress__dom-ready": "^2.9.0",
+    "@wordpress/scripts": "^32.5.0",
     "axios": "^1.15.0",
     "classnames": "^2.5.1",
     "rtlcss": "^4.3.0",
-    "sass": "^1.97.3",
-    "@wordpress/scripts": "32.0.0",
-    "@types/wordpress__dom-ready": "^2.9.0",
-    "@types/wordpress__block-editor": "^15.0.6"
+    "sass": "^1.97.3"
   }
 }

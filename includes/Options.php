@@ -107,6 +107,7 @@ class Options
                 'rrze_webt_application_name' => '',
                 'rrze_webt_password' => '',
                 'rrze_webt_exceptions' => '',
+                'rrze_formular_allowedDomains' => '',
             ],
             'rest' => [
                 'disabled' => '0',

@@ -86,6 +86,7 @@ class Main
         $this->defaultOptions = Options::getDefaultOptions();
 
         add_action('admin_enqueue_scripts', [$this, 'adminEnqueueScripts']);
+        add_action('admin_bar_menu', [$this, 'adminBarMenu'], 999);
     }
 
     /**
@@ -168,5 +169,25 @@ class Main
             [],
             plugin()->getVersion()
         );
+    }
+
+    /**
+     * Add RRZE Settings to the network admin bar menu.
+     *
+     * @param \WP_Admin_Bar $wpAdminBar Admin bar instance.
+     * @return void
+     */
+    public function adminBarMenu($wpAdminBar)
+    {
+        if (!is_multisite() || !is_super_admin()) {
+            return;
+        }
+
+        $wpAdminBar->add_node([
+            'id' => 'network-admin-rrze-settings',
+            'parent' => 'network-admin',
+            'title' => __('CMS', 'rrze-settings'),
+            'href' => network_admin_url('admin.php?page=rrze-settings'),
+        ]);
     }
 }

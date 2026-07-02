@@ -136,6 +136,11 @@ class Settings extends MainSettings
         $exceptions = !empty($exceptions) ? $this->sanitizeWebsitesExceptions($exceptions) : '';
         $input['rrze_webt_exceptions'] = !empty($exceptions) ? $exceptions : '';
 
+        $input['rrze_formular_allowedDomains'] = isset($input['rrze_formular_allowedDomains']) ? $input['rrze_formular_allowedDomains'] : '';
+        $allowedDomains = $this->sanitizeTextarea($input['rrze_formular_allowedDomains']);
+        $allowedDomains = !empty($allowedDomains) ? $this->sanitizeDomainNamesWithoutWww($allowedDomains) : '';
+        $input['rrze_formular_allowedDomains'] = !empty($allowedDomains) ? $allowedDomains : '';
+
         $options = $this->parseOptionsValidate($input, 'plugins');
 
         if (is_multisite() && $this->pluginExists(RRZESearch::PLUGIN)) {
@@ -383,6 +388,22 @@ class Settings extends MainSettings
                 );
             }
         }
+
+        // RRZE Formular
+        add_settings_section(
+            'rrze-settings-plugins-rrze-formular',
+            __('RRZE Formular', 'rrze-settings'),
+            '__return_false',
+            $this->menuPage
+        );
+
+        add_settings_field(
+            'rrze_formular_allowedDomains',
+            __('Allowed Domains', 'rrze-settings'),
+            [$this, 'rrzeFormularAllowedDomainsField'],
+            $this->menuPage,
+            'rrze-settings-plugins-rrze-formular'
+        );
 
         // RRZE CMS Workflow
         if ($this->pluginExists(CMSWorkflow::PLUGIN)) {
@@ -731,6 +752,16 @@ class Settings extends MainSettings
     }
 
     /**
+     * RRZE Formular - Allowed domains
+     */
+    public function rrzeFormularAllowedDomainsField()
+    {
+        $option = $this->siteOptions->plugins->rrze_formular_allowedDomains;
+        echo '<textarea id="rrze-settings-rrze-formular-allowed-domains" cols="50" rows="5" name="', sprintf('%s[rrze_formular_allowedDomains]', $this->optionName), '">', esc_attr($this->getTextarea($option)), '</textarea>';
+        echo '<p class="description">', __('List of allowed domains for RRZE Formular. Enter one domain without www per line.', 'rrze-settings'), '</p>';
+    }
+
+    /**
      * Newsletter - Websites that are exempt to all global settings
      */
     public function newsletterExceptionsField()
@@ -916,6 +947,40 @@ class Settings extends MainSettings
                 $allowedDomains[$domain] = $domain;
             }
         }
+        return $allowedDomains;
+    }
+
+    /**
+     * Sanitize bare domain names without leading www.
+     *
+     * @param array $domains
+     * @return array
+     */
+    protected function sanitizeDomainNamesWithoutWww(array $domains)
+    {
+        $allowedDomains = [];
+
+        foreach ($domains as $domain) {
+            $domain = strtolower(trim((string) $domain));
+            $domain = rtrim($domain, '.');
+
+            if ($domain === '' || preg_match('~^[a-z][a-z0-9+\-.]*://~i', $domain)) {
+                continue;
+            }
+
+            if (strpos($domain, '/') !== false || strpos($domain, ':') !== false) {
+                continue;
+            }
+
+            if (strpos($domain, 'www.') === 0) {
+                continue;
+            }
+
+            if (Helper::isValidDomain($domain)) {
+                $allowedDomains[$domain] = $domain;
+            }
+        }
+
         return $allowedDomains;
     }
 
