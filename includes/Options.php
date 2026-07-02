@@ -108,6 +108,7 @@ class Options
                 'rrze_webt_password' => '',
                 'rrze_webt_exceptions' => '',
                 'rrze_formular_allowedDomains' => '',
+                'rrze_directions_openrouteservice_api_key' => '',
             ],
             'rest' => [
                 'disabled' => '0',

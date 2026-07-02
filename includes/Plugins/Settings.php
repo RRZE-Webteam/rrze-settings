@@ -141,6 +141,9 @@ class Settings extends MainSettings
         $allowedDomains = !empty($allowedDomains) ? $this->sanitizeDomainNamesWithoutWww($allowedDomains) : '';
         $input['rrze_formular_allowedDomains'] = !empty($allowedDomains) ? $allowedDomains : '';
 
+        $input['rrze_directions_openrouteservice_api_key'] = isset($input['rrze_directions_openrouteservice_api_key']) ? $input['rrze_directions_openrouteservice_api_key'] : '';
+        $input['rrze_directions_openrouteservice_api_key'] = $this->sanitizeOpenRouteServiceApiKey($input['rrze_directions_openrouteservice_api_key']);
+
         $options = $this->parseOptionsValidate($input, 'plugins');
 
         if (is_multisite() && $this->pluginExists(RRZESearch::PLUGIN)) {
@@ -465,6 +468,22 @@ class Settings extends MainSettings
             );
         }
 
+        // RRZE Directions
+        add_settings_section(
+            'rrze-settings-plugins-rrze-directions',
+            __('RRZE Directions', 'rrze-settings'),
+            '__return_false',
+            $this->menuPage
+        );
+
+        add_settings_field(
+            'rrze_directions_openrouteservice_api_key',
+            __('OpenRouteService-API-Key', 'rrze-settings'),
+            [$this, 'rrzeDirectionsOpenRouteServiceApiKeyField'],
+            $this->menuPage,
+            'rrze-settings-plugins-rrze-directions'
+        );
+
         // Contact Form 7
         if ($this->pluginExists(CF7::PLUGIN)) {
             add_settings_section(
@@ -762,6 +781,26 @@ class Settings extends MainSettings
     }
 
     /**
+     * RRZE Directions - OpenRouteService API key
+     */
+    public function rrzeDirectionsOpenRouteServiceApiKeyField()
+    {
+        printf(
+            '<input type="text" id="rrze-settings-rrze-directions-openrouteservice-api-key" name="%1$s" value="%2$s" class="regular-text" autocomplete="off">',
+            esc_attr(sprintf('%s[rrze_directions_openrouteservice_api_key]', $this->optionName)),
+            esc_attr($this->siteOptions->plugins->rrze_directions_openrouteservice_api_key)
+        );
+
+        printf(
+            '<p class="description">%1$s <a href="%2$s" target="_blank" rel="noopener noreferrer">%3$s</a> %4$s</p>',
+            esc_html__('Schlüssel unter', 'rrze-settings'),
+            esc_url('https://openrouteservice.org/'),
+            esc_html__('https://openrouteservice.org', 'rrze-settings'),
+            esc_html__('beantragen und hier einfügen.', 'rrze-settings')
+        );
+    }
+
+    /**
      * Newsletter - Websites that are exempt to all global settings
      */
     public function newsletterExceptionsField()
@@ -982,6 +1021,23 @@ class Settings extends MainSettings
         }
 
         return $allowedDomains;
+    }
+
+    /**
+     * Sanitize OpenRouteService API key.
+     *
+     * @param string $apiKey
+     * @return string
+     */
+    protected function sanitizeOpenRouteServiceApiKey(string $apiKey): string
+    {
+        $apiKey = trim(sanitize_text_field($apiKey));
+
+        if ($apiKey === '' || !preg_match('/^[a-zA-Z0-9\-_=]+$/', $apiKey)) {
+            return '';
+        }
+
+        return $apiKey;
     }
 
     /**

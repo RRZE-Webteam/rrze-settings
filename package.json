@@ -1,7 +1,7 @@
 {
   "name": "rrze-settings",
   "title": "RRZE Settings",
-  "version": "2.2.11",
+  "version": "2.2.12",
   "description": "General settings and enhancements for a WordPress multisite installation.",
   "main": "rrze-settings.php",
   "textdomain": "rrze-settings",
