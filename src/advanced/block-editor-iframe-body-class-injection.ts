@@ -136,7 +136,7 @@ domReady(() => {
     if (iframe && iframe !== activeIframe) {
       activeIframe = iframe;
       // It can take a moment for the iframe's contentDocument to be accessible
-      setTimeout(() => observeIframe(iframe, classesToApply), 50);
+      observeIframe(iframe, classesToApply);
     }
   });
 });
