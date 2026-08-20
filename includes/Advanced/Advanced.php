@@ -42,6 +42,11 @@ class Advanced extends Main
             add_action('admin_init', [$this, 'blockAIConnectorPageAccess'], 0);
         }
 
+        if (!empty($this->siteOptions->advanced->disable_font_library_admin)) {
+            add_action('admin_menu', [$this, 'hideFontLibraryPage'], PHP_INT_MAX);
+            add_action('load-appearance_page_font-library', [$this, 'blockFontLibraryPageAccess']);
+        }
+
         if (!empty($this->siteOptions->advanced->block_editor_iframe_body_class) || !empty($this->siteOptions->advanced->block_editor_auto_theme_classes)) {
             add_action('enqueue_block_editor_assets', [$this, 'loadInjectBlockEditorIframeWithBodyClassScripts']);
         }
@@ -109,6 +114,24 @@ class Advanced extends Main
             wp_safe_redirect(admin_url());
             exit;
         }
+    }
+
+    public function hideFontLibraryPage(): void
+    {
+        if (is_network_admin()) {
+            return;
+        }
+
+        remove_submenu_page('themes.php', 'font-library.php');
+    }
+
+    public function blockFontLibraryPageAccess(): void
+    {
+        wp_die(
+            esc_html__('This feature has been disabled.', 'rrze-settings'),
+            esc_html__('Disabled', 'rrze-settings'),
+            ['response' => 403, 'back_link' => true]
+        );
     }
 
     public function loadInjectBlockEditorIframeWithBodyClassScripts(): void
