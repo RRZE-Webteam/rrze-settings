@@ -41,7 +41,7 @@
   },
   "compatibility": {
     "wprequires": "6.9",
-    "wptestedup": "7.0",
+    "wptestedup": "7.1",
     "phprequires": "8.2"
   },
   "supports": {

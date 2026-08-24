@@ -169,7 +169,7 @@ class Advanced extends Main
         wp_enqueue_script(
             'custom-iframe-classes',
             $script_url,
-            ['wp-data', 'wp-editor', 'wp-blocks', 'wp-dom-ready', 'wp-edit-post'],
+            ['wp-dom-ready'],
             filemtime($script_path),
             true
         );
