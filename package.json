@@ -1,7 +1,7 @@
 {
   "name": "rrze-settings",
   "title": "RRZE Settings",
-  "version": "2.2.12",
+  "version": "2.2.13",
   "description": "General settings and enhancements for a WordPress multisite installation.",
   "main": "rrze-settings.php",
   "textdomain": "rrze-settings",
@@ -41,7 +41,7 @@
   },
   "compatibility": {
     "wprequires": "6.9",
-    "wptestedup": "7.0",
+    "wptestedup": "7.1",
     "phprequires": "8.2"
   },
   "supports": {
