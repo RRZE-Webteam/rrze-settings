@@ -59,7 +59,7 @@ jobs:
       - name: Send Matrix notification
         env:
           MATRIX_ACCESS_TOKEN: ${{ secrets.MATRIX_ACCESS_TOKEN }}
-          MATRIX_ROOM_ID: "%21wyUpkRsFMDGzzGmxBf%3Afau.de" # HTML-encoded room ID
+          MATRIX_ROOM_ID: ${{ secrets.MATRIX_REPORT_ROOM_ID }} 
         run: |
           response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "https://matrix.fau.de/_matrix/client/r0/rooms/${MATRIX_ROOM_ID}/send/m.room.message?access_token=${MATRIX_ACCESS_TOKEN}" \
             -H "Content-Type: application/json" \
