@@ -1970,3 +1970,28 @@ msgstr "Die Bestätigungsphrase stimmt nicht überein."
 #: src/general/admin-role-threshold-warning.js:129
 msgid "Proceed anyway"
 msgstr "Trotzdem fortfahren"
+
+msgid "Allowed namespaces and routes"
+msgstr "Erlaubte Namespaces und Routen"
+
+msgid "Registered public endpoints"
+msgstr "Registrierte öffentliche Endpunkte"
+
+msgid "Enter one REST API namespace or route per line, for example /wp/v2/pages. Each entry includes its subroutes and permits access when the general REST API restriction is enabled."
+msgstr "Pro Zeile einen REST-API-Namespace oder eine Route eingeben, zum Beispiel /wp/v2/pages. Jeder Eintrag umfasst seine Unterrouten und erlaubt den Zugriff bei aktivierter allgemeiner REST-API-Sperre."
+
+msgid "Private Site administrators can additionally select these entries for public GET and HEAD access on their own site. Registered public endpoints always require their separate checkbox approval."
+msgstr "Betreiber privater Websites können diese Einträge zusätzlich für öffentliche GET- und HEAD-Anfragen auf ihrer Website auswählen. Registrierte öffentliche Endpunkte benötigen immer ihre eigene Checkbox-Freigabe."
+
+msgid "No installed plugin has declared a public REST API endpoint."
+msgstr "Bisher wurde kein öffentlicher REST-API-Endpunkt eines installierten Plugins erkannt."
+
+msgid "Registered endpoints require explicit approval for anonymous access, even when the general REST API restriction is off or an IP address or namespace is allowed. Only the exact route and listed methods are approved. Visitors without existing access to a private site additionally need a local endpoint selection (GET and HEAD only). Endpoint permission checks still apply."
+msgstr "Registrierte Endpunkte benötigen eine ausdrückliche Freigabe für anonyme Zugriffe, auch bei ausgeschalteter allgemeiner REST-API-Sperre oder erlaubter IP-Adresse beziehungsweise erlaubtem Namespace. Die Freigabe gilt nur für die genaue Route und die aufgeführten Methoden. Für Besucher ohne bestehende Zugangsberechtigung zur privaten Website muss der Betreiber den Endpunkt zusätzlich lokal auswählen (nur GET und HEAD). Die Berechtigungsprüfung des Endpunkts bleibt wirksam."
+
+#, php-format
+msgid "%s (including subroutes)"
+msgstr "%s (einschließlich Unterrouten)"
+
+msgid "Network allowlist entry. Permits public read access to this route and its subroutes. Registered public endpoints require their own approval."
+msgstr "Eintrag aus der Netzwerkfreigabeliste. Erlaubt öffentlichen Lesezugriff auf diese Route und ihre Unterrouten. Registrierte öffentliche Endpunkte benötigen ihre eigene Freigabe."

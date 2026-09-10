@@ -65,6 +65,8 @@ class Settings extends MainSettings
             $input['restwhite'] = $this->sanitizeRestwhiteField($input['restwhite']);
         }
 
+        $input['restpublic'] = $this->sanitizePublicRestEndpoints($input['restpublic'] ?? []);
+
         return $this->parseOptionsValidate($input, 'rest');
     }
 
@@ -98,15 +100,25 @@ class Settings extends MainSettings
                 $this->menuPage,
                 $this->sectionName
             );
-
-            add_settings_field(
-                'restwhite',
-                __('Allowed namespaces', 'rrze-settings'),
-                [$this, 'restwhiteField'],
-                $this->menuPage,
-                $this->sectionName
-            );
         }
+
+        // These choices also govern private-site exceptions when the general
+        // network REST restriction is disabled, so keep both controls visible.
+        add_settings_field(
+            'restwhite',
+            __('Allowed namespaces and routes', 'rrze-settings'),
+            [$this, 'restwhiteField'],
+            $this->menuPage,
+            $this->sectionName
+        );
+
+        add_settings_field(
+            'restpublic',
+            __('Registered public endpoints', 'rrze-settings'),
+            [$this, 'publicRestEndpointsField'],
+            $this->menuPage,
+            $this->sectionName
+        );
     }
 
     /**
@@ -158,8 +170,50 @@ class Settings extends MainSettings
     {
     ?>
         <textarea id="rrze-settings-restwhite" name="<?php printf('%s[restwhite]', $this->optionName); ?>" aria-describedby="limited-email-domains-desc" cols="46" rows="5"><?php echo $this->getRestwhiteOption(); ?></textarea>
-        <p class="description"><?php _e("Enter the REST API namespaces that allow access to the REST API when disabled. One namespace per line.", 'rrze-settings'); ?></p>
+        <p class="description"><?php esc_html_e('Enter one REST API namespace or route per line, for example /wp/v2/pages. Each entry includes its subroutes and permits access when the general REST API restriction is enabled.', 'rrze-settings'); ?></p>
+        <p class="description"><?php esc_html_e('Private Site administrators can additionally select these entries for public GET and HEAD access on their own site. Registered public endpoints always require their separate checkbox approval.', 'rrze-settings'); ?></p>
 <?php
+    }
+
+    /**
+     * Render public endpoints declared by installed plugins.
+     *
+     * @return void
+     */
+    public function publicRestEndpointsField()
+    {
+        $endpoints = $this->getPublicRestEndpoints();
+        $selected = $this->siteOptions->rest->restpublic ?? [];
+        $selected = is_array($selected) ? $selected : [];
+
+        if (empty($endpoints)) {
+            echo '<p class="description">';
+            esc_html_e('No installed plugin has declared a public REST API endpoint.', 'rrze-settings');
+            echo '</p>';
+            return;
+        }
+        ?>
+        <fieldset>
+            <?php foreach ($endpoints as $id => $endpoint) : ?>
+                <label for="rrze-settings-rest-public-<?php echo esc_attr($id); ?>">
+                    <input
+                        type="checkbox"
+                        id="rrze-settings-rest-public-<?php echo esc_attr($id); ?>"
+                        name="<?php printf('%s[restpublic][]', esc_attr($this->optionName)); ?>"
+                        value="<?php echo esc_attr($id); ?>"
+                        <?php checked(in_array($id, $selected, true)); ?>
+                    >
+                    <strong><?php echo esc_html($endpoint['label']); ?></strong>
+                </label>
+                <br>
+                <code><?php echo esc_html(implode(', ', $endpoint['methods']) . ' ' . $endpoint['route']); ?></code>
+                <?php if ($endpoint['description'] !== '') : ?>
+                    <p class="description"><?php echo esc_html($endpoint['description']); ?></p>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            <p class="description"><?php esc_html_e('Registered endpoints require explicit approval for anonymous access, even when the general REST API restriction is off or an IP address or namespace is allowed. Only the exact route and listed methods are approved. Visitors without existing access to a private site additionally need a local endpoint selection (GET and HEAD only). Endpoint permission checks still apply.', 'rrze-settings'); ?></p>
+        </fieldset>
+    <?php
     }
 
     /**
@@ -275,5 +329,26 @@ class Settings extends MainSettings
             return array_filter(array_map('trim', explode(PHP_EOL, sanitize_textarea_field($input))));
         }
         return '';
+    }
+
+    /**
+     * Validate the registered public endpoints selected by the network administrator.
+     *
+     * @param mixed $input Submitted endpoint IDs.
+     * @return array Valid registered endpoint IDs.
+     */
+    protected function sanitizePublicRestEndpoints($input)
+    {
+        return PublicEndpoints::sanitizeSelection($input);
+    }
+
+    /**
+     * Return valid endpoint definitions supplied by installed plugins.
+     *
+     * @return array<string, array{label: string, route: string, methods: array, description: string}>
+     */
+    protected function getPublicRestEndpoints()
+    {
+        return PublicEndpoints::getForSettings();
     }
 }

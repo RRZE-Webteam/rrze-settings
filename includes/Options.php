@@ -114,6 +114,7 @@ class Options
                 'disabled' => '0',
                 'restwhite' => ['oembed'],
                 'restnetwork' => [],
+                'restpublic' => [],
             ],
             'taxonomies' => [
                 'exclude_nosearch_posts' => 0,
