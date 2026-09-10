@@ -50,9 +50,25 @@ class API
      */
     public function loaded()
     {
-        if (!is_user_logged_in()) {
-            add_filter('rest_pre_dispatch', [$this, 'restAccess'], 99, 3);
-        }
+        add_filter('rest_pre_dispatch', [$this, 'restAccess'], 99, 3);
+        add_filter('rrze_rest_api_approved_public_endpoints', [$this, 'approvedPublicEndpoints']);
+        add_filter('rrze_rest_api_public_request_allowed', [$this, 'publicRequestAllowed'], 10, 3);
+    }
+
+    /**
+     * Supply the network-approved choices for a site's public REST exceptions.
+     */
+    public function approvedPublicEndpoints($endpoints)
+    {
+        return PublicEndpoints::getApproved($this->siteOptions->rest);
+    }
+
+    /**
+     * Revalidate a site's selection against the current network policy.
+     */
+    public function publicRequestAllowed($allowed, $selected, $request)
+    {
+        return PublicEndpoints::approvedRequestMatches($this->siteOptions->rest, $selected, $request);
     }
 
     /**
@@ -65,13 +81,13 @@ class API
      */
     public function restAccess($response, $server, $request)
     {
-        $restAllowed = false;
-
-        if ($this->isRestAllowed($request)) {
-            $restAllowed = true;
+        // Check authentication during REST dispatch, after WordPress has identified
+        // application-password users as well as cookie-authenticated users.
+        if (is_user_logged_in()) {
+            return $response;
         }
 
-        if (!$restAllowed) {
+        if (!$this->isRestAllowed($request)) {
             $response = new \WP_REST_Response(
                 __('REST API support is restricted.', 'rrze-settings'),
                 403
@@ -89,6 +105,16 @@ class API
      */
     protected function isRestAllowed($request)
     {
+        // A registered route requires explicit approval even when a broad IP or
+        // namespace exception applies, or the general REST restriction is off.
+        if (PublicEndpoints::isRegisteredRoute($request->get_route())) {
+            return $this->isPublicEndpointAllowed($request);
+        }
+
+        if (empty($this->siteOptions->rest->disabled)) {
+            return true;
+        }
+
         if ($this->isRestnetwork()) {
             return true;
         }
@@ -99,6 +125,19 @@ class API
         }
 
         return false;
+    }
+
+    /**
+     * Check whether the network administrator approved a registered endpoint.
+     *
+     * @param \WP_REST_Request $request The current REST request.
+     * @return bool Whether the request matches an approved endpoint.
+     */
+    protected function isPublicEndpointAllowed($request)
+    {
+        $selected = $this->siteOptions->rest->restpublic ?? [];
+
+        return PublicEndpoints::requestMatches($selected, $request);
     }
 
     /**
@@ -144,12 +183,23 @@ class API
             return false;
         }
 
-        if ($route && is_string($route)) {
-            $route .= ltrim($route, '/');
+        if (!$route || !is_string($route)) {
+            return false;
         }
 
+        $route = '/' . trim($route, '/');
+
         foreach ($this->siteOptions->rest->restwhite as $exception) {
-            if (strpos($route, $exception) !== false) {
+            if (!is_string($exception)) {
+                continue;
+            }
+
+            $exception = '/' . trim(trim($exception), '/');
+            if ($exception === '/') {
+                continue;
+            }
+
+            if ($route === $exception || str_starts_with($route, $exception . '/')) {
                 return true;
             }
         }

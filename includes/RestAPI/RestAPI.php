@@ -20,16 +20,14 @@ class RestAPI extends Main
      */
     public function loaded()
     {
+        add_action('wp_loaded', [PublicEndpoints::class, 'discover']);
+
         (new Settings(
             $this->optionName,
             $this->options,
             $this->siteOptions,
             $this->defaultOptions
         ))->loaded();
-
-        if (!$this->siteOptions->rest->disabled) {
-            return;
-        }
 
         (new API($this->siteOptions))->loaded();
     }

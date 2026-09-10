@@ -2,76 +2,106 @@
 
 namespace RRZE\Settings\Library\Network;
 
-use RRZE\Settings\Library\Network\IP;
-
 defined('ABSPATH') || exit;
 
 /**
- * RemoteAddress class
- * @package RRZE\Settings\Library\Network
+ * Resolve client addresses using an explicit infrastructure proxy allowlist.
+ *
+ * Kept equivalent in Settings and Private Site so each plugin works independently.
  */
 class RemoteAddress
 {
+    protected $trustedProxies;
+
     /**
-     * Get the remote IP address
-     * @return string
+     * @param array|null $trustedProxies Explicit IPs/CIDRs, or null to use the filter.
+     */
+    public function __construct(?array $trustedProxies = null)
+    {
+        /**
+         * Infrastructure-owned proxies, shared by Settings and Private Site.
+         * Never populate this from a visitor access allowlist.
+         *
+         * @param string[] $trustedProxies Trusted proxy IP addresses or CIDRs.
+         */
+        $trustedProxies = $trustedProxies ?? apply_filters('rrze_trusted_proxies', []);
+        $this->trustedProxies = is_array($trustedProxies) ? $trustedProxies : [];
+    }
+
+    /**
+     * Return the nearest untrusted hop, or an empty string if it cannot be resolved.
      */
     public function getIpAddress()
     {
-        $ipStr = $this->getIpAddressFromProxy();
-        if ($ipStr) {
-            return $ipStr;
+        $remoteAddr = $_SERVER['REMOTE_ADDR'] ?? '';
+        if (!$this->isValidIp($remoteAddr)) {
+            return '';
         }
 
-        // Remote IP address
-        if (isset($_SERVER['REMOTE_ADDR'])) {
-            return $_SERVER['REMOTE_ADDR'];
+        if (!$this->ipInTrustedProxies($remoteAddr)) {
+            // A direct client cannot assert its own identity through headers.
+            return $remoteAddr;
         }
 
+        $forwarded = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? '';
+        if (!is_string($forwarded) || trim($forwarded) === '') {
+            // A trusted proxy is a transport, not an authorized visitor.
+            return '';
+        }
+
+        // Trusted proxies must append the address of their immediate peer or
+        // overwrite an incoming header. Stop before any client-controlled prefix.
+        foreach (array_reverse(explode(',', $forwarded)) as $hop) {
+            $hop = trim($hop);
+            if (!$this->isValidIp($hop)) {
+                return '';
+            }
+            if (!$this->ipInTrustedProxies($hop)) {
+                return $hop;
+            }
+        }
+
+        // All hops are infrastructure; no visitor address was established.
         return '';
     }
 
-    /**
-     * Get the remote IP address from the proxy
-     * @return string|false
-     */
-    protected function getIpAddressFromProxy()
+    protected function isValidIp($ip)
     {
-        if (empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            return false;
+        return is_string($ip) && filter_var($ip, FILTER_VALIDATE_IP) !== false;
+    }
+
+    protected function ipInTrustedProxies($ip)
+    {
+        foreach ($this->trustedProxies as $range) {
+            if ($this->ipInRange($ip, $range)) {
+                return true;
+            }
         }
-
-        $ips_ary = array_map('trim', explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
-
-        if (empty($this->getProxies($ips_ary))) {
-            return false;
-        }
-
-        // The right-most IP address is always the IP address that connects to
-        // the last proxy, which means it is the most reliable source of information.
-        // @see https://en.wikipedia.org/wiki/X-Forwarded-For
-        $ipStr = array_pop($ips_ary);
-        return $ipStr;
+        return false;
     }
 
     /**
-     * Get the proxies from the IP addresses
-     * @param array $ips_ary Array of IP addresses
-     * @return array
+     * Validate IPs and CIDRs before using the existing bit-accurate range matcher.
+     * Single IPv4/IPv6 addresses represent /32 and /128 respectively.
      */
-    protected function getProxies($ips_ary = [])
+    protected function ipInRange($ip, $range)
     {
-        $proxies = [];
-
-        foreach ($ips_ary as $ipStr) {
-            $ip = IP::fromStringIP($ipStr);
-            $host = $ip->getHostname();
-            if ($host === null) {
-                continue;
-            }
-            $proxies[] = $ipStr;
+        if (!$this->isValidIp($ip) || !is_string($range)) {
+            return false;
         }
 
-        return $proxies;
+        $parts = explode('/', trim($range));
+        $subnet = $parts[0];
+        if (count($parts) > 2 || !$this->isValidIp($subnet)) {
+            return false;
+        }
+
+        $maxBits = str_contains($subnet, ':') ? 128 : 32;
+        $bits = $parts[1] ?? (string) $maxBits;
+        if (!ctype_digit($bits) || (int) $bits > $maxBits) {
+            return false;
+        }
+
+        return IP::fromStringIP($ip)->isInRange($subnet . '/' . (int) $bits);
     }
 }
