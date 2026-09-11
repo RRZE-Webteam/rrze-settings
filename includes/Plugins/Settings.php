@@ -43,6 +43,27 @@ class Settings extends MainSettings
     }
 
     /**
+     * Options page with plugin settings tabs.
+     *
+     * @return void
+     */
+    public function optionsPage()
+    {
+        global $title;
+
+        echo '<div class="wrap rrze-settings rrze-settings-plugins-page">';
+        echo '<h1>', esc_html($title), '</h1>';
+        echo '<form method="post">';
+        settings_fields($this->menuPage);
+        $this->renderMainSection();
+        $this->renderTabs();
+        submit_button(__('Save Changes', 'rrze-settings'), 'primary', $this->menuPage . '-submit-primary');
+        echo '</form>';
+        $this->printTabsScript();
+        echo '</div>';
+    }
+
+    /**
      * Validate the options
      * 
      * @param array $input The input data
@@ -82,6 +103,9 @@ class Settings extends MainSettings
         $ipAddresses = $this->sanitizeTextarea($input['siteimprove_crawler_ip_addresses'], false);
         $ipAddresses = !empty($ipAddresses) ? $this->sanitizeIpRange($ipAddresses) : '';
         $input['siteimprove_crawler_ip_addresses'] = !empty($ipAddresses) ? $ipAddresses : '';
+        $input['siteimprove'] = isset($input['siteimprove']) && is_array($input['siteimprove']) ? $input['siteimprove'] : [];
+        $input['siteimprove']['analytics_jscode'] = isset($input['siteimprove']['analytics_jscode']) ? $input['siteimprove']['analytics_jscode'] : '';
+        $input['siteimprove']['analytics_jscode'] = $this->sanitizeSiteimproveAnalyticsJsCode($input['siteimprove']['analytics_jscode']);
 
         $input['wpseo_disable_metaboxes'] = !empty($input['wpseo_disable_metaboxes']) ? 1 : 0;
 
@@ -535,6 +559,14 @@ class Settings extends MainSettings
             $this->menuPage,
             'rrze-settings-plugins-siteimprove'
         );
+
+        add_settings_field(
+            'siteimprove_analytics_jscode',
+            __('Schlüsselcode', 'rrze-settings'),
+            [$this, 'siteimproveAnalyticsJsCodeField'],
+            $this->menuPage,
+            'rrze-settings-plugins-siteimprove'
+        );
     }
 
     /**
@@ -831,6 +863,21 @@ class Settings extends MainSettings
     }
 
     /**
+     * Siteimprove - Analytics JavaScript code
+     */
+    public function siteimproveAnalyticsJsCodeField()
+    {
+        $siteimproveOptions = $this->getSiteimproveOptions();
+
+        printf(
+            '<input type="text" id="rrze-settings-siteimprove-analytics-jscode" name="%1$s" value="%2$s" class="regular-text" minlength="4" maxlength="10" pattern="[a-zA-Z0-9]{4,10}" autocomplete="off">',
+            esc_attr(sprintf('%s[siteimprove][analytics_jscode]', $this->optionName)),
+            esc_attr($siteimproveOptions->analytics_jscode)
+        );
+        echo '<p class="description">', esc_html__('4 bis 10 alphanumerische Zeichen.', 'rrze-settings'), '</p>';
+    }
+
+    /**
      * WPSEO - Disable metaboxes
      */
     public function wpseoDisableMetaboxes()
@@ -1038,6 +1085,213 @@ class Settings extends MainSettings
         }
 
         return $apiKey;
+    }
+
+    /**
+     * Sanitize Siteimprove Analytics JavaScript code.
+     *
+     * @param string $code
+     * @return string
+     */
+    protected function sanitizeSiteimproveAnalyticsJsCode(string $code): string
+    {
+        $code = trim(sanitize_text_field($code));
+
+        if ($code === '' || !preg_match('/^[a-zA-Z0-9]{4,10}$/', $code)) {
+            return '';
+        }
+
+        return $code;
+    }
+
+    /**
+     * Get Siteimprove options.
+     *
+     * @return object
+     */
+    protected function getSiteimproveOptions(): object
+    {
+        $options = $this->siteOptions->plugins->siteimprove ?? [];
+
+        return (object) wp_parse_args(
+            (array) $options,
+            [
+                'analytics_jscode' => '',
+            ]
+        );
+    }
+
+    /**
+     * Render the description section above the tabs.
+     *
+     * @return void
+     */
+    protected function renderMainSection()
+    {
+        global $wp_settings_sections;
+
+        $mainSection = $wp_settings_sections[$this->menuPage]['rrze-settings-plugins-main'] ?? null;
+        if (empty($mainSection)) {
+            return;
+        }
+
+        if (!empty($mainSection['title'])) {
+            echo '<h2>', esc_html($mainSection['title']), '</h2>';
+        }
+
+        if (!empty($mainSection['callback']) && is_callable($mainSection['callback'])) {
+            call_user_func($mainSection['callback'], $mainSection);
+        }
+    }
+
+    /**
+     * Render plugin section tabs.
+     *
+     * @return void
+     */
+    protected function renderTabs()
+    {
+        $sections = $this->getTabSections();
+        if (empty($sections)) {
+            do_settings_sections($this->menuPage);
+            return;
+        }
+
+        echo '<nav class="nav-tab-wrapper rrze-settings-plugins-tabs" role="tablist" aria-label="', esc_attr__('Plugin settings', 'rrze-settings'), '">';
+        $first = true;
+        foreach ($sections as $sectionId => $section) {
+            $tabId = $this->getTabId($sectionId);
+            $panelId = $this->getTabPanelId($sectionId);
+            printf(
+                '<button type="button" id="%1$s" class="nav-tab%2$s" role="tab" aria-selected="%3$s" aria-controls="%4$s" data-rrze-settings-tab="%5$s">%6$s</button>',
+                esc_attr($tabId),
+                $first ? ' nav-tab-active' : '',
+                $first ? 'true' : 'false',
+                esc_attr($panelId),
+                esc_attr($sectionId),
+                esc_html($section['title'])
+            );
+            $first = false;
+        }
+        echo '</nav>';
+
+        $first = true;
+        foreach ($sections as $sectionId => $section) {
+            $this->renderTabPanel($sectionId, $section, $first);
+            $first = false;
+        }
+    }
+
+    /**
+     * Render a single tab panel.
+     *
+     * @param string $sectionId
+     * @param array $section
+     * @param bool $active
+     * @return void
+     */
+    protected function renderTabPanel(string $sectionId, array $section, bool $active)
+    {
+        printf(
+            '<div id="%1$s" class="rrze-settings-plugins-tab-panel" role="tabpanel" aria-labelledby="%2$s"%3$s>',
+            esc_attr($this->getTabPanelId($sectionId)),
+            esc_attr($this->getTabId($sectionId)),
+            $active ? '' : ' hidden'
+        );
+
+        if (!empty($section['title'])) {
+            echo '<h2>', esc_html($section['title']), '</h2>';
+        }
+
+        if (!empty($section['callback']) && is_callable($section['callback'])) {
+            call_user_func($section['callback'], $section);
+        }
+
+        echo '<table class="form-table" role="presentation">';
+        do_settings_fields($this->menuPage, $sectionId);
+        echo '</table>';
+        echo '</div>';
+    }
+
+    /**
+     * Get sections rendered as tabs.
+     *
+     * @return array
+     */
+    protected function getTabSections(): array
+    {
+        global $wp_settings_sections;
+
+        $sections = $wp_settings_sections[$this->menuPage] ?? [];
+        unset($sections['rrze-settings-plugins-main']);
+
+        return $sections;
+    }
+
+    /**
+     * Get tab id.
+     *
+     * @param string $sectionId
+     * @return string
+     */
+    protected function getTabId(string $sectionId): string
+    {
+        return $sectionId . '-tab';
+    }
+
+    /**
+     * Get tab panel id.
+     *
+     * @param string $sectionId
+     * @return string
+     */
+    protected function getTabPanelId(string $sectionId): string
+    {
+        return $sectionId . '-panel';
+    }
+
+    /**
+     * Print tab behavior script.
+     *
+     * @return void
+     */
+    protected function printTabsScript()
+    {
+        ?>
+        <script>
+        function rrzeSettingsPluginsActivateTab(tab) {
+            var page = tab.closest('.rrze-settings-plugins-page');
+            var tabs = page.querySelectorAll('[data-rrze-settings-tab]');
+            var panels = page.querySelectorAll('.rrze-settings-plugins-tab-panel');
+            var activeSection = tab.getAttribute('data-rrze-settings-tab');
+
+            tabs.forEach(function rrzeSettingsPluginsUpdateTab(currentTab) {
+                var isActive = currentTab === tab;
+                currentTab.classList.toggle('nav-tab-active', isActive);
+                currentTab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+
+            panels.forEach(function rrzeSettingsPluginsUpdatePanel(panel) {
+                panel.hidden = panel.id !== activeSection + '-panel';
+            });
+        }
+
+        function rrzeSettingsPluginsTabsInit() {
+            var page = document.querySelector('.rrze-settings-plugins-page');
+            if (!page) {
+                return;
+            }
+
+            page.querySelectorAll('[data-rrze-settings-tab]').forEach(function rrzeSettingsPluginsBindTab(tab) {
+                tab.addEventListener('click', function rrzeSettingsPluginsTabClick() {
+                    rrzeSettingsPluginsActivateTab(tab);
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', rrzeSettingsPluginsTabsInit);
+        </script>
+        <?php
     }
 
     /**
