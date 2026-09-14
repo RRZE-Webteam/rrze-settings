@@ -4,6 +4,8 @@ namespace RRZE\Settings\Taxonomies;
 
 defined('ABSPATH') || exit;
 
+use RRZE\Settings\Helper;
+
 /**
  * BaseTaxonomy
  *
@@ -104,7 +106,15 @@ abstract class BaseTaxonomy
             return;
         }
 
-        if (!get_terms(['taxonomy' => $this->taxonomy, 'hide_empty' => false])) {
+        $this->refreshTermCounts();
+
+        $terms = get_terms([
+            'taxonomy'   => $this->taxonomy,
+            'hide_empty' => true,
+            'pad_counts' => true,
+        ]);
+
+        if (is_wp_error($terms) || empty($terms)) {
             return;
         }
 
@@ -184,5 +194,29 @@ abstract class BaseTaxonomy
             'show_count'      => false,
             'hide_empty'      => true,
         ];
+    }
+
+    /**
+     * Refresh term counts for the current taxonomy.
+     *
+     * @return void
+     */
+    protected function refreshTermCounts(): void
+    {
+        if ($this->postType !== 'attachment' || !taxonomy_exists($this->taxonomy)) {
+            return;
+        }
+
+        $termTaxonomyIds = get_terms([
+            'taxonomy'   => $this->taxonomy,
+            'fields'     => 'tt_ids',
+            'hide_empty' => false,
+        ]);
+
+        if (is_wp_error($termTaxonomyIds) || empty($termTaxonomyIds)) {
+            return;
+        }
+
+        Helper::updateAttachmentTermCount($termTaxonomyIds, $this->taxonomy);
     }
 }

@@ -37,6 +37,9 @@ class Media extends Main
         // Enqueue admin scripts
         add_action('admin_enqueue_scripts', [$this, 'adminEnqueueScripts']);
 
+        // Remove comments column from the media list table.
+        add_filter('manage_media_columns', [$this, 'removeCommentsColumn']);
+
         // Sanitize filename
         if ($this->siteOptions->media->sanitize_filename) {
             (new Sanitize)->loaded();
@@ -117,5 +120,18 @@ class Media extends Main
         if (in_array($hook, ['upload.php', 'tools_page_media-duplicates'])) {
             wp_enqueue_style('rrze-media-columns');
         }
+    }
+
+    /**
+     * Remove the comments column from the media list table.
+     *
+     * @param array $columns Existing columns
+     * @return array Modified columns
+     */
+    public function removeCommentsColumn($columns)
+    {
+        unset($columns['comments']);
+
+        return $columns;
     }
 }

@@ -114,7 +114,7 @@ class AttachmentDocument extends BaseTaxonomy
             'selected'        => isset($wp_query->query[$this->taxonomy]) ? $wp_query->query[$this->taxonomy] : '',
             'hierarchical'    => true,
             'depth'           => 6,
-            'show_count'      => false,
+            'show_count'      => true,
             'hide_empty'      => true,
         ];
     }

@@ -48,12 +48,6 @@ class Writing extends Main
             $this->options->writing->enable_classic_editor = 0;
             update_option(Options::OPTION_NAME, $this->options);
 
-            $stylesheet = 'FAU-Elemental';
-            $allowed = (array) get_site_option('allowedthemes', []);
-            if (isset($allowed[$stylesheet])) {
-                switch_theme($stylesheet);
-            }
-
             restore_current_blog();
         });
 
