@@ -26,31 +26,20 @@ class Taxonomies extends Main
      */
     public function loaded()
     {
-        (new Settings(
-            $this->optionName,
-            $this->options,
-            $this->siteOptions,
-            $this->defaultOptions
-        ))->loaded();
-
         // Register taxonomy attachment_document
         if ($this->siteOptions->taxonomies->taxonomy_attachment_document) {
             new AttachmentDocument();
         }
 
-        $isRRZEDownloadsActive = is_plugin_active('rrze-downloads/rrze-downloads.php');
+        // Register taxonomy attachment_category
+        if ($this->siteOptions->taxonomies->taxonomy_attachment_category) {
+            new AttachmentCategory();
+            // new AttachmentCategoryUI();
+        }
 
-        if (!$isRRZEDownloadsActive) {
-            // Register taxonomy attachment_category
-            if ($this->siteOptions->taxonomies->taxonomy_attachment_category) {
-                new AttachmentCategory();
-                // new AttachmentCategoryUI();
-            }
-
-            // Register taxonomy attachment_tag
-            if ($this->siteOptions->taxonomies->taxonomy_attachment_tag) {
-                new AttachmentTag();
-            }
+        // Register taxonomy attachment_tag
+        if ($this->siteOptions->taxonomies->taxonomy_attachment_tag) {
+            new AttachmentTag();
         }
 
         // Set taxonomy media filters

@@ -54,6 +54,12 @@ class Settings extends MainSettings
      */
     public function optionsValidate($input)
     {
+        $this->siteOptions->general->disable_welcome_panel = !empty($input['disable_welcome_panel']) ? 1 : 0;
+        $this->siteOptions->general->admin_role_threshold_warning = !empty($input['admin_role_threshold_warning']) ? 1 : 0;
+        $this->siteOptions->general->admin_role_threshold_warning_threshold = isset($input['admin_role_threshold_warning_threshold']) ? max(3, (int) $input['admin_role_threshold_warning_threshold']) : 3;
+
+        unset($input['disable_welcome_panel'], $input['admin_role_threshold_warning'], $input['admin_role_threshold_warning_threshold']);
+
         $input['pages_author_role'] = !empty($input['pages_author_role']) ? 1 : 0;
         $input['super_author_role'] = !empty($input['super_author_role']) ? 1 : 0;
         $input['users_search'] = !empty($input['users_search']) ? 1 : 0;
@@ -117,6 +123,22 @@ class Settings extends MainSettings
         );
 
         add_settings_field(
+            'disable_welcome_panel',
+            __('Welcome Panel', 'rrze-settings'),
+            [$this, 'welcomePanelField'],
+            $this->menuPage,
+            $this->sectionName
+        );
+
+        add_settings_field(
+            'admin_role_threshold_warning',
+            __('Admin Role Threshold Warning', 'rrze-settings'),
+            [$this, 'adminRoleThresholdWarningField'],
+            $this->menuPage,
+            $this->sectionName
+        );
+
+        add_settings_field(
             'can_view_debug_log',
             __('Can view debug log', 'rrze-settings'),
             [$this, 'canViewDebugLogField'],
@@ -132,7 +154,39 @@ class Settings extends MainSettings
      */
     public function mainSectionDescription()
     {
-        esc_html_e('Network administrators can configure user settings across the entire multisite network on this page, enabling special author roles, enhancing user search, generating a virtual contact page, and specifying which users have access to debug logs—streamlining user management and strengthening administrative control on every website.', 'rrze-settings');
+        esc_html_e('Network administrators can configure user settings across the entire multisite network on this page, enabling special author roles, enhancing user search, generating a virtual contact page, disabling the welcome panel, warning when administrator thresholds are exceeded, and specifying which users have access to debug logs.', 'rrze-settings');
+    }
+
+    /**
+     * Display the disable_welcome_panel field
+     *
+     * @return void
+     */
+    public function welcomePanelField()
+    {
+    ?>
+        <label>
+            <input type="checkbox" id="rrze-settings-disable-welcome-panel" name="<?php printf('%s[disable_welcome_panel]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->general->disable_welcome_panel, 1); ?>>
+            <?php _e("Disables the welcome panel that introduces users to WordPress", 'rrze-settings'); ?>
+        </label>
+    <?php
+    }
+
+    /**
+     * Display the admin_role_threshold_warning field
+     *
+     * @return void
+     */
+    public function adminRoleThresholdWarningField()
+    {
+    ?>
+        <label>
+            <input type="checkbox" id="rrze-settings-admin-role-threshold-warning" name="<?php printf('%s[admin_role_threshold_warning]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->general->admin_role_threshold_warning, 1); ?>>
+            <input type="number" name="<?php printf('%s[admin_role_threshold_warning_threshold]', $this->optionName); ?>" value="<?php echo esc_attr((string) $this->siteOptions->general->admin_role_threshold_warning_threshold); ?>" min="3" step="1" class="small-text">
+            <br>
+            <?php _e("Enables a warning when the number of administrators exceeds a certain threshold", 'rrze-settings'); ?>
+        </label>
+    <?php
     }
 
     /**

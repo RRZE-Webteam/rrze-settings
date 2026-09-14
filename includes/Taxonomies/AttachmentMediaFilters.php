@@ -5,6 +5,7 @@ namespace RRZE\Settings\Taxonomies;
 defined('ABSPATH') || exit;
 
 use function RRZE\Settings\plugin;
+use RRZE\Settings\Helper;
 
 /**
  * AttachmentMediaFilters
@@ -118,22 +119,21 @@ class AttachmentMediaFilters
                 continue;
             }
 
+            $this->refreshTermCounts($taxonomy);
+
             // Build terms payload
             if ($cfg['hierarchical']) {
                 $termsPayload = $this->getFlatTermsWithDepth($taxonomy);
             } else {
                 $terms = get_terms([
                     'taxonomy'   => $taxonomy,
-                    'hide_empty' => false,
+                    'hide_empty' => true,
                 ]);
-                $termsPayload = array_values(array_map(function ($t) {
-                    return [
-                        'term_id' => (int) $t->term_id,
-                        'slug'    => $t->slug,
-                        'name'    => $t->name,
-                        'count'   => (int) $t->count,
-                    ];
-                }, is_array($terms) ? $terms : []));
+                $termsPayload = array_values(array_map([$this, 'formatFlatTerm'], is_array($terms) ? $terms : []));
+            }
+
+            if (empty($termsPayload)) {
+                continue;
             }
 
             wp_localize_script($this->handle, $cfg['localize_name'], [
@@ -144,6 +144,22 @@ class AttachmentMediaFilters
                 ],
             ]);
         }
+    }
+
+    /**
+     * Format a flat term for the JavaScript filter payload.
+     *
+     * @param \WP_Term $term
+     * @return array
+     */
+    public function formatFlatTerm($term): array
+    {
+        return [
+            'term_id' => (int) $term->term_id,
+            'slug'    => $term->slug,
+            'name'    => $term->name,
+            'count'   => (int) $term->count,
+        ];
     }
 
     /**
@@ -202,6 +218,7 @@ class AttachmentMediaFilters
         $terms = get_terms([
             'taxonomy'   => $taxonomy,
             'hide_empty' => false,
+            'pad_counts' => true,
             'orderby'    => 'name',
             'parent'     => 0,
         ]);
@@ -211,28 +228,68 @@ class AttachmentMediaFilters
         }
 
         $out = [];
-        $walker = function ($parentTerms, $depth) use (&$walker, &$out, $taxonomy) {
-            foreach ((array) $parentTerms as $t) {
-                $out[] = [
-                    'term_id' => (int) $t->term_id,
-                    'slug'    => $t->slug,
-                    'name'    => $t->name,
-                    'depth'   => (int) $depth,
-                    'count'   => (int) $t->count,
-                ];
-                $children = get_terms([
-                    'taxonomy'   => $taxonomy,
-                    'hide_empty' => false,
-                    'orderby'    => 'name',
-                    'parent'     => (int) $t->term_id,
-                ]);
-                if (!is_wp_error($children) && !empty($children)) {
-                    $walker($children, $depth + 1);
-                }
-            }
-        };
-
-        $walker($terms, 0);
+        $this->appendTermsWithDepth($taxonomy, $terms, 0, $out);
         return $out;
+    }
+
+    /**
+     * Append hierarchical terms with depth.
+     *
+     * @param string $taxonomy
+     * @param array $parentTerms
+     * @param int $depth
+     * @param array $out
+     * @return void
+     */
+    protected function appendTermsWithDepth(string $taxonomy, array $parentTerms, int $depth, array &$out): void
+    {
+        foreach ($parentTerms as $term) {
+            if ((int) $term->count > 0) {
+                $out[] = [
+                    'term_id' => (int) $term->term_id,
+                    'slug'    => $term->slug,
+                    'name'    => $term->name,
+                    'depth'   => (int) $depth,
+                    'count'   => (int) $term->count,
+                ];
+            }
+
+            $children = get_terms([
+                'taxonomy'   => $taxonomy,
+                'hide_empty' => false,
+                'pad_counts' => true,
+                'orderby'    => 'name',
+                'parent'     => (int) $term->term_id,
+            ]);
+
+            if (!is_wp_error($children) && !empty($children)) {
+                $this->appendTermsWithDepth($taxonomy, $children, $depth + 1, $out);
+            }
+        }
+    }
+
+    /**
+     * Refresh term counts for an attachment taxonomy.
+     *
+     * @param string $taxonomy
+     * @return void
+     */
+    protected function refreshTermCounts(string $taxonomy): void
+    {
+        if (!taxonomy_exists($taxonomy)) {
+            return;
+        }
+
+        $termTaxonomyIds = get_terms([
+            'taxonomy'   => $taxonomy,
+            'fields'     => 'tt_ids',
+            'hide_empty' => false,
+        ]);
+
+        if (is_wp_error($termTaxonomyIds) || empty($termTaxonomyIds)) {
+            return;
+        }
+
+        Helper::updateAttachmentTermCount($termTaxonomyIds, $taxonomy);
     }
 }

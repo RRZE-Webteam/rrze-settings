@@ -46,6 +46,8 @@ class General extends Main
 
         (new WhiteLabel($this->siteOptions))->loaded();
 
+        (new DefaultTheme($this->siteOptions))->loaded();
+
         (new XMLRPC($this->siteOptions))->loaded();
 
         (new AdminRoleThresholdWarning($this->siteOptions))->loaded();

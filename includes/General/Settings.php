@@ -55,15 +55,13 @@ class Settings extends MainSettings
     public function optionsValidate($input)
     {
         $input['textdomain_fallback'] = !empty($input['textdomain_fallback']) ? 1 : 0;
-        $input['disable_welcome_panel'] = !empty($input['disable_welcome_panel']) ? 1 : 0;
         $input['disable_xmlrpc'] = !empty($input['disable_xmlrpc']) ? 1 : 0;
         $input['disable_admin_email_verification'] = !empty($input['disable_admin_email_verification']) ? 1 : 0;
         $input['disable_google_fonts'] = !empty($input['disable_google_fonts']) ? 1 : 0;
         $input['disable_emoji'] = !empty($input['disable_emoji']) ? 1 : 0;
         $input['custom_error_page'] = !empty($input['custom_error_page']) ? 1 : 0;
         $input['white_label'] = !empty($input['white_label']) ? 1 : 0;
-        $input['admin_role_threshold_warning'] = !empty($input['admin_role_threshold_warning']) ? 1 : 0;
-        $input['admin_role_threshold_warning_threshold'] = isset($input['admin_role_threshold_warning_threshold']) ? max(3, (int) $input['admin_role_threshold_warning_threshold']) : 3;
+        $input['default_theme'] = $this->sanitizeDefaultTheme($input['default_theme'] ?? '');
 
         return $this->parseOptionsValidate($input, 'general');
     }
@@ -86,13 +84,6 @@ class Settings extends MainSettings
             'textdomain_fallback',
             __('Textdomain Fallback', 'rrze-settings'),
             [$this, 'textdomainFallbackField'],
-            $this->menuPage,
-            $this->sectionName
-        );
-        add_settings_field(
-            'disable_welcome_panel',
-            __('Welcome Panel', 'rrze-settings'),
-            [$this, 'welcomePanelField'],
             $this->menuPage,
             $this->sectionName
         );
@@ -139,9 +130,9 @@ class Settings extends MainSettings
             $this->sectionName
         );
         add_settings_field(
-            'admin_role_threshold_warning',
-            __('Admin Role Threshold Warning', 'rrze-settings'),
-            [$this, 'adminRoleThresholdWarningField'],
+            'default_theme',
+            __('Default Theme', 'rrze-settings'),
+            [$this, 'defaultThemeField'],
             $this->menuPage,
             $this->sectionName
         );
@@ -154,7 +145,7 @@ class Settings extends MainSettings
      */
     public function mainSectionDescription()
     {
-        esc_html_e('Network administrators can centrally manage general settings for every website in a multisite network on this page, with options to enable or disable features such as textdomain fallback, the welcome panel, XML-RPC, admin email verification, Google Fonts, emojis, custom error pages, and white labeling—ensuring consistent configurations and streamlined management across the network.', 'rrze-settings');
+        esc_html_e('Network administrators can centrally manage general settings for every website in a multisite network on this page, with options to enable or disable features such as textdomain fallback, XML-RPC, admin email verification, Google Fonts, emojis, custom error pages, white labeling, and the default theme for new websites.', 'rrze-settings');
     }
 
     /**
@@ -168,21 +159,6 @@ class Settings extends MainSettings
         <label>
             <input type="checkbox" id="rrze-settings-textdomain-fallback" name="<?php printf('%s[textdomain_fallback]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->general->textdomain_fallback, 1); ?>>
             <?php _e("Sets a default language as fallback for unavailable language files", 'rrze-settings'); ?>
-        </label>
-    <?php
-    }
-
-    /**
-     * Display the disable_welcome_panel field
-     * 
-     * @return void
-     */
-    public function welcomePanelField()
-    {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-disable-welcome-panel" name="<?php printf('%s[disable_welcome_panel]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->general->disable_welcome_panel, 1); ?>>
-            <?php _e("Disables the welcome panel that introduces users to WordPress", 'rrze-settings'); ?>
         </label>
     <?php
     }
@@ -278,19 +254,56 @@ class Settings extends MainSettings
     }
 
     /**
-     * Display the admin_role_threshold_warning field
-     * 
+     * Display the default_theme field
+     *
      * @return void
      */
-    public function adminRoleThresholdWarningField()
+    public function defaultThemeField()
     {
+        $themes = wp_get_themes(['errors' => null]);
+        $current = $this->siteOptions->general->default_theme ?? '';
     ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-admin-role-threshold-warning" name="<?php printf('%s[admin_role_threshold_warning]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->general->admin_role_threshold_warning, 1); ?>>
-            <input type="number" name="<?php printf('%s[admin_role_threshold_warning_threshold]', $this->optionName); ?>" value="<?php echo esc_attr((string) $this->siteOptions->general->admin_role_threshold_warning_threshold); ?>" min="3" step="1" class="small-text">
-            <br>
-            <?php _e("Enables a warning when the number of administrators exceeds a certain threshold", 'rrze-settings'); ?>
+        <label for="rrze-settings-default-theme" class="screen-reader-text">
+            <?php esc_html_e('Default Theme', 'rrze-settings'); ?>
         </label>
-<?php
+        <select id="rrze-settings-default-theme" name="<?php printf('%s[default_theme]', $this->optionName); ?>">
+            <option value=""><?php esc_html_e('Use WordPress default', 'rrze-settings'); ?></option>
+            <?php foreach ($themes as $stylesheet => $theme) { ?>
+                <option value="<?php echo esc_attr($stylesheet); ?>" <?php selected($current, $stylesheet); ?>>
+                    <?php echo esc_html(sprintf('%1$s (%2$s)', $theme->get('Name'), $stylesheet)); ?>
+                </option>
+            <?php } ?>
+        </select>
+        <p class="description">
+            <?php esc_html_e('Theme that is activated automatically when a new website is created. Leave empty to use the WordPress default theme.', 'rrze-settings'); ?>
+        </p>
+    <?php
     }
+
+    /**
+     * Sanitize the default theme setting.
+     *
+     * @param string $stylesheet Theme stylesheet
+     * @return string Sanitized theme stylesheet
+     */
+    protected function sanitizeDefaultTheme($stylesheet)
+    {
+        $stylesheet = sanitize_text_field(wp_unslash($stylesheet));
+
+        if ($stylesheet === '') {
+            return '';
+        }
+
+        if (!preg_match('/^[A-Za-z0-9._-]+$/', $stylesheet)) {
+            return '';
+        }
+
+        $themes = wp_get_themes(['errors' => null]);
+        if (!isset($themes[$stylesheet])) {
+            return '';
+        }
+
+        return $stylesheet;
+    }
+
 }

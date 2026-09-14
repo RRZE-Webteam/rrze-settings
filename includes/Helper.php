@@ -322,19 +322,6 @@ class Helper
           AND tt.taxonomy = '{$taxonomy_sql}'
     ");
 
-        error_log("
-        UPDATE {$wpdb->term_taxonomy} AS tt
-        SET tt.count = (
-            SELECT COUNT(DISTINCT tr.object_id)
-            FROM {$wpdb->term_relationships} AS tr
-            INNER JOIN {$wpdb->posts} AS p ON p.ID = tr.object_id
-            WHERE tr.term_taxonomy_id = tt.term_taxonomy_id
-              AND p.post_type IN ({$post_types_sql})
-              AND p.post_status IN ({$statuses_sql})
-        )
-        WHERE tt.term_taxonomy_id IN ({$tt_ids_sql})
-          AND tt.taxonomy = '{$taxonomy_sql}'
-    ");
     }
 
     /**
@@ -348,7 +335,7 @@ class Helper
      */
     public static function recountOnSet($object_id, $terms, $tt_ids, $taxonomy)
     {
-        if (!in_array($taxonomy, ['attachment_category', 'attachment_tag'], true)) {
+        if (!in_array($taxonomy, ['attachment_document', 'attachment_category', 'attachment_tag'], true)) {
             return;
         }
 
@@ -365,7 +352,9 @@ class Helper
     public static function recountOnDelete($object_id, $tt_ids)
     {
         global $wpdb;
-        if (empty($tt_ids)) return;
+        if (empty($tt_ids)) {
+            return;
+        }
 
         $tt_ids = array_map('intval', (array) $tt_ids);
         $in     = implode(',', $tt_ids);
@@ -374,10 +363,12 @@ class Helper
         SELECT taxonomy, term_taxonomy_id
         FROM {$wpdb->term_taxonomy}
         WHERE term_taxonomy_id IN ({$in})
-          AND taxonomy IN ('attachment_category','attachment_tag')
+          AND taxonomy IN ('attachment_document','attachment_category','attachment_tag')
     ", ARRAY_A);
 
-        if (!$rows) return;
+        if (!$rows) {
+            return;
+        }
 
         $byTax = [];
         foreach ($rows as $r) {
@@ -398,7 +389,7 @@ class Helper
      */
     public static function recountOnRest($post, $request, $creating)
     {
-        $taxes = ['attachment_category', 'attachment_tag'];
+        $taxes = ['attachment_document', 'attachment_category', 'attachment_tag'];
         foreach ($taxes as $tax) {
             if ($request->offsetExists($tax)) {
                 $tt = get_terms(['taxonomy' => $tax, 'fields' => 'tt_ids', 'hide_empty' => false]);

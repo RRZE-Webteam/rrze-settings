@@ -33,6 +33,7 @@ class Options
                 'disable_google_fonts' => 0,
                 'custom_error_page' => 0,
                 'white_label' => 0,
+                'default_theme' => '',
                 'admin_role_threshold_warning' => 0,
                 'admin_role_threshold_warning_threshold' => 3,
             ],
@@ -109,6 +110,9 @@ class Options
                 'rrze_webt_exceptions' => '',
                 'rrze_formular_allowedDomains' => '',
                 'rrze_directions_openrouteservice_api_key' => '',
+                'siteimprove' => [
+                    'analytics_jscode' => '',
+                ],
             ],
             'rest' => [
                 'disabled' => '0',
@@ -259,6 +263,12 @@ class Options
                 $options->$key = wp_parse_args($options->$key, $value);
                 $options->$key = (object) array_intersect_key($options->$key, $value);
             }
+        }
+        if (isset($options->plugins->siteimprove) && is_array($defaults['plugins']['siteimprove'])) {
+            $options->plugins->siteimprove = (object) wp_parse_args(
+                (array) $options->plugins->siteimprove,
+                $defaults['plugins']['siteimprove']
+            );
         }
         return $options;
     }
