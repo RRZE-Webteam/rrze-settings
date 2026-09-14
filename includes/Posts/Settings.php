@@ -30,6 +30,13 @@ class Settings extends MainSettings
     protected $sectionName = 'rrze-settings-posts-section';
 
     /**
+     * Taxonomies section name
+     *
+     * @var string
+     */
+    protected $taxonomySectionName = 'rrze-settings-posts-taxonomies-section';
+
+    /**
      * Adds a submenu page to the network admin menu
      * 
      * @return void
@@ -54,6 +61,12 @@ class Settings extends MainSettings
      */
     public function optionsValidate($input)
     {
+        $this->siteOptions->taxonomies->exclude_nosearch_posts = !empty($input['exclude_nosearch_posts']) ? 1 : 0;
+        $this->siteOptions->taxonomies->taxonomy_page_category = !empty($input['taxonomy_page_category']) ? 1 : 0;
+        $this->siteOptions->taxonomies->taxonomy_page_tag = !empty($input['taxonomy_page_tag']) ? 1 : 0;
+
+        unset($input['exclude_nosearch_posts'], $input['taxonomy_page_category'], $input['taxonomy_page_tag']);
+
         $input['last_modified_custom_column'] = !empty($input['last_modified_custom_column']) ? 1 : 0;
         $input['page_list_table_dropdown'] = !empty($input['page_list_table_dropdown']) ? 1 : 0;
 
@@ -88,6 +101,36 @@ class Settings extends MainSettings
             $this->menuPage,
             $this->sectionName
         );
+
+        add_settings_section(
+            $this->taxonomySectionName,
+            __('Taxonomien', 'rrze-settings'),
+            [$this, 'taxonomySectionDescription'],
+            $this->menuPage
+        );
+
+        add_settings_field(
+            'taxonomy_page_category',
+            __('Register Page Category', 'rrze-settings'),
+            [$this, 'taxonomyPageCategoryField'],
+            $this->menuPage,
+            $this->taxonomySectionName
+        );
+        add_settings_field(
+            'taxonomy_page_tag',
+            __('Register Page Tag', 'rrze-settings'),
+            [$this, 'taxonomyPageTagField'],
+            $this->menuPage,
+            $this->taxonomySectionName
+        );
+
+        add_settings_field(
+            'exclude_nosearch_posts',
+            __('No-Search Posts', 'rrze-settings'),
+            [$this, 'excludeNosearchPostsField'],
+            $this->menuPage,
+            $this->taxonomySectionName
+        );
     }
 
     /**
@@ -98,6 +141,61 @@ class Settings extends MainSettings
     public function mainSectionDescription()
     {
         esc_html_e('Network administrators can centrally manage post settings across the multisite network. Options include adding a custom “Last Modified” column to post lists and a dropdown filter for pages—enhancing content visibility and management across all websites.', 'rrze-settings');
+    }
+
+    /**
+     * Display the taxonomy section description
+     *
+     * @return void
+     */
+    public function taxonomySectionDescription()
+    {
+        esc_html_e('Configure taxonomies and search behavior for posts and pages across the multisite network.', 'rrze-settings');
+    }
+
+    /**
+     * Renders the exclude nosearch posts field
+     *
+     * @return void
+     */
+    public function excludeNosearchPostsField()
+    {
+?>
+        <label>
+            <input type="checkbox" id="rrze-settings-exclude-nosearch-posts" name="<?php printf('%s[exclude_nosearch_posts]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->taxonomies->exclude_nosearch_posts, 1); ?>>
+            <?php _e("Exclude from search nosearch-tagged posts", 'rrze-settings'); ?>
+        </label>
+    <?php
+    }
+
+    /**
+     * Renders the taxonomy page category field
+     *
+     * @return void
+     */
+    public function taxonomyPageCategoryField()
+    {
+    ?>
+        <label>
+            <input type="checkbox" id="rrze-settings-taxonomy-page-category" name="<?php printf('%s[taxonomy_page_category]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->taxonomies->taxonomy_page_category, 1); ?>>
+            <?php _e("Register page category taxonomy", 'rrze-settings'); ?>
+        </label>
+    <?php
+    }
+
+    /**
+     * Renders the taxonomy page tag field
+     *
+     * @return void
+     */
+    public function taxonomyPageTagField()
+    {
+    ?>
+        <label>
+            <input type="checkbox" id="rrze-settings-taxonomy-page-tag" name="<?php printf('%s[taxonomy_page_tag]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->taxonomies->taxonomy_page_tag, 1); ?>>
+            <?php _e("Register page tag taxonomy", 'rrze-settings'); ?>
+        </label>
+    <?php
     }
 
     /**

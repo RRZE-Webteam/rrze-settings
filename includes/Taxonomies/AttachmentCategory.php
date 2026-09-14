@@ -98,4 +98,18 @@ class AttachmentCategory extends BaseTaxonomy
         // Media Library list table.
         return ($screen->parent_file === 'upload.php');
     }
+
+    /**
+     * Arguments for wp_dropdown_categories().
+     * 
+     * @param \WP_Query $wp_query
+     * @return array
+     */
+    protected function getDropdownArgs($wp_query): array
+    {
+        $args = parent::getDropdownArgs($wp_query);
+        $args['show_count'] = true;
+
+        return $args;
+    }
 }

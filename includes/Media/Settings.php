@@ -30,6 +30,13 @@ class Settings extends MainSettings
     protected $sectionName = 'rrze-settings-media-section';
 
     /**
+     * The taxonomy section name
+     *
+     * @var string
+     */
+    protected $taxonomySectionName = 'rrze-settings-media-taxonomies-section';
+
+    /**
      * Adds a submenu page to the network admin menu
      *
      * @var string
@@ -54,6 +61,12 @@ class Settings extends MainSettings
      */
     public function optionsValidate($input)
     {
+        $this->siteOptions->taxonomies->taxonomy_attachment_document = !empty($input['taxonomy_attachment_document']) ? 1 : 0;
+        $this->siteOptions->taxonomies->taxonomy_attachment_category = !empty($input['taxonomy_attachment_category']) ? 1 : 0;
+        $this->siteOptions->taxonomies->taxonomy_attachment_tag = !empty($input['taxonomy_attachment_tag']) ? 1 : 0;
+
+        unset($input['taxonomy_attachment_document'], $input['taxonomy_attachment_category'], $input['taxonomy_attachment_tag']);
+
         $input['sanitize_filename'] = !empty($input['sanitize_filename']) ? 1 : 0;
 
         $input['filter_nonimages_mimetypes'] = !empty($input['filter_nonimages_mimetypes']) ? 1 : 0;
@@ -159,6 +172,37 @@ class Settings extends MainSettings
             $this->menuPage,
             $this->sectionName
         );
+
+        add_settings_section(
+            $this->taxonomySectionName,
+            __('Taxonomien', 'rrze-settings'),
+            [$this, 'taxonomySectionDescription'],
+            $this->menuPage
+        );
+
+        add_settings_field(
+            'taxonomy_attachment_document',
+            __('Register Attachment Document', 'rrze-settings'),
+            [$this, 'taxonomyAttachmentDocumentField'],
+            $this->menuPage,
+            $this->taxonomySectionName
+        );
+
+        add_settings_field(
+            'taxonomy_attachment_category',
+            __('Register Attachment Category', 'rrze-settings'),
+            [$this, 'taxonomyAttachmentCategoryField'],
+            $this->menuPage,
+            $this->taxonomySectionName
+        );
+
+        add_settings_field(
+            'taxonomy_attachment_tag',
+            __('Register Attachment Tag', 'rrze-settings'),
+            [$this, 'taxonomyAttachmentTagField'],
+            $this->menuPage,
+            $this->taxonomySectionName
+        );
     }
 
     /**
@@ -169,6 +213,61 @@ class Settings extends MainSettings
     public function mainSectionDescription()
     {
         esc_html_e('Network administrators can centrally manage media settings across the multisite network. Options include sanitizing filenames, filtering non‑image MIME types, enabling automatic image resizing and sharpening, supporting SVG uploads, replacing files, displaying file sizes, and defining custom MIME types—ensuring consistent, secure media handling on every website.', 'rrze-settings');
+    }
+
+    /**
+     * Display the taxonomy section description
+     *
+     * @return void
+     */
+    public function taxonomySectionDescription()
+    {
+        esc_html_e('Configure taxonomies for media attachments across the multisite network.', 'rrze-settings');
+    }
+
+    /**
+     * Renders the taxonomy attachment document field
+     * 
+     * @return void
+     */
+    public function taxonomyAttachmentDocumentField()
+    {
+?>
+        <label>
+            <input type="checkbox" id="rrze-settings-taxonomy-attachment-document" name="<?php printf('%s[taxonomy_attachment_document]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->taxonomies->taxonomy_attachment_document, 1); ?>>
+            <?php _e("Register attachment document taxonomy", 'rrze-settings'); ?>
+        </label>
+    <?php
+    }
+
+    /**
+     * Renders the taxonomy attachment category field
+     * 
+     * @return void
+     */
+    public function taxonomyAttachmentCategoryField()
+    {
+    ?>
+        <label>
+            <input type="checkbox" id="rrze-settings-taxonomy-attachment-category" name="<?php printf('%s[taxonomy_attachment_category]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->taxonomies->taxonomy_attachment_category, 1); ?>>
+            <?php _e("Register attachment category taxonomy", 'rrze-settings'); ?>
+        </label>
+    <?php
+    }
+
+    /**
+     * Renders the taxonomy attachment tag field
+     * 
+     * @return void
+     */
+    public function taxonomyAttachmentTagField()
+    {
+    ?>
+        <label>
+            <input type="checkbox" id="rrze-settings-taxonomy-attachment-tag" name="<?php printf('%s[taxonomy_attachment_tag]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->taxonomies->taxonomy_attachment_tag, 1); ?>>
+            <?php _e("Register attachment tag taxonomy", 'rrze-settings'); ?>
+        </label>
+    <?php
     }
 
     /**
