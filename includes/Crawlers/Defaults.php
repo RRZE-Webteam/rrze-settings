@@ -56,6 +56,11 @@ class Defaults
             $entries[$key] = self::normalizeCrawler($key, $crawler);
         }
 
+        // Legacy settings override defaults; saved crawler entries take precedence below.
+        if (!empty($legacySiteimproveIpAddresses)) {
+            $entries['siteimprove']['ip_addresses'] = self::sanitizeIpAddresses($legacySiteimproveIpAddresses);
+        }
+
         foreach ($rawEntries as $key => $crawler) {
             $key = sanitize_key((string) $key);
             if ($key === '') {
@@ -63,10 +68,6 @@ class Defaults
             }
 
             $entries[$key] = self::normalizeCrawler($key, $crawler);
-        }
-
-        if (!empty($legacySiteimproveIpAddresses) && empty($entries['siteimprove']['ip_addresses'])) {
-            $entries['siteimprove']['ip_addresses'] = self::sanitizeIpAddresses($legacySiteimproveIpAddresses);
         }
 
         uasort($entries, [self::class, 'sortByTitle']);
