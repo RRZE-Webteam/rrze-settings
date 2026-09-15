@@ -5,6 +5,7 @@ namespace RRZE\Settings\Plugins;
 defined('ABSPATH') || exit;
 
 use RRZE\Settings\Helper;
+use RRZE\Settings\Crawlers\Defaults as CrawlerDefaults;
 use RRZE\Settings\Settings as MainSettings;
 use RRZE\Settings\Library\Network\IPUtils;
 use RRZE\Settings\Library\Encryption\Encryption;
@@ -169,6 +170,10 @@ class Settings extends MainSettings
         $input['rrze_directions_openrouteservice_api_key'] = $this->sanitizeOpenRouteServiceApiKey($input['rrze_directions_openrouteservice_api_key']);
 
         $options = $this->parseOptionsValidate($input, 'plugins');
+        $siteimproveCrawler = CrawlerDefaults::getCrawler($options, 'siteimprove');
+        $siteimproveCrawler['ip_addresses'] = is_array($input['siteimprove_crawler_ip_addresses']) ? $input['siteimprove_crawler_ip_addresses'] : [];
+        $options->crawlers->entries['siteimprove'] = CrawlerDefaults::normalizeCrawler('siteimprove', $siteimproveCrawler);
+        $options->plugins->siteimprove_crawler_ip_addresses = CrawlerDefaults::getIpAddresses($options, 'siteimprove');
 
         if (is_multisite() && $this->pluginExists(RRZESearch::PLUGIN)) {
             RRZESearch::updateNetworkLimits([

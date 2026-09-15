@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RRZE Settings\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-settings\n"
-"POT-Creation-Date: 2026-09-14T08:38:06+00:00\n"
+"POT-Creation-Date: 2026-09-15T13:20:35+00:00\n"
 "PO-Revision-Date: 2026-02-26 12:30+0100\n"
 "Last-Translator: RRZE Webteam <webmaster@fau.de>\n"
 "Language-Team: Deutsch (Sie)\n"
@@ -50,51 +50,39 @@ msgid "Disabled"
 msgstr "Deaktiviert"
 
 #: includes/Advanced/Settings.php:42 includes/Advanced/Settings.php:43
-#: includes/Advanced/Settings.php:87
+#: includes/Advanced/Settings.php:84
 msgid "Advanced"
 msgstr "Erweitert"
 
-#: includes/Advanced/Settings.php:94
+#: includes/Advanced/Settings.php:91
 msgid "Frontend Style"
 msgstr "Frontend Style"
 
-#: includes/Advanced/Settings.php:102
+#: includes/Advanced/Settings.php:99
 msgid "Backend Style"
 msgstr "Backend Style"
 
-#: includes/Advanced/Settings.php:110
+#: includes/Advanced/Settings.php:107
 msgid "BlockEditor iFrame Body Class"
 msgstr "Body-Klasse im Block-Editor-iFrame"
 
-#: includes/Advanced/Settings.php:118
+#: includes/Advanced/Settings.php:115
 msgid "Theme Exceptions"
 msgstr "Ausnahmen für Themes"
 
-#: includes/Advanced/Settings.php:126
+#: includes/Advanced/Settings.php:123
 msgid "Auto-generate Theme Classes"
 msgstr "Theme-Klassen automatisch generieren"
 
-#: includes/Advanced/Settings.php:134
-msgid "Disable AI Functionality"
-msgstr "KI-Funktionalität deaktivieren"
-
-#: includes/Advanced/Settings.php:142
-msgid "Hide AI Connector Page for Users"
-msgstr "KI-Connector-Seite für Benutzer ausblenden"
-
-#: includes/Advanced/Settings.php:150
-msgid "Disable Font Library in Admin Dashboard"
-msgstr "Schriftartenbibliothek im Admin-Dashboard deaktivieren"
-
-#: includes/Advanced/Settings.php:158
+#: includes/Advanced/Settings.php:131
 msgid "Sentry Mode"
 msgstr "Sentry-Modus"
 
-#: includes/Advanced/Settings.php:166
+#: includes/Advanced/Settings.php:139
 msgid "Monitor Deleted Themes and Plugins"
 msgstr "Gelöschte Themes und Plugins überwachen"
 
-#: includes/Advanced/Settings.php:180
+#: includes/Advanced/Settings.php:153
 msgid ""
 "This page enables network administrators to centrally manage custom CSS "
 "styles for both the frontend and backend of every website in a multisite "
@@ -107,17 +95,17 @@ msgstr ""
 "Organisieren von CSS-Code und gewährleistet so erweiterte Anpassungen sowie "
 "ein konsistentes Branding im gesamten Netzwerk."
 
-#: includes/Advanced/Settings.php:192
+#: includes/Advanced/Settings.php:165
 msgid "Enter the CSS code which will be added to the frontend of all websites."
 msgstr ""
 "Geben Sie den CSS-Code ein, der dem Frontend aller Websites hinzugefügt wird."
 
-#: includes/Advanced/Settings.php:204
+#: includes/Advanced/Settings.php:177
 msgid "Enter the CSS code which will be added to the backend of all websites."
 msgstr ""
 "Geben Sie den CSS-Code ein, der dem Backend aller Websites hinzugefügt wird."
 
-#: includes/Advanced/Settings.php:218
+#: includes/Advanced/Settings.php:191
 msgid ""
 "Enter a comma-separated list of CSS classes which will be injected into the "
 "body tag within the iFrame of the Block Editor."
@@ -125,7 +113,7 @@ msgstr ""
 "Geben Sie eine durch Kommas getrennte Liste von CSS-Klassen ein. Diese "
 "werden dem <body>-Element im iFrame des Block-Editors hinzugefügt."
 
-#: includes/Advanced/Settings.php:230
+#: includes/Advanced/Settings.php:203
 msgid ""
 "Enter a comma-separated list of theme slugs (e.g., twentytwentyone, astra) "
 "where the Block Editor Body Class Injection should not be active."
@@ -134,7 +122,7 @@ msgstr ""
 "twentytwentyone, astra) ein, bei denen die Body-Klassen-Injektion im Block-"
 "Editor nicht aktiv sein soll."
 
-#: includes/Advanced/Settings.php:242
+#: includes/Advanced/Settings.php:215
 msgid ""
 "Automatically generate theme classes and inject them into the iFrame body "
 "tag."
@@ -142,30 +130,210 @@ msgstr ""
 "Theme-Klassen werden automatisch generiert und dem Body-Tag des Block-Editor-"
 "iFrames hinzugefügt."
 
-#: includes/Advanced/Settings.php:254
-msgid "Disable AI functionality in WordPress."
-msgstr "KI-Funktionalität in WordPress deaktivieren."
-
-#: includes/Advanced/Settings.php:266
-msgid "Hide the AI Connectors settings page for users and block direct access."
-msgstr "Die Einstellungsseite für KI-Connectors für Benutzer ausblenden und den direkten Zugriff sperren."
-
-#: includes/Advanced/Settings.php:278
-msgid ""
-"Hide the Font Library page in the admin dashboard and block direct access."
-msgstr "Die Seite der Schriftartenbibliothek im Admin-Dashboard ausblenden und den direkten Zugriff sperren."
-
-#: includes/Advanced/Settings.php:290
+#: includes/Advanced/Settings.php:227
 msgid ""
 "Write a sentry marker file in the WordPress base directory whenever "
 "WordPress completes a core, plugin, theme, or translation install/update."
-msgstr "Eine Sentry-Markierungsdatei im WordPress-Stammverzeichnis schreiben, sobald WordPress die Installation oder Aktualisierung des WordPress-Kerns, eines Plugins, eines Themes oder einer Übersetzung abschließt."
+msgstr ""
+"Eine Sentry-Markierungsdatei im WordPress-Stammverzeichnis schreiben, sobald "
+"WordPress die Installation oder Aktualisierung des WordPress-Kerns, eines "
+"Plugins, eines Themes oder einer Übersetzung abschließt."
 
-#: includes/Advanced/Settings.php:302
+#: includes/Advanced/Settings.php:239
 msgid ""
 "When Sentry Mode is active, also update the sentry marker file after "
 "successful plugin or theme deletions."
-msgstr "Wenn der Sentry-Modus aktiv ist, die Sentry-Markierungsdatei auch nach dem erfolgreichen Löschen von Plugins oder Themes aktualisieren."
+msgstr ""
+"Wenn der Sentry-Modus aktiv ist, die Sentry-Markierungsdatei auch nach dem "
+"erfolgreichen Löschen von Plugins oder Themes aktualisieren."
+
+#: includes/Crawlers/Settings.php:54 includes/Crawlers/Settings.php:55
+#: includes/Crawlers/Settings.php:215
+msgid "Crawlers"
+msgstr "Crawler"
+
+#: includes/Crawlers/Settings.php:105
+msgid "Enter a name or Id for the crawler."
+msgstr "Geben Sie einen Namen oder eine Id für den Crawler ein."
+
+#: includes/Crawlers/Settings.php:118
+msgid "A crawler with this Id already exists."
+msgstr "Ein Crawler mit dieser Id existiert bereits."
+
+#: includes/Crawlers/Settings.php:124
+msgid "Enter a valid contact email address."
+msgstr "Geben Sie eine gültige Kontakt-E-Mail-Adresse ein."
+
+#: includes/Crawlers/Settings.php:129
+msgid "Enter a valid contact website URL."
+msgstr "Geben Sie eine gültige URL für die Kontakt-Webseite ein."
+
+#. translators: %s: Invalid IP addresses or ranges.
+#: includes/Crawlers/Settings.php:136
+msgid "Invalid IP addresses or ranges: %s"
+msgstr "Ungültige IP-Adressen oder IP-Bereiche: %s"
+
+#: includes/Crawlers/Settings.php:155
+msgid "Enter crawler data before saving."
+msgstr "Geben Sie vor dem Speichern Crawler-Daten ein."
+
+#: includes/Crawlers/Settings.php:216 includes/Crawlers/Settings.php:324
+#: includes/Crawlers/Settings.php:338
+msgid "Add crawler"
+msgstr "Crawler hinzufügen"
+
+#: includes/Crawlers/Settings.php:219
+msgid ""
+"Network administrators can maintain known crawlers and their identifying "
+"data across the multisite network."
+msgstr ""
+"Netzwerkadministratoren können bekannte Crawler und deren Erkennungsdaten im "
+"gesamten Multisite-Netzwerk verwalten."
+
+#: includes/Crawlers/Settings.php:239 includes/Crawlers/Settings.php:257
+#: includes/Crawlers/Settings.php:331
+#: includes/Taxonomies/AttachmentCategory.php:61
+#: includes/Taxonomies/AttachmentDocument.php:63
+#: includes/Taxonomies/AttachmentTag.php:62
+#: includes/Taxonomies/PageCategory.php:45 includes/Taxonomies/PageTag.php:28
+msgid "Name"
+msgstr "Name"
+
+#: includes/Crawlers/Settings.php:240 includes/Crawlers/Settings.php:258
+#: includes/Crawlers/Settings.php:332
+msgid "UserAgent"
+msgstr "UserAgent"
+
+#: includes/Crawlers/Settings.php:241 includes/Crawlers/Settings.php:259
+#: includes/Crawlers/Settings.php:333
+msgid "IP addresses"
+msgstr "IP-Adressen"
+
+#: includes/Crawlers/Settings.php:242 includes/Crawlers/Settings.php:260
+msgid "Contact"
+msgstr "Kontakt"
+
+#: includes/Crawlers/Settings.php:243 includes/Crawlers/Settings.php:261
+#: includes/Crawlers/Settings.php:336
+msgid "Comment"
+msgstr "Kommentar"
+
+#: includes/Crawlers/Settings.php:248
+msgid "No crawlers found."
+msgstr "Keine Crawler gefunden."
+
+#: includes/Crawlers/Settings.php:282
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: includes/Crawlers/Settings.php:294
+msgid "Show more details"
+msgstr "Weitere Details anzeigen"
+
+#: includes/Crawlers/Settings.php:319
+msgid "Crawler not found"
+msgstr "Crawler nicht gefunden"
+
+#: includes/Crawlers/Settings.php:320
+msgid "Back to crawler list"
+msgstr "Zurück zur Crawler-Liste"
+
+#: includes/Crawlers/Settings.php:324
+msgid "Edit crawler"
+msgstr "Crawler bearbeiten"
+
+#: includes/Crawlers/Settings.php:330
+msgid "Id"
+msgstr "Id"
+
+#: includes/Crawlers/Settings.php:332
+msgid ""
+"Fixed user agent string or identifying part. Version numbers may differ."
+msgstr ""
+"Fester User-Agent-String oder erkennender Bestandteil. Versionsnummern "
+"können abweichen."
+
+#: includes/Crawlers/Settings.php:333
+msgid ""
+"IP addresses support IPv4, IPv6, CIDR notation, wildcards, and partial "
+"prefixes such as 131.188. or 2001:db8:. Enter one IP address or range per "
+"line."
+msgstr ""
+"IP-Adressen unterstützen IPv4, IPv6, CIDR-Notation, Wildcards und "
+"Teilpräfixe wie 131.188. oder 2001:db8:. Geben Sie pro Zeile eine IP-Adresse "
+"oder einen IP-Bereich ein."
+
+#: includes/Crawlers/Settings.php:334
+msgid "Contact email"
+msgstr "Kontakt-E-Mail"
+
+#: includes/Crawlers/Settings.php:335
+msgid "Contact website"
+msgstr "Kontakt-Webseite"
+
+#: includes/Crawlers/Settings.php:338
+msgid "Update crawler"
+msgstr "Crawler aktualisieren"
+
+#: includes/Crawlers/Settings.php:339 includes/Media/Replace/Views/index.php:58
+#: build/general/admin-role-threshold-warning.js:1
+#: src/general/admin-role-threshold-warning.js:124
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: includes/Crawlers/Settings.php:364
+msgid ""
+"Internal unique crawler Id. Use lowercase letters, numbers, underscores, and "
+"hyphens."
+msgstr ""
+"Interne eindeutige Crawler-Id. Verwenden Sie Kleinbuchstaben, Zahlen, "
+"Unterstriche und Bindestriche."
+
+#: includes/Crawlers/Settings.php:413
+msgid "You are not allowed to delete this crawler."
+msgstr "Sie dürfen diesen Crawler nicht löschen."
+
+#: includes/Crawlers/Settings.php:434
+msgid "Crawler deleted."
+msgstr "Crawler gelöscht."
+
+#: includes/Crawlers/Settings.php:466
+msgid "Crawler saved."
+msgstr "Crawler gespeichert."
+
+#: includes/Crawlers/Settings.php:580
+msgid "Do you really want to delete this crawler?"
+msgstr "Möchten Sie diesen Crawler wirklich löschen?"
+
+#: includes/Crawlers/Settings.php:583
+msgid "Delete"
+msgstr "Löschen"
+
+#: includes/Crawlers/Settings.php:609
+msgid "Previous page"
+msgstr "Vorherige Seite"
+
+#: includes/Crawlers/Settings.php:610
+msgid "Next page"
+msgstr "Nächste Seite"
+
+#. translators: %s: Number of crawlers.
+#: includes/Crawlers/Settings.php:619
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] "%s Eintrag"
+msgstr[1] "%s Einträge"
+
+#: includes/Crawlers/Settings.php:636
+msgid "None"
+msgstr "Keine"
+
+#. translators: %s: Number of hidden IP addresses.
+#: includes/Crawlers/Settings.php:650
+msgid "%s more IP address"
+msgid_plural "%s more IP addresses"
+msgstr[0] "%s weitere IP-Adresse"
+msgstr[1] "%s weitere IP-Adressen"
 
 #: includes/CSP/Settings.php:48
 msgid "Content Security Police"
@@ -276,40 +444,6 @@ msgstr ""
 "Legt gültige Quellen fest, über die die Ressource mittels <frame> oder "
 "<iframe> eingebettet werden darf."
 
-#: includes/Discussion/Settings.php:41 includes/Discussion/Settings.php:42
-#: includes/Discussion/Settings.php:72
-msgid "Discussion"
-msgstr "Diskussion"
-
-#: includes/Discussion/Settings.php:79
-msgid "Default Settings"
-msgstr "Standardeinstellungen"
-
-#: includes/Discussion/Settings.php:87
-msgid "Disable Avatars"
-msgstr "Avatare deaktivieren"
-
-#: includes/Discussion/Settings.php:101
-msgid ""
-"This page enables network administrators to centrally configure discussion "
-"settings across the multisite network, establish default options for newly "
-"created websites, disable features such as avatars, and enforce uniform, "
-"streamlined conversation policies throughout the network."
-msgstr ""
-"Diese Seite ermöglicht Netzwerkadministratoren, Diskussionseinstellungen im "
-"gesamten Multisite‑Netzwerk zentral zu konfigurieren, Standardoptionen für "
-"neu erstellte Websites festzulegen, Funktionen wie Avatare zu deaktivieren "
-"und einheitliche, schlanke Diskussionsrichtlinien im gesamten Netzwerk "
-"durchzusetzen."
-
-#: includes/Discussion/Settings.php:112
-msgid "Set default settings for new websites"
-msgstr "Festlegen der Standardeinstellungen für neue Websites"
-
-#: includes/Discussion/Settings.php:125
-msgid "Disable avatars settings"
-msgstr "Avatareinstellungen deaktivieren"
-
 #: includes/General/AdminRoleThresholdWarning.php:117
 msgid ""
 "Yes, I understand the consequences and still want to create more "
@@ -336,95 +470,62 @@ msgid "Untitled"
 msgstr "Ohne Titel"
 
 #: includes/General/Settings.php:41 includes/General/Settings.php:42
-#: includes/General/Settings.php:78
+#: includes/General/Settings.php:74 includes/WebsiteFunctions/Settings.php:115
 msgid "General"
 msgstr "Allgemein"
 
-#: includes/General/Settings.php:85
+#: includes/General/Settings.php:81
 msgid "Textdomain Fallback"
 msgstr "Textdomäne Fallback"
 
-#: includes/General/Settings.php:92
-msgid "XML-RPC"
-msgstr "XML-RPC"
-
-#: includes/General/Settings.php:99
-msgid "Admin email verification"
-msgstr "Admin-E-Mail-Bestätigung"
-
-#: includes/General/Settings.php:106
-msgid "Emoji"
-msgstr "Emoji"
-
-#: includes/General/Settings.php:113
-msgid "Google Fonts"
-msgstr "Google-Schriften"
-
-#: includes/General/Settings.php:120
+#: includes/General/Settings.php:88
 msgid "Custom Error Page"
 msgstr "Benutzerdefinierte Fehlerseite"
 
-#: includes/General/Settings.php:127
+#: includes/General/Settings.php:95
 msgid "White Label"
 msgstr "White Label"
 
-#: includes/General/Settings.php:134 includes/General/Settings.php:267
+#: includes/General/Settings.php:102 includes/General/Settings.php:175
 msgid "Default Theme"
 msgstr "Standard-Theme"
 
-#: includes/General/Settings.php:148
+#: includes/General/Settings.php:116
 msgid ""
 "Network administrators can centrally manage general settings for every "
-"website in a multisite network on this page, with options to enable or "
-"disable features such as textdomain fallback, XML-RPC, admin email "
-"verification, Google Fonts, emojis, custom error pages, white labeling, and "
-"the default theme for new websites."
+"website in a multisite network on this page, with options such as textdomain "
+"fallback, custom error pages, white labeling, and the default theme for new "
+"websites."
 msgstr ""
 "Netzwerkadministratoren können allgemeine Einstellungen für jede Website in "
-"einem Multisite-Netzwerk zentral verwalten; auf dieser Seite lassen sich "
-"Funktionen wie Textdomain-Fallback, XML-RPC, Verifizierung der "
-"Administrator-E-Mail, Google Fonts, Emojis, benutzerdefinierte Fehlerseiten, "
-"White-Labeling und das Standard-Theme für neue Websites aktivieren oder "
-"deaktivieren."
+"einem Multisite-Netzwerk zentral verwalten, darunter Textdomain-Fallback, "
+"benutzerdefinierte Fehlerseiten, White-Labeling und das Standard-Theme für "
+"neue Websites."
 
-#: includes/General/Settings.php:161
+#: includes/General/Settings.php:129
 msgid "Sets a default language as fallback for unavailable language files"
 msgstr ""
 "Setzt eine Standardsprache als Fallback für nicht verfügbare Sprachdateien"
 
-#: includes/General/Settings.php:176
-msgid "Disables the XML-RPC API"
-msgstr "Deaktiviert die XML-RPC-API"
-
-#: includes/General/Settings.php:191
-msgid "Disables the admin email verification check"
-msgstr "Deaktiviert die Überprüfung der Administrator-E-Mail-Verifizierung"
-
-#: includes/General/Settings.php:206
-msgid "Disables Emoji graphics"
-msgstr "Deaktiviert Emoji-Grafiken"
-
-#: includes/General/Settings.php:221
-msgid "Disables loading of Google Fonts"
-msgstr "Deaktiviert das Laden von Google-Schriften"
-
-#: includes/General/Settings.php:236
+#: includes/General/Settings.php:144
 msgid "Enables custom error page"
 msgstr "Aktiviert eine benutzerdefinierte Fehlerseite"
 
-#: includes/General/Settings.php:251
+#: includes/General/Settings.php:159
 msgid "Enables white label mode"
 msgstr "Aktiviert den White-Label-Modus"
 
-#: includes/General/Settings.php:270
+#: includes/General/Settings.php:178
 msgid "Use WordPress default"
 msgstr "WordPress-Standard verwenden"
 
-#: includes/General/Settings.php:278
+#: includes/General/Settings.php:186
 msgid ""
 "Theme that is activated automatically when a new website is created. Leave "
 "empty to use the WordPress default theme."
-msgstr "Theme, das automatisch aktiviert wird, wenn eine neue Website erstellt wird. Leer lassen, um das WordPress-Standard-Theme zu verwenden."
+msgstr ""
+"Theme, das automatisch aktiviert wird, wenn eine neue Website erstellt wird. "
+"Leer lassen, um das WordPress-Standard-Theme zu verwenden."
 
 #: includes/General/XMLRPC.php:53
 msgid "XML-RPC services are disabled on this site."
@@ -451,7 +552,9 @@ msgstr "Websupport-Rollenname"
 msgid ""
 "Network administrators can define governance-related access rules for the "
 "multisite network on this page."
-msgstr "Auf dieser Seite können Netzwerkadministratoren zugriffsbezogene Governance-Einstellungen im gesamten Multisite-Netzwerk verwalten."
+msgstr ""
+"Auf dieser Seite können Netzwerkadministratoren zugriffsbezogene Governance-"
+"Einstellungen im gesamten Multisite-Netzwerk verwalten."
 
 #: includes/Governance/Settings.php:126
 msgid "Enable network-wide websupport access"
@@ -461,13 +564,17 @@ msgstr "Netzwerkweiten Websupport-Zugriff aktivieren"
 msgid ""
 "List of network users who receive websupport access. Enter one user ID, "
 "login, or email address per line."
-msgstr "Liste der Netzwerkbenutzer, die Websupport-Zugriff erhalten. Geben Sie pro Zeile eine Benutzer-ID, einen Benutzernamen oder eine E-Mail-Adresse ein."
+msgstr ""
+"Liste der Netzwerkbenutzer, die Websupport-Zugriff erhalten. Geben Sie pro "
+"Zeile eine Benutzer-ID, einen Benutzernamen oder eine E-Mail-Adresse ein."
 
 #: includes/Governance/Settings.php:158
 msgid ""
 "Visible name for websupport users in user filters and user lists. The "
 "internal role identifier remains websupport."
-msgstr "Sichtbarer Name für Websupport-Benutzer in Benutzerfiltern und Benutzerlisten. Der interne Rollenbezeichner bleibt websupport."
+msgstr ""
+"Sichtbarer Name für Websupport-Benutzer in Benutzerfiltern und "
+"Benutzerlisten. Der interne Rollenbezeichner bleibt websupport."
 
 #: includes/Heartbeat/Settings.php:34 includes/Heartbeat/Settings.php:35
 #: includes/Heartbeat/Settings.php:127
@@ -580,7 +687,7 @@ msgstr "Mail"
 msgid "Envelope Sender"
 msgstr "Envelope-Sender"
 
-#: includes/Mail/Settings.php:115 includes/Plugins/Settings.php:429
+#: includes/Mail/Settings.php:115 includes/Plugins/Settings.php:434
 msgid "Allowed Domains"
 msgstr "Zulässige Domains"
 
@@ -619,7 +726,7 @@ msgstr ""
 "Liste der Website-IDs, die das Feld admin_email bearbeiten können. Geben Sie "
 "pro Zeile eine Website-ID ein."
 
-#: includes/Main.php:189 includes/Settings.php:101 includes/Settings.php:102
+#: includes/Main.php:197 includes/Settings.php:101 includes/Settings.php:102
 msgid "CMS"
 msgstr "CMS"
 
@@ -715,12 +822,6 @@ msgstr ""
 msgid "Upload"
 msgstr "Hochladen"
 
-#: includes/Media/Replace/Views/index.php:58
-#: build/general/admin-role-threshold-warning.js:1
-#: src/general/admin-role-threshold-warning.js:124
-msgid "Cancel"
-msgstr "Abbrechen"
-
 #: includes/Media/Settings.php:48 includes/Media/Settings.php:49
 #: includes/Media/Settings.php:101
 msgid "Media"
@@ -794,7 +895,8 @@ msgstr ""
 #: includes/Media/Settings.php:225
 msgid ""
 "Configure taxonomies for media attachments across the multisite network."
-msgstr "Taxonomien für Medienanhänge im gesamten Multisite-Netzwerk konfigurieren."
+msgstr ""
+"Taxonomien für Medienanhänge im gesamten Multisite-Netzwerk konfigurieren."
 
 #: includes/Media/Settings.php:238
 msgid "Register attachment document taxonomy"
@@ -914,181 +1016,181 @@ msgstr "Erstellt eine benutzerdefinierte Spalte (Menüs) in der Posts-Liste"
 msgid "Enhanced menu search"
 msgstr "Erweiterte Menüsuche"
 
-#: includes/Plugins/Settings.php:37 includes/Plugins/Settings.php:38
-#: includes/Plugins/Settings.php:194
+#: includes/Plugins/Settings.php:38 includes/Plugins/Settings.php:39
+#: includes/Plugins/Settings.php:199
 msgid "Plugins"
 msgstr "Plugins"
 
-#: includes/Plugins/Settings.php:60 includes/Settings.php:123
+#: includes/Plugins/Settings.php:61 includes/Settings.php:123
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
-#: includes/Plugins/Settings.php:202
+#: includes/Plugins/Settings.php:207
 msgid "DIP"
 msgstr "DIP"
 
-#: includes/Plugins/Settings.php:209
+#: includes/Plugins/Settings.php:214
 msgid "DIP API Key"
 msgstr "DIP API-Key"
 
-#: includes/Plugins/Settings.php:217
+#: includes/Plugins/Settings.php:222
 msgid "DIP Edu API key"
 msgstr "DIP Edu-API-Key"
 
-#: includes/Plugins/Settings.php:227
+#: includes/Plugins/Settings.php:232
 msgid "FAUdir"
 msgstr "FAUdir"
 
-#: includes/Plugins/Settings.php:234
+#: includes/Plugins/Settings.php:239
 msgid "FAUdir API Key"
 msgstr "FAUdir-API-Key"
 
-#: includes/Plugins/Settings.php:245
+#: includes/Plugins/Settings.php:250
 msgid "RRZE Jobs"
 msgstr "RRZE-Jobs"
 
-#: includes/Plugins/Settings.php:252
+#: includes/Plugins/Settings.php:257
 msgid "B-ITE API Key"
 msgstr "B-ITE-API-Key"
 
-#: includes/Plugins/Settings.php:263
+#: includes/Plugins/Settings.php:268
 msgid "RRZE Search Settings"
 msgstr "RRZE-Sucheinstellungen"
 
-#: includes/Plugins/Settings.php:270
+#: includes/Plugins/Settings.php:275
 msgid "Search Engine Keys"
 msgstr "API-Schlüssel für Suchmaschinen"
 
-#: includes/Plugins/Settings.php:278
+#: includes/Plugins/Settings.php:283
 msgid "Daily Limit"
 msgstr "Tageslimit"
 
-#: includes/Plugins/Settings.php:286
+#: includes/Plugins/Settings.php:291
 msgid "Weekly Limit"
 msgstr "Wochenlimit"
 
-#: includes/Plugins/Settings.php:294
+#: includes/Plugins/Settings.php:299
 msgid "Monthly Limit"
 msgstr "Monatslimit"
 
-#: includes/Plugins/Settings.php:302
+#: includes/Plugins/Settings.php:307
 msgid "Yearly Limit"
 msgstr "Jahreslimit"
 
-#: includes/Plugins/Settings.php:313
+#: includes/Plugins/Settings.php:318
 msgid "RRZE WebT"
 msgstr "RRZE-WebT"
 
-#: includes/Plugins/Settings.php:320
+#: includes/Plugins/Settings.php:325
 msgid "API Endpoint URL"
 msgstr "API-Endpunkt-URL"
 
-#: includes/Plugins/Settings.php:328
+#: includes/Plugins/Settings.php:333
 msgid "Application Name"
 msgstr "Anwendungsname"
 
-#: includes/Plugins/Settings.php:336
+#: includes/Plugins/Settings.php:341
 msgid "Password"
 msgstr "Passwort"
 
-#: includes/Plugins/Settings.php:344 includes/Plugins/Settings.php:371
-#: includes/Plugins/Settings.php:488
+#: includes/Plugins/Settings.php:349 includes/Plugins/Settings.php:376
+#: includes/Plugins/Settings.php:493
 msgid "Exceptions"
 msgstr "Ausnahmen"
 
-#: includes/Plugins/Settings.php:355
+#: includes/Plugins/Settings.php:360
 msgid "RRZE Newsletter"
 msgstr "RRZE-Newsletter"
 
-#: includes/Plugins/Settings.php:362
+#: includes/Plugins/Settings.php:367
 msgid "Global Settings"
 msgstr "Globale Einstellungen"
 
-#: includes/Plugins/Settings.php:379
+#: includes/Plugins/Settings.php:384
 msgid "Allowed domains for Envelope Sender"
 msgstr "Zulässige Domains für Envelope-Sender"
 
-#: includes/Plugins/Settings.php:387
+#: includes/Plugins/Settings.php:392
 msgid "Send Limit"
 msgstr "Sende-Limit"
 
-#: includes/Plugins/Settings.php:395
+#: includes/Plugins/Settings.php:400
 msgid "Max. Retries"
 msgstr "Max. Wiederholungen"
 
-#: includes/Plugins/Settings.php:403
+#: includes/Plugins/Settings.php:408
 msgid "Disable subscription"
 msgstr "Abonnement deaktivieren"
 
-#: includes/Plugins/Settings.php:411
+#: includes/Plugins/Settings.php:416
 msgid "Allowed domains for recipients"
 msgstr "Zulässige Domains für Empfänger"
 
-#: includes/Plugins/Settings.php:422
+#: includes/Plugins/Settings.php:427
 msgid "RRZE Formular"
 msgstr "RRZE Formular"
 
-#: includes/Plugins/Settings.php:439
+#: includes/Plugins/Settings.php:444
 msgid "CMS Workflow"
 msgstr "CMS-Workflow"
 
-#: includes/Plugins/Settings.php:446
+#: includes/Plugins/Settings.php:451
 msgid "Not Allowed Post Types"
 msgstr "Nicht zulässige Post-Types"
 
-#: includes/Plugins/Settings.php:457
+#: includes/Plugins/Settings.php:462
 msgid "WS Form"
 msgstr "WS-Form"
 
-#: includes/Plugins/Settings.php:464
+#: includes/Plugins/Settings.php:469
 msgid "License Key"
 msgstr "Lizenz-Key"
 
-#: includes/Plugins/Settings.php:472
+#: includes/Plugins/Settings.php:477
 msgid "PDF Add-On License Key"
 msgstr "PDF Add-On Lizenz-Key"
 
-#: includes/Plugins/Settings.php:480
+#: includes/Plugins/Settings.php:485
 msgid "Not Allowed Field Types"
 msgstr "Nicht zulässige Feldtypen"
 
-#: includes/Plugins/Settings.php:498
+#: includes/Plugins/Settings.php:503
 msgid "RRZE Directions"
 msgstr "RRZE Directions"
 
-#: includes/Plugins/Settings.php:505
+#: includes/Plugins/Settings.php:510
 msgid "OpenRouteService-API-Key"
 msgstr "OpenRouteService-API-Key"
 
-#: includes/Plugins/Settings.php:515
+#: includes/Plugins/Settings.php:520
 msgid "Contact Form 7"
 msgstr "CF7"
 
-#: includes/Plugins/Settings.php:522
+#: includes/Plugins/Settings.php:527
 msgid "Dequeue scripts"
 msgstr "Skripte aus Queue entfernen"
 
-#: includes/Plugins/Settings.php:533
+#: includes/Plugins/Settings.php:538
 msgid "SEO Framework"
 msgstr "SEO-Framework"
 
-#: includes/Plugins/Settings.php:540
+#: includes/Plugins/Settings.php:545
 msgid "Force activation"
 msgstr "Aktivierung erzwingen"
 
-#: includes/Plugins/Settings.php:550
+#: includes/Plugins/Settings.php:555
 msgid "Siteimprove"
 msgstr "Siteimprove"
 
-#: includes/Plugins/Settings.php:557
+#: includes/Plugins/Settings.php:562
 msgid "Crawler IP addresses"
 msgstr "Crawler-IP-Adressen"
 
-#: includes/Plugins/Settings.php:565
+#: includes/Plugins/Settings.php:570
 msgid "Schlüsselcode"
 msgstr "Schlüsselcode"
 
-#: includes/Plugins/Settings.php:579
+#: includes/Plugins/Settings.php:584
 msgid ""
 "Network administrators can oversee and configure plugin settings across a "
 "multisite environment. The page automatically detects supported plugins and "
@@ -1103,27 +1205,27 @@ msgstr ""
 "eingeben, plugin‑spezifische Optionen anpassen und so eine effiziente, "
 "konsistente Verwaltung aller Websites im Netzwerk gewährleisten."
 
-#: includes/Plugins/Settings.php:601
+#: includes/Plugins/Settings.php:606
 msgid "Enter one search engine per block (3 or 4 lines):"
 msgstr "Bitte pro Block genau eine Suchmaschine angeben (3–4 Zeilen):"
 
-#: includes/Plugins/Settings.php:602
+#: includes/Plugins/Settings.php:607
 msgid "Line 1: Name"
 msgstr "1. Zeile: Name"
 
-#: includes/Plugins/Settings.php:603
+#: includes/Plugins/Settings.php:608
 msgid "Line 2: CX"
 msgstr "2. Zeile: CX"
 
-#: includes/Plugins/Settings.php:604
+#: includes/Plugins/Settings.php:609
 msgid "Line 3: API"
 msgstr "3. Zeile: API"
 
-#: includes/Plugins/Settings.php:605
+#: includes/Plugins/Settings.php:610
 msgid "Optional line 4: Description"
 msgstr "(Optional) 4. Zeile: Beschreibung"
 
-#: includes/Plugins/Settings.php:606
+#: includes/Plugins/Settings.php:611
 msgid ""
 "Add multiple engines by adding additional 3/4-line blocks (no empty lines "
 "required)."
@@ -1131,44 +1233,44 @@ msgstr ""
 "Mehrere Suchmaschinen können durch zusätzliche 3/4-Zeilen-Blöcke hinzugefügt "
 "werden – Leerzeilen sind nicht erforderlich."
 
-#: includes/Plugins/Settings.php:619
+#: includes/Plugins/Settings.php:624
 msgid "Maximum number of RRZE Search requests per day. Use 0 for unlimited."
 msgstr ""
 "Maximale Anzahl an RRZE-Search-Anfragen pro Tag. Verwenden Sie 0 für "
 "unbegrenzt."
 
-#: includes/Plugins/Settings.php:632
+#: includes/Plugins/Settings.php:637
 msgid "Maximum number of RRZE Search requests per week. Use 0 for unlimited."
 msgstr ""
 "Maximale Anzahl an RRZE-Search-Anfragen pro Woche. Verwenden Sie 0 für "
 "unbegrenzt."
 
-#: includes/Plugins/Settings.php:645
+#: includes/Plugins/Settings.php:650
 msgid "Maximum number of RRZE Search requests per month. Use 0 for unlimited."
 msgstr ""
 "Maximale Anzahl an RRZE-Search-Anfragen pro Monat. Verwenden Sie 0 für "
 "unbegrenzt."
 
-#: includes/Plugins/Settings.php:658
+#: includes/Plugins/Settings.php:663
 msgid "Maximum number of RRZE Search requests per year. Use 0 for unlimited."
 msgstr ""
 "Maximale Anzahl an RRZE-Search-Anfragen pro Jahr. Verwenden Sie 0 für "
 "unbegrenzt."
 
-#: includes/Plugins/Settings.php:714
+#: includes/Plugins/Settings.php:719
 msgid "The WebT API Url used for RRZE Webt."
 msgstr "Die WebT-API-URL, die von RRZE Webt verwendet wird."
 
-#: includes/Plugins/Settings.php:723
+#: includes/Plugins/Settings.php:728
 msgid "The WebT application name used for RRZE Webt."
 msgstr "Der WebT-Anwendungsname, der von RRZE Webt verwendet wird."
 
-#: includes/Plugins/Settings.php:732
+#: includes/Plugins/Settings.php:737
 msgid "The WebT password used for RRZE Webt."
 msgstr "Das WebT-Passwort, das von RRZE Webt verwendet wird."
 
-#: includes/Plugins/Settings.php:742 includes/Plugins/Settings.php:842
-#: includes/Plugins/Settings.php:950
+#: includes/Plugins/Settings.php:747 includes/Plugins/Settings.php:847
+#: includes/Plugins/Settings.php:955
 msgid ""
 "List of IDS of websites that are exempt to all global settings. Enter one "
 "website ID per line."
@@ -1176,37 +1278,37 @@ msgstr ""
 "Liste der IDs von Websites, die alle globalen Einstellungen befreit sind. "
 "Geben Sie eine Website-ID pro Zeile ein."
 
-#: includes/Plugins/Settings.php:752
+#: includes/Plugins/Settings.php:757
 msgid "Activate the global settings of the plugin"
 msgstr "Die globalen Einstellungen des Plugins aktivieren"
 
-#: includes/Plugins/Settings.php:763
+#: includes/Plugins/Settings.php:768
 msgid "List of allowed domains for envelope sender. Enter one domain per line."
 msgstr ""
 "Liste der zulässigen Domänen für Envelope-Sender. Geben Sie eine Domäne pro "
 "Zeile ein."
 
-#: includes/Plugins/Settings.php:772
+#: includes/Plugins/Settings.php:777
 msgid "Maximum number of emails that can be sent per minute."
 msgstr "Maximale Anzahl von E-Mails, die pro Minute gesendet werden können."
 
-#: includes/Plugins/Settings.php:781
+#: includes/Plugins/Settings.php:786
 msgid "Maximum number of retries until an email is sent successfully."
 msgstr ""
 "Maximale Anzahl von Wiederholungsversuchen, bis eine E-Mail erfolgreich "
 "gesendet wurde."
 
-#: includes/Plugins/Settings.php:791
+#: includes/Plugins/Settings.php:796
 msgid "Disables the subscription and mailing lists"
 msgstr "Deaktiviert die Abonnement und Mail-Listen"
 
-#: includes/Plugins/Settings.php:802
+#: includes/Plugins/Settings.php:807
 msgid "List of allowed domains for recipients. Enter one domain per line."
 msgstr ""
 "Liste der zulässigen Domänen für Empfänger. Geben Sie eine Domäne pro Zeile "
 "ein."
 
-#: includes/Plugins/Settings.php:812
+#: includes/Plugins/Settings.php:817
 msgid ""
 "List of allowed domains for RRZE Formular. Enter one domain without www per "
 "line."
@@ -1214,25 +1316,25 @@ msgstr ""
 "Liste der zulässigen Domänen für RRZE Formular. Geben Sie pro Zeile eine "
 "Domäne ohne www ein."
 
-#: includes/Plugins/Settings.php:828
+#: includes/Plugins/Settings.php:833
 msgid "Schlüssel unter"
 msgstr "Schlüssel unter"
 
-#: includes/Plugins/Settings.php:830
+#: includes/Plugins/Settings.php:835
 msgid "https://openrouteservice.org"
 msgstr "https://openrouteservice.org"
 
-#: includes/Plugins/Settings.php:831
+#: includes/Plugins/Settings.php:836
 msgid "beantragen und hier einfügen."
 msgstr "beantragen und hier einfügen."
 
-#: includes/Plugins/Settings.php:852
+#: includes/Plugins/Settings.php:857
 msgid "List of not allowed post types. Enter one post type per line."
 msgstr ""
 "Liste der nicht erlaubten Post-Types. Geben Sie einen Post-Type pro Zeile "
 "ein."
 
-#: includes/Plugins/Settings.php:862
+#: includes/Plugins/Settings.php:867
 msgid ""
 "List of allowed IP addresses of the Siteimprove crawler in case there are "
 "access restrictions to the content of the website. Enter one IP address per "
@@ -1241,20 +1343,20 @@ msgstr ""
 "Liste der zulässigen IP-Adressen des Siteimprove-Crawlers. Geben Sie eine IP-"
 "Adresse pro Zeile ein."
 
-#: includes/Plugins/Settings.php:877
+#: includes/Plugins/Settings.php:882
 msgid "4 bis 10 alphanumerische Zeichen."
 msgstr "4 bis 10 alphanumerische Zeichen."
 
-#: includes/Plugins/Settings.php:887
+#: includes/Plugins/Settings.php:892
 msgid "Disables custom columns and metaboxes"
 msgstr "Deaktiviert benutzerdefinierte Spalten und Metaboxen"
 
-#: includes/Plugins/Settings.php:898
+#: includes/Plugins/Settings.php:903
 msgid "Dequeue Contact Form 7 scripts on the posts where it is not needed"
 msgstr ""
 "Dequeue Contact-Form-7-Skripte an den Posts, an denen es nicht benötigt wird"
 
-#: includes/Plugins/Settings.php:909
+#: includes/Plugins/Settings.php:914
 msgid ""
 "Forces the activation of the plugin if it exists and has not yet been "
 "activated"
@@ -1262,36 +1364,36 @@ msgstr ""
 "Erzwingt die Aktivierung des Plugins, wenn es existiert und noch nicht "
 "aktiviert wurde"
 
-#: includes/Plugins/Settings.php:920
+#: includes/Plugins/Settings.php:925
 msgid "This license key will apply to all websites."
 msgstr "Dieser Lizenz-Key gilt für alle Websites."
 
-#: includes/Plugins/Settings.php:930
+#: includes/Plugins/Settings.php:935
 msgid "This add-on license key will apply to all websites."
 msgstr "Dieser Add-On-Lizenz-Key gilt für alle Websites."
 
-#: includes/Plugins/Settings.php:940
+#: includes/Plugins/Settings.php:945
 msgid "List of not allowed field types. Enter one field type per line."
 msgstr ""
 "Liste der nicht zulässigen Feldtypen. Geben Sie einen Feldtyp pro Zeile ein."
 
-#: includes/Plugins/Settings.php:959
+#: includes/Plugins/Settings.php:964
 msgid "The DIP API key used by some plugins."
 msgstr "Der DIP‑API‑Key, der von einigen Plugins verwendet wird."
 
-#: includes/Plugins/Settings.php:968
+#: includes/Plugins/Settings.php:973
 msgid "The DIP Edu API key used by some plugins."
 msgstr "Der DIP Edu‑API‑Key, der von einigen Plugins verwendet wird."
 
-#: includes/Plugins/Settings.php:977
+#: includes/Plugins/Settings.php:982
 msgid "The FAUdir API key to access the API service https://api.fau.de/."
 msgstr "Der FAUdir‑API‑Key zum Zugriff auf den API‑Dienst https://api.fau.de/."
 
-#: includes/Plugins/Settings.php:986
+#: includes/Plugins/Settings.php:991
 msgid "The B-ITE API key used for RRZE Jobs."
 msgstr "Der für RRZE-Jobs verwendete B—ITE-API-Key."
 
-#: includes/Plugins/Settings.php:1160
+#: includes/Plugins/Settings.php:1165
 msgid "Plugin settings"
 msgstr "Plugin-Einstellungen"
 
@@ -1341,7 +1443,9 @@ msgstr ""
 msgid ""
 "Configure taxonomies and search behavior for posts and pages across the "
 "multisite network."
-msgstr "Taxonomien und Suchverhalten für Beiträge und Seiten im gesamten Multisite-Netzwerk konfigurieren."
+msgstr ""
+"Taxonomien und Suchverhalten für Beiträge und Seiten im gesamten Multisite-"
+"Netzwerk konfigurieren."
 
 #: includes/Posts/Settings.php:166
 msgid "Exclude from search nosearch-tagged posts"
@@ -1530,13 +1634,6 @@ msgstr "Kategorie aktualisieren"
 msgid "Add New Category"
 msgstr "Neue Kategorie hinzufügen"
 
-#: includes/Taxonomies/AttachmentCategory.php:61
-#: includes/Taxonomies/AttachmentDocument.php:63
-#: includes/Taxonomies/AttachmentTag.php:62
-#: includes/Taxonomies/PageCategory.php:45 includes/Taxonomies/PageTag.php:28
-msgid "Name"
-msgstr "Name"
-
 #: includes/Taxonomies/AttachmentCategory.php:62
 #: includes/Taxonomies/PageCategory.php:46
 msgid "Categories"
@@ -1657,42 +1754,8 @@ msgstr "Seitenschlagwort"
 msgid "The term can not be deleted."
 msgstr "Der Term kann nicht gelöscht werden."
 
-#: includes/Tools/Settings.php:41 includes/Tools/Settings.php:42
-#: includes/Tools/Settings.php:72
-msgid "Tools"
-msgstr "Werkzeuge"
-
-#: includes/Tools/Settings.php:79
-msgid "Delete Website"
-msgstr "Website löschen"
-
-#: includes/Tools/Settings.php:87
-msgid "Privacy Options"
-msgstr "Datenschutzoptionen"
-
-#: includes/Tools/Settings.php:101
-msgid ""
-"Network administrators can configure tools settings across the entire "
-"multisite network on this page, disable the “delete site” feature, and "
-"adjust privacy options—strengthening oversight and preventing unintended "
-"changes or deletions on every website."
-msgstr ""
-"Netzwerkadministratoren können auf dieser Seite die Werkzeugeinstellungen im "
-"gesamten Multisite‑Netzwerk konfigurieren, die Funktion „Website löschen“ "
-"deaktivieren und Datenschutzeinstellungen anpassen – und so die Aufsicht "
-"stärken sowie unbeabsichtigte Änderungen oder Löschungen auf jeder Website "
-"verhindern."
-
-#: includes/Tools/Settings.php:114
-msgid "Disables the delete site feature"
-msgstr "Deaktiviert die Funktion zum Löschen der Website"
-
-#: includes/Tools/Settings.php:129
-msgid "Disables the privacy settings"
-msgstr "Deaktiviert die Datenschutzeinstellungen"
-
-#: includes/Tools/Tools.php:83 includes/Tools/Tools.php:95
-#: includes/Tools/Tools.php:106
+#: includes/Tools/Tools.php:76 includes/Tools/Tools.php:88
+#: includes/Tools/Tools.php:99
 msgid "You are not allowed to delete this website."
 msgstr "Es ist Ihnen nicht gestattet, diese Website zu löschen."
 
@@ -1759,8 +1822,8 @@ msgstr ""
 "gesamten Multisite-Netzwerk konfigurieren, spezielle Autorenrollen "
 "aktivieren, die Benutzersuche verbessern, eine virtuelle Kontaktseite "
 "generieren, das Willkommenspanel deaktivieren, vor überschrittenen "
-"Administratorengrenzwerten warnen und festlegen, welche Benutzer Zugriff "
-"auf Debug-Logs haben."
+"Administratorengrenzwerten warnen und festlegen, welche Benutzer Zugriff auf "
+"Debug-Logs haben."
 
 #: includes/Users/Settings.php:170
 msgid "Disables the welcome panel that introduces users to WordPress"
@@ -1804,6 +1867,145 @@ msgid ""
 msgstr ""
 "Liste der Benutzer, die Debuginformationen auf Websites anzeigen können "
 "(sofern vorhanden). Geben Sie pro Zeile einen Benutzernamen ein."
+
+#: includes/WebsiteFunctions/Settings.php:53
+#: includes/WebsiteFunctions/Settings.php:54
+msgid "Website Functions"
+msgstr "Website Funktionen"
+
+#: includes/WebsiteFunctions/Settings.php:122
+msgid "XML-RPC"
+msgstr "XML-RPC"
+
+#: includes/WebsiteFunctions/Settings.php:130
+msgid "Admin email verification"
+msgstr "Admin-E-Mail-Bestätigung"
+
+#: includes/WebsiteFunctions/Settings.php:138
+msgid "Emoji"
+msgstr "Emoji"
+
+#: includes/WebsiteFunctions/Settings.php:146
+msgid "Google Fonts"
+msgstr "Google-Schriften"
+
+#: includes/WebsiteFunctions/Settings.php:154
+msgid "Discussion"
+msgstr "Diskussion"
+
+#: includes/WebsiteFunctions/Settings.php:161
+msgid "Discussion Defaults"
+msgstr "Diskussions-Standards"
+
+#: includes/WebsiteFunctions/Settings.php:169
+msgid "Disable Avatars"
+msgstr "Avatare deaktivieren"
+
+#: includes/WebsiteFunctions/Settings.php:177
+msgid "Other Functions"
+msgstr "Sonstige Funktionen"
+
+#: includes/WebsiteFunctions/Settings.php:184
+msgid "Delete Website"
+msgstr "Website löschen"
+
+#: includes/WebsiteFunctions/Settings.php:192
+msgid "Privacy Options"
+msgstr "Datenschutzoptionen"
+
+#: includes/WebsiteFunctions/Settings.php:200
+msgid "Disable AI Functionality"
+msgstr "KI-Funktionalität deaktivieren"
+
+#: includes/WebsiteFunctions/Settings.php:208
+msgid "Hide AI Connector Page for Users"
+msgstr "KI-Connector-Seite für Benutzer ausblenden"
+
+#: includes/WebsiteFunctions/Settings.php:216
+msgid "Disable Font Library in Admin Dashboard"
+msgstr "Schriftartenbibliothek im Admin-Dashboard deaktivieren"
+
+#: includes/WebsiteFunctions/Settings.php:230
+msgid ""
+"Additional website-related functions that are applied across the multisite "
+"network."
+msgstr ""
+"Weitere websitebezogene Funktionen, die im gesamten Multisite-Netzwerk "
+"angewendet werden."
+
+#: includes/WebsiteFunctions/Settings.php:240
+msgid "General website features that are applied across the multisite network."
+msgstr ""
+"Allgemeine Website-Funktionen, die im gesamten Multisite-Netzwerk angewendet "
+"werden."
+
+#: includes/WebsiteFunctions/Settings.php:250
+msgid ""
+"Network administrators can centrally configure discussion settings across "
+"the multisite network."
+msgstr ""
+"Netzwerkadministratoren können Diskussionseinstellungen im gesamten "
+"Multisite-Netzwerk zentral konfigurieren."
+
+#: includes/WebsiteFunctions/Settings.php:262
+msgid "Disables the delete site feature"
+msgstr "Deaktiviert die Funktion zum Löschen der Website"
+
+#: includes/WebsiteFunctions/Settings.php:274
+msgid "Disables the privacy settings"
+msgstr "Deaktiviert die Datenschutzeinstellungen"
+
+#: includes/WebsiteFunctions/Settings.php:286
+msgid "Disable AI functionality in WordPress."
+msgstr "KI-Funktionalität in WordPress deaktivieren."
+
+#: includes/WebsiteFunctions/Settings.php:298
+msgid "Hide the AI Connectors settings page for users and block direct access."
+msgstr ""
+"Die Einstellungsseite für KI-Connectors für Benutzer ausblenden und den "
+"direkten Zugriff sperren."
+
+#: includes/WebsiteFunctions/Settings.php:310
+msgid ""
+"Hide the Font Library page in the admin dashboard and block direct access."
+msgstr ""
+"Die Seite der Schriftartenbibliothek im Admin-Dashboard ausblenden und den "
+"direkten Zugriff sperren."
+
+#: includes/WebsiteFunctions/Settings.php:322
+msgid "Disables the XML-RPC API"
+msgstr "Deaktiviert die XML-RPC-API"
+
+#: includes/WebsiteFunctions/Settings.php:334
+msgid "Disables the admin email verification check"
+msgstr "Deaktiviert die Überprüfung der Administrator-E-Mail-Verifizierung"
+
+#: includes/WebsiteFunctions/Settings.php:346
+msgid "Disables Emoji graphics"
+msgstr "Deaktiviert Emoji-Grafiken"
+
+#: includes/WebsiteFunctions/Settings.php:358
+msgid "Disables loading of Google Fonts"
+msgstr "Deaktiviert das Laden von Google-Schriften"
+
+#: includes/WebsiteFunctions/Settings.php:370
+msgid "Apply restrictive discussion defaults"
+msgstr "Restriktive Diskussions-Standards anwenden"
+
+#: includes/WebsiteFunctions/Settings.php:371
+msgid ""
+"For new websites, comments and pingbacks are disabled by default and "
+"commenting requires a login. Across the network, new posts and pages get "
+"closed comments by default, and anonymous commenting is blocked."
+msgstr ""
+"Bei neuen Websites werden Kommentare und Pingbacks standardmäßig "
+"deaktiviert, und Kommentieren erfordert eine Anmeldung. Netzwerkweit werden "
+"Kommentare für neue Beiträge und Seiten standardmäßig geschlossen, und "
+"anonymes Kommentieren wird blockiert."
+
+#: includes/WebsiteFunctions/Settings.php:383
+msgid "Disable avatars settings"
+msgstr "Avatareinstellungen deaktivieren"
 
 #: includes/Writing/Settings.php:41 includes/Writing/Settings.php:42
 #: includes/Writing/Settings.php:137
@@ -2018,14 +2220,19 @@ msgstr "Die Option Code-Editor in den Block-Editor-Einstellungen deaktivieren"
 
 #: includes/Writing/Settings.php:584
 msgid "Disable Custom CSS support in Block Editor blocks"
-msgstr "Unterstützung für individuelles CSS in Block-Editor-Blöcken deaktivieren"
+msgstr ""
+"Unterstützung für individuelles CSS in Block-Editor-Blöcken deaktivieren"
 
 #: includes/Writing/Settings.php:598
 msgid ""
 "List of themes where Custom CSS support should be disabled in the Block "
 "Editor. Enter one theme name or stylesheet per line. Leave empty to apply to "
 "all themes."
-msgstr "Liste der Themes, in denen die Unterstützung für individuelles CSS im Block-Editor deaktiviert werden soll. Pro Zeile einen Theme-Namen oder ein Stylesheet eingeben. Leer lassen, um die Einstellung auf alle Themes anzuwenden."
+msgstr ""
+"Liste der Themes, in denen die Unterstützung für individuelles CSS im Block-"
+"Editor deaktiviert werden soll. Pro Zeile einen Theme-Namen oder ein "
+"Stylesheet eingeben. Leer lassen, um die Einstellung auf alle Themes "
+"anzuwenden."
 
 #: includes/Writing/Settings.php:611
 msgid ""
@@ -2175,6 +2382,49 @@ msgstr "Die Bestätigungsphrase stimmt nicht überein."
 #: src/general/admin-role-threshold-warning.js:129
 msgid "Proceed anyway"
 msgstr "Trotzdem fortfahren"
+
+#~ msgid ""
+#~ "Network administrators can centrally control website-related functions "
+#~ "across the multisite network."
+#~ msgstr ""
+#~ "Netzwerkadministratoren können websitebezogene Funktionen im gesamten "
+#~ "Multisite-Netzwerk zentral steuern."
+
+#~ msgid "Default Settings"
+#~ msgstr "Standardeinstellungen"
+
+#~ msgid ""
+#~ "This page enables network administrators to centrally configure "
+#~ "discussion settings across the multisite network, establish default "
+#~ "options for newly created websites, disable features such as avatars, and "
+#~ "enforce uniform, streamlined conversation policies throughout the network."
+#~ msgstr ""
+#~ "Diese Seite ermöglicht Netzwerkadministratoren, Diskussionseinstellungen "
+#~ "im gesamten Multisite‑Netzwerk zentral zu konfigurieren, Standardoptionen "
+#~ "für neu erstellte Websites festzulegen, Funktionen wie Avatare zu "
+#~ "deaktivieren und einheitliche, schlanke Diskussionsrichtlinien im "
+#~ "gesamten Netzwerk durchzusetzen."
+
+#~ msgid "Set default settings for new websites"
+#~ msgstr "Festlegen der Standardeinstellungen für neue Websites"
+
+#~ msgid "Tools"
+#~ msgstr "Werkzeuge"
+
+#~ msgid ""
+#~ "Network administrators can configure tools settings across the entire "
+#~ "multisite network on this page, disable the “delete site” feature, and "
+#~ "adjust privacy options—strengthening oversight and preventing unintended "
+#~ "changes or deletions on every website."
+#~ msgstr ""
+#~ "Netzwerkadministratoren können auf dieser Seite die Werkzeugeinstellungen "
+#~ "im gesamten Multisite‑Netzwerk konfigurieren, die Funktion „Website "
+#~ "löschen“ deaktivieren und Datenschutzeinstellungen anpassen – und so die "
+#~ "Aufsicht stärken sowie unbeabsichtigte Änderungen oder Löschungen auf "
+#~ "jeder Website verhindern."
+
+#~ msgid "Key"
+#~ msgstr "Schlüssel"
 
 #~ msgid "https://blogs.fau.de/webworking/"
 #~ msgstr "https://blogs.fau.de/webworking/"

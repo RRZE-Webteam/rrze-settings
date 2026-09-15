@@ -109,11 +109,7 @@ const observeIframe = (
 			ensureClasses( body, classesToApply );
 		}
 	} catch ( error ) {
-		// eslint-disable-next-line no-console
-		console.warn(
-			'RRZE Settings: Could not observe editor iframe.',
-			error
-		);
+		void error;
 	}
 };
 

@@ -19,13 +19,6 @@ class Discussion extends Main
      */
     public function loaded(): void
     {
-        (new Settings(
-            $this->optionName,
-            $this->options,
-            $this->siteOptions,
-            $this->defaultOptions
-        ))->loaded();
-
         $discussion = $this->siteOptions->discussion ?? null;
 
         if (!empty($discussion) && !empty($discussion->default_settings)) {

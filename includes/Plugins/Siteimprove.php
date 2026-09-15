@@ -4,6 +4,7 @@ namespace RRZE\Settings\Plugins;
 
 defined('ABSPATH') || exit;
 
+use RRZE\Settings\Crawlers\Defaults as CrawlerDefaults;
 use RRZE\Settings\Library\Network\IPUtils;
 
 /**
@@ -53,7 +54,7 @@ class Siteimprove
     {
         $ipRange = [];
         $ipAddresses = (array) $ipAddresses;
-        $option = $this->siteOptions->plugins->siteimprove_crawler_ip_addresses;
+        $option = CrawlerDefaults::getIpAddresses($this->siteOptions, 'siteimprove');
         if (empty($option) || !is_array($option)) {
             return $ipAddresses;
         }

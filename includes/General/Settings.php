@@ -55,10 +55,6 @@ class Settings extends MainSettings
     public function optionsValidate($input)
     {
         $input['textdomain_fallback'] = !empty($input['textdomain_fallback']) ? 1 : 0;
-        $input['disable_xmlrpc'] = !empty($input['disable_xmlrpc']) ? 1 : 0;
-        $input['disable_admin_email_verification'] = !empty($input['disable_admin_email_verification']) ? 1 : 0;
-        $input['disable_google_fonts'] = !empty($input['disable_google_fonts']) ? 1 : 0;
-        $input['disable_emoji'] = !empty($input['disable_emoji']) ? 1 : 0;
         $input['custom_error_page'] = !empty($input['custom_error_page']) ? 1 : 0;
         $input['white_label'] = !empty($input['white_label']) ? 1 : 0;
         $input['default_theme'] = $this->sanitizeDefaultTheme($input['default_theme'] ?? '');
@@ -84,34 +80,6 @@ class Settings extends MainSettings
             'textdomain_fallback',
             __('Textdomain Fallback', 'rrze-settings'),
             [$this, 'textdomainFallbackField'],
-            $this->menuPage,
-            $this->sectionName
-        );
-        add_settings_field(
-            'disable_xmlrpc',
-            __('XML-RPC', 'rrze-settings'),
-            [$this, 'xmlrpcField'],
-            $this->menuPage,
-            $this->sectionName
-        );
-        add_settings_field(
-            'disable_admin_email_verification',
-            __('Admin email verification', 'rrze-settings'),
-            [$this, 'adminEmailVerificationField'],
-            $this->menuPage,
-            $this->sectionName
-        );
-        add_settings_field(
-            'disable_emoji',
-            __('Emoji', 'rrze-settings'),
-            [$this, 'emojiField'],
-            $this->menuPage,
-            $this->sectionName
-        );
-        add_settings_field(
-            'disable_google_fonts',
-            __('Google Fonts', 'rrze-settings'),
-            [$this, 'googleFontsField'],
             $this->menuPage,
             $this->sectionName
         );
@@ -145,7 +113,7 @@ class Settings extends MainSettings
      */
     public function mainSectionDescription()
     {
-        esc_html_e('Network administrators can centrally manage general settings for every website in a multisite network on this page, with options to enable or disable features such as textdomain fallback, XML-RPC, admin email verification, Google Fonts, emojis, custom error pages, white labeling, and the default theme for new websites.', 'rrze-settings');
+        esc_html_e('Network administrators can centrally manage general settings for every website in a multisite network on this page, with options such as textdomain fallback, custom error pages, white labeling, and the default theme for new websites.', 'rrze-settings');
     }
 
     /**
@@ -159,66 +127,6 @@ class Settings extends MainSettings
         <label>
             <input type="checkbox" id="rrze-settings-textdomain-fallback" name="<?php printf('%s[textdomain_fallback]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->general->textdomain_fallback, 1); ?>>
             <?php _e("Sets a default language as fallback for unavailable language files", 'rrze-settings'); ?>
-        </label>
-    <?php
-    }
-
-    /**
-     * Display the disable_xmlrpc field
-     * 
-     * @return void
-     */
-    public function xmlrpcField()
-    {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-disable-xmlrpc" name="<?php printf('%s[disable_xmlrpc]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->general->disable_xmlrpc, 1); ?>>
-            <?php _e("Disables the XML-RPC API", 'rrze-settings'); ?>
-        </label>
-    <?php
-    }
-
-    /**
-     * Display the disable_admin_email_verification field
-     * 
-     * @return void
-     */
-    public function adminEmailVerificationField()
-    {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-disable-admin-email-verification" name="<?php printf('%s[disable_admin_email_verification]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->general->disable_admin_email_verification, 1); ?>>
-            <?php _e("Disables the admin email verification check", 'rrze-settings'); ?>
-        </label>
-    <?php
-    }
-
-    /**
-     * Display the disable_emoji field
-     * 
-     * @return void
-     */
-    public function emojiField()
-    {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-disable-emoji" name="<?php printf('%s[disable_emoji]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->general->disable_emoji, 1); ?>>
-            <?php _e("Disables Emoji graphics", 'rrze-settings'); ?>
-        </label>
-    <?php
-    }
-
-    /**
-     * Display the disable_google_fonts field
-     * 
-     * @return void
-     */
-    public function googleFontsField()
-    {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-disable-google-fonts" name="<?php printf('%s[disable_google_fonts]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->general->disable_google_fonts, 1); ?>>
-            <?php _e("Disables loading of Google Fonts", 'rrze-settings'); ?>
         </label>
     <?php
     }

@@ -117,3 +117,23 @@
         display: none;
     }
 }
+
+/* Crawlers */
+
+.rrze-settings-crawlers-page {
+    .rrze-settings-inline-delete-form {
+        display: inline;
+        margin: 0;
+        padding: 0;
+    }
+
+    .rrze-settings-inline-delete-form .button-link {
+        line-height: inherit;
+        min-height: 0;
+        padding: 0;
+    }
+
+    .column-name {
+        width: 20%;
+    }
+}
