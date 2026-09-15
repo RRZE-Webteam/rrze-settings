@@ -97,7 +97,7 @@ class Settings extends MainSettings
         $title = sanitize_text_field((string) ($crawlerInput['title'] ?? ''));
 
         if ($key === '') {
-            $key = sanitize_title($title);
+            $key = sanitize_key(sanitize_title($title));
             $this->submittedCrawler['key'] = $key;
         }
 
