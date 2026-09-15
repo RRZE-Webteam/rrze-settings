@@ -4,6 +4,8 @@ namespace RRZE\Settings;
 
 defined('ABSPATH') || exit;
 
+use RRZE\Settings\Crawlers\Defaults as CrawlerDefaults;
+
 /**
  * Options class
  * 
@@ -23,180 +25,7 @@ class Options
      */
     protected static function defaultOptions(): array
     {
-        $options = [
-            'general' => [
-                'textdomain_fallback' => 0,
-                'disable_welcome_panel' => 0,
-                'disable_xmlrpc' => 0,
-                'disable_admin_email_verification' => 0,
-                'disable_emoji' => 0,
-                'disable_google_fonts' => 0,
-                'custom_error_page' => 0,
-                'white_label' => 0,
-                'default_theme' => '',
-                'admin_role_threshold_warning' => 0,
-                'admin_role_threshold_warning_threshold' => 3,
-            ],
-            'csp' => [
-                'enabled' => '0',
-                'default_src' => '\'self\'',
-                'script_src' => '\'self\' \'unsafe-inline\'',
-                'style_src' => '\'self\' \'unsafe-inline\'',
-                'img_src' => '\'self\' data: *.gravatar.com',
-                'font_src' => '\'self\' data:',
-                'connect_src' => '\'self\'',
-                'frame_src' => '\'self\'',
-            ],
-            'heartbeat' => [
-                'disable_frontend' => '0',
-                'disable_admin_non_editor' => '0',
-                'force_js_slow' => '0',
-                'editor_interval' => 15,
-                'admin_interval' => 60,
-                'role_overrides' => [
-                    'administrator' => ['editor' => 15, 'default' => 60],
-                    'editor'        => ['editor' => 30, 'default' => 90],
-                    'author'        => ['editor' => 45, 'default' => 120],
-                ],
-                'admin_allowlist_hooks' => ['index.php'],
-            ],
-            'media' => [
-                'sanitize_filename' => 0,
-                'filter_nonimages_mimetypes' => 0,
-                'enable_image_resize' => 0,
-                'max_width_height' => 2000,
-                'enable_sharpen_jpg_images' => 0,
-                'enable_svg_support' => 0,
-                'enable_filesize_column' => 0,
-                'enable_file_replace' => 0,
-                'enable_lazy_load' => 0,
-                'mime_types' => '',
-            ],
-            'menus' => [
-                'expand_collapse_menus' => 0,
-                'menus_custom_column' => 0,
-                'menus_custom_fields' => 0,
-                'enhanced_menu_search' => 0,
-            ],
-            'plugins' => [
-                'cf7_dequeue' => 0,
-                'rrze_newsletter_global_settings' => 0,
-                'rrze_newsletter_mail_queue_send_limit' => 15,
-                'rrze_newsletter_mail_queue_max_retries' => 1,
-                'rrze_newsletter_disable_subscription' => 0,
-                'rrze_newsletter_sender_allowed_domains' => '',
-                'rrze_newsletter_recipient_allowed_domains' => '',
-                'rrze_newsletter_exceptions' => '',
-                'cms_workflow_not_allowed_post_types' => '',
-                'siteimprove_crawler_ip_addresses' => '',
-                'wpseo_disable_metaboxes' => 0,
-                'the_seo_framework_activate' => 0,
-                'ws_form_license_key' => '',
-                'ws_form_action_pdf_license_key' => '',
-                'ws_form_not_allowed_field_types' => '',
-                'ws_form_exceptions' => '',
-                'dip_apiKey' => '',
-                'faudir_public_apiKey' => '',
-                'bite_api_key' => '',
-                'dip_edu_api_key' => '',
-                'rrze_search_engine_keys' => '',
-                'rrze_search_limit_daily' => null,
-                'rrze_search_limit_weekly' => null,
-                'rrze_search_limit_monthly' => null,
-                'rrze_search_limit_yearly' => null,
-                'rrze_webt_api_url' => '',
-                'rrze_webt_application_name' => '',
-                'rrze_webt_password' => '',
-                'rrze_webt_exceptions' => '',
-                'rrze_formular_allowedDomains' => '',
-                'rrze_directions_openrouteservice_api_key' => '',
-                'siteimprove' => [
-                    'analytics_jscode' => '',
-                ],
-            ],
-            'rest' => [
-                'disabled' => '0',
-                'restwhite' => ['oembed'],
-                'restnetwork' => [],
-                'restpublic' => [],
-            ],
-            'taxonomies' => [
-                'exclude_nosearch_posts' => 0,
-                'taxonomy_attachment_document' => 0,
-                'taxonomy_attachment_category' => 0,
-                'taxonomy_attachment_tag' => 0,
-                'taxonomy_page_category' => 0,
-                'taxonomy_page_tag' => 0,
-            ],
-            'tools' => [
-                'disable_delete_site' => 0,
-                'disable_privacy_options' => 0
-            ],
-            'users' => [
-                'users_search' => 0,
-                'pages_author_role' => 0,
-                'super_author_role' => 0,
-                'contact_page' => 0,
-                'can_view_debug_log' => [],
-            ],
-            'governance' => [
-                'websupport_enabled' => 0,
-                'websupport_role_name' => 'Websupport',
-                'websupport_users' => [],
-            ],
-            'writing' => [
-                'enable_post_lock' => 0,
-                'post_lock' => 150,
-                'autosave_interval' => 60,
-                'sync_autosave' => 0,
-                'enable_block_editor' => 0,
-                'enable_block_editor_new_sites' => 0,
-                'try_enable_block_editor' => 0,
-                'enable_classic_editor' => 1,
-                'allowed_post_types' => '',
-                'themes_exceptions' => '',
-                'websites_exceptions' => '',
-                'allowed_block_types' => '',
-                'disabled_block_types' => '',
-                'disable_block_directory_assets' => 1,
-                'disable_remote_block_patterns' => 1,
-                'disable_openverse_media' => 1,
-                'disable_font_library_ui' => 1,
-                'disable_code_editor' => 1,
-                'disable_block_editor_custom_css' => 0,
-                'disable_block_editor_custom_css_themes' => '',
-                'code_editor_websites_exceptions' => '',
-                'disable_custom_fields_metabox' => 0,
-                'deactivated_plugins' => ''
-            ],
-            'mail' => [
-                'sender' => '',
-                'allowed_domains' => [],
-                'admin_email_exceptions' => '',
-            ],
-            'discussion' => [
-                'default_settings' => 1,
-                'disable_avatars' => 0,
-            ],
-            'advanced' => [
-                'frontend_style' => '',
-                'backend_style' => '',
-                'block_editor_iframe_body_class' => '',
-                'block_editor_theme_exceptions' => '',
-                'block_editor_auto_theme_classes' => 1,
-                'disable_ai_functionality' => 1,
-                'hide_ai_connector_page' => 1,
-                'disable_font_library_admin' => 1,
-                'sentry_mode' => 0,
-                'sentry_mode_monitor_deletions' => 0,
-            ],
-            'posts' => [
-                'last_modified_custom_column' => 0,
-                'page_list_table_dropdown' => 0
-            ],
-        ];
-
-        return $options;
+        return Config::get('options');
     }
 
     /**
@@ -270,6 +99,16 @@ class Options
                 $defaults['plugins']['siteimprove']
             );
         }
+
+        $options->crawlers = CrawlerDefaults::normalizeDirectory(
+            (array) ($options->crawlers ?? []),
+            $options->plugins->siteimprove_crawler_ip_addresses ?? []
+        );
+        $siteimproveIpAddresses = CrawlerDefaults::getIpAddresses($options, 'siteimprove');
+        if (!empty($siteimproveIpAddresses)) {
+            $options->plugins->siteimprove_crawler_ip_addresses = $siteimproveIpAddresses;
+        }
+
         return $options;
     }
 }

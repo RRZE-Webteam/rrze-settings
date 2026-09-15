@@ -66,9 +66,6 @@ class Settings extends MainSettings
         $input['block_editor_auto_theme_classes'] = isset($input['block_editor_auto_theme_classes']) ? 1 : 0;
         // FIELDS FOR IFRAME CLASS INJECTION END
 
-        $input['disable_ai_functionality'] = isset($input['disable_ai_functionality']) ? 1 : 0;
-        $input['hide_ai_connector_page'] = isset($input['hide_ai_connector_page']) ? 1 : 0;
-        $input['disable_font_library_admin'] = isset($input['disable_font_library_admin']) ? 1 : 0;
         $input['sentry_mode'] = isset($input['sentry_mode']) ? 1 : 0;
         $input['sentry_mode_monitor_deletions'] = isset($input['sentry_mode_monitor_deletions']) ? 1 : 0;
 
@@ -125,30 +122,6 @@ class Settings extends MainSettings
             'block_editor_auto_theme_classes',
             __('Auto-generate Theme Classes', 'rrze-settings'),
             [$this, 'autoThemeClassesField'],
-            $this->menuPage,
-            $this->sectionName
-        );
-
-        add_settings_field(
-            'disable_ai_functionality',
-            __('Disable AI Functionality', 'rrze-settings'),
-            [$this, 'disableAIFunctionalityField'],
-            $this->menuPage,
-            $this->sectionName
-        );
-
-        add_settings_field(
-            'hide_ai_connector_page',
-            __('Hide AI Connector Page for Users', 'rrze-settings'),
-            [$this, 'hideAIConnectorPageField'],
-            $this->menuPage,
-            $this->sectionName
-        );
-
-        add_settings_field(
-            'disable_font_library_admin',
-            __('Disable Font Library in Admin Dashboard', 'rrze-settings'),
-            [$this, 'disableFontLibraryAdminField'],
             $this->menuPage,
             $this->sectionName
         );
@@ -240,42 +213,6 @@ class Settings extends MainSettings
         $checked = checked($this->siteOptions->advanced->block_editor_auto_theme_classes, 1, false);
         echo '<input type="checkbox" id="rrze-settings-advanced-block-editor-auto-theme-classes" name="', sprintf('%s[block_editor_auto_theme_classes]', $this->optionName), '" value="1" ', $checked, '>';
         echo '<p class="description">' . __('Automatically generate theme classes and inject them into the iFrame body tag.', 'rrze-settings') . '</p>';
-    }
-
-    /**
-     * Display the disable_ai_functionality field
-     *
-     * @return void
-     */
-    public function disableAIFunctionalityField(): void
-    {
-        $checked = checked($this->siteOptions->advanced->disable_ai_functionality, 1, false);
-        echo '<input type="checkbox" id="rrze-settings-advanced-disable-ai-functionality" name="', sprintf('%s[disable_ai_functionality]', $this->optionName), '" value="1" ', $checked, '>';
-        echo '<p class="description">' . __('Disable AI functionality in WordPress.', 'rrze-settings') . '</p>';
-    }
-
-    /**
-     * Display the hide_ai_connector_page field
-     *
-     * @return void
-     */
-    public function hideAIConnectorPageField(): void
-    {
-        $checked = checked($this->siteOptions->advanced->hide_ai_connector_page, 1, false);
-        echo '<input type="checkbox" id="rrze-settings-advanced-hide-ai-connector-page" name="', sprintf('%s[hide_ai_connector_page]', $this->optionName), '" value="1" ', $checked, '>';
-        echo '<p class="description">' . __('Hide the AI Connectors settings page for users and block direct access.', 'rrze-settings') . '</p>';
-    }
-
-    /**
-     * Display the disable_font_library_admin field
-     *
-     * @return void
-     */
-    public function disableFontLibraryAdminField(): void
-    {
-        $checked = checked($this->siteOptions->advanced->disable_font_library_admin, 1, false);
-        echo '<input type="checkbox" id="rrze-settings-advanced-disable-font-library-admin" name="', sprintf('%s[disable_font_library_admin]', $this->optionName), '" value="1" ', $checked, '>';
-        echo '<p class="description">' . __('Hide the Font Library page in the admin dashboard and block direct access.', 'rrze-settings') . '</p>';
     }
 
     /**

@@ -20,13 +20,6 @@ class Tools extends Main
      */
     public function loaded()
     {
-        (new Settings(
-            $this->optionName,
-            $this->options,
-            $this->siteOptions,
-            $this->defaultOptions
-        ))->loaded();
-
         // Prevents website deletion (Tools/Delete Site)
         if (!is_super_admin() && $this->siteOptions->tools->disable_delete_site) {
             $this->disableDeleteSite();
