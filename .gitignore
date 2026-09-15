@@ -13,5 +13,5 @@ node_modules/
 /_tmp/
 ### CSP ###
 content-security-policy.header
-.po~
-.map
+*.po~
+*.map
