@@ -9,10 +9,9 @@
 .DS_Store
 ### Node ###
 node_modules/
-### WordPress ###
-/languages/*.pot
-/languages/*.mo
 ### Tmp ###
 /_tmp/
 ### CSP ###
 content-security-policy.header
+.po~
+.map
