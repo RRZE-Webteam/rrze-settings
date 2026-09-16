@@ -116,7 +116,7 @@ class Settings
     {
         global $title;
         echo '<div class="wrap">';
-        echo '<h1><?php echo esc_html($title); ?></h1>';
+        echo '<h1>' . esc_html($title) . '</h1>';
         echo '<form method="post">';
         do_settings_sections($this->menuPage);
         settings_fields($this->menuPage);
@@ -196,6 +196,109 @@ class Settings
         $class = 'notice updated';
         $message = __('Settings saved.', 'rrze-settings');
 
-        printf('<div class="%1s"><p>%2s</p></div>', esc_attr($class), esc_html($message));
+        printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));
+    }
+
+    /**
+     * Render a checkbox setting.
+     *
+     * @param string $id Field ID.
+     * @param string $name Field name.
+     * @param mixed  $value Current value.
+     * @param string $label Field label.
+     * @return void
+     */
+    protected function renderCheckbox(string $id, string $name, $value, string $label): void
+    {
+        printf(
+            '<label><input type="checkbox" id="%1$s" name="%2$s" value="1" %3$s> %4$s</label>',
+            esc_attr($id),
+            esc_attr($name),
+            checked($value, 1, false),
+            esc_html($label)
+        );
+    }
+
+    /**
+     * Render a text-like input setting.
+     *
+     * @param string $type Input type.
+     * @param string $id Field ID.
+     * @param string $name Field name.
+     * @param mixed  $value Current value.
+     * @param string $class CSS class.
+     * @param array  $attributes Additional attributes.
+     * @return void
+     */
+    protected function renderInput(string $type, string $id, string $name, $value, string $class = 'regular-text', array $attributes = []): void
+    {
+        printf(
+            '<input type="%1$s" id="%2$s" name="%3$s" value="%4$s" class="%5$s"%6$s>',
+            esc_attr($type),
+            esc_attr($id),
+            esc_attr($name),
+            esc_attr($value),
+            esc_attr($class),
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Attributes are escaped in renderAttributes().
+            $this->renderAttributes($attributes)
+        );
+    }
+
+    /**
+     * Render a textarea setting.
+     *
+     * @param string $id Field ID.
+     * @param string $name Field name.
+     * @param mixed  $value Current value.
+     * @param int    $rows Rows.
+     * @param int    $cols Columns.
+     * @return void
+     */
+    protected function renderTextarea(string $id, string $name, $value, int $rows = 5, int $cols = 50): void
+    {
+        printf(
+            '<textarea id="%1$s" cols="%2$d" rows="%3$d" name="%4$s">%5$s</textarea>',
+            esc_attr($id),
+            absint($cols),
+            absint($rows),
+            esc_attr($name),
+            esc_textarea($value)
+        );
+    }
+
+    /**
+     * Render a field description.
+     *
+     * @param string $description Description.
+     * @return void
+     */
+    protected function renderDescription(string $description): void
+    {
+        printf('<p class="description">%s</p>', esc_html($description));
+    }
+
+    /**
+     * Render HTML attributes.
+     *
+     * @param array $attributes Attributes.
+     * @return string Rendered attributes.
+     */
+    protected function renderAttributes(array $attributes): string
+    {
+        $output = '';
+        foreach ($attributes as $name => $value) {
+            if ($value === null || $value === false) {
+                continue;
+            }
+
+            if ($value === true) {
+                $output .= ' ' . esc_attr($name);
+                continue;
+            }
+
+            $output .= sprintf(' %s="%s"', esc_attr($name), esc_attr($value));
+        }
+
+        return $output;
     }
 }

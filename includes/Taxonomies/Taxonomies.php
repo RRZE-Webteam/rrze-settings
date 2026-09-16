@@ -138,7 +138,7 @@ class Taxonomies extends Main
 
         $termId = max(0, (int) substr($action, strlen($prefix)));
         if (!in_array($termId, $this->emptyTaxonomies)) {
-            wp_die(__('The term can not be deleted.', 'rrze-settings'));
+            wp_die(esc_html__('The term can not be deleted.', 'rrze-settings'));
         }
     }
 

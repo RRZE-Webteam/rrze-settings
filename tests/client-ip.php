@@ -1,5 +1,13 @@
 <?php
 
+// phpcs:ignoreFile -- Standalone CLI regression test; not a WordPress plugin runtime file.
+
+if (!defined('ABSPATH')) {
+    if (PHP_SAPI !== 'cli') {
+        exit;
+    }
+}
+
 /**
  * Client IP regression tests for both independently usable plugins.
  * Run: php rrze-settings/tests/client-ip.php [WordPress root]

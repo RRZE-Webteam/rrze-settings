@@ -51,10 +51,6 @@ class Dashboard
             add_action('dashboard_glance_items', [$this, 'dashboardGlanceItems']);
         }
 
-        // Disables the admin email verification check.
-        if ($this->siteOptions->general->disable_admin_email_verification) {
-            add_filter('admin_email_check_interval', '__return_false');
-        }
     }
 
     /**
@@ -161,7 +157,7 @@ class Dashboard
             $countPosts = wp_count_posts($postType->name);
             $count = ($postType->name != 'attachment') ? number_format_i18n($countPosts->publish) : number_format_i18n($this->countAttachments());
 
-            $label = _n($postType->labels->singular_name, $postType->labels->name, absint($count));
+            $label = absint($count) === 1 ? $postType->labels->singular_name : $postType->labels->name;
 
             if (
                 $postType->name != 'attachment' && current_user_can($postType->cap->edit_posts)
@@ -304,11 +300,27 @@ class Dashboard
             }
 
             if ($link == '') {
-                echo "<li>$title{$date}{$summary}</li>";
+                printf(
+                    '<li>%1$s%2$s%3$s</li>',
+                    wp_kses_post($title),
+                    wp_kses_post($date),
+                    wp_kses_post($summary)
+                );
             } elseif ($show_summary) {
-                echo "<li><a class='rsswidget' href='$link'>$title</a>{$date}{$summary}</li>";
+                printf(
+                    '<li><a class="rsswidget" href="%1$s">%2$s</a>%3$s%4$s</li>',
+                    esc_url($link),
+                    wp_kses_post($title),
+                    wp_kses_post($date),
+                    wp_kses_post($summary)
+                );
             } else {
-                echo "<li><a class='rsswidget' href='$link'>$title</a>{$date}</li>";
+                printf(
+                    '<li><a class="rsswidget" href="%1$s">%2$s</a>%3$s</li>',
+                    esc_url($link),
+                    wp_kses_post($title),
+                    wp_kses_post($date)
+                );
             }
         }
         echo '</ul>';

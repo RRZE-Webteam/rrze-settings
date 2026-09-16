@@ -1,5 +1,13 @@
 <?php
 
+// phpcs:ignoreFile -- Standalone CLI regression test; not a WordPress plugin runtime file.
+
+if (!defined('ABSPATH')) {
+    if (PHP_SAPI !== 'cli') {
+        exit;
+    }
+}
+
 /**
  * Extend the isolated policy suite with actual Access, Permissions and IP classes.
  * Run: php rrze-settings/tests/rest-access-integration.php [WordPress root]

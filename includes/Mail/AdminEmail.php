@@ -121,7 +121,7 @@ class AdminEmail
             switch_to_blog($blogId);
             $adminMail = get_option('admin_email');
             restore_current_blog();
-            echo $adminMail;
+            echo esc_html($adminMail);
         }
     }
 
@@ -192,9 +192,9 @@ class AdminEmail
 
         $respond = null;
 
-        if ($wpdb->get_var("SHOW TABLES LIKE '" . static::DB_TABLE . "'") == static::DB_TABLE) {
+        if ($wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', static::DB_TABLE)) == static::DB_TABLE) {
             $currentBlogId = get_current_blog_id();
-            $query = sprintf('SELECT site_email FROM %s WHERE blog_id = %d AND active = 1', static::DB_TABLE, $currentBlogId);
+            $query = $wpdb->prepare('SELECT site_email FROM %i WHERE blog_id = %d AND active = 1', static::DB_TABLE, $currentBlogId);
             $respond = $wpdb->get_row($query);
         }
 

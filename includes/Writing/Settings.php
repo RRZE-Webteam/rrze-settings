@@ -406,12 +406,7 @@ class Settings extends MainSettings
      */
     public function enablePostLockField()
     {
-?>
-        <label>
-            <input type="checkbox" id="rrze-settings-enable-post-lock" name="<?php printf('%s[enable_post_lock]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->writing->enable_post_lock, 1); ?>>
-            <?php _e("Enable the post lock feature", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-enable-post-lock', sprintf('%s[enable_post_lock]', $this->optionName), $this->siteOptions->writing->enable_post_lock, __('Enable the post lock feature', 'rrze-settings'));
     }
 
     /**
@@ -421,12 +416,7 @@ class Settings extends MainSettings
      */
     public function disableCustomFieldsMetaboxField()
     {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-disable-custom-fields-metabox" name="<?php printf('%s[disable_custom_fields_metabox]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->writing->disable_custom_fields_metabox, 1); ?>>
-            <?php _e("Disables the custom fields metabox", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-disable-custom-fields-metabox', sprintf('%s[disable_custom_fields_metabox]', $this->optionName), $this->siteOptions->writing->disable_custom_fields_metabox, __('Disables the custom fields metabox', 'rrze-settings'));
     }
 
     /**
@@ -436,11 +426,8 @@ class Settings extends MainSettings
      */
     public function allowedPostTypeField()
     {
-    ?>
-        <textarea id="rrze-settings-allowed-post-types" cols="50" rows="5" name="<?php printf('%s[allowed_post_types]', $this->optionName); ?>"><?php echo esc_attr($this->getTextarea($this->siteOptions->writing->allowed_post_types)); ?></textarea>
-        <p class="description"><?php _e('List of post types that always have the block editor enabled and no block restrictions. Enter one post type per line.', 'rrze-settings'); ?></p>
-
-    <?php
+        $this->renderTextarea('rrze-settings-allowed-post-types', sprintf('%s[allowed_post_types]', $this->optionName), $this->getTextarea($this->siteOptions->writing->allowed_post_types));
+        $this->renderDescription(__('List of post types that always have the block editor enabled and no block restrictions. Enter one post type per line.', 'rrze-settings'));
     }
     /**
      * Renders the themes exceptions field
@@ -449,10 +436,8 @@ class Settings extends MainSettings
      */
     public function themesExceptionField()
     {
-    ?>
-        <textarea id="rrze-settings-themes-exceptions" cols="50" rows="5" name="<?php printf('%s[themes_exceptions]', $this->optionName); ?>"><?php echo esc_attr($this->getTextarea($this->siteOptions->writing->themes_exceptions)); ?></textarea>
-        <p class="description"><?php _e('List of themes that always have the block editor enabled and no block restrictions. Enter one theme name per line.', 'rrze-settings'); ?></p>
-    <?php
+        $this->renderTextarea('rrze-settings-themes-exceptions', sprintf('%s[themes_exceptions]', $this->optionName), $this->getTextarea($this->siteOptions->writing->themes_exceptions));
+        $this->renderDescription(__('List of themes that always have the block editor enabled and no block restrictions. Enter one theme name per line.', 'rrze-settings'));
     }
     /**
      * Renders the websites exceptions field
@@ -461,10 +446,8 @@ class Settings extends MainSettings
      */
     public function websitesExceptionsField()
     {
-    ?>
-        <textarea id="rrze-settings-websites-exceptions" cols="50" rows="5" name="<?php printf('%s[websites_exceptions]', $this->optionName); ?>"><?php echo esc_attr($this->getTextarea($this->siteOptions->writing->websites_exceptions)); ?></textarea>
-        <p class="description"><?php _e('List of websites ids that always have the block editor enabled and no block restrictions. Enter one website id per line.', 'rrze-settings'); ?></p>
-    <?php
+        $this->renderTextarea('rrze-settings-websites-exceptions', sprintf('%s[websites_exceptions]', $this->optionName), $this->getTextarea($this->siteOptions->writing->websites_exceptions));
+        $this->renderDescription(__('List of websites ids that always have the block editor enabled and no block restrictions. Enter one website id per line.', 'rrze-settings'));
     }
 
     /**
@@ -474,12 +457,10 @@ class Settings extends MainSettings
      */
     public function allowedBlockTypesField()
     {
-    ?>
-        <textarea id="rrze-settings-allowed-block-types" cols="50" rows="5" name="<?php printf('%s[allowed_block_types]', $this->optionName); ?>"><?php echo esc_attr($this->getTextarea($this->siteOptions->writing->allowed_block_types)); ?></textarea>
-        <p class="description"><?php _e('List of allowed blocks. The * wildcard is supported at the end of a string.', 'rrze-settings'); ?></p>
-        <p class="description"><?php _e('If this field is left empty, all registered blocks will be available.', 'rrze-settings'); ?></p>
-        <p class="description"><?php _e('Enter one block type per line.', 'rrze-settings'); ?></p>
-    <?php
+        $this->renderTextarea('rrze-settings-allowed-block-types', sprintf('%s[allowed_block_types]', $this->optionName), $this->getTextarea($this->siteOptions->writing->allowed_block_types));
+        $this->renderDescription(__('List of allowed blocks. The * wildcard is supported at the end of a string.', 'rrze-settings'));
+        $this->renderDescription(__('If this field is left empty, all registered blocks will be available.', 'rrze-settings'));
+        $this->renderDescription(__('Enter one block type per line.', 'rrze-settings'));
     }
 
     /**
@@ -489,11 +470,9 @@ class Settings extends MainSettings
      */
     public function disabledBlockTypesField()
     {
-    ?>
-        <textarea id="rrze-settings-disabled-block-types" cols="50" rows="5" name="<?php printf('%s[disabled_block_types]', $this->optionName); ?>"><?php echo esc_attr($this->getTextarea($this->siteOptions->writing->disabled_block_types)); ?></textarea>
-        <p class="description"><?php _e('List of disabled blocks. The * wildcard is supported at the end of a string.', 'rrze-settings'); ?></p>
-        <p class="description"><?php _e('Enter one block type per line.', 'rrze-settings'); ?></p>
-    <?php
+        $this->renderTextarea('rrze-settings-disabled-block-types', sprintf('%s[disabled_block_types]', $this->optionName), $this->getTextarea($this->siteOptions->writing->disabled_block_types));
+        $this->renderDescription(__('List of disabled blocks. The * wildcard is supported at the end of a string.', 'rrze-settings'));
+        $this->renderDescription(__('Enter one block type per line.', 'rrze-settings'));
     }
 
     /**
@@ -503,12 +482,7 @@ class Settings extends MainSettings
      */
     public function disableBlockDirectoryAssetsField()
     {
-    ?>
-        <input type="checkbox" id="rrze-settings-disable-block-directory-assets" name="<?php printf('%s[disable_block_directory_assets]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->writing->disable_block_directory_assets, 1); ?>>
-        <label for="rrze-settings-disable-block-directory-assets">
-            <?php _e('Remove Block Directory assets', 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-disable-block-directory-assets', sprintf('%s[disable_block_directory_assets]', $this->optionName), $this->siteOptions->writing->disable_block_directory_assets, __('Remove Block Directory assets', 'rrze-settings'));
     }
 
     /**
@@ -518,12 +492,7 @@ class Settings extends MainSettings
      */
     public function disableRemoteBlockPatternsField()
     {
-    ?>
-        <input type="checkbox" id="rrze-settings-disable-remote-block-patterns" name="<?php printf('%s[disable_remote_block_patterns]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->writing->disable_remote_block_patterns, 1); ?>>
-        <label for="rrze-settings-disable-remote-block-patterns">
-            <?php _e('Disable remote block patterns', 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-disable-remote-block-patterns', sprintf('%s[disable_remote_block_patterns]', $this->optionName), $this->siteOptions->writing->disable_remote_block_patterns, __('Disable remote block patterns', 'rrze-settings'));
     }
 
     /**
@@ -533,12 +502,7 @@ class Settings extends MainSettings
      */
     public function disableOpenverseMediaField()
     {
-    ?>
-        <input type="checkbox" id="rrze-settings-disable-openverse-media" name="<?php printf('%s[disable_openverse_media]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->writing->disable_openverse_media, 1); ?>>
-        <label for="rrze-settings-disable-openverse-media">
-            <?php _e('Disable loading of Openverse Media', 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-disable-openverse-media', sprintf('%s[disable_openverse_media]', $this->optionName), $this->siteOptions->writing->disable_openverse_media, __('Disable loading of Openverse Media', 'rrze-settings'));
     }
 
     /**
@@ -548,12 +512,7 @@ class Settings extends MainSettings
      */
     public function disableFontLibraryUIField()
     {
-    ?>
-        <input type="checkbox" id="rrze-settings-disable-font-library-ui" name="<?php printf('%s[disable_font_library_ui]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->writing->disable_font_library_ui, 1); ?>>
-        <label for="rrze-settings-disable-font-library-ui">
-            <?php _e('Disable the Font Library user interface', 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-disable-font-library-ui', sprintf('%s[disable_font_library_ui]', $this->optionName), $this->siteOptions->writing->disable_font_library_ui, __('Disable the Font Library user interface', 'rrze-settings'));
     }
 
     /**
@@ -563,12 +522,7 @@ class Settings extends MainSettings
      */
     public function disableCodeEditorField()
     {
-    ?>
-        <input type="checkbox" id="rrze-settings-disable-code-editor" name="<?php printf('%s[disable_code_editor]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->writing->disable_code_editor, 1); ?>>
-        <label for="rrze-settings-disable-code-editor">
-            <?php _e('Disable the Code Editor option from the Block Editor settings', 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-disable-code-editor', sprintf('%s[disable_code_editor]', $this->optionName), $this->siteOptions->writing->disable_code_editor, __('Disable the Code Editor option from the Block Editor settings', 'rrze-settings'));
     }
 
     /**
@@ -578,12 +532,7 @@ class Settings extends MainSettings
      */
     public function disableBlockEditorCustomCssField()
     {
-    ?>
-        <input type="checkbox" id="rrze-settings-disable-block-editor-custom-css" name="<?php printf('%s[disable_block_editor_custom_css]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->writing->disable_block_editor_custom_css, 1); ?>>
-        <label for="rrze-settings-disable-block-editor-custom-css">
-            <?php _e('Disable Custom CSS support in Block Editor blocks', 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-disable-block-editor-custom-css', sprintf('%s[disable_block_editor_custom_css]', $this->optionName), $this->siteOptions->writing->disable_block_editor_custom_css, __('Disable Custom CSS support in Block Editor blocks', 'rrze-settings'));
     }
 
     /**
@@ -593,10 +542,8 @@ class Settings extends MainSettings
      */
     public function disableBlockEditorCustomCssThemesField()
     {
-    ?>
-        <textarea id="rrze-settings-disable-block-editor-custom-css-themes" cols="50" rows="5" name="<?php printf('%s[disable_block_editor_custom_css_themes]', $this->optionName); ?>"><?php echo esc_attr($this->getTextarea($this->siteOptions->writing->disable_block_editor_custom_css_themes)); ?></textarea>
-        <p class="description"><?php _e('List of themes where Custom CSS support should be disabled in the Block Editor. Enter one theme name or stylesheet per line. Leave empty to apply to all themes.', 'rrze-settings'); ?></p>
-    <?php
+        $this->renderTextarea('rrze-settings-disable-block-editor-custom-css-themes', sprintf('%s[disable_block_editor_custom_css_themes]', $this->optionName), $this->getTextarea($this->siteOptions->writing->disable_block_editor_custom_css_themes));
+        $this->renderDescription(__('List of themes where Custom CSS support should be disabled in the Block Editor. Enter one theme name or stylesheet per line. Leave empty to apply to all themes.', 'rrze-settings'));
     }
 
     /**
@@ -606,19 +553,15 @@ class Settings extends MainSettings
      */
     public function codeEditorWebsitesExceptionsField()
     {
-    ?>
-        <textarea id="rrze-settings-code-editor-websites-exceptions" cols="50" rows="5" name="<?php printf('%s[code_editor_websites_exceptions]', $this->optionName); ?>"><?php echo esc_attr($this->getTextarea($this->siteOptions->writing->code_editor_websites_exceptions)); ?></textarea>
-        <p class="description"><?php _e('List of websites ids that always have the code editor enabled. Enter one website id per line.', 'rrze-settings'); ?></p>
-    <?php
+        $this->renderTextarea('rrze-settings-code-editor-websites-exceptions', sprintf('%s[code_editor_websites_exceptions]', $this->optionName), $this->getTextarea($this->siteOptions->writing->code_editor_websites_exceptions));
+        $this->renderDescription(__('List of websites ids that always have the code editor enabled. Enter one website id per line.', 'rrze-settings'));
     }
 
     public function deactivatedPluginsField()
     {
-    ?>
-        <textarea id="rrze-settings-deactivated-plugins" cols="50" rows="5" name="<?php printf('%s[deactivated_plugins]', $this->optionName); ?>"><?php echo esc_attr($this->getTextarea($this->siteOptions->writing->deactivated_plugins)); ?></textarea>
-        <p class="description"><?php _e('Plugins to disable when the block editor is active. Enter one plugin per line.', 'rrze-settings'); ?></p>
-        <p class="description"><?php _e('The plugin name must be the same as in the plugins folder.', 'rrze-settings'); ?></p>
-    <?php
+        $this->renderTextarea('rrze-settings-deactivated-plugins', sprintf('%s[deactivated_plugins]', $this->optionName), $this->getTextarea($this->siteOptions->writing->deactivated_plugins));
+        $this->renderDescription(__('Plugins to disable when the block editor is active. Enter one plugin per line.', 'rrze-settings'));
+        $this->renderDescription(__('The plugin name must be the same as in the plugins folder.', 'rrze-settings'));
     }
 
     /**
@@ -628,18 +571,8 @@ class Settings extends MainSettings
      */
     public function enableBlockEditorField()
     {
-    ?>
-        <input type="radio" id="rrze-settings-block-editor-enabled" name="<?php printf('%s[enable_block_editor]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->writing->enable_block_editor, 1); ?>>
-        <label for="rrze-settings-block-editor-enabled">
-            <?php _e('Block Editor', 'rrze-settings'); ?>
-        </label>
-        <br>
-        <input type="radio" id="rrze-settings-block-editor-disabled" name="<?php printf('%s[enable_block_editor]', $this->optionName); ?>" value="0" <?php checked($this->siteOptions->writing->enable_block_editor, 0); ?>>
-        <label for="rrze-settings-block-editor-disabled">
-            <?php _e('Classic Editor', 'rrze-settings'); ?>
-        </label>
-
-    <?php
+        $name = sprintf('%s[enable_block_editor]', $this->optionName);
+        printf('<label><input type="radio" id="rrze-settings-block-editor-enabled" name="%1$s" value="1" %2$s> %3$s</label><br><label><input type="radio" id="rrze-settings-block-editor-disabled" name="%1$s" value="0" %4$s> %5$s</label>', esc_attr($name), checked($this->siteOptions->writing->enable_block_editor, 1, false), esc_html__('Block Editor', 'rrze-settings'), checked($this->siteOptions->writing->enable_block_editor, 0, false), esc_html__('Classic Editor', 'rrze-settings'));
     }
 
     /**
@@ -649,12 +582,7 @@ class Settings extends MainSettings
      */
     public function enableBlockEditorNewSitesField()
     {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-enable-block-editor-new-sites" name="<?php printf('%s[enable_block_editor_new_sites]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->writing->enable_block_editor_new_sites, 1); ?>>
-            <?php _e("Enable Block Editor for new sites", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-enable-block-editor-new-sites', sprintf('%s[enable_block_editor_new_sites]', $this->optionName), $this->siteOptions->writing->enable_block_editor_new_sites, __('Enable Block Editor for new sites', 'rrze-settings'));
     }
 
     /**
@@ -664,12 +592,8 @@ class Settings extends MainSettings
      */
     public function postLockField()
     {
-    ?>
-        <input type="number" class="small-text" id="rrze-settings-post-lock" name="<?php printf('%s[post_lock]', $this->optionName); ?>" value="<?php echo $this->options->writing->post_lock; ?>" min="<?php echo $this->minPostLock; ?>" step="1">
-        <p class="description">
-            <?php _e('Post Lock interval in seconds.', 'rrze-settings'); ?>
-        </p>
-    <?php
+        $this->renderInput('number', 'rrze-settings-post-lock', sprintf('%s[post_lock]', $this->optionName), $this->options->writing->post_lock, 'small-text', ['min' => $this->minPostLock, 'step' => 1]);
+        $this->renderDescription(__('Post Lock interval in seconds.', 'rrze-settings'));
     }
 
     /**
@@ -679,12 +603,7 @@ class Settings extends MainSettings
      */
     public function tryEnableBlockEditorField()
     {
-    ?>
-        <input type="checkbox" id="rrze-settings-try-block-editor-enabled" name="<?php printf('%s[try_enable_block_editor]', $this->optionName); ?>" value="1" <?php checked($this->options->writing->try_enable_block_editor, 1); ?>>
-        <label for="rrze-settings-try-block-editor-enabled">
-            <?php _e('Allow admins to switch editors', 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-try-block-editor-enabled', sprintf('%s[try_enable_block_editor]', $this->optionName), $this->options->writing->try_enable_block_editor, __('Allow admins to switch editors', 'rrze-settings'));
     }
 
     /**
@@ -694,17 +613,8 @@ class Settings extends MainSettings
      */
     public function setStandardEditorField()
     {
-    ?>
-        <input type="radio" id="rrze-settings-classic-editor" name="<?php printf('%s[enable_classic_editor]', $this->optionName); ?>" value="1" <?php checked($this->options->writing->enable_classic_editor, 1); ?>>
-        <label for="rrze-settings-classic-editor">
-            <?php _e('Classic editor', 'rrze-settings'); ?>
-        </label>
-        <br>
-        <input type="radio" id="rrze-settings-block-editor" name="<?php printf('%s[enable_classic_editor]', $this->optionName); ?>" value="0" <?php checked($this->options->writing->enable_classic_editor, 0); ?>>
-        <label for="rrze-settings-block-editor">
-            <?php _e('Block editor', 'rrze-settings'); ?>
-        </label>
-<?php
+        $name = sprintf('%s[enable_classic_editor]', $this->optionName);
+        printf('<label><input type="radio" id="rrze-settings-classic-editor" name="%1$s" value="1" %2$s> %3$s</label><br><label><input type="radio" id="rrze-settings-block-editor" name="%1$s" value="0" %4$s> %5$s</label>', esc_attr($name), checked($this->options->writing->enable_classic_editor, 1, false), esc_html__('Classic editor', 'rrze-settings'), checked($this->options->writing->enable_classic_editor, 0, false), esc_html__('Block editor', 'rrze-settings'));
     }
 
     /**
@@ -718,10 +628,10 @@ class Settings extends MainSettings
         $key = $args['key'];
         printf(
             '<label><input type="checkbox" name="%1$s[%2$s]" value="1" %3$s> %4$s</label>',
-            $this->optionName,
+            esc_attr($this->optionName),
             esc_attr($key),
             checked(!empty($this->siteOptions->writing->$key), true, false),
-            $args['description'] ? esc_html__($args['description']) : ''
+            !empty($args['description']) ? esc_html($args['description']) : ''
         );
     }
 
@@ -738,17 +648,17 @@ class Settings extends MainSettings
         $step = isset($args['step']) ? (int)$args['step'] : 1;
         printf(
             '<input type="number" name="%1$s[%2$s]" value="%3$s" min="%4$d" step="%5$d" class="small-text">',
-            $this->optionName,
+            esc_attr($this->optionName),
             esc_attr($key),
             esc_attr((string) $this->siteOptions->writing->$key),
-            $min,
-            $step
+            absint($min),
+            absint($step)
         );
         if (isset($args['unit'])) {
-            echo ' <span>' . esc_html__($args['unit']) . '</span>';
+            printf(' <span>%s</span>', esc_html($args['unit']));
         }
         if (isset($args['description'])) {
-            echo ' <p class="description">' . esc_html($args['description']) . '</p>';
+            $this->renderDescription($args['description']);
         }
     }
 

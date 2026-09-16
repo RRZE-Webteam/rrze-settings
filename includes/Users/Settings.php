@@ -164,12 +164,7 @@ class Settings extends MainSettings
      */
     public function welcomePanelField()
     {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-disable-welcome-panel" name="<?php printf('%s[disable_welcome_panel]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->general->disable_welcome_panel, 1); ?>>
-            <?php _e("Disables the welcome panel that introduces users to WordPress", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-disable-welcome-panel', sprintf('%s[disable_welcome_panel]', $this->optionName), $this->siteOptions->general->disable_welcome_panel, __('Disables the welcome panel that introduces users to WordPress', 'rrze-settings'));
     }
 
     /**
@@ -179,14 +174,8 @@ class Settings extends MainSettings
      */
     public function adminRoleThresholdWarningField()
     {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-admin-role-threshold-warning" name="<?php printf('%s[admin_role_threshold_warning]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->general->admin_role_threshold_warning, 1); ?>>
-            <input type="number" name="<?php printf('%s[admin_role_threshold_warning_threshold]', $this->optionName); ?>" value="<?php echo esc_attr((string) $this->siteOptions->general->admin_role_threshold_warning_threshold); ?>" min="3" step="1" class="small-text">
-            <br>
-            <?php _e("Enables a warning when the number of administrators exceeds a certain threshold", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-admin-role-threshold-warning', sprintf('%s[admin_role_threshold_warning]', $this->optionName), $this->siteOptions->general->admin_role_threshold_warning, __('Enables a warning when the number of administrators exceeds a certain threshold', 'rrze-settings'));
+        $this->renderInput('number', 'rrze-settings-admin-role-threshold-warning-threshold', sprintf('%s[admin_role_threshold_warning_threshold]', $this->optionName), $this->siteOptions->general->admin_role_threshold_warning_threshold, 'small-text', ['min' => 3, 'step' => 1]);
     }
 
     /**
@@ -196,12 +185,7 @@ class Settings extends MainSettings
      */
     public function pagesAuthorRoleField()
     {
-?>
-        <label>
-            <input type="checkbox" id="rrze-settings-pages-author-role" name="<?php printf('%s[pages_author_role]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->users->pages_author_role, 1); ?>>
-            <?php _e("Enables pages author role", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-pages-author-role', sprintf('%s[pages_author_role]', $this->optionName), $this->siteOptions->users->pages_author_role, __('Enables pages author role', 'rrze-settings'));
     }
 
     /**
@@ -211,12 +195,7 @@ class Settings extends MainSettings
      */
     public function superAuthorRoleField()
     {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-super-author-role" name="<?php printf('%s[super_author_role]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->users->super_author_role, 1); ?>>
-            <?php _e("Enables super author role", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-super-author-role', sprintf('%s[super_author_role]', $this->optionName), $this->siteOptions->users->super_author_role, __('Enables super author role', 'rrze-settings'));
     }
 
     /**
@@ -226,12 +205,7 @@ class Settings extends MainSettings
      */
     public function usersSearchField()
     {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-users-search" name="<?php printf('%s[users_search]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->users->users_search, 1); ?>>
-            <?php _e("Enables enhanced users search", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-users-search', sprintf('%s[users_search]', $this->optionName), $this->siteOptions->users->users_search, __('Enables enhanced users search', 'rrze-settings'));
     }
 
     /**
@@ -241,12 +215,7 @@ class Settings extends MainSettings
      */
     public function contactPageField()
     {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-contact-page" name="<?php printf('%s[contact_page]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->users->contact_page, 1); ?>>
-            <?php _e("Generate a virtual page (contact) with the contact list (administrators) of the website or blog. If the page already exists, the existing page is displayed.", 'rrze-settings'); ?>
-        </label>
-<?php
+        $this->renderCheckbox('rrze-settings-contact-page', sprintf('%s[contact_page]', $this->optionName), $this->siteOptions->users->contact_page, __('Generate a virtual page (contact) with the contact list (administrators) of the website or blog. If the page already exists, the existing page is displayed.', 'rrze-settings'));
     }
 
     /**
@@ -257,7 +226,7 @@ class Settings extends MainSettings
     public function canViewDebugLogField()
     {
         $rrzeUsers = implode(PHP_EOL, (array) $this->siteOptions->users->can_view_debug_log);
-        echo '<textarea rows="5" cols="55" id="rrze-settings-can-view-debug-log" class="regular-text" name="', sprintf('%s[can_view_debug_log]', $this->optionName), '">', esc_attr($rrzeUsers), '</textarea>';
-        echo '<p class="description">' . __('List of users who can view debug information on websites, if any. Enter one user login per line.', 'rrze-settings') . '</p>';
+        $this->renderTextarea('rrze-settings-can-view-debug-log', sprintf('%s[can_view_debug_log]', $this->optionName), $rrzeUsers, 5, 55);
+        $this->renderDescription(__('List of users who can view debug information on websites, if any. Enter one user login per line.', 'rrze-settings'));
     }
 }

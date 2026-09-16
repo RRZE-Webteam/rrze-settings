@@ -60,9 +60,9 @@ class WhiteLabel
     {
         switch_to_blog(1);
         if (get_bloginfo('description')) {
-            printf('%1$s | %2$s', get_bloginfo('name'), get_bloginfo('description'));
+            printf('%1$s | %2$s', esc_html(get_bloginfo('name')), esc_html(get_bloginfo('description')));
         } else {
-            echo get_bloginfo('name');
+            echo esc_html(get_bloginfo('name'));
         }
         restore_current_blog();
     }

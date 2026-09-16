@@ -232,12 +232,7 @@ class Settings extends MainSettings
      */
     public function taxonomyAttachmentDocumentField()
     {
-?>
-        <label>
-            <input type="checkbox" id="rrze-settings-taxonomy-attachment-document" name="<?php printf('%s[taxonomy_attachment_document]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->taxonomies->taxonomy_attachment_document, 1); ?>>
-            <?php _e("Register attachment document taxonomy", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-taxonomy-attachment-document', sprintf('%s[taxonomy_attachment_document]', $this->optionName), $this->siteOptions->taxonomies->taxonomy_attachment_document, __('Register attachment document taxonomy', 'rrze-settings'));
     }
 
     /**
@@ -247,12 +242,7 @@ class Settings extends MainSettings
      */
     public function taxonomyAttachmentCategoryField()
     {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-taxonomy-attachment-category" name="<?php printf('%s[taxonomy_attachment_category]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->taxonomies->taxonomy_attachment_category, 1); ?>>
-            <?php _e("Register attachment category taxonomy", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-taxonomy-attachment-category', sprintf('%s[taxonomy_attachment_category]', $this->optionName), $this->siteOptions->taxonomies->taxonomy_attachment_category, __('Register attachment category taxonomy', 'rrze-settings'));
     }
 
     /**
@@ -262,12 +252,7 @@ class Settings extends MainSettings
      */
     public function taxonomyAttachmentTagField()
     {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-taxonomy-attachment-tag" name="<?php printf('%s[taxonomy_attachment_tag]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->taxonomies->taxonomy_attachment_tag, 1); ?>>
-            <?php _e("Register attachment tag taxonomy", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-taxonomy-attachment-tag', sprintf('%s[taxonomy_attachment_tag]', $this->optionName), $this->siteOptions->taxonomies->taxonomy_attachment_tag, __('Register attachment tag taxonomy', 'rrze-settings'));
     }
 
     /**
@@ -277,12 +262,7 @@ class Settings extends MainSettings
      */
     public function sanitizeFilenameField()
     {
-?>
-        <label>
-            <input type="checkbox" id="rrze-settings-sanitize-filename" name="<?php printf('%s[sanitize_filename]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->media->sanitize_filename, 1); ?>>
-            <?php _e("Sanitize the filenames to avoid links with UTF-8 characters", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-sanitize-filename', sprintf('%s[sanitize_filename]', $this->optionName), $this->siteOptions->media->sanitize_filename, __('Sanitize the filenames to avoid links with UTF-8 characters', 'rrze-settings'));
     }
 
     /**
@@ -292,12 +272,7 @@ class Settings extends MainSettings
      */
     public function filterNonimagesMimetypesField()
     {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-filter-nonimages-mimetypes" name="<?php printf('%s[filter_nonimages_mimetypes]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->media->filter_nonimages_mimetypes, 1); ?>>
-            <?php _e("Filters the image sizes generated for non-image mime types", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-filter-nonimages-mimetypes', sprintf('%s[filter_nonimages_mimetypes]', $this->optionName), $this->siteOptions->media->filter_nonimages_mimetypes, __('Filters the image sizes generated for non-image mime types', 'rrze-settings'));
     }
 
     /**
@@ -307,19 +282,14 @@ class Settings extends MainSettings
      */
     public function enableImageResizeField()
     {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-enable-image-resize" name="<?php printf('%s[enable_image_resize]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->media->enable_image_resize, 1); ?>>
-            <?php printf(
-                /* translators: %s: Number of pixels. */
-                __('Maximum width and height: %s pixels', 'rrze-settings'),
-                '</label>
-                <label><input name="' . sprintf('%s[max_width_height]', $this->optionName) . '" type="number"  min="1024" style="width: 75px" id="image_max_width_height" aria-describedby="image-max-width-height" value="' . esc_attr($this->siteOptions->media->max_width_height) . '"></label>'
-            ); ?>
-            <p class="screen-reader-text" id="image-max-width-height">
-                <?php _e('Size in pixels', 'rrze-settings'); ?>
-            </p>
-        <?php
+        $this->renderCheckbox('rrze-settings-enable-image-resize', sprintf('%s[enable_image_resize]', $this->optionName), $this->siteOptions->media->enable_image_resize, __('Enable automatic image resizing', 'rrze-settings'));
+        printf(
+            '<label for="image_max_width_height">%1$s <input name="%2$s" type="number" min="1024" class="small-text" id="image_max_width_height" aria-describedby="image-max-width-height" value="%3$s"></label><p class="screen-reader-text" id="image-max-width-height">%4$s</p>',
+            esc_html__('Maximum width and height in pixels:', 'rrze-settings'),
+            esc_attr(sprintf('%s[max_width_height]', $this->optionName)),
+            esc_attr($this->siteOptions->media->max_width_height),
+            esc_html__('Size in pixels', 'rrze-settings')
+        );
     }
 
     /**
@@ -329,12 +299,7 @@ class Settings extends MainSettings
      */
     public function enableSharpenJpgImagesField()
     {
-        ?>
-            <label>
-                <input type="checkbox" id="rrze-settings-enable-sharpen-jpg-images" name="<?php printf('%s[enable_sharpen_jpg_images]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->media->enable_sharpen_jpg_images, 1); ?>>
-                <?php _e("Enables sharpening of JPG images", 'rrze-settings'); ?>
-            </label>
-        <?php
+        $this->renderCheckbox('rrze-settings-enable-sharpen-jpg-images', sprintf('%s[enable_sharpen_jpg_images]', $this->optionName), $this->siteOptions->media->enable_sharpen_jpg_images, __('Enables sharpening of JPG images', 'rrze-settings'));
     }
 
     /**
@@ -344,12 +309,7 @@ class Settings extends MainSettings
      */
     public function svgSupportEnabledField()
     {
-        ?>
-            <label>
-                <input type="checkbox" id="rrze-settings-enable-svg-support" name="<?php printf('%s[enable_svg_support]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->media->enable_svg_support, 1); ?>>
-                <?php _e("Enables support for SVG files", 'rrze-settings'); ?>
-            </label>
-        <?php
+        $this->renderCheckbox('rrze-settings-enable-svg-support', sprintf('%s[enable_svg_support]', $this->optionName), $this->siteOptions->media->enable_svg_support, __('Enables support for SVG files', 'rrze-settings'));
     }
 
     /**
@@ -359,12 +319,7 @@ class Settings extends MainSettings
      */
     public function enableFileSizeColumnField()
     {
-        ?>
-            <label>
-                <input type="checkbox" id="rrze-settings-enable-filesize-column" name="<?php printf('%s[enable_filesize_column]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->media->enable_filesize_column, 1); ?>>
-                <?php _e("Enables the file size column", 'rrze-settings'); ?>
-            </label>
-        <?php
+        $this->renderCheckbox('rrze-settings-enable-filesize-column', sprintf('%s[enable_filesize_column]', $this->optionName), $this->siteOptions->media->enable_filesize_column, __('Enables the file size column', 'rrze-settings'));
     }
 
     /**
@@ -374,12 +329,11 @@ class Settings extends MainSettings
      */
     public function mimeTypesField()
     {
-        $mimeTypes = $this->getMimeTypes($this->siteOptions->media->mime_types); ?>
-            <textarea id="rrze-settings-mime-types" cols="50" rows="5" name="<?php printf('%s[mime_types]', $this->optionName); ?>"><?php echo $mimeTypes; ?></textarea>
-            <p class="description"><?php _e("Enter custom Mime Types. Make sure to add the respective extensions in the Upload File Types settings.", 'rrze-settings'); ?></p>
-            <p class="description"><?php _e("To leave a comment, type two forward slashes (//) followed by the text of your comment.", 'rrze-settings'); ?></p>
-            <p class="description"><?php _e("One custom Mime Type per line.", 'rrze-settings'); ?></p>
-        <?php
+        $mimeTypes = $this->getMimeTypes($this->siteOptions->media->mime_types);
+        $this->renderTextarea('rrze-settings-mime-types', sprintf('%s[mime_types]', $this->optionName), $mimeTypes);
+        $this->renderDescription(__('Enter custom Mime Types. Make sure to add the respective extensions in the Upload File Types settings.', 'rrze-settings'));
+        $this->renderDescription(__('To leave a comment, type two forward slashes (//) followed by the text of your comment.', 'rrze-settings'));
+        $this->renderDescription(__('One custom Mime Type per line.', 'rrze-settings'));
     }
 
     /**
@@ -389,12 +343,7 @@ class Settings extends MainSettings
      */
     public function enableFileReplaceField()
     {
-        ?>
-            <label>
-                <input type="checkbox" id="rrze-settings-enable-file-replace" name="<?php printf('%s[enable_file_replace]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->media->enable_file_replace, 1); ?>>
-                <?php _e('Allows to replace files of the same mime type', 'rrze-settings'); ?>
-            </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-enable-file-replace', sprintf('%s[enable_file_replace]', $this->optionName), $this->siteOptions->media->enable_file_replace, __('Allows to replace files of the same mime type', 'rrze-settings'));
     }
 
     /**

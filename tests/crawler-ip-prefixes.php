@@ -1,5 +1,13 @@
 <?php
 
+// phpcs:ignoreFile -- Standalone CLI regression test; not a WordPress plugin runtime file.
+
+if (!defined('ABSPATH')) {
+    if (PHP_SAPI !== 'cli') {
+        exit;
+    }
+}
+
 /**
  * Crawler IP prefix regression tests (no database or HTTP requests).
  * Run: php rrze-settings/tests/crawler-ip-prefixes.php

@@ -1,5 +1,13 @@
 <?php
 
+// phpcs:ignoreFile -- Standalone CLI regression test; not a WordPress plugin runtime file.
+
+if (!defined('ABSPATH')) {
+    if (PHP_SAPI !== 'cli') {
+        exit;
+    }
+}
+
 /**
  * Isolated cross-plugin policy regression tests (no database or HTTP requests).
  * Run: php rrze-settings/tests/public-rest-policy.php [WordPress root]

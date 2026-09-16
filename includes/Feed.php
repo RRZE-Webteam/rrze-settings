@@ -108,7 +108,7 @@ class Feed
     private static function fromRSS(SimpleXMLElement $xml)
     {
         if (!$xml->channel) {
-            return new WP_Error('fromRSS', __('Invalid feed.', 'rrze-rss'));
+            return new WP_Error('fromRSS', __('Invalid feed.', 'rrze-settings'));
         }
 
         self::adjustNamespaces($xml);
@@ -141,7 +141,7 @@ class Feed
             !in_array('http://www.w3.org/2005/Atom', $xml->getDocNamespaces(), true)
             && !in_array('http://purl.org/atom/ns#', $xml->getDocNamespaces(), true)
         ) {
-            return new WP_Error('fromAtom', __('Invalid feed.', 'rrze-rss'));
+            return new WP_Error('fromAtom', __('Invalid feed.', 'rrze-settings'));
         }
 
         // generate 'timestamp' tag
@@ -172,7 +172,7 @@ class Feed
      */
     public function __set($name, $value)
     {
-        throw new Exception("Cannot assign a value to a read-only property '$name'.");
+        throw new Exception(esc_html(sprintf("Cannot assign a value to a read-only property '%s'.", $name)));
     }
 
     /**
@@ -221,7 +221,7 @@ class Feed
                     set_transient(self::$transient, $data, self::$cacheExpire);
                 }
             } else {
-                throw new Exception(__('Cannot load feed.', 'rrze-rss'));
+                throw new Exception(esc_html__('Cannot load feed.', 'rrze-settings'));
             }
         }
 

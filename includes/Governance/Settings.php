@@ -120,12 +120,7 @@ class Settings extends MainSettings
      */
     public function websupportEnabledField()
     {
-?>
-        <label>
-            <input type="checkbox" id="rrze-settings-websupport-enabled" name="<?php printf('%s[websupport_enabled]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->governance->websupport_enabled, 1); ?>>
-            <?php _e("Enable network-wide websupport access", 'rrze-settings'); ?>
-        </label>
-<?php
+        $this->renderCheckbox('rrze-settings-websupport-enabled', sprintf('%s[websupport_enabled]', $this->optionName), $this->siteOptions->governance->websupport_enabled, __('Enable network-wide websupport access', 'rrze-settings'));
     }
 
     /**
@@ -137,8 +132,8 @@ class Settings extends MainSettings
     {
         $users = $this->getWebsupportUsersForDisplay();
 
-        echo '<textarea rows="8" cols="55" id="rrze-settings-websupport-users" class="regular-text" name="', sprintf('%s[websupport_users]', $this->optionName), '">', esc_textarea($users), '</textarea>';
-        echo '<p class="description">' . esc_html__('List of network users who receive websupport access. Enter one user ID, login, or email address per line.', 'rrze-settings') . '</p>';
+        $this->renderTextarea('rrze-settings-websupport-users', sprintf('%s[websupport_users]', $this->optionName), $users, 8, 55);
+        $this->renderDescription(__('List of network users who receive websupport access. Enter one user ID, login, or email address per line.', 'rrze-settings'));
     }
 
     /**
@@ -155,7 +150,7 @@ class Settings extends MainSettings
             esc_attr($this->optionName),
             esc_attr($roleName)
         );
-        echo '<p class="description">' . esc_html__('Visible name for websupport users in user filters and user lists. The internal role identifier remains websupport.', 'rrze-settings') . '</p>';
+        $this->renderDescription(__('Visible name for websupport users in user filters and user lists. The internal role identifier remains websupport.', 'rrze-settings'));
     }
 
     /**

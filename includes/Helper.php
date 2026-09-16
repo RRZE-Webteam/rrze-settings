@@ -278,24 +278,23 @@ class Helper
         // 1) Normalize to term_taxonomy_ids:
         //    If we received term_taxonomy_ids, this query keeps them.
         //    If we received term_ids, this maps them to tt_ids for this taxonomy.
-        $ids_sql   = implode(',', $ids);
-        $taxonomy_sql = esc_sql($taxonomy);
+        $idsPlaceholders = implode(',', array_fill(0, count($ids), '%d'));
 
-        $tt_ids = $wpdb->get_col("
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Core does not provide a bulk term-taxonomy recount API.
+        $tt_ids = $wpdb->get_col($wpdb->prepare("
         SELECT DISTINCT tt.term_taxonomy_id
         FROM {$wpdb->term_taxonomy} tt
-        WHERE tt.taxonomy = '{$taxonomy_sql}'
-          AND ( tt.term_taxonomy_id IN ({$ids_sql}) OR tt.term_id IN ({$ids_sql}) )
-    ");
+        WHERE tt.taxonomy = %s
+          AND ( tt.term_taxonomy_id IN ({$idsPlaceholders}) OR tt.term_id IN ({$idsPlaceholders}) )
+    ", array_merge([$taxonomy], $ids, $ids)));
 
         $tt_ids = array_map('intval', (array) $tt_ids);
         if (empty($tt_ids)) {
             return;
         }
 
-        // Build SQL fragments
-        $tt_ids_sql     = implode(',', $tt_ids);
-        $post_types_sql = "'" . implode("','", array_map('esc_sql', $object_types)) . "'";
+        $ttIdsPlaceholders = implode(',', array_fill(0, count($tt_ids), '%d'));
+        $postTypesPlaceholders = implode(',', array_fill(0, count($object_types), '%s'));
 
         // Count attachments; allow filter if you also want to include e.g. 'private'
         $statuses = apply_filters('rrze_attachment_count_statuses', ['inherit']);
@@ -304,23 +303,24 @@ class Helper
         if (empty($statuses)) {
             $statuses = ['inherit'];
         }
-        $statuses_sql = "'" . implode("','", array_map('esc_sql', $statuses)) . "'";
+        $statusesPlaceholders = implode(',', array_fill(0, count($statuses), '%s'));
 
         // 2) Update counts for ALL requested term_taxonomy_ids in one query
         //    We count distinct object_ids that match the taxonomy row AND post filters.
-        $wpdb->query("
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Core does not provide a bulk term-taxonomy recount API.
+        $wpdb->query($wpdb->prepare("
         UPDATE {$wpdb->term_taxonomy} AS tt
         SET tt.count = (
             SELECT COUNT(DISTINCT tr.object_id)
             FROM {$wpdb->term_relationships} AS tr
             INNER JOIN {$wpdb->posts} AS p ON p.ID = tr.object_id
             WHERE tr.term_taxonomy_id = tt.term_taxonomy_id
-              AND p.post_type IN ({$post_types_sql})
-              AND p.post_status IN ({$statuses_sql})
+              AND p.post_type IN ({$postTypesPlaceholders})
+              AND p.post_status IN ({$statusesPlaceholders})
         )
-        WHERE tt.term_taxonomy_id IN ({$tt_ids_sql})
-          AND tt.taxonomy = '{$taxonomy_sql}'
-    ");
+        WHERE tt.term_taxonomy_id IN ({$ttIdsPlaceholders})
+          AND tt.taxonomy = %s
+    ", array_merge($object_types, $statuses, $tt_ids, [$taxonomy])));
 
     }
 
@@ -357,14 +357,15 @@ class Helper
         }
 
         $tt_ids = array_map('intval', (array) $tt_ids);
-        $in     = implode(',', $tt_ids);
+        $placeholders = implode(',', array_fill(0, count($tt_ids), '%d'));
 
-        $rows = $wpdb->get_results("
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Core does not provide this term-taxonomy lookup API.
+        $rows = $wpdb->get_results($wpdb->prepare("
         SELECT taxonomy, term_taxonomy_id
         FROM {$wpdb->term_taxonomy}
-        WHERE term_taxonomy_id IN ({$in})
+        WHERE term_taxonomy_id IN ({$placeholders})
           AND taxonomy IN ('attachment_document','attachment_category','attachment_tag')
-    ", ARRAY_A);
+    ", $tt_ids), ARRAY_A);
 
         if (!$rows) {
             return;

@@ -57,7 +57,8 @@ class Search
         }
 
         // Set @meta_keys MySQL user variable
-        $wpdb->query($sql = $wpdb->prepare("SET @meta_keys := %s;", implode(',', $metaKeys)));
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Session variable is required by the prepared search query below.
+        $wpdb->query($wpdb->prepare("SET @meta_keys := %s;", implode(',', $metaKeys)));
 
         // Build the data for $wpdb->prepare()
         $values = [];
@@ -71,7 +72,8 @@ class Search
         $values[] = ($searchWithOr !== false ? 1 : count($values));
 
         // Query for matching users
-        $userIds = $wpdb->get_col($sql = $wpdb->prepare("
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Core has no equivalent multi-field user search API.
+        $userIds = $wpdb->get_col($wpdb->prepare("
                 SELECT user_id
                 FROM (" . implode('UNION ALL', array_fill(0, count($terms), "
                     SELECT DISTINCT u.ID AS user_id

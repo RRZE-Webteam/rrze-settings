@@ -31,6 +31,9 @@ class Config
                 'admin_role_threshold_warning' => 0,
                 'admin_role_threshold_warning_threshold' => 3,
             ],
+            'metatags' => [
+                'allow_google_notranslate' => 0,
+            ],
             'csp' => [
                 'enabled' => '0',
                 'default_src' => '\'self\'',
@@ -313,7 +316,7 @@ class Config
                 ],
                 'contact_email' => 'ai-test-support@fau.de',
                 'contact_url' => 'https://aid.fau.de/',
-                'notes' => 'Test: lme28.cs.fau.de; already active.',
+                'notes' => 'Projekt der FAU AI Accelerators.',
             ],
             'fau-rrze-checkbot' => [
                 'title' => 'FAU-RRZE Checkbot',
