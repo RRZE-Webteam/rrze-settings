@@ -14,7 +14,6 @@ use RRZE\Settings\Users\Users;
 use RRZE\Settings\Governance\Governance;
 use RRZE\Settings\Crawlers\Crawlers;
 use RRZE\Settings\Menus\Menus;
-use RRZE\Settings\Tools\Tools;
 use RRZE\Settings\WebsiteFunctions\WebsiteFunctions;
 use RRZE\Settings\Writing\Writing;
 use RRZE\Settings\Media\Media;
@@ -22,7 +21,6 @@ use RRZE\Settings\Taxonomies\Taxonomies;
 use RRZE\Settings\Plugins\Plugins;
 use RRZE\Settings\CSP\CSP;
 use RRZE\Settings\Mail\Mail;
-use RRZE\Settings\Discussion\Discussion;
 use RRZE\Settings\Advanced\Advanced;
 
 /**
@@ -126,9 +124,6 @@ class Main
         // Writing
         (new Writing())->loaded();
 
-        // Discussion
-        (new Discussion())->loaded();
-
         // Media
         (new Media())->loaded();
 
@@ -137,9 +132,6 @@ class Main
 
         // Mail
         (new Mail())->loaded();
-
-        // Tools
-        (new Tools())->loaded();
 
         // Website Functions
         (new WebsiteFunctions())->loaded();

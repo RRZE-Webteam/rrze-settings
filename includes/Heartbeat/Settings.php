@@ -243,10 +243,10 @@ class Settings extends MainSettings
         $key = $args['key'];
         printf(
             '<label><input type="checkbox" name="%1$s[%2$s]" value="1" %3$s> %4$s</label>',
-            $this->optionName,
+            esc_attr($this->optionName),
             esc_attr($key),
             checked(!empty($this->siteOptions->heartbeat->$key), true, false),
-            $args['description'] ? esc_html__($args['description']) : ''
+            !empty($args['description']) ? esc_html($args['description']) : ''
         );
     }
 
@@ -263,17 +263,17 @@ class Settings extends MainSettings
         $step = isset($args['step']) ? (int)$args['step'] : 1;
         printf(
             '<input type="number" name="%1$s[%2$s]" value="%3$s" min="%4$d" step="%5$d" class="small-text">',
-            $this->optionName,
+            esc_attr($this->optionName),
             esc_attr($key),
             esc_attr((string) $this->siteOptions->heartbeat->$key),
-            $min,
-            $step
+            absint($min),
+            absint($step)
         );
         if (isset($args['unit'])) {
-            echo ' <span>' . esc_html__($args['unit']) . '</span>';
+            printf(' <span>%s</span>', esc_html($args['unit']));
         }
-        if ($args['description']) {
-            echo '<p class="description">' . esc_html__($args['description']) . '</p>';
+        if (!empty($args['description'])) {
+            $this->renderDescription($args['description']);
         }
     }
 
@@ -290,13 +290,13 @@ class Settings extends MainSettings
         $json = wp_json_encode($val, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         printf(
             '<textarea name="%1$s[%2$s]" rows="10" cols="70" %3$s class="large-text code">%4$s</textarea>',
-            $this->optionName,
+            esc_attr($this->optionName),
             esc_attr($key),
             isset($args['placeholder']) ? 'placeholder="' . esc_attr($args['placeholder']) . '"' : '',
             esc_textarea($json)
         );
-        if ($args['description']) {
-            echo '<p class="description">' . esc_html__($args['description']) . '</p>';
+        if (!empty($args['description'])) {
+            $this->renderDescription($args['description']);
         }
     }
 
@@ -313,13 +313,13 @@ class Settings extends MainSettings
         $text = implode("\n", $val);
         printf(
             '<textarea name="%1$s[%2$s]" rows="6" cols="70" class="large-text code" %3$s>%4$s</textarea>',
-            $this->optionName,
+            esc_attr($this->optionName),
             esc_attr($key),
             isset($args['placeholder']) ? 'placeholder="' . esc_attr($args['placeholder']) . '"' : '',
             esc_textarea($text)
         );
-        if ($args['description']) {
-            echo '<p class="description">' . esc_html__($args['description']) . '</p>';
+        if (!empty($args['description'])) {
+            $this->renderDescription($args['description']);
         }
     }
 }

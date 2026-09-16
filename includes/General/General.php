@@ -36,10 +36,6 @@ class General extends Main
 
         (new Dashboard($this->siteOptions))->loaded();
 
-        (new Emoji($this->siteOptions))->loaded();
-
-        (new GoogleFonts($this->siteOptions))->loaded();
-
         (new ErrorPage($this->siteOptions))->loaded();
 
         (new Textdomain($this->siteOptions))->loaded();
@@ -47,8 +43,6 @@ class General extends Main
         (new WhiteLabel($this->siteOptions))->loaded();
 
         (new DefaultTheme($this->siteOptions))->loaded();
-
-        (new XMLRPC($this->siteOptions))->loaded();
 
         (new AdminRoleThresholdWarning($this->siteOptions))->loaded();
     }

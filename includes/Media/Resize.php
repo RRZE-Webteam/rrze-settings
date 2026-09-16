@@ -108,7 +108,8 @@ class Resize
 
                 $params = [
                     'error' => sprintf(
-                        __('An error has occurred: %s', 'rrze-media'),
+                        /* translators: %s: Error message. */
+                        __('An error has occurred: %s', 'rrze-settings'),
                         $resizedImage->get_error_message()
                     )
                 ];
@@ -156,7 +157,14 @@ class Resize
             $resizedImage = $this->imageResize($uploadPath, $newWidth, $newHeight);
 
             if (is_wp_error($resizedImage)) {
-                return new WP_Error('image-resize', sprintf(__('An error has occurred: %s', 'rrze-media'), $resizedImage->get_error_message()));
+                return new WP_Error(
+                    'image-resize',
+                    sprintf(
+                        /* translators: %s: Error message. */
+                        __('An error has occurred: %s', 'rrze-settings'),
+                        $resizedImage->get_error_message()
+                    )
+                );
             }
 
             $newPath = $resizedImage;

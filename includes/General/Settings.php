@@ -123,12 +123,7 @@ class Settings extends MainSettings
      */
     public function textdomainFallbackField()
     {
-?>
-        <label>
-            <input type="checkbox" id="rrze-settings-textdomain-fallback" name="<?php printf('%s[textdomain_fallback]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->general->textdomain_fallback, 1); ?>>
-            <?php _e("Sets a default language as fallback for unavailable language files", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-textdomain-fallback', sprintf('%s[textdomain_fallback]', $this->optionName), $this->siteOptions->general->textdomain_fallback, __('Sets a default language as fallback for unavailable language files', 'rrze-settings'));
     }
 
     /**
@@ -138,12 +133,7 @@ class Settings extends MainSettings
      */
     public function customErrorPageField()
     {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-custom-error-page" name="<?php printf('%s[custom_error_page]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->general->custom_error_page, 1); ?>>
-            <?php _e("Enables custom error page", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-custom-error-page', sprintf('%s[custom_error_page]', $this->optionName), $this->siteOptions->general->custom_error_page, __('Enables custom error page', 'rrze-settings'));
     }
 
     /**
@@ -153,12 +143,7 @@ class Settings extends MainSettings
      */
     public function whiteLabelField()
     {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-white-label" name="<?php printf('%s[white_label]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->general->white_label, 1); ?>>
-            <?php _e("Enables white label mode", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-white-label', sprintf('%s[white_label]', $this->optionName), $this->siteOptions->general->white_label, __('Ersetzt WordPress-Branding in Adminleiste und Admin-Footer, entfernt WordPress-Links, sortiert „Meine Websites“ und verwendet den Website-Absender für WordPress-E-Mails.', 'rrze-settings'));
     }
 
     /**
@@ -170,22 +155,22 @@ class Settings extends MainSettings
     {
         $themes = wp_get_themes(['errors' => null]);
         $current = $this->siteOptions->general->default_theme ?? '';
-    ?>
-        <label for="rrze-settings-default-theme" class="screen-reader-text">
-            <?php esc_html_e('Default Theme', 'rrze-settings'); ?>
-        </label>
-        <select id="rrze-settings-default-theme" name="<?php printf('%s[default_theme]', $this->optionName); ?>">
-            <option value=""><?php esc_html_e('Use WordPress default', 'rrze-settings'); ?></option>
-            <?php foreach ($themes as $stylesheet => $theme) { ?>
-                <option value="<?php echo esc_attr($stylesheet); ?>" <?php selected($current, $stylesheet); ?>>
-                    <?php echo esc_html(sprintf('%1$s (%2$s)', $theme->get('Name'), $stylesheet)); ?>
-                </option>
-            <?php } ?>
-        </select>
-        <p class="description">
-            <?php esc_html_e('Theme that is activated automatically when a new website is created. Leave empty to use the WordPress default theme.', 'rrze-settings'); ?>
-        </p>
-    <?php
+        printf(
+            '<label for="rrze-settings-default-theme" class="screen-reader-text">%1$s</label><select id="rrze-settings-default-theme" name="%2$s"><option value="">%3$s</option>',
+            esc_html__('Default Theme', 'rrze-settings'),
+            esc_attr(sprintf('%s[default_theme]', $this->optionName)),
+            esc_html__('Use WordPress default', 'rrze-settings')
+        );
+        foreach ($themes as $stylesheet => $theme) {
+            printf(
+                '<option value="%1$s" %2$s>%3$s</option>',
+                esc_attr($stylesheet),
+                selected($current, $stylesheet, false),
+                esc_html(sprintf('%1$s (%2$s)', $theme->get('Name'), $stylesheet))
+            );
+        }
+        echo '</select>';
+        $this->renderDescription(__('Theme that is activated automatically when a new website is created. Leave empty to use the WordPress default theme.', 'rrze-settings'));
     }
 
     /**

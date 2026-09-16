@@ -160,12 +160,7 @@ class Settings extends MainSettings
      */
     public function excludeNosearchPostsField()
     {
-?>
-        <label>
-            <input type="checkbox" id="rrze-settings-exclude-nosearch-posts" name="<?php printf('%s[exclude_nosearch_posts]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->taxonomies->exclude_nosearch_posts, 1); ?>>
-            <?php _e("Exclude from search nosearch-tagged posts", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-exclude-nosearch-posts', sprintf('%s[exclude_nosearch_posts]', $this->optionName), $this->siteOptions->taxonomies->exclude_nosearch_posts, __('Exclude from search nosearch-tagged posts', 'rrze-settings'));
     }
 
     /**
@@ -175,12 +170,7 @@ class Settings extends MainSettings
      */
     public function taxonomyPageCategoryField()
     {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-taxonomy-page-category" name="<?php printf('%s[taxonomy_page_category]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->taxonomies->taxonomy_page_category, 1); ?>>
-            <?php _e("Register page category taxonomy", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-taxonomy-page-category', sprintf('%s[taxonomy_page_category]', $this->optionName), $this->siteOptions->taxonomies->taxonomy_page_category, __('Register page category taxonomy', 'rrze-settings'));
     }
 
     /**
@@ -190,12 +180,7 @@ class Settings extends MainSettings
      */
     public function taxonomyPageTagField()
     {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-taxonomy-page-tag" name="<?php printf('%s[taxonomy_page_tag]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->taxonomies->taxonomy_page_tag, 1); ?>>
-            <?php _e("Register page tag taxonomy", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-taxonomy-page-tag', sprintf('%s[taxonomy_page_tag]', $this->optionName), $this->siteOptions->taxonomies->taxonomy_page_tag, __('Register page tag taxonomy', 'rrze-settings'));
     }
 
     /**
@@ -205,12 +190,7 @@ class Settings extends MainSettings
      */
     public function lastModifiedCustomColumnField()
     {
-?>
-        <label>
-            <input type="checkbox" id="rrze-settings-last-modified-custom-column" name="<?php printf('%s[last_modified_custom_column]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->posts->last_modified_custom_column, 1); ?>>
-            <?php _e("Enables last modified custom column", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-last-modified-custom-column', sprintf('%s[last_modified_custom_column]', $this->optionName), $this->siteOptions->posts->last_modified_custom_column, __('Enables last modified custom column', 'rrze-settings'));
     }
 
     /**
@@ -220,11 +200,6 @@ class Settings extends MainSettings
      */
     public function pageListTableDropdownField()
     {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-page-list-tabler-dropdown" name="<?php printf('%s[page_list_table_dropdown]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->posts->page_list_table_dropdown, 1); ?>>
-            <?php _e("Enables pages list dropdown", 'rrze-settings'); ?>
-        </label>
-<?php
+        $this->renderCheckbox('rrze-settings-page-list-tabler-dropdown', sprintf('%s[page_list_table_dropdown]', $this->optionName), $this->siteOptions->posts->page_list_table_dropdown, __('Enables pages list dropdown', 'rrze-settings'));
     }
 }

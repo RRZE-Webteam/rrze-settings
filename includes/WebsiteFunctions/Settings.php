@@ -42,6 +42,30 @@ class Settings extends MainSettings
     protected $discussionSectionName = 'rrze-settings-website-functions-discussion-section';
 
     /**
+     * Metatags settings section name.
+     *
+     * @var string
+     */
+    protected $metatagsSectionName = 'rrze-settings-website-functions-metatags-section';
+
+    /**
+     * Plugin loaded action.
+     *
+     * @return void
+     */
+    public function loaded(): void
+    {
+        if (is_network_admin()) {
+            add_action('network_admin_menu', [$this, 'networkAdminMenu']);
+            add_action('network_admin_menu', [$this, 'settingsUpdate']);
+            add_action('network_admin_menu', [$this, 'networkAdminPage']);
+            return;
+        }
+
+        add_action('admin_init', [$this, 'adminPage']);
+    }
+
+    /**
      * Adds a submenu page to the network admin menu.
      *
      * @return void
@@ -81,22 +105,12 @@ class Settings extends MainSettings
             $this->siteOptions->advanced->disable_font_library_admin = !empty($input['disable_font_library_admin']) ? 1 : 0;
             $this->siteOptions->discussion->default_settings = !empty($input['discussion_default_settings']) ? 1 : 0;
             $this->siteOptions->discussion->disable_avatars = !empty($input['discussion_disable_avatars']) ? 1 : 0;
+            $this->siteOptions->metatags->allow_google_notranslate = !empty($input['allow_google_notranslate']) ? 1 : 0;
 
             return $this->siteOptions;
         }
 
         $this->options = $this->prepareOptionContainers($this->options);
-        $this->options->tools->disable_delete_site = !empty($input['disable_delete_site']) ? 1 : 0;
-        $this->options->tools->disable_privacy_options = !empty($input['disable_privacy_options']) ? 1 : 0;
-        $this->options->general->disable_xmlrpc = !empty($input['disable_xmlrpc']) ? 1 : 0;
-        $this->options->general->disable_admin_email_verification = !empty($input['disable_admin_email_verification']) ? 1 : 0;
-        $this->options->general->disable_emoji = !empty($input['disable_emoji']) ? 1 : 0;
-        $this->options->general->disable_google_fonts = !empty($input['disable_google_fonts']) ? 1 : 0;
-        $this->options->advanced->disable_ai_functionality = !empty($input['disable_ai_functionality']) ? 1 : 0;
-        $this->options->advanced->hide_ai_connector_page = !empty($input['hide_ai_connector_page']) ? 1 : 0;
-        $this->options->advanced->disable_font_library_admin = !empty($input['disable_font_library_admin']) ? 1 : 0;
-        $this->options->discussion->default_settings = !empty($input['discussion_default_settings']) ? 1 : 0;
-        $this->options->discussion->disable_avatars = !empty($input['discussion_disable_avatars']) ? 1 : 0;
 
         return $this->options;
     }
@@ -173,6 +187,21 @@ class Settings extends MainSettings
         );
 
         add_settings_section(
+            $this->metatagsSectionName,
+            __('Metatags', 'rrze-settings'),
+            [$this, 'metatagsSectionDescription'],
+            $this->menuPage
+        );
+
+        add_settings_field(
+            'allow_google_notranslate',
+            __('Google Notranslate', 'rrze-settings'),
+            [$this, 'allowGoogleNotranslateField'],
+            $this->menuPage,
+            $this->metatagsSectionName
+        );
+
+        add_settings_section(
             $this->otherSectionName,
             __('Other Functions', 'rrze-settings'),
             [$this, 'otherSectionDescription'],
@@ -221,6 +250,56 @@ class Settings extends MainSettings
     }
 
     /**
+     * Registers local reading settings when enabled network-wide.
+     *
+     * @return void
+     */
+    public function adminPage(): void
+    {
+        $this->siteOptions = $this->prepareOptionContainers($this->siteOptions);
+
+        if (empty($this->siteOptions->metatags->allow_google_notranslate)) {
+            return;
+        }
+
+        register_setting(
+            'reading',
+            'rrze_settings_google_notranslate',
+            [
+                'type' => 'integer',
+                'sanitize_callback' => [$this, 'sanitizeGoogleNotranslateOption'],
+                'default' => 0,
+            ]
+        );
+
+        add_settings_section(
+            'rrze-settings-reading-google-translate-section',
+            __('Metatags', 'rrze-settings'),
+            '__return_false',
+            'reading'
+        );
+
+        add_settings_field(
+            'rrze-settings-google-notranslate',
+            __('Google Translate', 'rrze-settings'),
+            [$this, 'googleNotranslateField'],
+            'reading',
+            'rrze-settings-reading-google-translate-section'
+        );
+    }
+
+    /**
+     * Sanitizes the local Google notranslate option.
+     *
+     * @param mixed $value Submitted option value.
+     * @return int Sanitized setting value.
+     */
+    public function sanitizeGoogleNotranslateOption($value): int
+    {
+        return !empty($value) ? 1 : 0;
+    }
+
+    /**
      * Display the other section description.
      *
      * @return void
@@ -251,6 +330,16 @@ class Settings extends MainSettings
     }
 
     /**
+     * Display the metatags section description.
+     *
+     * @return void
+     */
+    public function metatagsSectionDescription(): void
+    {
+        esc_html_e('Controls which metatag settings website administrators can configure locally.', 'rrze-settings');
+    }
+
+    /**
      * Renders the delete site field.
      *
      * @return void
@@ -258,8 +347,12 @@ class Settings extends MainSettings
     public function deleteSiteField(): void
     {
         $this->siteOptions = $this->prepareOptionContainers($this->siteOptions);
-        $checked = checked($this->siteOptions->tools->disable_delete_site, 1, false);
-        echo '<label><input type="checkbox" id="rrze-settings-disable-delete-site" name="', esc_attr(sprintf('%s[disable_delete_site]', $this->optionName)), '" value="1" ', $checked, '> ', esc_html__('Disables the delete site feature', 'rrze-settings'), '</label>';
+        printf(
+            '<label><input type="checkbox" id="rrze-settings-disable-delete-site" name="%1$s" value="1" %2$s> %3$s</label>',
+            esc_attr(sprintf('%s[disable_delete_site]', $this->optionName)),
+            checked($this->siteOptions->tools->disable_delete_site, 1, false),
+            esc_html__('Disables the delete site feature', 'rrze-settings')
+        );
     }
 
     /**
@@ -270,8 +363,12 @@ class Settings extends MainSettings
     public function privacyOptionsField(): void
     {
         $this->siteOptions = $this->prepareOptionContainers($this->siteOptions);
-        $checked = checked($this->siteOptions->tools->disable_privacy_options, 1, false);
-        echo '<label><input type="checkbox" id="rrze-settings-disable-privacy-options" name="', esc_attr(sprintf('%s[disable_privacy_options]', $this->optionName)), '" value="1" ', $checked, '> ', esc_html__('Disables the privacy settings', 'rrze-settings'), '</label>';
+        printf(
+            '<label><input type="checkbox" id="rrze-settings-disable-privacy-options" name="%1$s" value="1" %2$s> %3$s</label>',
+            esc_attr(sprintf('%s[disable_privacy_options]', $this->optionName)),
+            checked($this->siteOptions->tools->disable_privacy_options, 1, false),
+            esc_html__('Disables the privacy settings', 'rrze-settings')
+        );
     }
 
     /**
@@ -282,8 +379,12 @@ class Settings extends MainSettings
     public function disableAIFunctionalityField(): void
     {
         $this->siteOptions = $this->prepareOptionContainers($this->siteOptions);
-        $checked = checked($this->siteOptions->advanced->disable_ai_functionality, 1, false);
-        echo '<label><input type="checkbox" id="rrze-settings-advanced-disable-ai-functionality" name="', esc_attr(sprintf('%s[disable_ai_functionality]', $this->optionName)), '" value="1" ', $checked, '> ', esc_html__('Disable AI functionality in WordPress.', 'rrze-settings'), '</label>';
+        printf(
+            '<label><input type="checkbox" id="rrze-settings-advanced-disable-ai-functionality" name="%1$s" value="1" %2$s> %3$s</label>',
+            esc_attr(sprintf('%s[disable_ai_functionality]', $this->optionName)),
+            checked($this->siteOptions->advanced->disable_ai_functionality, 1, false),
+            esc_html__('Disable AI functionality in WordPress.', 'rrze-settings')
+        );
     }
 
     /**
@@ -294,8 +395,12 @@ class Settings extends MainSettings
     public function hideAIConnectorPageField(): void
     {
         $this->siteOptions = $this->prepareOptionContainers($this->siteOptions);
-        $checked = checked($this->siteOptions->advanced->hide_ai_connector_page, 1, false);
-        echo '<label><input type="checkbox" id="rrze-settings-advanced-hide-ai-connector-page" name="', esc_attr(sprintf('%s[hide_ai_connector_page]', $this->optionName)), '" value="1" ', $checked, '> ', esc_html__('Hide the AI Connectors settings page for users and block direct access.', 'rrze-settings'), '</label>';
+        printf(
+            '<label><input type="checkbox" id="rrze-settings-advanced-hide-ai-connector-page" name="%1$s" value="1" %2$s> %3$s</label>',
+            esc_attr(sprintf('%s[hide_ai_connector_page]', $this->optionName)),
+            checked($this->siteOptions->advanced->hide_ai_connector_page, 1, false),
+            esc_html__('Hide the AI Connectors settings page for users and block direct access.', 'rrze-settings')
+        );
     }
 
     /**
@@ -306,8 +411,12 @@ class Settings extends MainSettings
     public function disableFontLibraryAdminField(): void
     {
         $this->siteOptions = $this->prepareOptionContainers($this->siteOptions);
-        $checked = checked($this->siteOptions->advanced->disable_font_library_admin, 1, false);
-        echo '<label><input type="checkbox" id="rrze-settings-advanced-disable-font-library-admin" name="', esc_attr(sprintf('%s[disable_font_library_admin]', $this->optionName)), '" value="1" ', $checked, '> ', esc_html__('Hide the Font Library page in the admin dashboard and block direct access.', 'rrze-settings'), '</label>';
+        printf(
+            '<label><input type="checkbox" id="rrze-settings-advanced-disable-font-library-admin" name="%1$s" value="1" %2$s> %3$s</label>',
+            esc_attr(sprintf('%s[disable_font_library_admin]', $this->optionName)),
+            checked($this->siteOptions->advanced->disable_font_library_admin, 1, false),
+            esc_html__('Hide the Font Library page in the admin dashboard and block direct access.', 'rrze-settings')
+        );
     }
 
     /**
@@ -318,8 +427,12 @@ class Settings extends MainSettings
     public function xmlrpcField(): void
     {
         $this->siteOptions = $this->prepareOptionContainers($this->siteOptions);
-        $checked = checked($this->siteOptions->general->disable_xmlrpc, 1, false);
-        echo '<label><input type="checkbox" id="rrze-settings-disable-xmlrpc" name="', esc_attr(sprintf('%s[disable_xmlrpc]', $this->optionName)), '" value="1" ', $checked, '> ', esc_html__('Disables the XML-RPC API', 'rrze-settings'), '</label>';
+        printf(
+            '<label><input type="checkbox" id="rrze-settings-disable-xmlrpc" name="%1$s" value="1" %2$s> %3$s</label>',
+            esc_attr(sprintf('%s[disable_xmlrpc]', $this->optionName)),
+            checked($this->siteOptions->general->disable_xmlrpc, 1, false),
+            esc_html__('Disables the XML-RPC API', 'rrze-settings')
+        );
     }
 
     /**
@@ -330,8 +443,12 @@ class Settings extends MainSettings
     public function adminEmailVerificationField(): void
     {
         $this->siteOptions = $this->prepareOptionContainers($this->siteOptions);
-        $checked = checked($this->siteOptions->general->disable_admin_email_verification, 1, false);
-        echo '<label><input type="checkbox" id="rrze-settings-disable-admin-email-verification" name="', esc_attr(sprintf('%s[disable_admin_email_verification]', $this->optionName)), '" value="1" ', $checked, '> ', esc_html__('Disables the admin email verification check', 'rrze-settings'), '</label>';
+        printf(
+            '<label><input type="checkbox" id="rrze-settings-disable-admin-email-verification" name="%1$s" value="1" %2$s> %3$s</label>',
+            esc_attr(sprintf('%s[disable_admin_email_verification]', $this->optionName)),
+            checked($this->siteOptions->general->disable_admin_email_verification, 1, false),
+            esc_html__('Disables the admin email verification check', 'rrze-settings')
+        );
     }
 
     /**
@@ -342,8 +459,12 @@ class Settings extends MainSettings
     public function emojiField(): void
     {
         $this->siteOptions = $this->prepareOptionContainers($this->siteOptions);
-        $checked = checked($this->siteOptions->general->disable_emoji, 1, false);
-        echo '<label><input type="checkbox" id="rrze-settings-disable-emoji" name="', esc_attr(sprintf('%s[disable_emoji]', $this->optionName)), '" value="1" ', $checked, '> ', esc_html__('Disables Emoji graphics', 'rrze-settings'), '</label>';
+        printf(
+            '<label><input type="checkbox" id="rrze-settings-disable-emoji" name="%1$s" value="1" %2$s> %3$s</label>',
+            esc_attr(sprintf('%s[disable_emoji]', $this->optionName)),
+            checked($this->siteOptions->general->disable_emoji, 1, false),
+            esc_html__('Disables Emoji graphics', 'rrze-settings')
+        );
     }
 
     /**
@@ -354,8 +475,12 @@ class Settings extends MainSettings
     public function googleFontsField(): void
     {
         $this->siteOptions = $this->prepareOptionContainers($this->siteOptions);
-        $checked = checked($this->siteOptions->general->disable_google_fonts, 1, false);
-        echo '<label><input type="checkbox" id="rrze-settings-disable-google-fonts" name="', esc_attr(sprintf('%s[disable_google_fonts]', $this->optionName)), '" value="1" ', $checked, '> ', esc_html__('Disables loading of Google Fonts', 'rrze-settings'), '</label>';
+        printf(
+            '<label><input type="checkbox" id="rrze-settings-disable-google-fonts" name="%1$s" value="1" %2$s> %3$s</label>',
+            esc_attr(sprintf('%s[disable_google_fonts]', $this->optionName)),
+            checked($this->siteOptions->general->disable_google_fonts, 1, false),
+            esc_html__('Disables loading of Google Fonts', 'rrze-settings')
+        );
     }
 
     /**
@@ -366,8 +491,12 @@ class Settings extends MainSettings
     public function discussionDefaultSettingsField(): void
     {
         $this->siteOptions = $this->prepareOptionContainers($this->siteOptions);
-        $checked = checked($this->siteOptions->discussion->default_settings, 1, false);
-        echo '<label><input type="checkbox" id="rrze-settings-discussion-default-settings" name="', esc_attr(sprintf('%s[discussion_default_settings]', $this->optionName)), '" value="1" ', $checked, '> ', esc_html__('Apply restrictive discussion defaults', 'rrze-settings'), '</label>';
+        printf(
+            '<label><input type="checkbox" id="rrze-settings-discussion-default-settings" name="%1$s" value="1" %2$s> %3$s</label>',
+            esc_attr(sprintf('%s[discussion_default_settings]', $this->optionName)),
+            checked($this->siteOptions->discussion->default_settings, 1, false),
+            esc_html__('Apply restrictive discussion defaults', 'rrze-settings')
+        );
         echo '<p class="description">', esc_html__('For new websites, comments and pingbacks are disabled by default and commenting requires a login. Across the network, new posts and pages get closed comments by default, and anonymous commenting is blocked.', 'rrze-settings'), '</p>';
     }
 
@@ -379,8 +508,43 @@ class Settings extends MainSettings
     public function discussionDisableAvatarsField(): void
     {
         $this->siteOptions = $this->prepareOptionContainers($this->siteOptions);
-        $checked = checked($this->siteOptions->discussion->disable_avatars, 1, false);
-        echo '<label><input type="checkbox" id="rrze-settings-discussion-disable-avatars" name="', esc_attr(sprintf('%s[discussion_disable_avatars]', $this->optionName)), '" value="1" ', $checked, '> ', esc_html__('Disable avatars settings', 'rrze-settings'), '</label>';
+        printf(
+            '<label><input type="checkbox" id="rrze-settings-discussion-disable-avatars" name="%1$s" value="1" %2$s> %3$s</label>',
+            esc_attr(sprintf('%s[discussion_disable_avatars]', $this->optionName)),
+            checked($this->siteOptions->discussion->disable_avatars, 1, false),
+            esc_html__('Disable avatars settings', 'rrze-settings')
+        );
+    }
+
+    /**
+     * Display the allow_google_notranslate field.
+     *
+     * @return void
+     */
+    public function allowGoogleNotranslateField(): void
+    {
+        $this->siteOptions = $this->prepareOptionContainers($this->siteOptions);
+        printf(
+            '<label><input type="checkbox" id="rrze-settings-allow-google-notranslate" name="%1$s" value="1" %2$s> %3$s</label>',
+            esc_attr(sprintf('%s[allow_google_notranslate]', $this->optionName)),
+            checked($this->siteOptions->metatags->allow_google_notranslate, 1, false),
+            esc_html__('Allow website administrators to tell Googlebot that this website should not be offered by Google as a translated copy.', 'rrze-settings')
+        );
+    }
+
+    /**
+     * Display the local google_notranslate field.
+     *
+     * @return void
+     */
+    public function googleNotranslateField(): void
+    {
+        echo '<input type="hidden" name="rrze_settings_google_notranslate" value="0">';
+        printf(
+            '<label><input type="checkbox" id="rrze-settings-google-notranslate" name="rrze_settings_google_notranslate" value="1" %1$s> %2$s</label>',
+            checked((int) get_option('rrze_settings_google_notranslate', 0), 1, false),
+            esc_html__('Prevent Google from creating a copy of the website in other languages and offering it under its own domain.', 'rrze-settings')
+        );
     }
 
     /**
@@ -393,7 +557,7 @@ class Settings extends MainSettings
     {
         $defaultOptions = $this->prepareDefaultOptions();
 
-        foreach (['tools', 'general', 'advanced', 'discussion'] as $group) {
+        foreach (['tools', 'general', 'advanced', 'discussion', 'metatags'] as $group) {
             if (empty($options->{$group}) || (!is_object($options->{$group}) && !is_array($options->{$group}))) {
                 $options->{$group} = $defaultOptions->{$group} ?? new \stdClass();
             }
@@ -416,7 +580,7 @@ class Settings extends MainSettings
     {
         $defaultOptions = is_object($this->defaultOptions) ? $this->defaultOptions : new \stdClass();
 
-        foreach (['tools', 'general', 'advanced', 'discussion'] as $group) {
+        foreach (['tools', 'general', 'advanced', 'discussion', 'metatags'] as $group) {
             if (empty($defaultOptions->{$group}) || (!is_object($defaultOptions->{$group}) && !is_array($defaultOptions->{$group}))) {
                 $defaultOptions->{$group} = new \stdClass();
             }

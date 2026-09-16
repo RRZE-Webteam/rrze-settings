@@ -117,12 +117,7 @@ class Settings extends MainSettings
      */
     public function expandCollapseMenusField()
     {
-?>
-        <label>
-            <input type="checkbox" id="rrze-settings-expand-collapse-menus" name="<?php printf('%s[expand_collapse_menus]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->menus->expand_collapse_menus, 1); ?>>
-            <?php _e("Expands and collapses menu items", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-expand-collapse-menus', sprintf('%s[expand_collapse_menus]', $this->optionName), $this->siteOptions->menus->expand_collapse_menus, __('Expands and collapses menu items', 'rrze-settings'));
     }
 
     /**
@@ -132,12 +127,7 @@ class Settings extends MainSettings
      */
     public function menusCustomColumnField()
     {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-menus-custom-column" name="<?php printf('%s[menus_custom_column]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->menus->menus_custom_column, 1); ?>>
-            <?php _e("Creates a custom column (Menus) in the posts list", 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-menus-custom-column', sprintf('%s[menus_custom_column]', $this->optionName), $this->siteOptions->menus->menus_custom_column, __('Creates a custom column (Menus) in the posts list', 'rrze-settings'));
     }
 
     /**
@@ -147,11 +137,6 @@ class Settings extends MainSettings
      */
     public function enhancedMenuSearchField()
     {
-    ?>
-        <label>
-            <input type="checkbox" id="rrze-settings-enhanced-menu-search" name="<?php printf('%s[enhanced_menu_search]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->menus->enhanced_menu_search, 1); ?>>
-            <?php _e("Enhanced menu search", 'rrze-settings'); ?>
-        </label>
-<?php
+        $this->renderCheckbox('rrze-settings-enhanced-menu-search', sprintf('%s[enhanced_menu_search]', $this->optionName), $this->siteOptions->menus->enhanced_menu_search, __('Enhanced menu search', 'rrze-settings'));
     }
 }

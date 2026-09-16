@@ -140,7 +140,7 @@ class AttachmentMediaFilters
                 'taxonomy' => $taxonomy,
                 'terms'    => $termsPayload,
                 'i18n'     => [
-                    'all' => __($cfg['i18n_all'], 'rrze-settings'),
+                    'all' => $cfg['i18n_all'],
                 ],
             ]);
         }

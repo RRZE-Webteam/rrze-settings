@@ -144,8 +144,8 @@ class Settings extends MainSettings
      */
     public function senderField()
     {
-        echo '<input type="text" id="rrze-settings-mail-sender" name="', sprintf('%s[sender]', $this->optionName), '" value="', $this->siteOptions->mail->sender, '" class="regular-text">';
-        echo '<p class="description">', __('Set the default envelope sender.', 'rrze-settings'), '</p>';
+        $this->renderInput('text', 'rrze-settings-mail-sender', sprintf('%s[sender]', $this->optionName), $this->siteOptions->mail->sender);
+        $this->renderDescription(__('Set the default envelope sender.', 'rrze-settings'));
     }
 
     /**
@@ -156,8 +156,8 @@ class Settings extends MainSettings
     public function allowedDomainsField()
     {
         $allowedDomains = implode(PHP_EOL, (array) $this->siteOptions->mail->allowed_domains);
-        echo '<textarea rows="5" cols="55" id="rrze-settings-mail-allowed-domains" class="regular-text" name="', sprintf('%s[allowed_domains]', $this->optionName), '">', esc_attr($allowedDomains), '</textarea>';
-        echo '<p class="description">' . __('List of allowed domains for email addresses used as envelope sender.', 'rrze-settings') . '</p>';
+        $this->renderTextarea('rrze-settings-mail-allowed-domains', sprintf('%s[allowed_domains]', $this->optionName), $allowedDomains, 5, 55);
+        $this->renderDescription(__('List of allowed domains for email addresses used as envelope sender.', 'rrze-settings'));
     }
 
     /**
@@ -168,8 +168,8 @@ class Settings extends MainSettings
     public function adminEmailExceptionsField()
     {
         $option = $this->siteOptions->mail->admin_email_exceptions;
-        echo '<textarea id="rrze-settings-mail-admin-email-exceptions" cols="50" rows="5" name="', sprintf('%s[admin_email_exceptions]', $this->optionName), '">', esc_attr($this->getTextarea($option)), '</textarea>';
-        echo '<p class="description">', __('List of website IDs that can edit the admin_email field. Enter one website ID per line.', 'rrze-settings'), '</p>';
+        $this->renderTextarea('rrze-settings-mail-admin-email-exceptions', sprintf('%s[admin_email_exceptions]', $this->optionName), $this->getTextarea($option));
+        $this->renderDescription(__('List of website IDs that can edit the admin_email field. Enter one website ID per line.', 'rrze-settings'));
     }
 
     /**

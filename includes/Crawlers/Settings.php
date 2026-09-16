@@ -290,7 +290,7 @@ class Settings extends MainSettings
         echo '<tr>';
         echo '<td class="column-primary column-name has-row-actions">';
         echo '<strong><a class="row-title" href="', esc_url($editUrl), '">', esc_html($crawler['title'] ?? $key), '</a></strong>';
-        echo '<div class="row-actions">', $this->getRowActions($rowActions), '</div>';
+        echo '<div class="row-actions">', wp_kses_post($this->getRowActions($rowActions)), '</div>';
         echo '<button type="button" class="toggle-row"><span class="screen-reader-text">', esc_html__('Show more details', 'rrze-settings'), '</span></button>';
         echo '</td>';
         echo '<td>', esc_html($crawler['user_agent'] ?? ''), '</td>';

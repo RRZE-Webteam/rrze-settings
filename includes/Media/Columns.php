@@ -92,7 +92,7 @@ class Columns
             }
         }
 
-        echo size_format($fileSize, 0);
+        echo esc_html(size_format($fileSize, 0));
     }
 
     /**

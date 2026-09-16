@@ -32,21 +32,6 @@ class Advanced extends Main
             add_action('admin_enqueue_scripts', [$this, 'enqueueBackendStyle'], 100);
         }
 
-        if (!empty($this->siteOptions->advanced->disable_ai_functionality)) {
-            add_filter('wp_supports_ai', '__return_false', PHP_INT_MAX);
-            add_filter('wp_ai_client_prevent_prompt', '__return_true', PHP_INT_MAX);
-        }
-
-        if (!empty($this->siteOptions->advanced->hide_ai_connector_page)) {
-            add_action('admin_menu', [$this, 'hideAIConnectorPage'], PHP_INT_MAX);
-            add_action('admin_init', [$this, 'blockAIConnectorPageAccess'], 0);
-        }
-
-        if (!empty($this->siteOptions->advanced->disable_font_library_admin)) {
-            add_action('admin_menu', [$this, 'hideFontLibraryPage'], PHP_INT_MAX);
-            add_action('load-appearance_page_font-library', [$this, 'blockFontLibraryPageAccess']);
-        }
-
         if (!empty($this->siteOptions->advanced->block_editor_iframe_body_class) || !empty($this->siteOptions->advanced->block_editor_auto_theme_classes)) {
             add_action('enqueue_block_editor_assets', [$this, 'loadInjectBlockEditorIframeWithBodyClassScripts']);
         }
@@ -88,50 +73,44 @@ class Advanced extends Main
         wp_add_inline_style('rrze-settings-advanced-backend-style', esc_textarea($this->siteOptions->advanced->backend_style));
     }
 
+    /**
+     * Compatibility wrapper for the moved website function.
+     *
+     * @return void
+     */
     public function hideAIConnectorPage(): void
     {
-        if (is_network_admin()) {
-            return;
-        }
-
-        remove_submenu_page('options-general.php', 'options-connectors.php');
+        (new \RRZE\Settings\WebsiteFunctions\AI($this->siteOptions))->hideAIConnectorPage();
     }
 
+    /**
+     * Compatibility wrapper for the moved website function.
+     *
+     * @return void
+     */
     public function blockAIConnectorPageAccess(): void
     {
-        global $pagenow;
-
-        if (is_network_admin()) {
-            return;
-        }
-
-        $is_connectors_page = 'options-connectors.php' === $pagenow;
-        $is_legacy_connectors_page = 'options-general.php' === $pagenow
-            && isset($_GET['page'])
-            && 'options-connectors' === sanitize_key(wp_unslash($_GET['page']));
-
-        if ($is_connectors_page || $is_legacy_connectors_page) {
-            wp_safe_redirect(admin_url());
-            exit;
-        }
+        (new \RRZE\Settings\WebsiteFunctions\AI($this->siteOptions))->blockAIConnectorPageAccess();
     }
 
+    /**
+     * Compatibility wrapper for the moved website function.
+     *
+     * @return void
+     */
     public function hideFontLibraryPage(): void
     {
-        if (is_network_admin()) {
-            return;
-        }
-
-        remove_submenu_page('themes.php', 'font-library.php');
+        (new \RRZE\Settings\WebsiteFunctions\FontLibrary($this->siteOptions))->hideFontLibraryPage();
     }
 
+    /**
+     * Compatibility wrapper for the moved website function.
+     *
+     * @return void
+     */
     public function blockFontLibraryPageAccess(): void
     {
-        wp_die(
-            esc_html__('This feature has been disabled.', 'rrze-settings'),
-            esc_html__('Disabled', 'rrze-settings'),
-            ['response' => 403, 'back_link' => true]
-        );
+        (new \RRZE\Settings\WebsiteFunctions\FontLibrary($this->siteOptions))->blockFontLibraryPageAccess();
     }
 
     public function loadInjectBlockEditorIframeWithBodyClassScripts(): void

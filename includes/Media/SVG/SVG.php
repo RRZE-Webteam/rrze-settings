@@ -183,7 +183,7 @@ class SVG
     {
         if ($file['type'] === 'image/svg+xml') {
             if (!$this->sanitize($file['tmp_name'])) {
-                $file['error'] = __("This file couldn't be sanitized so for security reasons wasn't uploaded.", 'rrze-media');
+                $file['error'] = __("This file couldn't be sanitized so for security reasons wasn't uploaded.", 'rrze-settings');
             }
         }
 
@@ -267,10 +267,10 @@ class SVG
     {
         if ($response['mime'] == 'image/svg+xml') {
             $possibleSizes = apply_filters('image_size_names_choose', [
-                'full'      => __('Full Size'),
-                'thumbnail' => __('Thumbnail'),
-                'medium'    => __('Medium'),
-                'large'     => __('Large'),
+                'full'      => __('Full Size', 'rrze-settings'),
+                'thumbnail' => __('Thumbnail', 'rrze-settings'),
+                'medium'    => __('Medium', 'rrze-settings'),
+                'large'     => __('Large', 'rrze-settings'),
             ]);
 
             $sizes = array();
