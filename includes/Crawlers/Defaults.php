@@ -56,6 +56,11 @@ class Defaults
             $entries[$key] = self::normalizeCrawler($key, $crawler);
         }
 
+        // Legacy settings override defaults; saved crawler entries take precedence below.
+        if (!empty($legacySiteimproveIpAddresses)) {
+            $entries['siteimprove']['ip_addresses'] = self::sanitizeIpAddresses($legacySiteimproveIpAddresses);
+        }
+
         foreach ($rawEntries as $key => $crawler) {
             $key = sanitize_key((string) $key);
             if ($key === '') {
@@ -63,10 +68,6 @@ class Defaults
             }
 
             $entries[$key] = self::normalizeCrawler($key, $crawler);
-        }
-
-        if (!empty($legacySiteimproveIpAddresses) && empty($entries['siteimprove']['ip_addresses'])) {
-            $entries['siteimprove']['ip_addresses'] = self::sanitizeIpAddresses($legacySiteimproveIpAddresses);
         }
 
         uasort($entries, [self::class, 'sortByTitle']);
@@ -232,7 +233,8 @@ class Defaults
      */
     protected static function expandPartialIpv4Address(string $ipAddress): string
     {
-        $octets = array_values(array_filter(explode('.', $ipAddress), 'strlen'));
+        // Remove only the trailing separator so missing octets fail validation.
+        $octets = explode('.', substr($ipAddress, 0, -1));
         $octetCount = count($octets);
 
         if ($octetCount < 1 || $octetCount > 3) {
@@ -258,7 +260,8 @@ class Defaults
      */
     protected static function expandPartialIpv6Address(string $ipAddress): string
     {
-        $groups = array_values(array_filter(explode(':', $ipAddress), 'strlen'));
+        // Partial prefixes must be uncompressed; use explicit CIDR notation for ::.
+        $groups = explode(':', substr($ipAddress, 0, -1));
         $groupCount = count($groups);
 
         if ($groupCount < 1 || $groupCount > 7) {
