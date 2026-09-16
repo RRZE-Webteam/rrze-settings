@@ -80,7 +80,7 @@ class Post
             $newColumns[$key] = $value;
 
             if ($key == 'date') {
-                $newColumns['last-modified'] = __('Date');
+                $newColumns['last-modified'] = __('Date', 'rrze-settings');
             }
 
             if ($key == 'date') {
@@ -102,7 +102,7 @@ class Post
     {
         if ($column == 'last-modified') {
             $post = get_post($postId);
-            echo $this->column_date($post);
+            echo wp_kses_post($this->column_date($post));
         }
     }
 
@@ -129,34 +129,35 @@ class Post
         global $mode;
 
         if ('0000-00-00 00:00:00' === $post->post_date) {
-            $postTime = $postHumanTime = __('Unpublished');
+            $postTime = $postHumanTime = __('Unpublished', 'rrze-settings');
             $timeDiff = 0;
         } else {
-            $postTime = get_the_time(__('Y/m/d g:i:s a'));
+            $postTime = get_the_time(__('Y/m/d g:i:s a', 'rrze-settings'));
             $postModifiedTime = $post->post_date;
             $time = get_post_time('G', true, $post);
 
             $timeDiff = time() - $time;
 
             if ($timeDiff > 0 && $timeDiff < DAY_IN_SECONDS) {
-                $postHumanTime = sprintf(__('%s ago'), human_time_diff($time));
+                /* translators: %s: Human-readable time difference. */
+                $postHumanTime = sprintf(__('%s ago', 'rrze-settings'), human_time_diff($time));
             } else {
-                $postHumanTime = mysql2date(__('Y/m/d'), $postModifiedTime);
+                $postHumanTime = mysql2date(__('Y/m/d', 'rrze-settings'), $postModifiedTime);
             }
         }
 
         $output = '';
 
         if ('publish' === $post->post_status) {
-            $output .= __('Published');
+            $output .= __('Published', 'rrze-settings');
         } elseif ('future' === $post->post_status) {
             if ($timeDiff > 0) {
-                $output .= '<strong class="error-message">' . __('Missed schedule') . '</strong>';
+                $output .= '<strong class="error-message">' . __('Missed schedule', 'rrze-settings') . '</strong>';
             } else {
-                $output .= __('Scheduled');
+                $output .= __('Scheduled', 'rrze-settings');
             }
         } else {
-            $output .= __('Last Modified');
+            $output .= __('Last Modified', 'rrze-settings');
         }
         $output .= '<br>';
         if ('excerpt' === $mode) {
@@ -164,7 +165,7 @@ class Post
         } else {
             if (in_array($post->post_status, ['publish', 'future'])) {
                 $output .= '<abbr title="' . $postTime . '">' . apply_filters('post_date_column_time', $postHumanTime, $post, 'date', $mode) . '</abbr>';
-                $output .= '<br>' . __('Last Modified') . '<br>';
+                $output .= '<br>' . __('Last Modified', 'rrze-settings') . '<br>';
             }
 
             $output .=  $this->lastModified($post);
@@ -181,16 +182,17 @@ class Post
      */
     protected function lastModified($post)
     {
-        $postTime = date(__('Y/m/d g:i:s a'), get_post_modified_time('U', true, $post));
+        $postTime = date(__('Y/m/d g:i:s a', 'rrze-settings'), get_post_modified_time('U', true, $post));
         $postModifiedTime = $post->post_modified;
         $time = get_post_modified_time('G', true, $post);
 
         $timeDiff = time() - $time;
 
         if ($timeDiff > 0 && $timeDiff < DAY_IN_SECONDS) {
-            $postHumanTime = sprintf(__('%s ago'), human_time_diff($time));
+            /* translators: %s: Human-readable time difference. */
+            $postHumanTime = sprintf(__('%s ago', 'rrze-settings'), human_time_diff($time));
         } else {
-            $postHumanTime = mysql2date(__('Y/m/d'), $postModifiedTime);
+            $postHumanTime = mysql2date(__('Y/m/d', 'rrze-settings'), $postModifiedTime);
         }
 
         return '<abbr title="' . $postTime . '">' . $postHumanTime . '</abbr>';

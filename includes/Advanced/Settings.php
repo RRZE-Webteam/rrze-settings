@@ -66,9 +66,6 @@ class Settings extends MainSettings
         $input['block_editor_auto_theme_classes'] = isset($input['block_editor_auto_theme_classes']) ? 1 : 0;
         // FIELDS FOR IFRAME CLASS INJECTION END
 
-        $input['disable_ai_functionality'] = isset($input['disable_ai_functionality']) ? 1 : 0;
-        $input['hide_ai_connector_page'] = isset($input['hide_ai_connector_page']) ? 1 : 0;
-        $input['disable_font_library_admin'] = isset($input['disable_font_library_admin']) ? 1 : 0;
         $input['sentry_mode'] = isset($input['sentry_mode']) ? 1 : 0;
         $input['sentry_mode_monitor_deletions'] = isset($input['sentry_mode_monitor_deletions']) ? 1 : 0;
 
@@ -130,30 +127,6 @@ class Settings extends MainSettings
         );
 
         add_settings_field(
-            'disable_ai_functionality',
-            __('Disable AI Functionality', 'rrze-settings'),
-            [$this, 'disableAIFunctionalityField'],
-            $this->menuPage,
-            $this->sectionName
-        );
-
-        add_settings_field(
-            'hide_ai_connector_page',
-            __('Hide AI Connector Page for Users', 'rrze-settings'),
-            [$this, 'hideAIConnectorPageField'],
-            $this->menuPage,
-            $this->sectionName
-        );
-
-        add_settings_field(
-            'disable_font_library_admin',
-            __('Disable Font Library in Admin Dashboard', 'rrze-settings'),
-            [$this, 'disableFontLibraryAdminField'],
-            $this->menuPage,
-            $this->sectionName
-        );
-
-        add_settings_field(
             'sentry_mode',
             __('Sentry Mode', 'rrze-settings'),
             [$this, 'sentryModeField'],
@@ -187,9 +160,14 @@ class Settings extends MainSettings
      */
     public function frontendStyleField(): void
     {
-        $css = esc_textarea($this->siteOptions->advanced->frontend_style);
-        echo '<textarea rows="5" cols="55" id="rrze-settings-advanced-frontend-style" class="regular-text" name="', sprintf('%s[frontend_style]', $this->optionName), '">', $css, '</textarea>';
-        echo '<p class="description">' . __('Enter the CSS code which will be added to the frontend of all websites.', 'rrze-settings') . '</p>';
+        $this->renderTextarea(
+            'rrze-settings-advanced-frontend-style',
+            sprintf('%s[frontend_style]', $this->optionName),
+            $this->siteOptions->advanced->frontend_style,
+            5,
+            55
+        );
+        $this->renderDescription(__('Enter the CSS code which will be added to the frontend of all websites.', 'rrze-settings'));
     }
 
     /**
@@ -199,9 +177,14 @@ class Settings extends MainSettings
      */
     public function backendStyleField(): void
     {
-        $css = esc_textarea($this->siteOptions->advanced->backend_style);
-        echo '<textarea rows="5" cols="55" id="rrze-settings-advanced-backend-style" class="regular-text" name="', sprintf('%s[backend_style]', $this->optionName), '">', $css, '</textarea>';
-        echo '<p class="description">' . __('Enter the CSS code which will be added to the backend of all websites.', 'rrze-settings') . '</p>';
+        $this->renderTextarea(
+            'rrze-settings-advanced-backend-style',
+            sprintf('%s[backend_style]', $this->optionName),
+            $this->siteOptions->advanced->backend_style,
+            5,
+            55
+        );
+        $this->renderDescription(__('Enter the CSS code which will be added to the backend of all websites.', 'rrze-settings'));
     }
 
     /**
@@ -212,10 +195,14 @@ class Settings extends MainSettings
      */
     public function BEIframeBodyClassField(): void
     {
-        $css = esc_textarea($this->siteOptions->advanced->block_editor_iframe_body_class);
-        echo '<textarea rows="5" cols="55" id="rrze-settings-advanced-blockeditor-iframe-body-class" class="regular-text" name="', sprintf('%s[block_editor_iframe_body_class]', $this->optionName), '">', $css,
-        '</textarea>';
-        echo '<p class="description">' . __('Enter a comma-separated list of CSS classes which will be injected into the body tag within the iFrame of the Block Editor.', 'rrze-settings') . '</p>';
+        $this->renderTextarea(
+            'rrze-settings-advanced-blockeditor-iframe-body-class',
+            sprintf('%s[block_editor_iframe_body_class]', $this->optionName),
+            $this->siteOptions->advanced->block_editor_iframe_body_class,
+            5,
+            55
+        );
+        $this->renderDescription(__('Enter a comma-separated list of CSS classes which will be injected into the body tag within the iFrame of the Block Editor.', 'rrze-settings'));
     }
 
     /**
@@ -225,9 +212,14 @@ class Settings extends MainSettings
      */
     public function themeExceptionsField(): void
     {
-        $value = esc_textarea($this->siteOptions->advanced->block_editor_theme_exceptions);
-        echo '<textarea rows="5" cols="55" id="rrze-settings-advanced-block-editor-theme-exceptions" class="regular-text" name="', sprintf('%s[block_editor_theme_exceptions]', $this->optionName), '">', $value, '</textarea>';
-        echo '<p class="description">' . __('Enter a comma-separated list of theme slugs (e.g., twentytwentyone, astra) where the Block Editor Body Class Injection should not be active.', 'rrze-settings') . '</p>';
+        $this->renderTextarea(
+            'rrze-settings-advanced-block-editor-theme-exceptions',
+            sprintf('%s[block_editor_theme_exceptions]', $this->optionName),
+            $this->siteOptions->advanced->block_editor_theme_exceptions,
+            5,
+            55
+        );
+        $this->renderDescription(__('Enter a comma-separated list of theme slugs (e.g., twentytwentyone, astra) where the Block Editor Body Class Injection should not be active.', 'rrze-settings'));
     }
 
     /**
@@ -237,45 +229,12 @@ class Settings extends MainSettings
      */
     public function autoThemeClassesField(): void
     {
-        $checked = checked($this->siteOptions->advanced->block_editor_auto_theme_classes, 1, false);
-        echo '<input type="checkbox" id="rrze-settings-advanced-block-editor-auto-theme-classes" name="', sprintf('%s[block_editor_auto_theme_classes]', $this->optionName), '" value="1" ', $checked, '>';
-        echo '<p class="description">' . __('Automatically generate theme classes and inject them into the iFrame body tag.', 'rrze-settings') . '</p>';
-    }
-
-    /**
-     * Display the disable_ai_functionality field
-     *
-     * @return void
-     */
-    public function disableAIFunctionalityField(): void
-    {
-        $checked = checked($this->siteOptions->advanced->disable_ai_functionality, 1, false);
-        echo '<input type="checkbox" id="rrze-settings-advanced-disable-ai-functionality" name="', sprintf('%s[disable_ai_functionality]', $this->optionName), '" value="1" ', $checked, '>';
-        echo '<p class="description">' . __('Disable AI functionality in WordPress.', 'rrze-settings') . '</p>';
-    }
-
-    /**
-     * Display the hide_ai_connector_page field
-     *
-     * @return void
-     */
-    public function hideAIConnectorPageField(): void
-    {
-        $checked = checked($this->siteOptions->advanced->hide_ai_connector_page, 1, false);
-        echo '<input type="checkbox" id="rrze-settings-advanced-hide-ai-connector-page" name="', sprintf('%s[hide_ai_connector_page]', $this->optionName), '" value="1" ', $checked, '>';
-        echo '<p class="description">' . __('Hide the AI Connectors settings page for users and block direct access.', 'rrze-settings') . '</p>';
-    }
-
-    /**
-     * Display the disable_font_library_admin field
-     *
-     * @return void
-     */
-    public function disableFontLibraryAdminField(): void
-    {
-        $checked = checked($this->siteOptions->advanced->disable_font_library_admin, 1, false);
-        echo '<input type="checkbox" id="rrze-settings-advanced-disable-font-library-admin" name="', sprintf('%s[disable_font_library_admin]', $this->optionName), '" value="1" ', $checked, '>';
-        echo '<p class="description">' . __('Hide the Font Library page in the admin dashboard and block direct access.', 'rrze-settings') . '</p>';
+        $this->renderCheckbox(
+            'rrze-settings-advanced-block-editor-auto-theme-classes',
+            sprintf('%s[block_editor_auto_theme_classes]', $this->optionName),
+            $this->siteOptions->advanced->block_editor_auto_theme_classes,
+            __('Automatically generate theme classes and inject them into the iFrame body tag.', 'rrze-settings')
+        );
     }
 
     /**
@@ -285,9 +244,12 @@ class Settings extends MainSettings
      */
     public function sentryModeField(): void
     {
-        $checked = checked($this->siteOptions->advanced->sentry_mode, 1, false);
-        echo '<input type="checkbox" id="rrze-settings-advanced-sentry-mode" name="', sprintf('%s[sentry_mode]', $this->optionName), '" value="1" ', $checked, '>';
-        echo '<p class="description">' . __('Write a sentry marker file in the WordPress base directory whenever WordPress completes a core, plugin, theme, or translation install/update.', 'rrze-settings') . '</p>';
+        $this->renderCheckbox(
+            'rrze-settings-advanced-sentry-mode',
+            sprintf('%s[sentry_mode]', $this->optionName),
+            $this->siteOptions->advanced->sentry_mode,
+            __('Write a sentry marker file in the WordPress base directory whenever WordPress completes a core, plugin, theme, or translation install/update.', 'rrze-settings')
+        );
     }
 
     /**
@@ -297,8 +259,11 @@ class Settings extends MainSettings
      */
     public function sentryModeMonitorDeletionsField(): void
     {
-        $checked = checked($this->siteOptions->advanced->sentry_mode_monitor_deletions, 1, false);
-        echo '<input type="checkbox" id="rrze-settings-advanced-sentry-mode-monitor-deletions" name="', sprintf('%s[sentry_mode_monitor_deletions]', $this->optionName), '" value="1" ', $checked, '>';
-        echo '<p class="description">' . __('When Sentry Mode is active, also update the sentry marker file after successful plugin or theme deletions.', 'rrze-settings') . '</p>';
+        $this->renderCheckbox(
+            'rrze-settings-advanced-sentry-mode-monitor-deletions',
+            sprintf('%s[sentry_mode_monitor_deletions]', $this->optionName),
+            $this->siteOptions->advanced->sentry_mode_monitor_deletions,
+            __('When Sentry Mode is active, also update the sentry marker file after successful plugin or theme deletions.', 'rrze-settings')
+        );
     }
 }

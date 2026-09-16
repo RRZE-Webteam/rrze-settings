@@ -132,7 +132,7 @@ class Replace
         }
 
         echo '<div class="misc-pub-section misc-pub-rrze-media">';
-        echo '<a href="' . esc_url($this->mediaReplaceUrl($post->ID)) . '" class="button-secondary button-large" title="' . esc_attr(__('Replace this file.', 'rrze-settings')) . '">' . __('Replace File', 'rrze-settings') . '</a>';
+        echo '<a href="' . esc_url($this->mediaReplaceUrl($post->ID)) . '" class="button-secondary button-large" title="' . esc_attr__('Replace this file.', 'rrze-settings') . '">' . esc_html__('Replace File', 'rrze-settings') . '</a>';
         echo '</div>';
     }
 
@@ -144,10 +144,7 @@ class Replace
      */
     public function uploadFile($attachmentId)
     {
-        global $wpdb;
-
-        $tableName = $wpdb->prefix . 'posts';
-        $currentAttachment = $wpdb->get_row($wpdb->prepare("SELECT guid, post_mime_type FROM $tableName WHERE ID = %d", $attachmentId));
+        $currentAttachment = get_post($attachmentId);
 
         if (empty($currentAttachment)) {
             return new WP_Error('current-file-not-exist', __('Current file does not exist.', 'rrze-settings'));
@@ -284,26 +281,26 @@ class Replace
 
         if (!in_array($action, ['media-replace', 'media-replace-upload']) || empty($attachmentId)) {
             echo '<div class="notice notice-info">';
-            echo '<p>' . __('This is a placeholder for the media replace page.', 'rrze-settings') . '</p>';
+            echo '<p>' . esc_html__('This is a placeholder for the media replace page.', 'rrze-settings') . '</p>';
             echo '</div>';
             return;
         }
 
         if (!get_attached_file($attachmentId)) {
-            wp_redirect(admin_url('upload.php'));
+            wp_safe_redirect(admin_url('upload.php'));
             exit;
         }
 
         if ($this->isTrash) {
-            wp_die(__('You do not have permission to upload files.', 'rrze-settings'));
+            wp_die(esc_html__('You do not have permission to upload files.', 'rrze-settings'));
         }
 
         if (!current_user_can('upload_files')) {
-            wp_die(__('You do not have permission to upload files.', 'rrze-settings'));
+            wp_die(esc_html__('You do not have permission to upload files.', 'rrze-settings'));
         }
 
         if (!current_user_can('edit_post', $attachmentId)) {
-            wp_die(__('You do not have permission to upload files.', 'rrze-settings'));
+            wp_die(esc_html__('You do not have permission to upload files.', 'rrze-settings'));
         }
 
         wp_enqueue_style('rrze-media-replace');
@@ -327,7 +324,7 @@ class Replace
                 check_admin_referer('rrze-media-replace');
                 $return = $this->uploadFile($attachmentId);
                 if (is_wp_error($return)) {
-                    wp_die($return->get_error_message());
+                    wp_die(esc_html($return->get_error_message()));
                 }
                 $redirectUrl = "post.php?post={$attachmentId}&action=edit&message=1";
                 break;
@@ -336,7 +333,7 @@ class Replace
                 $redirectUrl = 'upload.php';
         }
 
-        wp_redirect(admin_url($redirectUrl));
+        wp_safe_redirect(admin_url($redirectUrl));
         exit;
     }
 
@@ -348,10 +345,11 @@ class Replace
      */
     protected function mediaReplace($attachmentId)
     {
-        global $wpdb;
+        $currentAttachment = get_post($attachmentId);
 
-        $tableName = $wpdb->prefix . 'posts';
-        $currentAttachment = $wpdb->get_row($wpdb->prepare("SELECT guid, post_mime_type FROM $tableName WHERE ID = %d", $attachmentId));
+        if (!$currentAttachment instanceof \WP_Post) {
+            wp_die(esc_html__('Current file does not exist.', 'rrze-settings'));
+        }
 
         $currentGuid = $currentAttachment->guid;
         $currentFiletype = $currentAttachment->post_mime_type;

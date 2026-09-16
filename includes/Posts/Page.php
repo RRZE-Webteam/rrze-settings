@@ -82,6 +82,7 @@ class Page
                 ];
             }
 
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_dropdown_pages() escapes its generated markup.
             wp_dropdown_pages($dropdownOptions);
         }
     }

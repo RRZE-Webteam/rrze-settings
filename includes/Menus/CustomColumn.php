@@ -107,7 +107,7 @@ class CustomColumn
     public function navMenuPostsCustomColumn($column, $postId)
     {
         if ($column == 'menus') {
-            echo $this->getMenusInObject($postId);
+            echo wp_kses_post($this->getMenusInObject($postId));
         }
     }
 

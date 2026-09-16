@@ -1,165 +1,50 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" {{=dir_attr}}>
-
+<!doctype html>
+<html {{=dir_attr}}>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex,follow">
-    <title>
-        {{=title}}
-    </title>
-    <style type="text/css">
-        html {
-            background: #f1f1f1;
-        }
-
-        body {
-            background: #fff;
-            color: #444;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-            margin: 2em auto;
-            padding: 1em 2em;
-            max-width: 700px;
-            -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.13);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.13);
-        }
-
-        h1 {
-            border-bottom: 1px solid #dadada;
-            clear: both;
-            color: #666;
-            font-size: 24px;
-            margin: 30px 0 0 0;
-            padding: 0;
-            padding-bottom: 7px;
-        }
-
-        h2, h3 {
-            display: block;
-            font-size: 1.17em;
-            margin-block-start: 1em;
-            margin-block-end: 1em;
-            margin-inline-start: 0px;
-            margin-inline-end: 0px;
-            font-weight: bold;
-        }
-
-        #error-page {
-            margin-top: 50px;
-        }
-
-        #error-page p {
-            margin: 25px 0 20px;
-        }
-
-        #error-page code {
-            font-family: Consolas, Monaco, monospace;
-        }
-
-        ul li {
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-
-        a {
-            color: #0073aa;
-        }
-
-        a:hover,
-        a:active {
-            color: #00a0d2;
-        }
-
-        a:focus {
-            color: #124964;
-            -webkit-box-shadow:
-                0 0 0 1px #5b9dd9,
-                0 0 2px 1px rgba(30, 140, 190, 0.8);
-            box-shadow:
-                0 0 0 1px #5b9dd9,
-                0 0 2px 1px rgba(30, 140, 190, 0.8);
-            outline: none;
-        }
-
-        .button {
-            background: #f7f7f7;
-            border: 1px solid #ccc;
-            color: #555;
-            display: inline-block;
-            text-decoration: none;
-            font-size: 13px;
-            line-height: 26px;
-            height: 28px;
-            margin: 0;
-            padding: 0 10px 1px;
-            cursor: pointer;
-            -webkit-border-radius: 3px;
-            -webkit-appearance: none;
-            border-radius: 3px;
-            white-space: nowrap;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-
-            -webkit-box-shadow: 0 1px 0 #ccc;
-            box-shadow: 0 1px 0 #ccc;
-            vertical-align: top;
-        }
-
-        .button.button-large {
-            height: 30px;
-            line-height: 28px;
-            padding: 0 12px 2px;
-        }
-
-        .button:hover,
-        .button:focus {
-            background: #fafafa;
-            border-color: #999;
-            color: #23282d;
-        }
-
-        .button:focus {
-            border-color: #5b9dd9;
-            -webkit-box-shadow: 0 0 3px rgba(0, 115, 170, 0.8);
-            box-shadow: 0 0 3px rgba(0, 115, 170, 0.8);
-            outline: none;
-        }
-
-        .button:active {
-            background: #eee;
-            border-color: #999;
-            -webkit-box-shadow: inset 0 2px 5px -3px rgba(0, 0, 0, 0.5);
-            box-shadow: inset 0 2px 5px -3px rgba(0, 0, 0, 0.5);
-            -webkit-transform: translateY(1px);
-            -ms-transform: translateY(1px);
-            transform: translateY(1px);
-        }
-
-        .content {
-            font-size: 14px;
-            line-height: 1.5;
-            margin: 25px 0 20px;
-        }
-
-        {{is_rtl}}
-        body {
-            font-family: Tahoma, Arial;
-        }
-		{{/is_rtl}}
+    <title>{{=page_title}}: {{=title}}</title>
+    <style>
+        :root { --fau-blue: #04316a; --fau-blue-dark: #001f46; --fau-cyan: #18b5d9; --text: #172033; --line: #d7dde8; --surface: #fff; --surface-soft: #f5f7fb; --shadow: 0 22px 70px rgba(0, 31, 70, .18); font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        * { box-sizing: border-box; }
+        body { min-height: 100vh; margin: 0; color: var(--text); background: linear-gradient(120deg, rgba(4, 49, 106, .08), rgba(24, 181, 217, .04) 40%, rgba(122, 181, 29, .06)), var(--surface-soft); }
+        .page { min-height: 100vh; display: flex; flex-direction: column; }
+        .site-header { background: var(--surface); border-bottom: 1px solid var(--line); }
+        .header-inner, .content-inner, .footer-inner { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+        .header-inner { min-height: 76px; display: flex; align-items: center; gap: 24px; }
+        .site-title { color: var(--fau-blue-dark); font-size: 1.35rem; font-weight: 700; overflow-wrap: anywhere; }
+        .header-label { min-height: 44px; padding-left: 24px; display: flex; align-items: center; border-left: 1px solid var(--line); color: var(--fau-blue-dark); font-size: 1.35rem; font-weight: 700; }
+        main { flex: 1; }
+        .content-inner { min-height: calc(100vh - 228px); padding: clamp(42px, 8vw, 86px) 0; display: grid; place-items: center; }
+        .message-panel { width: min(100%, 620px); overflow: hidden; background: var(--surface); border: 1px solid rgba(215, 221, 232, .9); border-radius: 8px; box-shadow: var(--shadow); }
+        .panel-head { padding: 28px 32px 24px; color: #fff; background: linear-gradient(90deg, var(--fau-blue-dark), var(--fau-blue) 72%, #0b6b97); }
+        .panel-head h1 { margin: 0; font-size: 1.55rem; line-height: 1.25; font-weight: 700; }
+        .message-content { padding: 30px 32px 32px; }
+        .message-text { display: inline-block; width: 100%; margin: 0 0 16px;padding: 6px 10px;border-left: 5px solid var(--fau-cyan); background: #eaf6fb;color: var(--fau-blue-dark);font-weight: 800;letter-spacing: 0;}
+        .message-content p, .message-content ul { margin: 0 0 16px; color: #2f394b; font-size: 1.02rem; line-height: 1.65; }
+        .message-content p:last-child, .message-content ul:last-child { margin-bottom: 0; }
+        .message-content a { color: var(--fau-blue); }
+        .site-footer { background: var(--fau-blue-dark); color: #fff; }
+        .footer-inner { min-height: 152px; display: flex; align-items: center; gap: 26px; }
+        .footer-site-name { font-size: 1.1rem; font-weight: 700; overflow-wrap: anywhere; }
+        .footer-links { display: flex; align-items: center; gap: 24px; margin-left: auto; }
+        .footer-links a { color: #fff; text-decoration: none; }
+        .footer-links a:hover, .footer-links a:focus { text-decoration: underline; }
+        .footer-links a:focus-visible { outline: 3px solid rgba(24, 181, 217, .72); outline-offset: 4px; }
+        @media (max-width: 680px) { .header-inner { min-height: auto; padding: 16px 0; gap: 16px; } .footer-inner { min-height: auto; padding: 22px 0; flex-direction: column; align-items: flex-start; gap: 16px; } .footer-links { margin-left: 0; flex-wrap: wrap; gap: 14px 20px; } .content-inner { width: min(100% - 28px, 1120px); min-height: auto; padding: 30px 0 46px; } .panel-head, .message-content { padding-left: 22px; padding-right: 22px; } }
+        @media (max-width: 479px) { .header-inner { width: calc(100% - 24px); gap: 12px; } .header-label { min-height: auto; padding-left: 12px; font-size: 1.15rem; } .site-title { font-size: 1.15rem; } .content-inner { width: 100%; margin: 0; padding: 0; } .message-panel { border-radius: 0; } }
     </style>
 </head>
-
-<body id="error-page">
-    <div class="container">
-        {{page_title}}
-        <h1>{{=page_title}}</h1>
-        {{/page_title}}
-        <div class="content">
-            {{=message}}
-        </div>
-        {{=back_link}}
+<body>
+    <div class="page">
+        <header class="site-header" aria-label="{{=labels.site_header}}"><div class="header-inner"><div class="site-title">{{=page_title}}</div><div class="header-label">{{=labels.error}}</div></div></header>
+        <main><div class="content-inner"><section class="message-panel" aria-labelledby="panel-title"><div class="panel-head"><h1 id="panel-title">{{title}}{{=title}}{{:title}}{{=labels.error_heading}}{{/title}}</h1></div><div class="message-content">
+            <div class="message-text">{{=message}}</div>
+            <p>{{=labels.webmaster_contact}} <a href="mailto:{{%admin_email}}">{{=admin_email}}</a></p>
+            {{back_link}}<p>{{=back_link}}</p>{{/back_link}}
+        </div></section></div></main>
+        <footer class="site-footer" aria-label="{{=labels.site_footer}}"><div class="footer-inner"><div class="footer-site-name">{{=page_title}}</div><nav class="footer-links" aria-label="{{=labels.legal_notices}}"><a href="/impressum">{{=labels.imprint}}</a><a href="/datenschutz">{{=labels.privacy}}</a><a href="/barrierefreiheit">{{=labels.accessibility}}</a></nav></div></footer>
     </div>
 </body>
-
 </html>

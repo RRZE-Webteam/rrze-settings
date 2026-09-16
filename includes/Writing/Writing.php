@@ -333,7 +333,7 @@ class Writing extends Main
         }
         restore_current_blog();
 
-        echo $isBlockEditorEnabled ? __('Block', 'rrze-settings') : __('Classic', 'rrze-settings');
+        echo esc_html($isBlockEditorEnabled ? __('Block', 'rrze-settings') : __('Classic', 'rrze-settings'));
     }
 
     /**
@@ -363,7 +363,7 @@ class Writing extends Main
                     <?php esc_html_e('Classic', 'rrze-settings'); ?>
                 </option>
             </select>
-            <?php submit_button(__('Filter'), 'secondary', 'filter_action', false); ?>
+            <?php submit_button(__('Filter', 'rrze-settings'), 'secondary', 'filter_action', false); ?>
         </div>
 <?php
     }

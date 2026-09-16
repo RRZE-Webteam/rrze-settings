@@ -3,7 +3,7 @@
 /*
 Plugin Name:        RRZE Settings
 Plugin URI:         https://github.com/RRZE-Webteam/rrze-settings
-Version:            2.4.0
+Version:            2.4.3
 Description:        General settings and enhancements for a WordPress multisite installation.
 Author:             RRZE Webteam
 Author URI:         https://www.wp.rrze.fau.de
@@ -192,10 +192,10 @@ function loaded()
                     printf(
                         '<div class="notice notice-error"><p>' .
                             /* translators: 1: The plugin name, 2: The error string. */
-                            esc_html__('Plugins: %1$s: %2$s', 'rrze-idp-settings') .
+                            esc_html__('Plugins: %1$s: %2$s', 'rrze-settings') .
                             '</p></div>',
-                        $pluginName,
-                        $error
+                        esc_html($pluginName),
+                        esc_html($error)
                     );
                 });
             }

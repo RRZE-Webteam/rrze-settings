@@ -209,12 +209,7 @@ class Settings extends MainSettings
      */
     public function enabledField()
     {
-?>
-        <label>
-            <input type="checkbox" id="rrze-settings-enabled" name="<?php printf('%s[enabled]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->csp->enabled, 1); ?>>
-            <?php _e('Enable Content Security Police', 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-enabled', sprintf('%s[enabled]', $this->optionName), $this->siteOptions->csp->enabled, __('Enable Content Security Police', 'rrze-settings'));
     }
 
     /**
@@ -224,10 +219,8 @@ class Settings extends MainSettings
      */
     public function defaultSrcField()
     {
-    ?>
-        <textarea rows="5" cols="55" id="rrze-settings-default-src" class="regular-text" name="<?php printf('%s[default_src]', $this->optionName); ?>" aria-describedby="rrze-settings-default-src"><?php echo $this->getDirectiveOption($this->siteOptions->csp->default_src, 'default_src'); ?></textarea>
-        <p class="description"><?php _e('The default-src is the default policy for loading content such as JavaScript, Images, CSS, Fonts, AJAX requests, Frames, HTML5 Media.', 'rrze-settings'); ?></p>
-    <?php
+        $this->renderTextarea('rrze-settings-default-src', sprintf('%s[default_src]', $this->optionName), $this->getDirectiveOption($this->siteOptions->csp->default_src, 'default_src'), 5, 55);
+        $this->renderDescription(__('The default-src is the default policy for loading content such as JavaScript, Images, CSS, Fonts, AJAX requests, Frames, HTML5 Media.', 'rrze-settings'));
     }
 
     /**
@@ -237,10 +230,8 @@ class Settings extends MainSettings
      */
     public function scriptSrcField()
     {
-    ?>
-        <textarea rows="5" cols="55" id="rrze-settings-script-src" class="regular-text" name="<?php printf('%s[script_src]', $this->optionName); ?>" aria-describedby="rrze-settings-script-src"><?php echo $this->getDirectiveOption($this->siteOptions->csp->script_src, 'script_src'); ?></textarea>
-        <p class="description"><?php _e('Defines valid sources of JavaScript.', 'rrze-settings'); ?></p>
-    <?php
+        $this->renderTextarea('rrze-settings-script-src', sprintf('%s[script_src]', $this->optionName), $this->getDirectiveOption($this->siteOptions->csp->script_src, 'script_src'), 5, 55);
+        $this->renderDescription(__('Defines valid sources of JavaScript.', 'rrze-settings'));
     }
 
     /**
@@ -250,10 +241,8 @@ class Settings extends MainSettings
      */
     public function styleSrcField()
     {
-    ?>
-        <textarea rows="5" cols="55" id="rrze-settings-style-src" class="regular-text" name="<?php printf('%s[style_src]', $this->optionName); ?>" aria-describedby="rrze-settings-style-src"><?php echo $this->getDirectiveOption($this->siteOptions->csp->style_src, 'style_src'); ?></textarea>
-        <p class="description"><?php _e('Defines valid sources of stylesheets.', 'rrze-settings'); ?></p>
-    <?php
+        $this->renderTextarea('rrze-settings-style-src', sprintf('%s[style_src]', $this->optionName), $this->getDirectiveOption($this->siteOptions->csp->style_src, 'style_src'), 5, 55);
+        $this->renderDescription(__('Defines valid sources of stylesheets.', 'rrze-settings'));
     }
 
     /**
@@ -263,10 +252,8 @@ class Settings extends MainSettings
      */
     public function imgSrcField()
     {
-    ?>
-        <textarea rows="5" cols="55" id="rrze-settings-img-src" class="regular-text" name="<?php printf('%s[img_src]', $this->optionName); ?>" aria-describedby="rrze-settings-img-src"><?php echo $this->getDirectiveOption($this->siteOptions->csp->img_src, 'img_src'); ?></textarea>
-        <p class="description"><?php _e('Defines valid sources of images.', 'rrze-settings'); ?></p>
-    <?php
+        $this->renderTextarea('rrze-settings-img-src', sprintf('%s[img_src]', $this->optionName), $this->getDirectiveOption($this->siteOptions->csp->img_src, 'img_src'), 5, 55);
+        $this->renderDescription(__('Defines valid sources of images.', 'rrze-settings'));
     }
 
     /**
@@ -276,10 +263,8 @@ class Settings extends MainSettings
      */
     public function fontSrcField()
     {
-    ?>
-        <textarea rows="5" cols="55" id="rrze-settings-font-src" class="regular-text" name="<?php printf('%s[font_src]', $this->optionName); ?>" aria-describedby="rrze-settings-font-src"><?php echo $this->getDirectiveOption($this->siteOptions->csp->font_src, 'font_src'); ?></textarea>
-        <p class="description"><?php _e('Defines valid sources of fonts.', 'rrze-settings'); ?></p>
-    <?php
+        $this->renderTextarea('rrze-settings-font-src', sprintf('%s[font_src]', $this->optionName), $this->getDirectiveOption($this->siteOptions->csp->font_src, 'font_src'), 5, 55);
+        $this->renderDescription(__('Defines valid sources of fonts.', 'rrze-settings'));
     }
 
     /**
@@ -289,10 +274,8 @@ class Settings extends MainSettings
      */
     public function connectSrcField()
     {
-    ?>
-        <textarea rows="5" cols="55" id="rrze-settings-connect-src" class="regular-text" name="<?php printf('%s[connect_src]', $this->optionName); ?>" aria-describedby="rrze-settings-connect-src"><?php echo $this->getDirectiveOption($this->siteOptions->csp->connect_src, 'connect_src'); ?></textarea>
-        <p class="description"><?php _e('Applies to XMLHttpRequest (AJAX), WebSocket or EventSource. If not allowed the browser emulates a 400 HTTP status code.', 'rrze-settings'); ?></p>
-    <?php
+        $this->renderTextarea('rrze-settings-connect-src', sprintf('%s[connect_src]', $this->optionName), $this->getDirectiveOption($this->siteOptions->csp->connect_src, 'connect_src'), 5, 55);
+        $this->renderDescription(__('Applies to XMLHttpRequest (AJAX), WebSocket or EventSource. If not allowed the browser emulates a 400 HTTP status code.', 'rrze-settings'));
     }
 
     /**
@@ -302,10 +285,8 @@ class Settings extends MainSettings
      */
     public function frameSrcField()
     {
-    ?>
-        <textarea rows="5" cols="55" id="rrze-settings-frame-src" class="regular-text" name="<?php printf('%s[frame_src]', $this->optionName); ?>" aria-describedby="rrze-settings-frame-src"><?php echo $this->getDirectiveOption($this->siteOptions->csp->frame_src, 'frame_src'); ?></textarea>
-        <p class="description"><?php echo esc_html__('Defines valid sources for embedding the resource using <frame> or <iframe>.', 'rrze-settings'); ?></p>
-<?php
+        $this->renderTextarea('rrze-settings-frame-src', sprintf('%s[frame_src]', $this->optionName), $this->getDirectiveOption($this->siteOptions->csp->frame_src, 'frame_src'), 5, 55);
+        $this->renderDescription(__('Defines valid sources for embedding the resource using <frame> or <iframe>.', 'rrze-settings'));
     }
 
     /**

@@ -5,6 +5,7 @@ namespace RRZE\Settings\Plugins;
 defined('ABSPATH') || exit;
 
 use RRZE\Settings\Helper;
+use RRZE\Settings\Crawlers\Defaults as CrawlerDefaults;
 use RRZE\Settings\Settings as MainSettings;
 use RRZE\Settings\Library\Network\IPUtils;
 use RRZE\Settings\Library\Encryption\Encryption;
@@ -169,6 +170,10 @@ class Settings extends MainSettings
         $input['rrze_directions_openrouteservice_api_key'] = $this->sanitizeOpenRouteServiceApiKey($input['rrze_directions_openrouteservice_api_key']);
 
         $options = $this->parseOptionsValidate($input, 'plugins');
+        $siteimproveCrawler = CrawlerDefaults::getCrawler($options, 'siteimprove');
+        $siteimproveCrawler['ip_addresses'] = is_array($input['siteimprove_crawler_ip_addresses']) ? $input['siteimprove_crawler_ip_addresses'] : [];
+        $options->crawlers->entries['siteimprove'] = CrawlerDefaults::normalizeCrawler('siteimprove', $siteimproveCrawler);
+        $options->plugins->siteimprove_crawler_ip_addresses = CrawlerDefaults::getIpAddresses($options, 'siteimprove');
 
         if (is_multisite() && $this->pluginExists(RRZESearch::PLUGIN)) {
             RRZESearch::updateNetworkLimits([
@@ -593,18 +598,21 @@ class Settings extends MainSettings
     public function rrzeSearchEngineKeysField()
     {
         $option = $this->siteOptions->plugins->rrze_search_engine_keys;
-        echo '<textarea id="rrze-settings-rrze-search-engine-keys" cols="50" rows="8" name="', sprintf('%s[rrze_search_engine_keys]', $this->optionName), '">',
-        esc_textarea($this->getTextarea($option)),
-        '</textarea>';
-
-        echo '<p class="description">';
-        echo esc_html__('Enter one search engine per block (3 or 4 lines):', 'rrze-settings'), '<br>';
-        echo '<code>', esc_html__("Line 1: Name", 'rrze-settings'), '</code><br>';
-        echo '<code>', esc_html__("Line 2: CX", 'rrze-settings'), '</code><br>';
-        echo '<code>', esc_html__("Line 3: API", 'rrze-settings'), '</code><br>';
-        echo esc_html__('Optional line 4: Description', 'rrze-settings'), '<br>';
-        echo esc_html__('Add multiple engines by adding additional 3/4-line blocks (no empty lines required).', 'rrze-settings');
-        echo '</p>';
+        $this->renderTextarea(
+            'rrze-settings-rrze-search-engine-keys',
+            sprintf('%s[rrze_search_engine_keys]', $this->optionName),
+            $this->getTextarea($option),
+            8
+        );
+        printf(
+            '<p class="description">%1$s<br><code>%2$s</code><br><code>%3$s</code><br><code>%4$s</code><br>%5$s<br>%6$s</p>',
+            esc_html__('Enter one search engine per block (3 or 4 lines):', 'rrze-settings'),
+            esc_html__('Line 1: Name', 'rrze-settings'),
+            esc_html__('Line 2: CX', 'rrze-settings'),
+            esc_html__('Line 3: API', 'rrze-settings'),
+            esc_html__('Optional line 4: Description', 'rrze-settings'),
+            esc_html__('Add multiple engines by adding additional 3/4-line blocks (no empty lines required).', 'rrze-settings')
+        );
     }
 
     /**
@@ -680,7 +688,7 @@ class Settings extends MainSettings
             esc_attr($value)
         );
 
-        echo '<p class="description">', esc_html($description), '</p>';
+        $this->renderDescription($description);
     }
 
     /**
@@ -710,8 +718,8 @@ class Settings extends MainSettings
      */
     public function webtApiUrlField()
     {
-        echo '<input type="text" id="rrze-settings-rrze-webt-api-url" name="', sprintf('%s[rrze_webt_api_url]', $this->optionName), '" value="', $this->siteOptions->plugins->rrze_webt_api_url, '" class="regular-text" placeholder="https://api.example.com/translate">';
-        echo '<p class="description">', __('The WebT API Url used for RRZE Webt.', 'rrze-settings'), '</p>';
+        $this->renderInput('text', 'rrze-settings-rrze-webt-api-url', sprintf('%s[rrze_webt_api_url]', $this->optionName), $this->siteOptions->plugins->rrze_webt_api_url, 'regular-text', ['placeholder' => 'https://api.example.com/translate']);
+        $this->renderDescription(__('The WebT API Url used for RRZE Webt.', 'rrze-settings'));
     }
 
     /**
@@ -719,8 +727,8 @@ class Settings extends MainSettings
      */
     public function webtApplicationNameField()
     {
-        echo '<input type="text" id="rrze-settings-rrze-webt-application-name" name="', sprintf('%s[rrze_webt_application_name]', $this->optionName), '" value="', $this->siteOptions->plugins->rrze_webt_application_name, '" class="regular-text" autocomplete="off">';
-        echo '<p class="description">', __('The WebT application name used for RRZE Webt.', 'rrze-settings'), '</p>';
+        $this->renderInput('text', 'rrze-settings-rrze-webt-application-name', sprintf('%s[rrze_webt_application_name]', $this->optionName), $this->siteOptions->plugins->rrze_webt_application_name, 'regular-text', ['autocomplete' => 'off']);
+        $this->renderDescription(__('The WebT application name used for RRZE Webt.', 'rrze-settings'));
     }
 
     /**
@@ -728,8 +736,8 @@ class Settings extends MainSettings
      */
     public function webtPasswordField()
     {
-        echo '<input type="password" id="rrze-settings-rrze-webt-password" name="', sprintf('%s[rrze_webt_password]', $this->optionName), '" value="', $this->siteOptions->plugins->rrze_webt_password, '" class="regular-text" autocomplete="off">';
-        echo '<p class="description">', __('The WebT password used for RRZE Webt.', 'rrze-settings'), '</p>';
+        $this->renderInput('password', 'rrze-settings-rrze-webt-password', sprintf('%s[rrze_webt_password]', $this->optionName), $this->siteOptions->plugins->rrze_webt_password, 'regular-text', ['autocomplete' => 'off']);
+        $this->renderDescription(__('The WebT password used for RRZE Webt.', 'rrze-settings'));
     }
 
     /**
@@ -738,8 +746,8 @@ class Settings extends MainSettings
     public function webtExceptionsField()
     {
         $option = $this->siteOptions->plugins->rrze_webt_exceptions;
-        echo '<textarea id="rrze-webt-exceptions" cols="50" rows="5" name="', sprintf('%s[rrze_webt_exceptions]', $this->optionName), '">', esc_attr($this->getTextarea($option)), '</textarea>';
-        echo '<p class="description">', __('List of IDS of websites that are exempt to all global settings. Enter one website ID per line.', 'rrze-settings'), '</p>';
+        $this->renderTextarea('rrze-webt-exceptions', sprintf('%s[rrze_webt_exceptions]', $this->optionName), $this->getTextarea($option));
+        $this->renderDescription(__('List of IDS of websites that are exempt to all global settings. Enter one website ID per line.', 'rrze-settings'));
     }
 
     /**
@@ -747,10 +755,7 @@ class Settings extends MainSettings
      */
     public function newsletterGlobalSettingsField()
     {
-        echo '<label>';
-        echo '<input type="checkbox" id="rrze-settings-rrze-newsletter-global-settings" name="', sprintf('%s[rrze_newsletter_global_settings]', $this->optionName), '" value="1"', checked($this->siteOptions->plugins->rrze_newsletter_global_settings, 1), '>';
-        _e('Activate the global settings of the plugin', 'rrze-settings');
-        echo '</label>';
+        $this->renderCheckbox('rrze-settings-rrze-newsletter-global-settings', sprintf('%s[rrze_newsletter_global_settings]', $this->optionName), $this->siteOptions->plugins->rrze_newsletter_global_settings, __('Activate the global settings of the plugin', 'rrze-settings'));
     }
 
     /**
@@ -759,8 +764,8 @@ class Settings extends MainSettings
     public function newsletterSenderAllowedDomainsField()
     {
         $option = $this->siteOptions->plugins->rrze_newsletter_sender_allowed_domains;
-        echo '<textarea id="rrze-settings-rrze-newsletter-sender-allowed-domains" cols="50" rows="5" name="', sprintf('%s[rrze_newsletter_sender_allowed_domains]', $this->optionName), '">', esc_attr($this->getTextarea($option)), '</textarea>';
-        echo '<p class="description">', __('List of allowed domains for envelope sender. Enter one domain per line.', 'rrze-settings'), '</p>';
+        $this->renderTextarea('rrze-settings-rrze-newsletter-sender-allowed-domains', sprintf('%s[rrze_newsletter_sender_allowed_domains]', $this->optionName), $this->getTextarea($option));
+        $this->renderDescription(__('List of allowed domains for envelope sender. Enter one domain per line.', 'rrze-settings'));
     }
 
     /**
@@ -768,8 +773,8 @@ class Settings extends MainSettings
      */
     public function newsletterMailQueueSendLimitField()
     {
-        echo '<input type="number" class="regular-number" id="rrze-newsletter-mail-queue-send-limit" name="', sprintf('%s[rrze_newsletter_mail_queue_send_limit]', $this->optionName), '" value="', $this->siteOptions->plugins->rrze_newsletter_mail_queue_send_limit, '" placeholder="15" min="1" max="60" step="1">';
-        echo '<p class="description">', __('Maximum number of emails that can be sent per minute.', 'rrze-settings'), '</p>';
+        $this->renderInput('number', 'rrze-newsletter-mail-queue-send-limit', sprintf('%s[rrze_newsletter_mail_queue_send_limit]', $this->optionName), $this->siteOptions->plugins->rrze_newsletter_mail_queue_send_limit, 'regular-number', ['placeholder' => 15, 'min' => 1, 'max' => 60, 'step' => 1]);
+        $this->renderDescription(__('Maximum number of emails that can be sent per minute.', 'rrze-settings'));
     }
 
     /**
@@ -777,8 +782,8 @@ class Settings extends MainSettings
      */
     public function newsletterMaxRetriesField()
     {
-        echo '<input type="number" class="regular-number" id="rrze-newsletter-mail-queue-max-retries" name="', sprintf('%s[rrze_newsletter_mail_queue_max_retries]', $this->optionName), '" value="', $this->siteOptions->plugins->rrze_newsletter_mail_queue_max_retries, '" placeholder="1" min="0" max="10" step="1">';
-        echo '<p class="description">', __('Maximum number of retries until an email is sent successfully.', 'rrze-settings'), '</p>';
+        $this->renderInput('number', 'rrze-newsletter-mail-queue-max-retries', sprintf('%s[rrze_newsletter_mail_queue_max_retries]', $this->optionName), $this->siteOptions->plugins->rrze_newsletter_mail_queue_max_retries, 'regular-number', ['placeholder' => 1, 'min' => 0, 'max' => 10, 'step' => 1]);
+        $this->renderDescription(__('Maximum number of retries until an email is sent successfully.', 'rrze-settings'));
     }
 
     /**
@@ -786,10 +791,7 @@ class Settings extends MainSettings
      */
     public function newsletterDisableSubscriptionField()
     {
-        echo '<label>';
-        echo '<input type="checkbox" id="rrze-settings-rrze-newsletter-disable-subscription" name="', sprintf('%s[rrze_newsletter_disable_subscription]', $this->optionName), '" value="1"', checked($this->siteOptions->plugins->rrze_newsletter_disable_subscription, 1), '>';
-        _e('Disables the subscription and mailing lists', 'rrze-settings');
-        echo '</label>';
+        $this->renderCheckbox('rrze-settings-rrze-newsletter-disable-subscription', sprintf('%s[rrze_newsletter_disable_subscription]', $this->optionName), $this->siteOptions->plugins->rrze_newsletter_disable_subscription, __('Disables the subscription and mailing lists', 'rrze-settings'));
     }
 
     /**
@@ -798,8 +800,8 @@ class Settings extends MainSettings
     public function newsletterRecipientAllowedDomainsField()
     {
         $option = $this->siteOptions->plugins->rrze_newsletter_recipient_allowed_domains;
-        echo '<textarea id="rrze-settings-rrze-newsletter-recipient-allowed-domains" cols="50" rows="5" name="', sprintf('%s[rrze_newsletter_recipient_allowed_domains]', $this->optionName), '">', esc_attr($this->getTextarea($option)), '</textarea>';
-        echo '<p class="description">', __('List of allowed domains for recipients. Enter one domain per line.', 'rrze-settings'), '</p>';
+        $this->renderTextarea('rrze-settings-rrze-newsletter-recipient-allowed-domains', sprintf('%s[rrze_newsletter_recipient_allowed_domains]', $this->optionName), $this->getTextarea($option));
+        $this->renderDescription(__('List of allowed domains for recipients. Enter one domain per line.', 'rrze-settings'));
     }
 
     /**
@@ -808,8 +810,8 @@ class Settings extends MainSettings
     public function rrzeFormularAllowedDomainsField()
     {
         $option = $this->siteOptions->plugins->rrze_formular_allowedDomains;
-        echo '<textarea id="rrze-settings-rrze-formular-allowed-domains" cols="50" rows="5" name="', sprintf('%s[rrze_formular_allowedDomains]', $this->optionName), '">', esc_attr($this->getTextarea($option)), '</textarea>';
-        echo '<p class="description">', __('List of allowed domains for RRZE Formular. Enter one domain without www per line.', 'rrze-settings'), '</p>';
+        $this->renderTextarea('rrze-settings-rrze-formular-allowed-domains', sprintf('%s[rrze_formular_allowedDomains]', $this->optionName), $this->getTextarea($option));
+        $this->renderDescription(__('List of allowed domains for RRZE Formular. Enter one domain without www per line.', 'rrze-settings'));
     }
 
     /**
@@ -838,8 +840,8 @@ class Settings extends MainSettings
     public function newsletterExceptionsField()
     {
         $option = $this->siteOptions->plugins->rrze_newsletter_exceptions;
-        echo '<textarea id="rrze-newsletter-exceptions" cols="50" rows="5" name="', sprintf('%s[rrze_newsletter_exceptions]', $this->optionName), '">', esc_attr($this->getTextarea($option)), '</textarea>';
-        echo '<p class="description">', __('List of IDS of websites that are exempt to all global settings. Enter one website ID per line.', 'rrze-settings'), '</p>';
+        $this->renderTextarea('rrze-newsletter-exceptions', sprintf('%s[rrze_newsletter_exceptions]', $this->optionName), $this->getTextarea($option));
+        $this->renderDescription(__('List of IDS of websites that are exempt to all global settings. Enter one website ID per line.', 'rrze-settings'));
     }
 
     /**
@@ -848,8 +850,8 @@ class Settings extends MainSettings
     public function cmsworkflowNotAllowedPostTypesField()
     {
         $option = $this->siteOptions->plugins->cms_workflow_not_allowed_post_types;
-        echo '<textarea id="rrze-settings-cms-workflow-not-allowed-post-types" cols="50" rows="5" name="', sprintf('%s[cms_workflow_not_allowed_post_types]', $this->optionName), '">', esc_attr($this->getTextarea($option)), '</textarea>';
-        echo '<p class="description">', __('List of not allowed post types. Enter one post type per line.', 'rrze-settings'), '</p>';
+        $this->renderTextarea('rrze-settings-cms-workflow-not-allowed-post-types', sprintf('%s[cms_workflow_not_allowed_post_types]', $this->optionName), $this->getTextarea($option));
+        $this->renderDescription(__('List of not allowed post types. Enter one post type per line.', 'rrze-settings'));
     }
 
     /**
@@ -858,8 +860,8 @@ class Settings extends MainSettings
     public function siteimproveCrawlerIpAddressesField()
     {
         $option = $this->siteOptions->plugins->siteimprove_crawler_ip_addresses;
-        echo '<textarea id="rrze-settings-siteimprove-crawler-ip-addresses" cols="50" rows="5" name="', sprintf('%s[siteimprove_crawler_ip_addresses]', $this->optionName), '">', esc_attr($this->getTextarea($option)), '</textarea>';
-        echo '<p class="description">', __('List of allowed IP addresses of the Siteimprove crawler in case there are access restrictions to the content of the website. Enter one IP address per line.', 'rrze-settings'), '</p>';
+        $this->renderTextarea('rrze-settings-siteimprove-crawler-ip-addresses', sprintf('%s[siteimprove_crawler_ip_addresses]', $this->optionName), $this->getTextarea($option));
+        $this->renderDescription(__('List of allowed IP addresses of the Siteimprove crawler in case there are access restrictions to the content of the website. Enter one IP address per line.', 'rrze-settings'));
     }
 
     /**
@@ -874,7 +876,7 @@ class Settings extends MainSettings
             esc_attr(sprintf('%s[siteimprove][analytics_jscode]', $this->optionName)),
             esc_attr($siteimproveOptions->analytics_jscode)
         );
-        echo '<p class="description">', esc_html__('4 bis 10 alphanumerische Zeichen.', 'rrze-settings'), '</p>';
+        $this->renderDescription(__('4 bis 10 alphanumerische Zeichen.', 'rrze-settings'));
     }
 
     /**
@@ -882,10 +884,7 @@ class Settings extends MainSettings
      */
     public function wpseoDisableMetaboxes()
     {
-        echo '<label>';
-        echo '<input type="checkbox" id="rrze-settings-wpseo-disable-metaboxes" name="', sprintf('%s[wpseo_disable_metaboxes]', $this->optionName), '" value="1"', checked($this->siteOptions->plugins->wpseo_disable_metaboxes, 1), '>';
-        _e('Disables custom columns and metaboxes', 'rrze-settings');
-        echo '</label>';
+        $this->renderCheckbox('rrze-settings-wpseo-disable-metaboxes', sprintf('%s[wpseo_disable_metaboxes]', $this->optionName), $this->siteOptions->plugins->wpseo_disable_metaboxes, __('Disables custom columns and metaboxes', 'rrze-settings'));
     }
 
     /**
@@ -893,10 +892,7 @@ class Settings extends MainSettings
      */
     public function cf7DequeueField()
     {
-        echo '<label>';
-        echo '<input type="checkbox" id="rrze-settings-cf7-dequeue" name="', sprintf('%s[cf7_dequeue]', $this->optionName), '" value="1"', checked($this->siteOptions->plugins->cf7_dequeue, 1), '>';
-        _e('Dequeue Contact Form 7 scripts on the posts where it is not needed', 'rrze-settings');
-        echo '</label>';
+        $this->renderCheckbox('rrze-settings-cf7-dequeue', sprintf('%s[cf7_dequeue]', $this->optionName), $this->siteOptions->plugins->cf7_dequeue, __('Dequeue Contact Form 7 scripts on the posts where it is not needed', 'rrze-settings'));
     }
 
     /**
@@ -904,10 +900,7 @@ class Settings extends MainSettings
      */
     public function theSEOFrameworkActivateField()
     {
-        echo '<label>';
-        echo '<input type="checkbox" id="rrze-settings-the-seo-framework-activate" name="', sprintf('%s[the_seo_framework_activate]', $this->optionName), '" value="1"', checked($this->siteOptions->plugins->the_seo_framework_activate, 1), '>';
-        _e('Forces the activation of the plugin if it exists and has not yet been activated', 'rrze-settings');
-        echo '</label>';
+        $this->renderCheckbox('rrze-settings-the-seo-framework-activate', sprintf('%s[the_seo_framework_activate]', $this->optionName), $this->siteOptions->plugins->the_seo_framework_activate, __('Forces the activation of the plugin if it exists and has not yet been activated', 'rrze-settings'));
     }
 
     /**
@@ -916,8 +909,8 @@ class Settings extends MainSettings
     public function wsformLicenseKeyField()
     {
         $value = $this->getValueAttribute($this->siteOptions->plugins->ws_form_license_key);
-        echo '<input type="text" id="rrze-settings-ws-form-license-key" name="', sprintf('%s[ws_form_license_key]', $this->optionName), '" value="', $this->maskSecureValues($value), '" class="regular-text">';
-        echo '<p class="description">', __('This license key will apply to all websites.', 'rrze-settings'), '</p>';
+        $this->renderInput('text', 'rrze-settings-ws-form-license-key', sprintf('%s[ws_form_license_key]', $this->optionName), $this->maskSecureValues($value));
+        $this->renderDescription(__('This license key will apply to all websites.', 'rrze-settings'));
     }
 
     /**
@@ -926,8 +919,8 @@ class Settings extends MainSettings
     public function wsformActionPDFLicenseKeyField()
     {
         $value = $this->getValueAttribute($this->siteOptions->plugins->ws_form_action_pdf_license_key);
-        echo '<input type="text" id="rrze-settings-ws-form-action-pdf-license-key" name="', sprintf('%s[ws_form_action_pdf_license_key]', $this->optionName), '" value="', $this->maskSecureValues($value), '" class="regular-text">';
-        echo '<p class="description">', __('This add-on license key will apply to all websites.', 'rrze-settings'), '</p>';
+        $this->renderInput('text', 'rrze-settings-ws-form-action-pdf-license-key', sprintf('%s[ws_form_action_pdf_license_key]', $this->optionName), $this->maskSecureValues($value));
+        $this->renderDescription(__('This add-on license key will apply to all websites.', 'rrze-settings'));
     }
 
     /**
@@ -936,8 +929,8 @@ class Settings extends MainSettings
     public function wsformNotAllowedFieldTypesField()
     {
         $option = $this->siteOptions->plugins->ws_form_not_allowed_field_types;
-        echo '<textarea id="rrze-settings-ws-form-not-allowed-field-types" cols="50" rows="5" name="', sprintf('%s[ws_form_not_allowed_field_types]', $this->optionName), '">', esc_attr($this->getTextarea($option)), '</textarea>';
-        echo '<p class="description">', __('List of not allowed field types. Enter one field type per line.', 'rrze-settings'), '</p>';
+        $this->renderTextarea('rrze-settings-ws-form-not-allowed-field-types', sprintf('%s[ws_form_not_allowed_field_types]', $this->optionName), $this->getTextarea($option));
+        $this->renderDescription(__('List of not allowed field types. Enter one field type per line.', 'rrze-settings'));
     }
 
     /**
@@ -946,8 +939,8 @@ class Settings extends MainSettings
     public function wsformExceptionsField()
     {
         $option = $this->siteOptions->plugins->ws_form_exceptions;
-        echo '<textarea id="ws-form-exceptions" cols="50" rows="5" name="', sprintf('%s[ws_form_exceptions]', $this->optionName), '">', esc_attr($this->getTextarea($option)), '</textarea>';
-        echo '<p class="description">', __('List of IDS of websites that are exempt to all global settings. Enter one website ID per line.', 'rrze-settings'), '</p>';
+        $this->renderTextarea('ws-form-exceptions', sprintf('%s[ws_form_exceptions]', $this->optionName), $this->getTextarea($option));
+        $this->renderDescription(__('List of IDS of websites that are exempt to all global settings. Enter one website ID per line.', 'rrze-settings'));
     }
 
     /**
@@ -955,8 +948,8 @@ class Settings extends MainSettings
      */
     public function dipAPIField()
     {
-        echo '<input type="text" id="rrze-settings-dip-apiKey" name="', sprintf('%s[dip_apiKey]', $this->optionName), '" value="', $this->siteOptions->plugins->dip_apiKey, '" class="regular-text">';
-        echo '<p class="description">', __('The DIP API key used by some plugins.', 'rrze-settings'), '</p>';
+        $this->renderInput('text', 'rrze-settings-dip-apiKey', sprintf('%s[dip_apiKey]', $this->optionName), $this->siteOptions->plugins->dip_apiKey);
+        $this->renderDescription(__('The DIP API key used by some plugins.', 'rrze-settings'));
     }
 
     /**
@@ -964,8 +957,8 @@ class Settings extends MainSettings
      */
     public function dipEduApiKeyField()
     {
-        echo '<input type="text" id="rrze-settings-dip-edu-api-key" name="', sprintf('%s[dip_edu_api_key]', $this->optionName), '" value="', $this->siteOptions->plugins->dip_edu_api_key, '" class="regular-text">';
-        echo '<p class="description">', __('The DIP Edu API key used by some plugins.', 'rrze-settings'), '</p>';
+        $this->renderInput('text', 'rrze-settings-dip-edu-api-key', sprintf('%s[dip_edu_api_key]', $this->optionName), $this->siteOptions->plugins->dip_edu_api_key);
+        $this->renderDescription(__('The DIP Edu API key used by some plugins.', 'rrze-settings'));
     }
 
     /**
@@ -973,8 +966,8 @@ class Settings extends MainSettings
      */
     public function faudirApiKeyField()
     {
-        echo '<input type="text" id="rrze-settings-faudir-apiKey" name="', sprintf('%s[faudir_public_apiKey]', $this->optionName), '" value="', $this->siteOptions->plugins->faudir_public_apiKey, '" class="regular-text">';
-        echo '<p class="description">', __('The FAUdir API key to access the API service https://api.fau.de/.', 'rrze-settings'), '</p>';
+        $this->renderInput('text', 'rrze-settings-faudir-apiKey', sprintf('%s[faudir_public_apiKey]', $this->optionName), $this->siteOptions->plugins->faudir_public_apiKey);
+        $this->renderDescription(__('The FAUdir API key to access the API service https://api.fau.de/.', 'rrze-settings'));
     }
 
     /**
@@ -982,8 +975,8 @@ class Settings extends MainSettings
      */
     public function biteApiKeyField()
     {
-        echo '<input type="text" id="rrze-settings-bite-api-key" name="', sprintf('%s[bite_api_key]', $this->optionName), '" value="', $this->siteOptions->plugins->bite_api_key, '" class="regular-text">';
-        echo '<p class="description">', __('The B-ITE API key used for RRZE Jobs.', 'rrze-settings'), '</p>';
+        $this->renderInput('text', 'rrze-settings-bite-api-key', sprintf('%s[bite_api_key]', $this->optionName), $this->siteOptions->plugins->bite_api_key);
+        $this->renderDescription(__('The B-ITE API key used for RRZE Jobs.', 'rrze-settings'));
     }
 
     /**

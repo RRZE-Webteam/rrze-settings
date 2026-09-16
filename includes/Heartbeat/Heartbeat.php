@@ -106,8 +106,7 @@ class Heartbeat extends Main
 
         $interval = $this->getEffectiveInterval();
         $code = sprintf(
-            'jQuery(function(){ wp.heartbeat.interval(%d); console.log("[rrze-settings - heartbeat] forced inline after to %d"); });',
-            $interval,
+            'jQuery(function(){ wp.heartbeat.interval(%d); });',
             $interval
         );
 

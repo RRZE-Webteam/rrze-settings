@@ -138,12 +138,7 @@ class Settings extends MainSettings
      */
     public function disabledField()
     {
-?>
-        <label>
-            <input type="checkbox" id="rrze-settings-disabled" name="<?php printf('%s[disabled]', $this->optionName); ?>" value="1" <?php checked($this->siteOptions->rest->disabled, 1); ?>>
-            <?php _e('Disables the REST API for visitors who are not logged in.', 'rrze-settings'); ?>
-        </label>
-    <?php
+        $this->renderCheckbox('rrze-settings-disabled', sprintf('%s[disabled]', $this->optionName), $this->siteOptions->rest->disabled, __('Disables the REST API for visitors who are not logged in.', 'rrze-settings'));
     }
 
     /**
@@ -153,12 +148,10 @@ class Settings extends MainSettings
      */
     public function restnetworkField()
     {
-    ?>
-        <textarea id="rrze-settings-restnetwork" name="<?php printf('%s[restnetwork]', $this->optionName); ?>" aria-describedby="limited-email-domains-desc" cols="46" rows="5"><?php echo $this->getRestnetworkOption(); ?></textarea>
-        <p class="description"><?php _e("Enter the IP addresses that allow access to the REST API when disabled.", 'rrze-settings'); ?></p>
-        <p class="description"><?php _e("To leave a comment, type a hash symbol (#) followed by the text of your comment.", 'rrze-settings'); ?></p>
-        <p class="description"><?php _e("One IP address or IP range per line.", 'rrze-settings'); ?></p>
-    <?php
+        $this->renderTextarea('rrze-settings-restnetwork', sprintf('%s[restnetwork]', $this->optionName), $this->getRestnetworkOption(), 5, 46);
+        $this->renderDescription(__('Enter the IP addresses that allow access to the REST API when disabled.', 'rrze-settings'));
+        $this->renderDescription(__('To leave a comment, type a hash symbol (#) followed by the text of your comment.', 'rrze-settings'));
+        $this->renderDescription(__('One IP address or IP range per line.', 'rrze-settings'));
     }
 
     /**
@@ -168,11 +161,9 @@ class Settings extends MainSettings
      */
     public function restwhiteField()
     {
-    ?>
-        <textarea id="rrze-settings-restwhite" name="<?php printf('%s[restwhite]', $this->optionName); ?>" aria-describedby="limited-email-domains-desc" cols="46" rows="5"><?php echo $this->getRestwhiteOption(); ?></textarea>
-        <p class="description"><?php esc_html_e('Enter one REST API namespace or route per line, for example /wp/v2/pages. Each entry includes its subroutes and permits access when the general REST API restriction is enabled.', 'rrze-settings'); ?></p>
-        <p class="description"><?php esc_html_e('Private Site administrators can additionally select these entries for public GET and HEAD access on their own site. Registered public endpoints always require their separate checkbox approval.', 'rrze-settings'); ?></p>
-<?php
+        $this->renderTextarea('rrze-settings-restwhite', sprintf('%s[restwhite]', $this->optionName), $this->getRestwhiteOption(), 5, 46);
+        $this->renderDescription(__('Enter one REST API namespace or route per line, for example /wp/v2/pages. Each entry includes its subroutes and permits access when the general REST API restriction is enabled.', 'rrze-settings'));
+        $this->renderDescription(__('Private Site administrators can additionally select these entries for public GET and HEAD access on their own site. Registered public endpoints always require their separate checkbox approval.', 'rrze-settings'));
     }
 
     /**
