@@ -326,7 +326,7 @@ class Config
                 ],
                 'contact_email' => 'webmaster@fau.de',
                 'contact_url' => 'https://www.rrze.de',
-                'notes' => '',
+                'notes' => 'RRZE Website Monitoring',
             ],
         ],
     ];
