@@ -322,11 +322,11 @@ class Config
                 'title' => 'FAU-RRZE Checkbot',
                 'user_agent' => 'FAU-RRZE-Checkbot/1.0 (+https://www.rrze.de;mailto:webmaster@fau.de)',
                 'ip_addresses' => [
-                    '131.188.0.0/16',
+                    '10.27.20.143/32',
                 ],
                 'contact_email' => 'webmaster@fau.de',
                 'contact_url' => 'https://www.rrze.de',
-                'notes' => '',
+                'notes' => 'RRZE Website Monitoring',
             ],
         ],
     ];
