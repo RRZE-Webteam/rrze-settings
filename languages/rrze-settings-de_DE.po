@@ -406,42 +406,102 @@ msgstr "Ohne Titel"
 msgid "General"
 msgstr "Allgemein"
 
-#: includes/General/Settings.php:81
-msgid "Textdomain Fallback"
-msgstr "Textdomäne Fallback"
+#: includes/General/Settings.php:85
+#: includes/General/Settings.php:134
+msgid "Translation Fallback"
+msgstr "Ersatzübersetzungen"
 
-#: includes/General/Settings.php:88
+#: includes/General/Settings.php:92
+#: includes/General/Settings.php:149
 msgid "Custom Error Page"
 msgstr "Benutzerdefinierte Fehlerseite"
 
-#: includes/General/Settings.php:95
+#: includes/General/Settings.php:99
+#: includes/General/Settings.php:164
 msgid "White Label"
 msgstr "White Label"
 
-#: includes/General/Settings.php:102
-#: includes/General/Settings.php:160
+#: includes/General/Settings.php:106
+#: includes/General/Settings.php:182
+#: includes/General/Settings.php:196
 msgid "Default Theme"
 msgstr "Standard-Theme"
 
-#: includes/General/Settings.php:116
-msgid "Network administrators can centrally manage general settings for every website in a multisite network on this page, with options such as textdomain fallback, custom error pages, white labeling, and the default theme for new websites."
-msgstr "Netzwerkadministratoren können allgemeine Einstellungen für jede Website in einem Multisite-Netzwerk zentral verwalten, darunter Textdomain-Fallback, benutzerdefinierte Fehlerseiten, White-Labeling und das Standard-Theme für neue Websites."
+#: includes/General/Settings.php:121
+msgid "Manage translations, error messages and the WordPress administration interface across the network. The default theme applies only to newly created websites. Changes take effect after saving."
+msgstr "Verwalten Sie Übersetzungen, Fehlermeldungen und die WordPress-Verwaltungsoberfläche im gesamten Netzwerk. Das Standard-Theme gilt nur für neu angelegte Websites. Änderungen werden nach dem Speichern wirksam."
 
-#: includes/General/Settings.php:126
-msgid "Sets a default language as fallback for unavailable language files"
-msgstr "Setzt eine Standardsprache als Fallback für nicht verfügbare Sprachdateien"
+#: includes/General/Settings.php:132
+msgid "Use available translations when a language file is missing"
+msgstr "Vorhandene Übersetzungen verwenden, wenn eine Sprachdatei fehlt"
+
+#: includes/General/Settings.php:133
+msgid "Uses another available language variant when a translation file is missing. Website content remains unchanged."
+msgstr "Verwendet eine andere verfügbare Sprachvariante, wenn eine Übersetzungsdatei fehlt. Website-Inhalte bleiben unverändert."
+
+#: includes/General/Settings.php:135
+msgid "If a translation file is missing or unreadable, look for an available variant of the same language first, then an English translation. For example, German can replace German (formal). This also applies to translations in the block editor."
+msgstr "Fehlt eine Übersetzungsdatei oder ist sie nicht lesbar, wird zuerst nach einer verfügbaren Variante derselben Sprache und anschließend nach einer englischen Übersetzung gesucht. Beispielsweise kann Deutsch die Variante Deutsch (Sie) ersetzen. Dies gilt auch für Übersetzungen im Block-Editor."
 
 #: includes/General/Settings.php:136
-msgid "Enables custom error page"
-msgstr "Aktiviert eine benutzerdefinierte Fehlerseite"
+msgid "Useful when plugins or themes do not provide every language variant. Does not translate website content, download language packs or fill individual gaps in an existing translation file. Disabled: WordPress handles translations without this additional fallback."
+msgstr "Sinnvoll, wenn Plugins oder Themes nicht jede Sprachvariante mitliefern. Übersetzt keine Website-Inhalte, lädt keine Sprachpakete herunter und ergänzt keine einzelnen Lücken in einer vorhandenen Übersetzungsdatei. Deaktiviert: WordPress verarbeitet Übersetzungen ohne diesen zusätzlichen Fallback."
+
+#: includes/General/Settings.php:147
+msgid "Use the RRZE error page for WordPress error messages"
+msgstr "RRZE-Fehlerseite für WordPress-Fehlermeldungen verwenden"
+
+#: includes/General/Settings.php:148
+msgid "Shows WordPress error messages in the RRZE layout. The website administration email address is displayed publicly as a contact; check that it is suitable before enabling this option."
+msgstr "Zeigt WordPress-Fehlermeldungen im RRZE-Layout. Die Administrations-E-Mail-Adresse der Website wird öffentlich als Kontakt angezeigt; prüfen Sie vor dem Aktivieren, ob sie dafür geeignet ist."
+
+#: includes/General/Settings.php:150
+msgid "For example, denied access is shown with the website name and a contact address. The layout links to /impressum, /datenschutz and /barrierefreiheit; check that these pages are available."
+msgstr "Beispielsweise wird ein verweigerter Zugriff mit Website-Namen und Kontaktadresse angezeigt. Das Layout verlinkt auf /impressum, /datenschutz und /barrierefreiheit; prüfen Sie, ob diese Seiten erreichbar sind."
+
+#: includes/General/Settings.php:151
+msgid "Applies to regular browser requests handled by wp_die(). Does not replace theme 404 pages, server error pages or AJAX, JSON and XML responses. If the admin page header has already been output, only the message is shown. Disabled: the WordPress error display is used."
+msgstr "Gilt für normale Browseraufrufe, die über wp_die() behandelt werden. Ersetzt weder 404-Seiten des Themes noch Server-Fehlerseiten oder AJAX-, JSON- und XML-Antworten. Wurde der Kopf der Adminseite bereits ausgegeben, erscheint nur die Meldung. Deaktiviert: Die WordPress-Fehlerdarstellung wird verwendet."
 
 #: includes/General/Settings.php:162
+msgid "Customize WordPress branding, dashboard and email sender"
+msgstr "WordPress-Branding, Dashboard und E-Mail-Absender anpassen"
+
+#: includes/General/Settings.php:163
+msgid "Customizes the admin bar, footer and dashboard together. Also replaces default WordPress email sender details with the website title and administration email address."
+msgstr "Passt Adminleiste, Footer und Dashboard gemeinsam an. Ersetzt außerdem die Standard-Absenderangaben von WordPress-E-Mails durch Website-Titel und Administrations-E-Mail-Adresse."
+
+#: includes/General/Settings.php:165
+msgid "Links the admin bar logo to the main website (site ID 1), removes WordPress information and support links, and shows the main website name and tagline in the admin footer. Sorts My Sites alphabetically."
+msgstr "Verlinkt das Symbol in der Adminleiste mit der Hauptwebsite (Website-ID 1), entfernt WordPress-Informations- und Supportlinks und zeigt Name und Untertitel der Hauptwebsite im Admin-Footer. Sortiert „Meine Websites“ alphabetisch."
+
+#: includes/General/Settings.php:166
+msgid "Replaces the WordPress news widget with RRZE maintenance messages and, on website dashboards, Webmaster News. Adds counts for additional content types to At a Glance."
+msgstr "Ersetzt das WordPress-Nachrichten-Widget durch RRZE-Wartungsmeldungen und auf Website-Dashboards zusätzlich durch Webmaster-Nachrichten. Ergänzt „Auf einen Blick“ um Zähler für weitere Inhaltstypen."
+
+#: includes/General/Settings.php:167
+msgid "For outgoing emails, replaces sender addresses beginning with wordpress@ with the current website administration email address, if valid, and the sender name WordPress with the website title. Other sender values are preserved. Disabled: these customizations are not applied."
+msgstr "Ersetzt bei ausgehenden E-Mails Absenderadressen, die mit wordpress@ beginnen, durch die gültige Administrations-E-Mail-Adresse der aktuellen Website und den Absendernamen WordPress durch den Website-Titel. Andere Absenderwerte bleiben erhalten. Deaktiviert: Diese Anpassungen werden nicht angewendet."
+
+#: includes/General/Settings.php:184
 msgid "Use WordPress default"
 msgstr "WordPress-Standard verwenden"
 
-#: includes/General/Settings.php:173
-msgid "Theme that is activated automatically when a new website is created. Leave empty to use the WordPress default theme."
-msgstr "Theme, das automatisch aktiviert wird, wenn eine neue Website erstellt wird. Leer lassen, um das WordPress-Standard-Theme zu verwenden."
+#: includes/General/Settings.php:195
+msgid "Activates the selected theme only for newly created websites. Existing websites keep their current theme."
+msgstr "Aktiviert das ausgewählte Theme nur für neu angelegte Websites. Bestehende Websites behalten ihr aktuelles Theme."
+
+#: includes/General/Settings.php:197
+msgid "Select Use WordPress default to keep the theme chosen by WordPress during website creation. If the selected theme has been removed, this setting is skipped. Selecting a theme here does not enable it for selection across the network."
+msgstr "Wählen Sie „WordPress-Standard verwenden“, um das von WordPress beim Anlegen der Website gewählte Theme beizubehalten. Wurde das ausgewählte Theme entfernt, wird diese Einstellung übersprungen. Die Auswahl hier gibt das Theme nicht netzwerkweit für die Theme-Auswahl frei."
+
+#: includes/General/Settings.php:198
+msgid "For example, after changing the default from theme A to theme B, only new websites start with theme B. Existing websites using theme A are not switched."
+msgstr "Wenn Sie beispielsweise den Standard von Theme A auf Theme B ändern, starten nur neue Websites mit Theme B. Bestehende Websites mit Theme A werden nicht umgestellt."
+
+#: includes/General/Settings.php:216
+msgid "Details and examples"
+msgstr "Details und Beispiele"
 
 #: includes/WebsiteFunctions/XMLRPC.php:53
 msgid "XML-RPC services are disabled on this site."

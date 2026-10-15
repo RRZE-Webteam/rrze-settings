@@ -1,3 +1,31 @@
+/* General settings: keep guidance readable on wide admin screens. */
+
+.rrze-settings-general {
+    > p,
+    .description,
+    details,
+    td > label {
+        max-width: 70ch;
+        overflow-wrap: anywhere;
+    }
+
+    td > label {
+        display: inline-block;
+    }
+
+    select {
+        max-width: 100%;
+    }
+
+    details {
+        margin-top: 0.75em;
+    }
+
+    summary {
+        cursor: pointer;
+    }
+}
+
 /* Dashboard */
 
 #dashboard_custom_primary .inside,

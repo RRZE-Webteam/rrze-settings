@@ -27,6 +27,14 @@ RRZE Settings is a WordPress plugin that provides general settings and enhanceme
 
 ## Usage
 
+### General settings
+
+Under **Network Admin > CMS > General**, network administrators configure
+translation fallback, the RRZE error page, WordPress branding and the default
+theme for new websites. Each field explains its scope and effects. See the
+[German user guide for General settings](docs/general-settings.md) for examples,
+defaults and prerequisites.
+
 Methods Available for Other Plugins
 
 The following methods can be used by other plugins:
