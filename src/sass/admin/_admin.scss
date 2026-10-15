@@ -1,6 +1,7 @@
-/* General settings: keep guidance readable on wide admin screens. */
+/* Settings guidance: keep text readable on wide admin screens. */
 
-.rrze-settings-general {
+.rrze-settings-general,
+.rrze-settings-users {
     > p,
     .description,
     details,
@@ -13,7 +14,8 @@
         display: inline-block;
     }
 
-    select {
+    select,
+    textarea {
         max-width: 100%;
     }
 

@@ -35,6 +35,13 @@ theme for new websites. Each field explains its scope and effects. See the
 [German user guide for General settings](docs/general-settings.md) for examples,
 defaults and prerequisites.
 
+### User settings
+
+Under **Network Admin > CMS > Users**, configure additional author roles, user
+search, the automatic contact page, dashboard guidance, administrator warnings
+and debug access. See the [German user guide for User settings](docs/users-settings.md)
+for permissions, examples and the limitations of each option.
+
 Methods Available for Other Plugins
 
 The following methods can be used by other plugins:

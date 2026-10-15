@@ -200,29 +200,6 @@ class Settings extends MainSettings
     }
 
     /**
-     * Render optional help as a collapsed native disclosure with a list of details.
-     *
-     * The setting name distinguishes summaries for screen readers. All items are
-     * plain text and escaped here; critical guidance belongs outside the disclosure.
-     *
-     * @param string   $settingLabel Translated setting name for the accessible summary.
-     * @param string[] $items Translated explanations and examples.
-     * @return void
-     */
-    protected function renderSettingDetails(string $settingLabel, array $items): void
-    {
-        printf(
-            '<details><summary>%1$s<span class="screen-reader-text">: %2$s</span></summary><ul class="ul-disc">',
-            esc_html__('Details and examples', 'rrze-settings'),
-            esc_html($settingLabel)
-        );
-        foreach ($items as $item) {
-            printf('<li>%s</li>', esc_html($item));
-        }
-        echo '</ul></details>';
-    }
-
-    /**
      * Sanitize the default theme setting.
      *
      * @param string $stylesheet Theme stylesheet

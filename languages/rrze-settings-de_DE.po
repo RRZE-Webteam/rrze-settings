@@ -399,10 +399,10 @@ msgstr "RSS-Fehler: %s"
 msgid "Untitled"
 msgstr "Ohne Titel"
 
+#: includes/WebsiteFunctions/Settings.php:129
 #: includes/General/Settings.php:41
 #: includes/General/Settings.php:42
 #: includes/General/Settings.php:74
-#: includes/WebsiteFunctions/Settings.php:129
 msgid "General"
 msgstr "Allgemein"
 
@@ -499,7 +499,7 @@ msgstr "Wählen Sie „WordPress-Standard verwenden“, um das von WordPress bei
 msgid "For example, after changing the default from theme A to theme B, only new websites start with theme B. Existing websites using theme A are not switched."
 msgstr "Wenn Sie beispielsweise den Standard von Theme A auf Theme B ändern, starten nur neue Websites mit Theme B. Bestehende Websites mit Theme A werden nicht umgestellt."
 
-#: includes/General/Settings.php:216
+#: includes/Settings.php:294
 msgid "Details and examples"
 msgstr "Details und Beispiele"
 
@@ -1572,12 +1572,14 @@ msgid "Email Address:"
 msgstr "E-Mail-Adresse:"
 
 #: includes/Users/Roles.php:74
-#: includes/Users/Settings.php:95
+#: includes/Users/Settings.php:99
+#: includes/Users/Settings.php:212
 msgid "Pages Author"
 msgstr "Seitenautor"
 
 #: includes/Users/Roles.php:100
-#: includes/Users/Settings.php:103
+#: includes/Users/Settings.php:107
+#: includes/Users/Settings.php:228
 msgid "Super Author"
 msgstr "Superautor"
 
@@ -1587,57 +1589,176 @@ msgstr "Superautor"
 msgid "Users"
 msgstr "Benutzer"
 
-#: includes/Users/Settings.php:111
-msgid "Search"
-msgstr "Suche"
-
-#: includes/Users/Settings.php:119
+#: includes/Users/Settings.php:123
+#: includes/Users/Settings.php:260
 msgid "Contact Page"
 msgstr "Kontaktseite"
 
-#: includes/Users/Settings.php:127
+#: includes/Users/Settings.php:131
+#: includes/Users/Settings.php:176
 msgid "Welcome Panel"
-msgstr "Willkommen Panel"
+msgstr "Willkommenspanel"
 
-#: includes/Users/Settings.php:135
+#: includes/Users/Settings.php:139
+#: includes/Users/Settings.php:195
 msgid "Admin Role Threshold Warning"
 msgstr "Administrator-Grenzwert-Warnung"
 
-#: includes/Users/Settings.php:143
-msgid "Can view debug log"
-msgstr "Kann das Debug-Log anzeigen"
+#: includes/Users/Settings.php:115
+#: includes/Users/Settings.php:244
+msgid "User Search"
+msgstr "Benutzersuche"
 
-#: includes/Users/Settings.php:157
-msgid "Network administrators can configure user settings across the entire multisite network on this page, enabling special author roles, enhancing user search, generating a virtual contact page, disabling the welcome panel, warning when administrator thresholds are exceeded, and specifying which users have access to debug logs."
-msgstr "Netzwerkadministratoren können auf dieser Seite Benutzereinstellungen im gesamten Multisite‑Netzwerk konfigurieren, spezielle Autorenrollen aktivieren, die Benutzersuche verbessern, eine virtuelle Kontaktseite generieren, das Willkommenspanel deaktivieren, vor überschrittenen Administratorengrenzwerten warnen und festlegen, welche Benutzer Zugriff auf Debug‑Logs haben."
+#: includes/Users/Settings.php:147
+#: includes/Users/Settings.php:278
+msgid "Debug Log Access"
+msgstr "Debug-Zugriff"
 
-#: includes/Users/Settings.php:167
-msgid "Disables the welcome panel that introduces users to WordPress"
-msgstr "Deaktiviert das Begrüßungsfenster, das stellt den Benutzern WordPress vor"
+#: includes/Users/Settings.php:163
+msgid "Manage additional author roles, user search, contact information and dashboard guidance across the network. You can also configure administrator warnings and access to debug information. Changes take effect after saving."
+msgstr "Verwalten Sie zusätzliche Autorenrollen, Benutzersuche, Kontaktinformationen und Dashboard-Hinweise im gesamten Netzwerk. Außerdem können Sie Administrator-Warnungen und den Zugriff auf Debug-Informationen konfigurieren. Änderungen werden nach dem Speichern wirksam."
+
+#: includes/Users/Settings.php:174
+msgid "Hide the WordPress welcome panel"
+msgstr "WordPress-Willkommenspanel ausblenden"
+
+#: includes/Users/Settings.php:175
+msgid "Removes the WordPress introduction panel from website dashboards. Other dashboard widgets remain available."
+msgstr "Entfernt das WordPress-Willkommenspanel von den Website-Dashboards. Andere Dashboard-Widgets bleiben verfügbar."
 
 #: includes/Users/Settings.php:177
-msgid "Enables a warning when the number of administrators exceeds a certain threshold"
-msgstr "Wenn aktiviert, wird eine Warnung angezeigt, sobald die Anzahl der Administratoren einen festgelegten Schwellenwert überschreitet"
+msgid "Useful when users receive their introduction through your own training or documentation. This option does not change user roles or permissions."
+msgstr "Sinnvoll, wenn Benutzer eine eigene Schulung oder Dokumentation zur Einführung erhalten. Diese Option ändert keine Benutzerrollen oder Berechtigungen."
 
-#: includes/Users/Settings.php:188
-msgid "Enables pages author role"
-msgstr "Aktiviert die Seitenautor-Rolle"
+#: includes/Users/Settings.php:178
+msgid "Disabled: WordPress controls the welcome panel again. Whether an individual user sees it also depends on their permissions and personal display settings."
+msgstr "Deaktiviert: WordPress steuert das Willkommenspanel wieder selbst. Ob eine Person es sieht, hängt auch von ihren Berechtigungen und persönlichen Anzeigeeinstellungen ab."
+
+#: includes/Users/Settings.php:189
+msgid "Ask for confirmation before assigning more administrators"
+msgstr "Vor der Zuweisung weiterer Administratoren eine Bestätigung verlangen"
+
+#: includes/Users/Settings.php:190
+msgid "Warns when a website already has at least the configured number of administrators and an existing user is promoted. The warning can be confirmed; it is not a fixed limit."
+msgstr "Warnt beim Hochstufen eines bestehenden Benutzers, wenn die Website bereits mindestens die eingestellte Anzahl an Administratoren hat. Die Warnung kann bestätigt werden; sie ist keine feste Obergrenze."
+
+#: includes/Users/Settings.php:191
+msgid "Administrator threshold per website"
+msgstr "Administrator-Schwellenwert pro Website"
+
+#: includes/Users/Settings.php:194
+msgid "Minimum and default: 3. Used only while the warning is enabled."
+msgstr "Mindestwert und Standard: 3. Wird nur bei aktivierter Warnung verwendet."
+
+#: includes/Users/Settings.php:196
+msgid "Example: with a threshold of 3 and three existing administrators, promoting another user requires typing the displayed confirmation phrase. Existing administrators keep their role."
+msgstr "Beispiel: Bei Schwelle 3 und drei vorhandenen Administratoren muss beim Hochstufen eines weiteren Benutzers die angezeigte Bestätigungsphrase eingegeben werden. Bestehende Administratoren behalten ihre Rolle."
+
+#: includes/Users/Settings.php:197
+msgid "The check runs in the user management screens of individual websites, including bulk role changes. It counts users with the Administrator role on that website, not all network super administrators."
+msgstr "Die Prüfung läuft in der Benutzerverwaltung einzelner Websites, auch bei Mehrfachänderungen von Rollen. Gezählt werden Benutzer mit der Rolle Administrator auf dieser Website, nicht alle Superadministratoren des Netzwerks."
 
 #: includes/Users/Settings.php:198
-msgid "Enables super author role"
-msgstr "Aktiviert die Superautor-Rolle"
+msgid "The current count is checked before the change. A bulk change that crosses the threshold from below does not trigger the warning. Actions without an existing user ID, such as creating a new account, are not covered."
+msgstr "Geprüft wird die Anzahl vor der Änderung. Eine Mehrfachänderung, die die Schwelle erst überschreitet, löst keine Warnung aus. Vorgänge ohne vorhandene Benutzer-ID, etwa das Anlegen eines neuen Kontos, sind nicht abgedeckt."
 
-#: includes/Users/Settings.php:208
-msgid "Enables enhanced users search"
-msgstr "Ermöglicht eine erweiterte Benutzersuche"
+#: includes/Users/Settings.php:199
+msgid "This is a JavaScript confirmation, not a server-enforced restriction. Network administration, API requests and command-line changes are not covered. Disabled: this additional confirmation is omitted."
+msgstr "Dies ist eine Bestätigung per JavaScript, keine serverseitig erzwungene Beschränkung. Änderungen über Netzwerkverwaltung, API und Kommandozeile sind nicht abgedeckt. Deaktiviert: Diese zusätzliche Bestätigung entfällt."
 
-#: includes/Users/Settings.php:218
-msgid "Generate a virtual page (contact) with the contact list (administrators) of the website or blog. If the page already exists, the existing page is displayed."
-msgstr "Es wird eine virtuelle Seite (Kontakt) mit der Kontaktliste (Administratoren) der Website oder des Blogs generiert. Wenn die Seite bereits vorhanden ist, wird die vorhandene Seite angezeigt."
+#: includes/Users/Settings.php:210
+msgid "Make the Pages Author role available"
+msgstr "Rolle Seitenautor bereitstellen"
 
+#: includes/Users/Settings.php:211
+msgid "Allows users to create, publish and manage their own pages and upload media. Before disabling, assign affected users another role so they retain the access they need."
+msgstr "Erlaubt das Erstellen, Veröffentlichen und Verwalten eigener Seiten sowie Medien-Uploads. Weisen Sie betroffenen Benutzern vor dem Deaktivieren eine andere Rolle zu, damit sie ihren benötigten Zugriff behalten."
+
+#: includes/Users/Settings.php:213
+msgid "Suitable for people who maintain their own pages but do not need to write posts. Includes editing and deleting their own published pages; does not grant management of other users, website settings or pages written by others."
+msgstr "Geeignet für Personen, die eigene Seiten pflegen, aber keine Beiträge schreiben müssen. Umfasst auch das Bearbeiten und Löschen eigener veröffentlichter Seiten. Gewährt keine Verwaltung anderer Benutzer, Website-Einstellungen oder fremder Seiten."
+
+#: includes/Users/Settings.php:214
 #: includes/Users/Settings.php:230
-msgid "List of users who can view debug information on websites, if any. Enter one user login per line."
-msgstr "Liste der Benutzer, die Debuginformationen auf Websites anzeigen können (sofern vorhanden). Geben Sie pro Zeile einen Benutzernamen ein."
+msgid "Enabling makes the role available for assignment; it does not assign it to anyone automatically. Role definitions are added or removed when each website loads, rather than updating all websites at once."
+msgstr "Aktivieren stellt die Rolle zur Zuweisung bereit; niemand erhält sie automatisch. Rollendefinitionen werden beim Laden der jeweiligen Website angelegt oder entfernt, nicht auf allen Websites gleichzeitig."
+
+#: includes/Users/Settings.php:215
+#: includes/Users/Settings.php:231
+msgid "Disabling removes the role definition. Existing role assignments are not migrated, so affected users lose the permissions supplied by this role. Their content is not deleted."
+msgstr "Deaktivieren entfernt die Rollendefinition. Bestehende Rollenzuweisungen werden nicht migriert; betroffene Benutzer verlieren die Berechtigungen aus dieser Rolle. Ihre Inhalte werden nicht gelöscht."
+
+#: includes/Users/Settings.php:226
+msgid "Make the Super Author role available"
+msgstr "Rolle Superautor bereitstellen"
+
+#: includes/Users/Settings.php:227
+msgid "Allows users to create, publish and manage their own posts and pages and upload media. Before disabling, assign affected users another role so they retain the access they need."
+msgstr "Erlaubt das Erstellen, Veröffentlichen und Verwalten eigener Beiträge und Seiten sowie Medien-Uploads. Weisen Sie betroffenen Benutzern vor dem Deaktivieren eine andere Rolle zu, damit sie ihren benötigten Zugriff behalten."
+
+#: includes/Users/Settings.php:229
+msgid "Combines work on own posts and pages, including editing and deleting published content. It does not grant editing of content written by others, user management or website administration. Super Author is not a network super administrator."
+msgstr "Verbindet die Arbeit an eigenen Beiträgen und Seiten, einschließlich des Bearbeitens und Löschens veröffentlichter Inhalte. Gewährt keine Bearbeitung fremder Inhalte, Benutzerverwaltung oder Website-Administration. Superautor ist kein Netzwerk-Superadministrator."
+
+#: includes/Users/Settings.php:242
+msgid "Include first and last names in user searches"
+msgstr "Vor- und Nachnamen bei der Benutzersuche berücksichtigen"
+
+#: includes/Users/Settings.php:243
+msgid "Adds matching profile information to searches in user lists. Useful when you know a person by name rather than by their login."
+msgstr "Ergänzt die Suche in Benutzerlisten um passende Profildaten. Hilfreich, wenn Sie eine Person unter ihrem Namen statt unter ihrem Login kennen."
+
+#: includes/Users/Settings.php:245
+msgid "Searches first name, last name, login, display name, email address, website URL and the URL-friendly user name. For example, Anna Meyer can match first and last names stored in separate profile fields."
+msgstr "Durchsucht Vorname, Nachname, Login, Anzeigename, E-Mail-Adresse, Website-URL und den für URLs verwendeten Benutzernamen. Beispielsweise kann Anna Meyer passende Vor- und Nachnamen in getrennten Profilfeldern finden."
+
+#: includes/Users/Settings.php:246
+msgid "Multiple words must all match for an additional result; partial matches are supported. Searches containing @ use the normal WordPress search. This option does not add a search to the public website."
+msgstr "Für einen zusätzlichen Treffer müssen alle eingegebenen Wörter passen; Teiltreffer sind möglich. Suchen mit @ verwenden die normale WordPress-Suche. Diese Option ergänzt keine Suche auf der öffentlichen Website."
+
+#: includes/Users/Settings.php:247
+msgid "Disabled: user lists use the normal WordPress search without these additional matches."
+msgstr "Deaktiviert: Benutzerlisten verwenden die normale WordPress-Suche ohne diese zusätzlichen Treffer."
+
+#: includes/Users/Settings.php:258
+msgid "Provide an automatic contact page"
+msgstr "Automatische Kontaktseite bereitstellen"
+
+#: includes/Users/Settings.php:259
+msgid "Lists website administrators with their display names and email addresses on a public-facing contact page. Check that these details are suitable for publication. The main website is excluded."
+msgstr "Listet Website-Administratoren mit Anzeigenamen und E-Mail-Adressen auf einer Kontaktseite im Frontend auf. Prüfen Sie, ob diese Daten veröffentlicht werden dürfen. Die Hauptwebsite ist ausgenommen."
+
+#: includes/Users/Settings.php:261
+msgid "The address follows the website language, for example /kontakt/ in German and /contact/ in English. It lists accounts with the Administrator role on that website; network super administrators are not automatically included."
+msgstr "Die Adresse richtet sich nach der Website-Sprache, etwa /kontakt/ auf Deutsch und /contact/ auf Englisch. Aufgelistet werden Konten mit der Rolle Administrator auf dieser Website; Netzwerk-Superadministratoren werden nicht automatisch aufgenommen."
+
+#: includes/Users/Settings.php:262
+msgid "An existing page with the same slug prevents the virtual page, including drafts, private pages and nested pages. This does not publish or move that existing page."
+msgstr "Eine vorhandene Seite mit demselben Slug verhindert die virtuelle Seite, auch bei Entwürfen, privaten oder untergeordneten Seiten. Die vorhandene Seite wird dadurch weder veröffentlicht noch verschoben."
+
+#: includes/Users/Settings.php:263
+msgid "The contact page is generated when requested and is not stored as an editable page. To provide your own content, create a normal page with the matching slug. Existing website access restrictions still apply."
+msgstr "Die Kontaktseite wird beim Aufruf erzeugt und nicht als bearbeitbare Seite gespeichert. Erstellen Sie für eigene Inhalte eine normale Seite mit dem passenden Slug. Bestehende Zugriffsbeschränkungen der Website gelten weiterhin."
+
+#: includes/Users/Settings.php:264
+msgid "Disabled: the virtual page is no longer generated. Any normal contact page remains unchanged."
+msgstr "Deaktiviert: Die virtuelle Seite wird nicht mehr erzeugt. Eine normale Kontaktseite bleibt unverändert."
+
+#: includes/Users/Settings.php:277
+msgid "Enter one exact user login per line, not a display name, email address or user ID. Listed accounts can view debug information in components that use this permission check. Super administrators are always allowed."
+msgstr "Geben Sie pro Zeile einen exakten Login-Namen ein, keinen Anzeigenamen, keine E-Mail-Adresse und keine Benutzer-ID. Eingetragene Konten dürfen Debug-Informationen in Komponenten sehen, die diese Berechtigungsprüfung verwenden. Superadministratoren sind immer zugelassen."
+
+#: includes/Users/Settings.php:279
+msgid "For example, enter anna.meyer and max.mustermann on separate lines. Use the spelling and capitalization of the actual login. An empty list allows only super administrators through this check."
+msgstr "Tragen Sie beispielsweise anna.meyer und max.mustermann in getrennten Zeilen ein. Verwenden Sie die Schreibweise und Groß-/Kleinschreibung des tatsächlichen Logins. Eine leere Liste lässt bei dieser Prüfung nur Superadministratoren zu."
+
+#: includes/Users/Settings.php:280
+msgid "This network-wide list is evaluated by Helper::userCanViewDebugLog(). It does not enable logging, create a log viewer or grant general website access. Other components may apply additional access checks."
+msgstr "Diese netzwerkweite Liste wird durch Helper::userCanViewDebugLog() ausgewertet. Sie aktiviert keine Protokollierung, erstellt keinen Log-Viewer und gewährt keinen allgemeinen Website-Zugang. Andere Komponenten können zusätzliche Zugriffsprüfungen durchführen."
+
+#: includes/Users/Settings.php:281
+msgid "Debug information may contain internal details or personal data. Add only accounts that need this information for support; removing a login withdraws this additional permission."
+msgstr "Debug-Informationen können interne Details oder personenbezogene Daten enthalten. Tragen Sie nur Konten ein, die diese Informationen für den Support benötigen. Das Entfernen eines Logins entzieht diese Zusatzberechtigung."
 
 #: includes/WebsiteFunctions/Settings.php:77
 #: includes/WebsiteFunctions/Settings.php:78
@@ -2135,10 +2256,6 @@ msgstr "Barrierefreiheit"
 
 #: includes/General/ErrorPage.php:101
 msgid "&laquo; Back"
-msgstr ""
-
-#: includes/General/Settings.php:146
-msgid "Ersetzt WordPress-Branding in Adminleiste und Admin-Footer, entfernt WordPress-Links, sortiert „Meine Websites“ und verwendet den Website-Absender für WordPress-E-Mails."
 msgstr ""
 
 #: includes/Media/Replace/Views/index.php:29
