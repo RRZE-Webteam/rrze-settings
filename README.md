@@ -189,6 +189,17 @@ is selected. **Save all changes** saves the entire
 form, including settings in other sections. The save bar stays at the bottom of
 the viewport while scrolling; on very short screens it follows the last section.
 
+API keys and the WebT password are masked by default. The eye button beside each
+field reveals or hides that field; search engine credentials use a closed native
+disclosure for their multiline content. Visibility resets on navigation and form
+submission. Toggling visibility does not alter values or save settings. Without
+JavaScript, password fields stay masked and editable, and the multiline disclosure
+still works. Existing WS Form license-key masking remains unchanged.
+
+This protects against accidental on-screen disclosure, not access to page source
+or developer tools: authorized administrators still receive the values in the
+form. Credential storage and validation are unchanged.
+
 ### CSS and operations
 
 Under **Network Admin > RRZE Settings > CSS and Operations** (formerly **Advanced**),

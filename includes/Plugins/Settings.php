@@ -9,6 +9,7 @@ use RRZE\Settings\Crawlers\Defaults as CrawlerDefaults;
 use RRZE\Settings\Settings as MainSettings;
 use RRZE\Settings\Library\Network\IPUtils;
 use RRZE\Settings\Library\Encryption\Encryption;
+use function RRZE\Settings\plugin;
 
 /**
  * Class Settings
@@ -26,6 +27,44 @@ class Settings extends MainSettings
      */
     protected $menuPage = 'rrze-settings-plugins';
 
+    /** @var string WordPress screen hook for loading the secret-field controls. */
+    private string $pageHook = '';
+
+    /**
+     * Register the settings page and its optional visibility controls.
+     *
+     * @return void
+     */
+    public function loaded()
+    {
+        parent::loaded();
+        if (is_network_admin()) {
+            add_action('admin_enqueue_scripts', [$this, 'enqueueSecretFields']);
+        }
+    }
+
+    /**
+     * Load the visibility controls only on the Plugins settings page.
+     *
+     * @param string $hook Current WordPress screen hook.
+     * @return void
+     */
+    public function enqueueSecretFields(string $hook): void
+    {
+        if ($this->pageHook === '' || $hook !== $this->pageHook) {
+            return;
+        }
+        $asset = require plugin()->getPath('build') . 'plugins/secret-fields.asset.php';
+        wp_enqueue_script(
+            'rrze-settings-plugin-secrets',
+            plugins_url('build/plugins/secret-fields.js', plugin()->getBasename()),
+            $asset['dependencies'],
+            $asset['version'],
+            true
+        );
+        wp_enqueue_style('dashicons');
+    }
+
     /**
      * Adds a submenu page to the network admin menu
      * 
@@ -33,7 +72,7 @@ class Settings extends MainSettings
      */
     public function networkAdminMenu()
     {
-        add_submenu_page(
+        $this->pageHook = (string) add_submenu_page(
             'rrze-settings',
             __('Plugins', 'rrze-settings'),
             __('Plugins', 'rrze-settings'),
@@ -604,11 +643,11 @@ class Settings extends MainSettings
     public function rrzeSearchEngineKeysField()
     {
         $option = $this->siteOptions->plugins->rrze_search_engine_keys;
-        $this->renderTextarea(
+        $this->renderSecretTextarea(
             'rrze-settings-rrze-search-engine-keys',
             sprintf('%s[rrze_search_engine_keys]', $this->optionName),
             $this->getTextarea($option),
-            8
+            __('Search engine keys', 'rrze-settings')
         );
         printf(
             '<p class="description">%1$s<br><code>%2$s</code><br><code>%3$s</code><br><code>%4$s</code><br>%5$s<br>%6$s</p>',
@@ -742,7 +781,7 @@ class Settings extends MainSettings
      */
     public function webtPasswordField()
     {
-        $this->renderInput('password', 'rrze-settings-rrze-webt-password', sprintf('%s[rrze_webt_password]', $this->optionName), $this->siteOptions->plugins->rrze_webt_password, 'regular-text', ['autocomplete' => 'off']);
+        $this->renderSecretInput('rrze-settings-rrze-webt-password', sprintf('%s[rrze_webt_password]', $this->optionName), $this->siteOptions->plugins->rrze_webt_password, __('WebT password', 'rrze-settings'));
         $this->renderDescription(__('The WebT password used for RRZE Webt.', 'rrze-settings'));
     }
 
@@ -825,10 +864,11 @@ class Settings extends MainSettings
      */
     public function rrzeDirectionsOpenRouteServiceApiKeyField()
     {
-        printf(
-            '<input type="text" id="rrze-settings-rrze-directions-openrouteservice-api-key" name="%1$s" value="%2$s" class="regular-text" autocomplete="off">',
-            esc_attr(sprintf('%s[rrze_directions_openrouteservice_api_key]', $this->optionName)),
-            esc_attr($this->siteOptions->plugins->rrze_directions_openrouteservice_api_key)
+        $this->renderSecretInput(
+            'rrze-settings-rrze-directions-openrouteservice-api-key',
+            sprintf('%s[rrze_directions_openrouteservice_api_key]', $this->optionName),
+            $this->siteOptions->plugins->rrze_directions_openrouteservice_api_key,
+            __('OpenRouteService-API-Key', 'rrze-settings')
         );
 
         printf(
@@ -954,7 +994,7 @@ class Settings extends MainSettings
      */
     public function dipAPIField()
     {
-        $this->renderInput('text', 'rrze-settings-dip-apiKey', sprintf('%s[dip_apiKey]', $this->optionName), $this->siteOptions->plugins->dip_apiKey);
+        $this->renderSecretInput('rrze-settings-dip-apiKey', sprintf('%s[dip_apiKey]', $this->optionName), $this->siteOptions->plugins->dip_apiKey, __('DIP API Key', 'rrze-settings'));
         $this->renderDescription(__('The DIP API key used by some plugins.', 'rrze-settings'));
     }
 
@@ -963,7 +1003,7 @@ class Settings extends MainSettings
      */
     public function dipEduApiKeyField()
     {
-        $this->renderInput('text', 'rrze-settings-dip-edu-api-key', sprintf('%s[dip_edu_api_key]', $this->optionName), $this->siteOptions->plugins->dip_edu_api_key);
+        $this->renderSecretInput('rrze-settings-dip-edu-api-key', sprintf('%s[dip_edu_api_key]', $this->optionName), $this->siteOptions->plugins->dip_edu_api_key, __('DIP Edu API key', 'rrze-settings'));
         $this->renderDescription(__('The DIP Edu API key used by some plugins.', 'rrze-settings'));
     }
 
@@ -972,7 +1012,7 @@ class Settings extends MainSettings
      */
     public function faudirApiKeyField()
     {
-        $this->renderInput('text', 'rrze-settings-faudir-apiKey', sprintf('%s[faudir_public_apiKey]', $this->optionName), $this->siteOptions->plugins->faudir_public_apiKey);
+        $this->renderSecretInput('rrze-settings-faudir-apiKey', sprintf('%s[faudir_public_apiKey]', $this->optionName), $this->siteOptions->plugins->faudir_public_apiKey, __('FAUdir API Key', 'rrze-settings'));
         $this->renderDescription(__('The FAUdir API key to access the API service https://api.fau.de/.', 'rrze-settings'));
     }
 
@@ -981,8 +1021,77 @@ class Settings extends MainSettings
      */
     public function biteApiKeyField()
     {
-        $this->renderInput('text', 'rrze-settings-bite-api-key', sprintf('%s[bite_api_key]', $this->optionName), $this->siteOptions->plugins->bite_api_key);
+        $this->renderSecretInput('rrze-settings-bite-api-key', sprintf('%s[bite_api_key]', $this->optionName), $this->siteOptions->plugins->bite_api_key, __('B-ITE API Key', 'rrze-settings'));
         $this->renderDescription(__('The B-ITE API key used for RRZE Jobs.', 'rrze-settings'));
+    }
+
+    /**
+     * Render a credential masked before JavaScript runs, retaining its form value.
+     *
+     * @param string $id Field ID.
+     * @param string $name Existing option field name.
+     * @param string $value Unmodified credential.
+     * @param string $label Translated field name for the input and visibility button.
+     * @return void
+     */
+    protected function renderSecretInput(string $id, string $name, string $value, string $label): void
+    {
+        /* translators: %s: Credential field name. */
+        $show = sprintf(__('Show: %s', 'rrze-settings'), $label);
+        /* translators: %s: Credential field name. */
+        $hide = sprintf(__('Hide: %s', 'rrze-settings'), $label);
+        echo '<div class="rrze-settings-secret-field">';
+        $this->renderInput('password', $id, $name, $value, 'regular-text', [
+            'autocomplete' => 'new-password',
+            'autocapitalize' => 'off',
+            'spellcheck' => 'false',
+            'aria-label' => $label,
+            'data-rrze-secret-input' => 'true',
+        ]);
+        printf(
+            '<button type="button" class="button rrze-settings-secret-toggle" hidden aria-controls="%1$s" aria-label="%2$s" title="%2$s" data-show-label="%2$s" data-hide-label="%3$s"><span class="dashicons dashicons-visibility" aria-hidden="true"></span></button>',
+            esc_attr($id),
+            esc_attr($show),
+            esc_attr($hide)
+        );
+        echo '</div>';
+    }
+
+    /**
+     * Conceal multiline credentials with a native disclosure that also works without JS.
+     *
+     * The closed disclosure still submits the original textarea, never the visual mask.
+     *
+     * @param string $id Textarea ID.
+     * @param string $name Existing option field name.
+     * @param string $value Unmodified multiline content.
+     * @param string $label Translated field name.
+     * @return void
+     */
+    protected function renderSecretTextarea(string $id, string $name, string $value, string $label): void
+    {
+        /* translators: %s: Credential field name. */
+        $show = sprintf(__('Show: %s', 'rrze-settings'), $label);
+        /* translators: %s: Credential field name. */
+        $hide = sprintf(__('Hide: %s', 'rrze-settings'), $label);
+        /* translators: %s: Credential field name. */
+        $toggle = sprintf(__('Show or hide: %s', 'rrze-settings'), $label);
+        printf(
+            '<details class="rrze-settings-secret-details"><summary aria-controls="%1$s" aria-label="%2$s" title="%2$s" data-show-label="%3$s" data-hide-label="%4$s"><span class="rrze-settings-secret-preview" aria-hidden="true">%5$s</span><span class="button rrze-settings-secret-toggle" aria-hidden="true"><span class="dashicons dashicons-visibility"></span></span></summary>',
+            esc_attr($id),
+            esc_attr($toggle),
+            esc_attr($show),
+            esc_attr($hide),
+            $value === '' ? '—' : '••••••••'
+        );
+        printf(
+            '<textarea id="%1$s" name="%2$s" rows="8" cols="50" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="%3$s">%4$s</textarea>',
+            esc_attr($id),
+            esc_attr($name),
+            esc_attr($label),
+            esc_textarea($value)
+        );
+        echo '</details>';
     }
 
     /**

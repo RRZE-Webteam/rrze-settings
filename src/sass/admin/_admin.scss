@@ -373,6 +373,89 @@
         }
     }
 
+    .rrze-settings-secret-field {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        width: calc(25em + 40px);
+        max-width: 100%;
+
+        input {
+            flex: 1;
+            min-width: 0;
+            margin: 0;
+        }
+    }
+
+    .rrze-settings-secret-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        min-width: 32px;
+        padding-inline: 5px;
+
+        &[hidden] { display: none; }
+        .dashicons { line-height: 1; }
+    }
+
+    .rrze-settings-secret-details {
+        position: relative;
+        box-sizing: border-box;
+        width: calc(25em + 40px);
+        max-width: 100%;
+        padding-inline-end: 40px;
+
+        summary {
+            list-style: none;
+
+            &::-webkit-details-marker { display: none; }
+
+            .rrze-settings-secret-toggle {
+                position: absolute;
+                inset-block-start: 0;
+                inset-inline-end: 0;
+            }
+
+            &:focus-visible {
+                outline: none;
+
+                .rrze-settings-secret-toggle {
+                    outline: 2px solid var(--wp-admin-theme-color, #2271b1);
+                    outline-offset: 2px;
+                }
+            }
+        }
+
+        .rrze-settings-secret-preview {
+            display: block;
+            min-height: 40px;
+            box-sizing: border-box;
+            padding-inline: 8px;
+            border: 1px solid #8c8f94;
+            border-radius: 4px;
+            background: #fff;
+            color: #2c3338;
+            line-height: 38px;
+        }
+
+        &[open] .rrze-settings-secret-preview { display: none; }
+        &:not([open]) > textarea { display: none; }
+
+        &[open] > summary {
+            position: absolute;
+            inset-block-start: 0;
+            inset-inline-end: 0;
+            inline-size: 32px;
+            min-block-size: 40px;
+        }
+
+        textarea {
+            width: 100%;
+            margin: 0;
+        }
+    }
+
     .rrze-settings-plugins-save-bar {
         position: sticky;
         bottom: 0;
