@@ -832,7 +832,6 @@ msgid "Custom Mime Types"
 msgstr ""
 
 #: includes/Media/Settings.php:178
-#: includes/Posts/Settings.php:107
 msgid "Taxonomien"
 msgstr ""
 
@@ -1368,58 +1367,160 @@ msgstr ""
 
 #: includes/Posts/Post.php:160
 #: includes/Posts/Post.php:168
-#: includes/Posts/Settings.php:92
+#: includes/Posts/Settings.php:105
+#: includes/Posts/Settings.php:254
 msgid "Last Modified"
 msgstr ""
 
-#: includes/Posts/Settings.php:48
-#: includes/Posts/Settings.php:49
-#: includes/Posts/Settings.php:85
-msgid "Posts"
+#: includes/Posts/Settings.php:55
+#: includes/Posts/Settings.php:56
+msgid "Posts and Pages"
 msgstr ""
 
-#: includes/Posts/Settings.php:99
-msgid "Pages List Dropdown"
+#: includes/Posts/Settings.php:97
+msgid "List View"
 msgstr ""
 
-#: includes/Posts/Settings.php:114
-msgid "Register Page Category"
+#: includes/Posts/Settings.php:112
+#: includes/Posts/Settings.php:270
+msgid "Parent Page Filter"
 msgstr ""
 
-#: includes/Posts/Settings.php:121
-msgid "Register Page Tag"
-msgstr ""
-
-#: includes/Posts/Settings.php:129
-msgid "No-Search Posts"
+#: includes/Posts/Settings.php:120
+msgid "Categories and Tags"
 msgstr ""
 
 #: includes/Posts/Settings.php:143
-msgid "Network administrators can centrally manage post settings across the multisite network. Options include adding a custom “Last Modified” column to post lists and a dropdown filter for pages—enhancing content visibility and management across all websites."
+msgid "Website Search"
 msgstr ""
 
-#: includes/Posts/Settings.php:153
-msgid "Configure taxonomies and search behavior for posts and pages across the multisite network."
-msgstr ""
-
-#: includes/Posts/Settings.php:163
-msgid "Exclude from search nosearch-tagged posts"
-msgstr ""
-
-#: includes/Posts/Settings.php:173
-msgid "Register page category taxonomy"
-msgstr ""
-
-#: includes/Posts/Settings.php:183
-msgid "Register page tag taxonomy"
-msgstr ""
-
-#: includes/Posts/Settings.php:193
-msgid "Enables last modified custom column"
-msgstr ""
-
+#: includes/Posts/Settings.php:151
 #: includes/Posts/Settings.php:203
-msgid "Enables pages list dropdown"
+msgid "Search Exclusion"
+msgstr ""
+
+#: includes/Posts/Settings.php:166
+msgid "These settings apply to all websites in the network after saving. The list options help editors find recently changed content and navigate page hierarchies in the WordPress administration."
+msgstr ""
+
+#: includes/Posts/Settings.php:178
+msgid "Organize pages by topic using their own categories and tags. WordPress calls these groupings taxonomies. The features are enabled network-wide, but each website maintains its own terms and assignments."
+msgstr ""
+
+#: includes/Posts/Settings.php:190
+msgid "Control whether content marked with a specific tag appears in the regular WordPress search on the website."
+msgstr ""
+
+#: includes/Posts/Settings.php:201
+msgid "Exclude content tagged nosearch from website search"
+msgstr ""
+
+#: includes/Posts/Settings.php:202
+msgid "Hides tagged content from the regular WordPress search results on the website. This does not restrict access: direct links remain accessible according to the existing permissions."
+msgstr ""
+
+#: includes/Posts/Settings.php:204
+msgid "Create a tag whose slug is exactly nosearch on the relevant website and assign it to the content. The slug is the URL-friendly identifier, not just the displayed name. A category named nosearch has no effect."
+msgstr ""
+
+#: includes/Posts/Settings.php:205
+msgid "For pages, enable Page Tags above. Posts use their normal tags. Media tags are also checked when enabled under Media and when attachments are included in the search. The option does not create or assign tags automatically."
+msgstr ""
+
+#: includes/Posts/Settings.php:206
+msgid "Example: tag a landing page that should remain reachable through a direct link but should not appear in the website search. This is not a noindex instruction for Google or other external search engines."
+msgstr ""
+
+#: includes/Posts/Settings.php:207
+msgid "Only the main WordPress search query on the public-facing website is filtered. Administration searches, separate search queries and external search services are not covered. Search plugins may change the result."
+msgstr ""
+
+#: includes/Posts/Settings.php:208
+msgid "Disabled: this additional search exclusion is removed. Existing tags and assignments remain stored."
+msgstr ""
+
+#: includes/Posts/Settings.php:219
+msgid "Enable categories for pages"
+msgstr ""
+
+#: includes/Posts/Settings.php:220
+msgid "Adds a separate set of categories for pages, including parent and child categories. Page categories are independent of post categories and do not change the parent-child structure of pages."
+msgstr ""
+
+#: includes/Posts/Settings.php:222
+msgid "Example: group pages under Study and Research, with Degree Programs as a child category of Study. Assign categories in the page editor; the page list shows them and offers a filter when used categories are available."
+msgstr ""
+
+#: includes/Posts/Settings.php:223
+msgid "Page categories can be used in navigation menus and public category archives. Their display depends on the theme; enabling this option does not add them to a menu automatically."
+msgstr ""
+
+#: includes/Posts/Settings.php:224
+msgid "Disabled: the plugin stops providing page categories and their administration controls. Existing terms and assignments are not deleted and become available again when re-enabled."
+msgstr ""
+
+#: includes/Posts/Settings.php:235
+msgid "Enable tags for pages"
+msgstr ""
+
+#: includes/Posts/Settings.php:236
+msgid "Adds a separate set of tags for pages. Tags describe topics without a parent-child hierarchy and are independent of post tags."
+msgstr ""
+
+#: includes/Posts/Settings.php:238
+msgid "Example: assign application or accessibility to related pages. Tags can be assigned in the page editor, appear in the page list and can be used there as a filter when used tags are available."
+msgstr ""
+
+#: includes/Posts/Settings.php:239
+msgid "Page tags are available in the editor and REST API, but are not registered as public tag archives or navigation menu entries. Enabling them does not automatically display tags in the website theme."
+msgstr ""
+
+#: includes/Posts/Settings.php:240
+msgid "To exclude a page from website search, also enable Search Exclusion below and assign a page tag with the slug nosearch. Enabling Page Tags alone does not exclude anything."
+msgstr ""
+
+#: includes/Posts/Settings.php:241
+msgid "Disabled: page tags are no longer provided by this plugin, so they cannot be used by its search exclusion. Existing terms and assignments remain stored for reactivation."
+msgstr ""
+
+#: includes/Posts/Settings.php:252
+msgid "Show the last modification in the date column"
+msgstr ""
+
+#: includes/Posts/Settings.php:253
+msgid "Extends the Date column in the post and page lists with the last modification. Clicking the column heading sorts by modification date."
+msgstr ""
+
+#: includes/Posts/Settings.php:255
+msgid "Example: find an older page that was revised recently by sorting the Date column by the latest modification. Published and scheduled content still shows its publication or scheduled date in the standard list view."
+msgstr ""
+
+#: includes/Posts/Settings.php:256
+msgid "Applies to the administration lists for posts and pages, except the Trash view. It does not add a date to the public website or change publication dates."
+msgstr ""
+
+#: includes/Posts/Settings.php:257
+msgid "Disabled: the usual WordPress date column is used again. The stored modification dates remain unchanged."
+msgstr ""
+
+#: includes/Posts/Settings.php:268
+msgid "Filter the page list by parent page"
+msgstr ""
+
+#: includes/Posts/Settings.php:269
+msgid "Adds a dropdown to the page list. Selecting a page and applying the filter shows that page and all its descendants, including deeper levels."
+msgstr ""
+
+#: includes/Posts/Settings.php:271
+msgid "Example: select Study to show that page together with Degree Programs, Application and their subpages. Choose All page levels and apply the filter to remove this restriction; other active list filters still apply."
+msgstr ""
+
+#: includes/Posts/Settings.php:272
+msgid "The dropdown is available in the All and Published page views, not in status views such as Drafts or Trash. It lists published pages for selection and displays up to six hierarchy levels."
+msgstr ""
+
+#: includes/Posts/Settings.php:273
+msgid "Disabled: this additional dropdown is removed. Page content, parent-child relationships and navigation menus remain unchanged."
 msgstr ""
 
 #: includes/RestAPI/API.php:92
@@ -1651,6 +1752,8 @@ msgid "All Categories"
 msgstr ""
 
 #: includes/Taxonomies/PageCategory.php:36
+#: includes/Posts/Settings.php:128
+#: includes/Posts/Settings.php:221
 msgid "Page Categories"
 msgstr ""
 
@@ -1659,6 +1762,8 @@ msgid "Page Category"
 msgstr ""
 
 #: includes/Taxonomies/PageTag.php:18
+#: includes/Posts/Settings.php:135
+#: includes/Posts/Settings.php:237
 msgid "Page Tags"
 msgstr ""
 

@@ -42,6 +42,15 @@ search, the automatic contact page, dashboard guidance, administrator warnings
 and debug access. See the [German user guide for User settings](docs/users-settings.md)
 for permissions, examples and the limitations of each option.
 
+### Post and page settings
+
+Under **Network Admin > CMS > Posts and Pages** (formerly **Posts**), configure
+the date column, parent page filter, page categories and tags, and exclusion
+from website search using the `nosearch` tag. Each field includes a short
+description and optional details. See the
+[German user guide for Posts and Pages](docs/posts-settings.md) for examples,
+dependencies and the scope of the search exclusion.
+
 ### Plugin settings
 
 Under **Network Admin > CMS > Plugins**, available plugin sections appear on one

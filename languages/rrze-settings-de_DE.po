@@ -784,7 +784,6 @@ msgid "Custom Mime Types"
 msgstr "Benutzerdefinierte Mime-Typen"
 
 #: includes/Media/Settings.php:178
-#: includes/Posts/Settings.php:107
 msgid "Taxonomien"
 msgstr "Taxonomien"
 
@@ -1254,61 +1253,163 @@ msgstr "Zur Übersicht"
 msgid "All page levels"
 msgstr "Alle Seitenebenen"
 
-#: includes/Posts/Settings.php:48
-#: includes/Posts/Settings.php:49
-#: includes/Posts/Settings.php:85
-msgid "Posts"
-msgstr "Posts"
-
 #: includes/Posts/Post.php:160
 #: includes/Posts/Post.php:168
-#: includes/Posts/Settings.php:92
+#: includes/Posts/Settings.php:105
+#: includes/Posts/Settings.php:254
 msgid "Last Modified"
 msgstr "Letzte Änderung"
 
-#: includes/Posts/Settings.php:99
-msgid "Pages List Dropdown"
-msgstr "Dropdown-Liste der Seiten"
+#: includes/Posts/Settings.php:55
+#: includes/Posts/Settings.php:56
+msgid "Posts and Pages"
+msgstr "Beiträge und Seiten"
 
-#: includes/Posts/Settings.php:114
-msgid "Register Page Category"
-msgstr "Seitenkategorie registrieren"
+#: includes/Posts/Settings.php:97
+msgid "List View"
+msgstr "Listenansicht"
 
-#: includes/Posts/Settings.php:121
-msgid "Register Page Tag"
-msgstr "Seitenschlagwort registrieren"
+#: includes/Posts/Settings.php:112
+#: includes/Posts/Settings.php:270
+msgid "Parent Page Filter"
+msgstr "Filter nach übergeordneter Seite"
 
-#: includes/Posts/Settings.php:129
-msgid "No-Search Posts"
-msgstr "No-Search-Posts"
+#: includes/Posts/Settings.php:120
+msgid "Categories and Tags"
+msgstr "Kategorien und Schlagwörter"
 
 #: includes/Posts/Settings.php:143
-msgid "Network administrators can centrally manage post settings across the multisite network. Options include adding a custom “Last Modified” column to post lists and a dropdown filter for pages—enhancing content visibility and management across all websites."
-msgstr "Netzwerkadministratoren können Beitragseinstellungen im gesamten Multisite‑Netzwerk zentral verwalten. Zu den Optionen gehören das Hinzufügen einer benutzerdefinierten Spalte „Zuletzt bearbeitet“ in den Beitragslisten und ein Dropdown‑Filter für Seiten — zur Verbesserung der Inhaltsübersicht und -verwaltung auf allen Websites."
+msgid "Website Search"
+msgstr "Website-Suche"
 
-#: includes/Posts/Settings.php:153
-msgid "Configure taxonomies and search behavior for posts and pages across the multisite network."
-msgstr "Taxonomien und Suchverhalten für Beiträge und Seiten im gesamten Multisite-Netzwerk konfigurieren."
-
-#: includes/Posts/Settings.php:163
-msgid "Exclude from search nosearch-tagged posts"
-msgstr "Posts mit dem Schlagwort nosearch von der Suche ausschließen"
-
-#: includes/Posts/Settings.php:173
-msgid "Register page category taxonomy"
-msgstr "Seitenkategorie-Taxonomie registrieren"
-
-#: includes/Posts/Settings.php:183
-msgid "Register page tag taxonomy"
-msgstr "Seitenschlagwort-Taxonomie registrieren"
-
-#: includes/Posts/Settings.php:193
-msgid "Enables last modified custom column"
-msgstr "Aktiviert die zuletzt geänderte benutzerdefinierte Spalte"
-
+#: includes/Posts/Settings.php:151
 #: includes/Posts/Settings.php:203
-msgid "Enables pages list dropdown"
-msgstr "Aktiviert die Dropdown-Liste der Seiten"
+msgid "Search Exclusion"
+msgstr "Suchausschluss"
+
+#: includes/Posts/Settings.php:166
+msgid "These settings apply to all websites in the network after saving. The list options help editors find recently changed content and navigate page hierarchies in the WordPress administration."
+msgstr "Diese Einstellungen gelten nach dem Speichern für alle Websites im Netzwerk. Die Listenoptionen helfen Redaktionen, kürzlich geänderte Inhalte zu finden und sich in der WordPress-Verwaltung durch Seitenhierarchien zu bewegen."
+
+#: includes/Posts/Settings.php:178
+msgid "Organize pages by topic using their own categories and tags. WordPress calls these groupings taxonomies. The features are enabled network-wide, but each website maintains its own terms and assignments."
+msgstr "Ordnen Sie Seiten mithilfe eigener Kategorien und Schlagwörter nach Themen. WordPress nennt diese Gruppierungen Taxonomien. Die Funktionen werden netzwerkweit aktiviert; jede Website pflegt ihre Begriffe und Zuordnungen separat."
+
+#: includes/Posts/Settings.php:190
+msgid "Control whether content marked with a specific tag appears in the regular WordPress search on the website."
+msgstr "Legen Sie fest, ob Inhalte mit einem bestimmten Schlagwort in der regulären WordPress-Suche auf der Website erscheinen."
+
+#: includes/Posts/Settings.php:201
+msgid "Exclude content tagged nosearch from website search"
+msgstr "Inhalte mit dem Schlagwort nosearch aus der Website-Suche ausschließen"
+
+#: includes/Posts/Settings.php:202
+msgid "Hides tagged content from the regular WordPress search results on the website. This does not restrict access: direct links remain accessible according to the existing permissions."
+msgstr "Blendet markierte Inhalte aus den regulären WordPress-Suchergebnissen auf der Website aus. Dies ist kein Zugriffsschutz: Direkte Links bleiben im Rahmen der vorhandenen Berechtigungen erreichbar."
+
+#: includes/Posts/Settings.php:204
+msgid "Create a tag whose slug is exactly nosearch on the relevant website and assign it to the content. The slug is the URL-friendly identifier, not just the displayed name. A category named nosearch has no effect."
+msgstr "Legen Sie auf der jeweiligen Website ein Schlagwort mit genau dem Slug nosearch an und weisen Sie es den Inhalten zu. Der Slug ist die URL-Kurzform; allein der sichtbare Name genügt nicht. Eine Kategorie namens nosearch hat keine Wirkung."
+
+#: includes/Posts/Settings.php:205
+msgid "For pages, enable Page Tags above. Posts use their normal tags. Media tags are also checked when enabled under Media and when attachments are included in the search. The option does not create or assign tags automatically."
+msgstr "Aktivieren Sie für Seiten zusätzlich die Seitenschlagwörter oben. Beiträge verwenden ihre normalen Schlagwörter. Medienschlagwörter werden ebenfalls berücksichtigt, wenn sie unter Medien aktiviert sind und Anhänge in der Suche vorkommen. Die Option legt keine Schlagwörter oder Zuordnungen automatisch an."
+
+#: includes/Posts/Settings.php:206
+msgid "Example: tag a landing page that should remain reachable through a direct link but should not appear in the website search. This is not a noindex instruction for Google or other external search engines."
+msgstr "Beispiel: Markieren Sie eine Landingpage, die über einen direkten Link erreichbar bleiben, aber nicht in der Website-Suche erscheinen soll. Dies ist keine noindex-Anweisung für Google oder andere externe Suchmaschinen."
+
+#: includes/Posts/Settings.php:207
+msgid "Only the main WordPress search query on the public-facing website is filtered. Administration searches, separate search queries and external search services are not covered. Search plugins may change the result."
+msgstr "Gefiltert wird nur die Hauptabfrage der WordPress-Suche auf der Website. Verwaltungssuchen, separate Suchabfragen und externe Suchdienste sind nicht erfasst. Suchplugins können das Ergebnis verändern."
+
+#: includes/Posts/Settings.php:208
+msgid "Disabled: this additional search exclusion is removed. Existing tags and assignments remain stored."
+msgstr "Deaktiviert: Dieser zusätzliche Suchausschluss entfällt. Vorhandene Schlagwörter und Zuordnungen bleiben gespeichert."
+
+#: includes/Posts/Settings.php:219
+msgid "Enable categories for pages"
+msgstr "Kategorien für Seiten aktivieren"
+
+#: includes/Posts/Settings.php:220
+msgid "Adds a separate set of categories for pages, including parent and child categories. Page categories are independent of post categories and do not change the parent-child structure of pages."
+msgstr "Ergänzt eigene Kategorien für Seiten, einschließlich über- und untergeordneter Kategorien. Seitenkategorien sind unabhängig von Beitragskategorien und verändern die Hierarchie der Seiten nicht."
+
+#: includes/Posts/Settings.php:222
+msgid "Example: group pages under Study and Research, with Degree Programs as a child category of Study. Assign categories in the page editor; the page list shows them and offers a filter when used categories are available."
+msgstr "Beispiel: Gruppieren Sie Seiten unter Studium und Forschung, mit Studiengänge als Unterkategorie von Studium. Weisen Sie Kategorien im Seiteneditor zu. Die Seitenliste zeigt sie an und bietet einen Filter, sobald verwendete Kategorien verfügbar sind."
+
+#: includes/Posts/Settings.php:223
+msgid "Page categories can be used in navigation menus and public category archives. Their display depends on the theme; enabling this option does not add them to a menu automatically."
+msgstr "Seitenkategorien können in Navigationsmenüs und öffentlichen Kategoriearchiven verwendet werden. Die Darstellung hängt vom Theme ab; die Aktivierung fügt sie nicht automatisch zu einem Menü hinzu."
+
+#: includes/Posts/Settings.php:224
+msgid "Disabled: the plugin stops providing page categories and their administration controls. Existing terms and assignments are not deleted and become available again when re-enabled."
+msgstr "Deaktiviert: Das Plugin stellt die Seitenkategorien und ihre Verwaltungsoberfläche nicht mehr bereit. Vorhandene Begriffe und Zuordnungen werden nicht gelöscht und stehen nach erneuter Aktivierung wieder zur Verfügung."
+
+#: includes/Posts/Settings.php:235
+msgid "Enable tags for pages"
+msgstr "Schlagwörter für Seiten aktivieren"
+
+#: includes/Posts/Settings.php:236
+msgid "Adds a separate set of tags for pages. Tags describe topics without a parent-child hierarchy and are independent of post tags."
+msgstr "Ergänzt eigene Schlagwörter für Seiten. Schlagwörter beschreiben Themen ohne über- oder untergeordnete Ebenen und sind unabhängig von Beitragsschlagwörtern."
+
+#: includes/Posts/Settings.php:238
+msgid "Example: assign application or accessibility to related pages. Tags can be assigned in the page editor, appear in the page list and can be used there as a filter when used tags are available."
+msgstr "Beispiel: Versehen Sie zusammengehörige Seiten mit Bewerbung oder Barrierefreiheit. Schlagwörter lassen sich im Seiteneditor zuweisen und erscheinen in der Seitenliste. Dort stehen verwendete Schlagwörter auch als Filter zur Verfügung."
+
+#: includes/Posts/Settings.php:239
+msgid "Page tags are available in the editor and REST API, but are not registered as public tag archives or navigation menu entries. Enabling them does not automatically display tags in the website theme."
+msgstr "Seitenschlagwörter sind im Editor und über die REST-API verfügbar, werden aber nicht als öffentliche Schlagwortarchive oder Einträge für Navigationsmenüs registriert. Die Aktivierung zeigt noch keine Schlagwörter im Theme an."
+
+#: includes/Posts/Settings.php:240
+msgid "To exclude a page from website search, also enable Search Exclusion below and assign a page tag with the slug nosearch. Enabling Page Tags alone does not exclude anything."
+msgstr "Aktivieren Sie für den Suchausschluss einer Seite zusätzlich den Suchausschluss unten und weisen Sie ein Seitenschlagwort mit dem Slug nosearch zu. Seitenschlagwörter allein schließen keine Inhalte aus der Suche aus."
+
+#: includes/Posts/Settings.php:241
+msgid "Disabled: page tags are no longer provided by this plugin, so they cannot be used by its search exclusion. Existing terms and assignments remain stored for reactivation."
+msgstr "Deaktiviert: Das Plugin stellt Seitenschlagwörter nicht mehr bereit; sein Suchausschluss kann sie dann ebenfalls nicht berücksichtigen. Vorhandene Begriffe und Zuordnungen bleiben für eine spätere Aktivierung gespeichert."
+
+#: includes/Posts/Settings.php:252
+msgid "Show the last modification in the date column"
+msgstr "Letzte Änderung in der Datumsspalte anzeigen"
+
+#: includes/Posts/Settings.php:253
+msgid "Extends the Date column in the post and page lists with the last modification. Clicking the column heading sorts by modification date."
+msgstr "Erweitert die Spalte Datum in den Beitrags- und Seitenlisten um die letzte Änderung. Ein Klick auf den Spaltentitel sortiert nach dem Änderungsdatum."
+
+#: includes/Posts/Settings.php:255
+msgid "Example: find an older page that was revised recently by sorting the Date column by the latest modification. Published and scheduled content still shows its publication or scheduled date in the standard list view."
+msgstr "Beispiel: Finden Sie eine ältere, kürzlich überarbeitete Seite, indem Sie die Datumsspalte nach der neuesten Änderung sortieren. Veröffentlichte und geplante Inhalte zeigen in der normalen Listenansicht weiterhin auch ihr Veröffentlichungs- bzw. Planungsdatum."
+
+#: includes/Posts/Settings.php:256
+msgid "Applies to the administration lists for posts and pages, except the Trash view. It does not add a date to the public website or change publication dates."
+msgstr "Gilt für die Verwaltungslisten von Beiträgen und Seiten, ausgenommen die Papierkorbansicht. Die Option ergänzt kein Datum auf der öffentlichen Website und verändert keine Veröffentlichungszeitpunkte."
+
+#: includes/Posts/Settings.php:257
+msgid "Disabled: the usual WordPress date column is used again. The stored modification dates remain unchanged."
+msgstr "Deaktiviert: WordPress verwendet wieder seine normale Datumsspalte. Die gespeicherten Änderungsdaten bleiben unverändert."
+
+#: includes/Posts/Settings.php:268
+msgid "Filter the page list by parent page"
+msgstr "Seitenliste nach übergeordneter Seite filtern"
+
+#: includes/Posts/Settings.php:269
+msgid "Adds a dropdown to the page list. Selecting a page and applying the filter shows that page and all its descendants, including deeper levels."
+msgstr "Ergänzt ein Auswahlfeld in der Seitenliste. Wählen Sie eine Seite und wenden Sie den Filter an: Angezeigt werden diese Seite und alle untergeordneten Seiten, auch über mehrere Ebenen hinweg."
+
+#: includes/Posts/Settings.php:271
+msgid "Example: select Study to show that page together with Degree Programs, Application and their subpages. Choose All page levels and apply the filter to remove this restriction; other active list filters still apply."
+msgstr "Beispiel: Wählen Sie Studium, um diese Seite zusammen mit Studiengänge, Bewerbung und deren Unterseiten anzuzeigen. Mit Alle Seitenebenen und erneutem Anwenden des Filters heben Sie die Einschränkung auf. Andere aktive Listenfilter gelten weiterhin."
+
+#: includes/Posts/Settings.php:272
+msgid "The dropdown is available in the All and Published page views, not in status views such as Drafts or Trash. It lists published pages for selection and displays up to six hierarchy levels."
+msgstr "Das Auswahlfeld steht in den Seitenansichten Alle und Veröffentlicht zur Verfügung, nicht in Statusansichten wie Entwürfe oder Papierkorb. Zur Auswahl stehen veröffentlichte Seiten in bis zu sechs Hierarchieebenen."
+
+#: includes/Posts/Settings.php:273
+msgid "Disabled: this additional dropdown is removed. Page content, parent-child relationships and navigation menus remain unchanged."
+msgstr "Deaktiviert: Das zusätzliche Auswahlfeld entfällt. Seiteninhalte, Seitenhierarchie und Navigationsmenüs bleiben unverändert."
 
 #: includes/RestAPI/API.php:92
 msgid "REST API support is restricted."
@@ -1539,6 +1640,8 @@ msgid "All Categories"
 msgstr "Alle Kategorien"
 
 #: includes/Taxonomies/PageCategory.php:36
+#: includes/Posts/Settings.php:128
+#: includes/Posts/Settings.php:221
 msgid "Page Categories"
 msgstr "Seitenkategorien"
 
@@ -1547,8 +1650,10 @@ msgid "Page Category"
 msgstr "Seitenkategorie"
 
 #: includes/Taxonomies/PageTag.php:18
+#: includes/Posts/Settings.php:135
+#: includes/Posts/Settings.php:237
 msgid "Page Tags"
-msgstr "Seitenschlagworte"
+msgstr "Seitenschlagwörter"
 
 #: includes/Taxonomies/PageTag.php:19
 msgid "Page Tag"
