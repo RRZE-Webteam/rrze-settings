@@ -2,7 +2,7 @@
 # This file is distributed under the GNU General Public License Version 3.
 msgid ""
 msgstr ""
-"Project-Id-Version: RRZE Settings 2.4.3\n"
+"Project-Id-Version: RRZE Settings 2.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/RRZE-Webteam/rrze-settings/issues\n"
 "Last-Translator: RRZE Webteam <webmaster@fau.de>\n"
 "Language-Team: RRZE Webteam <webmaster@fau.de>\n"
