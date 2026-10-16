@@ -4,6 +4,7 @@
 .rrze-settings-users,
 .rrze-settings-posts,
 .rrze-settings-menus,
+.rrze-settings-media,
 .rrze-settings-editor-page,
 .rrze-settings-editor-section,
 .rrze-settings-plugins-page {
@@ -30,6 +31,63 @@
 
     summary {
         cursor: pointer;
+    }
+}
+
+/* Media mappings remain readable without overflowing narrow admin screens. */
+.rrze-settings-media textarea {
+    width: 100%;
+    max-width: 55ch;
+    box-sizing: border-box;
+}
+
+/* Native anchor navigation keeps all media settings in the same form. */
+.rrze-settings-media-page {
+    max-width: 1040px;
+
+    #rrze-settings-media-index,
+    .rrze-settings-media {
+        scroll-margin-top: 64px;
+    }
+
+    #rrze-settings-media-index {
+        margin-block: 24px;
+
+        ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+            gap: 4px 24px;
+            margin: 0;
+            max-width: 75ch;
+        }
+
+        li { margin: 0; }
+        a { display: inline-block; padding-block: 5px; }
+    }
+
+    .rrze-settings-media {
+        padding-block: 24px;
+        padding-inline: 16px;
+        // The first border separates the overview from the form.
+        border-block-start: 1px solid #c3c4c7;
+        // Reserve the accent space to prevent movement when following a link.
+        border-inline-start: 3px solid transparent;
+
+        &:target {
+            border-inline-start-color: var(--wp-admin-theme-color, #2271b1);
+            background-color: #f0f6fc;
+        }
+    }
+
+    .rrze-settings-media-heading {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px 24px;
+
+        h2 { margin: 0; }
+        a { margin-inline-start: auto; }
     }
 }
 

@@ -811,6 +811,7 @@ msgid "Manage website plugins that should not run alongside the block editor."
 msgstr ""
 
 #: includes/Writing/Settings.php:182
+#: includes/Media/Settings.php:131
 msgid "On this page"
 msgstr ""
 
@@ -1122,6 +1123,289 @@ msgstr ""
 msgid "Applies only when Heartbeat synchronization above is off. Default and minimum: 60 seconds. This setting applies to the block editor."
 msgstr ""
 
+#: includes/Media/Settings.php:101
+msgid "Uploads and File Types"
+msgstr ""
+
+#: includes/Media/Settings.php:165
+#: includes/Media/Settings.php:311
+msgid "Upload Filenames"
+msgstr ""
+
+#: includes/Media/Settings.php:173
+#: includes/Media/Settings.php:326
+msgid "SVG Processing"
+msgstr ""
+
+#: includes/Media/Settings.php:181
+#: includes/Media/Settings.php:480
+msgid "Additional File Types"
+msgstr ""
+
+#: includes/Media/Settings.php:105
+msgid "Image Processing"
+msgstr ""
+
+#: includes/Media/Settings.php:190
+#: includes/Media/Settings.php:342
+msgid "PDF Preview Images"
+msgstr ""
+
+#: includes/Media/Settings.php:198
+#: includes/Media/Settings.php:357
+msgid "Resize Large Images"
+msgstr ""
+
+#: includes/Media/Settings.php:206
+msgid "Maximum Image Dimension"
+msgstr ""
+
+#: includes/Media/Settings.php:215
+#: includes/Media/Settings.php:373
+msgid "Sharpen JPEG Images"
+msgstr ""
+
+#: includes/Media/Settings.php:109
+msgid "Media Library Tools"
+msgstr ""
+
+#: includes/Media/Settings.php:223
+#: includes/Media/Settings.php:388
+msgid "Replace Media Files"
+msgstr ""
+
+#: includes/Media/Settings.php:231
+#: includes/Media/Settings.php:404
+msgid "File Size in the Media Library"
+msgstr ""
+
+#: includes/Media/Settings.php:113
+msgid "Organize Media"
+msgstr ""
+
+#: includes/Media/Settings.php:239
+#: includes/Media/Settings.php:419
+msgid "Document Groups"
+msgstr ""
+
+#: includes/Media/Settings.php:247
+#: includes/Media/Settings.php:434
+msgid "Media Categories"
+msgstr ""
+
+#: includes/Media/Settings.php:255
+#: includes/Media/Settings.php:449
+msgid "Media Tags"
+msgstr ""
+
+#: includes/Media/Settings.php:269
+msgid "These settings apply to all websites in the network after saving. Configure filenames, SVG processing and additional upload types here. Saving this page does not reprocess existing media."
+msgstr ""
+
+#: includes/Media/Settings.php:279
+msgid "Control previews and image processing during uploads or when image sizes are generated again. The pixel limit below belongs to this plugin’s resizing feature; other WordPress and theme image settings still apply."
+msgstr ""
+
+#: includes/Media/Settings.php:289
+msgid "Add tools for replacing files and checking their size in each website’s media library."
+msgstr ""
+
+#: includes/Media/Settings.php:299
+msgid "These classification systems help organize and filter media. Each website maintains its own terms and assignments. Switching a system off hides its management and filters; stored terms, assignments and files are retained."
+msgstr ""
+
+#: includes/Media/Settings.php:309
+msgid "Simplify filenames when uploading"
+msgstr ""
+
+#: includes/Media/Settings.php:310
+msgid "Replaces supported accented characters and umlauts, removes remaining non-ASCII characters and lowercases the file extension. Existing filenames and URLs stay unchanged."
+msgstr ""
+
+#: includes/Media/Settings.php:312
+msgid "The additional conversion replaces ä with ae and ß with ss, for example. WordPress may already normalize a filename before this additional step."
+msgstr ""
+
+#: includes/Media/Settings.php:313
+msgid "Disabled: WordPress continues its own filename cleanup. The setting does not rename files already in the media library or change their title, caption or alternative text."
+msgstr ""
+
+#: includes/Media/Settings.php:324
+msgid "Sanitize SVG uploads and display them in the media library"
+msgstr ""
+
+#: includes/Media/Settings.php:325
+msgid "Adds SVG previews and cleans SVG files during regular uploads. SVG must also be permitted as an upload type; this checkbox alone does not enable that file type."
+msgstr ""
+
+#: includes/Media/Settings.php:327
+msgid "For an SVG type mapping, use svg=image/svg+xml //Vector graphics under Additional File Types. Keep this consistent with Upload file types under Network Admin > Settings > Network Settings."
+msgstr ""
+
+#: includes/Media/Settings.php:328
+msgid "The upload cleaner removes SVG elements and attributes outside its allowed list. If cleaning fails, the regular upload is rejected. Existing SVG files are not cleaned retroactively; the separate Replace File dialog does not use this upload cleaner."
+msgstr ""
+
+#: includes/Media/Settings.php:329
+msgid "Disabled: the additional SVG previews and upload cleaning are removed. Existing files remain stored. This does not revoke an SVG upload permission configured elsewhere."
+msgstr ""
+
+#: includes/Media/Settings.php:340
+msgid "Skip generating preview images for PDFs"
+msgstr ""
+
+#: includes/Media/Settings.php:341
+msgid "Suppresses the fallback image sizes WordPress generates for non-image files, currently PDF previews. PDF uploads and downloads remain available."
+msgstr ""
+
+#: includes/Media/Settings.php:343
+msgid "Example: a newly uploaded PDF is shown with a file icon instead of a preview of its first page. Image sizes for regular photos are unaffected."
+msgstr ""
+
+#: includes/Media/Settings.php:344
+msgid "Existing preview files are not deleted. Disabled: WordPress can generate PDF previews again if the server supports PDF processing. Merely switching this off does not generate missing previews for existing PDFs."
+msgstr ""
+
+#: includes/Media/Settings.php:355
+msgid "Reduce oversized images during upload and replacement"
+msgstr ""
+
+#: includes/Media/Settings.php:356
+msgid "Scales JPEG, PNG and GIF files proportionally to the pixel limit below. If the result uses less disk space, it replaces the uploaded original; this feature keeps no separate copy of the larger original."
+msgstr ""
+
+#: includes/Media/Settings.php:358
+msgid "Example: a 4000 × 3000 image is reduced to 2000 × 1500 at a limit of 2000 pixels, provided the result has a smaller file size. Smaller images are not enlarged and the image is not cropped."
+msgstr ""
+
+#: includes/Media/Settings.php:359
+msgid "A filename containing the lowercase text noresize, such as poster-noresize.jpg, bypasses this plugin’s resizing. WordPress or other plugins may still resize the file. WebP, AVIF and SVG are not processed by this feature."
+msgstr ""
+
+#: includes/Media/Settings.php:360
+msgid "Applies to new uploads and files replaced using this plugin, not to a batch of existing media. When replacing a file, the retained destination filename determines the noresize exception. For animated GIFs, check whether the server’s image processing preserves animation."
+msgstr ""
+
+#: includes/Media/Settings.php:371
+msgid "Sharpen JPEG files generated by WordPress"
+msgstr ""
+
+#: includes/Media/Settings.php:372
+msgid "Sharpens JPEG files when WordPress saves processed images, for example preview sizes. Requires the Imagick PHP extension; without it, this setting has no effect."
+msgstr ""
+
+#: includes/Media/Settings.php:374
+msgid "Processing also normalizes the image contrast and saves JPEGs at quality 92. It can change appearance and file size; it is not a lossless optimization. PNG and GIF files are not sharpened."
+msgstr ""
+
+#: includes/Media/Settings.php:375
+msgid "Can be used independently of Resize Large Images. Switching it on does not reprocess existing files; switching it off does not undo earlier sharpening."
+msgstr ""
+
+#: includes/Media/Settings.php:386
+msgid "Offer Replace File in the media library"
+msgstr ""
+
+#: includes/Media/Settings.php:387
+msgid "Allows an existing media file to be overwritten with a file of the same MIME type. The media entry and filename are retained. The old file is not kept as a version."
+msgstr ""
+
+#: includes/Media/Settings.php:389
+msgid "Example: replace a PDF with its revised PDF version. Existing links to the retained file address use the new content; browser or website caches may still show the previous version temporarily."
+msgstr ""
+
+#: includes/Media/Settings.php:390
+msgid "The action is available in the media list and attachment edit screen to users who may upload files and edit the attachment. A JPEG cannot be replaced with a PDF. Image metadata and generated sizes are updated; enabled image resizing also applies."
+msgstr ""
+
+#: includes/Media/Settings.php:391
+msgid "Disabled: the additional replacement action is removed. Previously replaced files remain in their current state."
+msgstr ""
+
+#: includes/Media/Settings.php:402
+msgid "Show the Size column in the media list"
+msgstr ""
+
+#: includes/Media/Settings.php:403
+msgid "Displays the size of the attached file in the media library’s list view. This is the file size in bytes, KB or MB, not the image dimensions in pixels."
+msgstr ""
+
+#: includes/Media/Settings.php:405
+msgid "The value covers the attached file only, not the sum of its generated image sizes or all storage used by a website. Missing values are read from accessible local files when the column is displayed."
+msgstr ""
+
+#: includes/Media/Settings.php:406
+msgid "The column offers sorting by file size. Files without a saved size can be absent from sorted results until their size has been recorded. If the column is hidden, switch to list view and check Screen Options."
+msgstr ""
+
+#: includes/Media/Settings.php:417
+msgid "Enable document groups for media"
+msgstr ""
+
+#: includes/Media/Settings.php:418
+msgid "Adds the hierarchical Documents classification to media. Use it for groups such as Regulations > Examination Regulations; it is independent of media categories."
+msgstr ""
+
+#: includes/Media/Settings.php:420
+msgid "The name Documents describes a classification, not a file-type restriction: images and other attachments can also be assigned. This neither converts files to PDF nor enables PDF uploads."
+msgstr ""
+
+#: includes/Media/Settings.php:421
+msgid "Create terms under Media > Documents on each website and assign them when editing media. Parent and child terms are supported. Filters appear when assigned media and corresponding terms are available."
+msgstr ""
+
+#: includes/Media/Settings.php:432
+msgid "Enable categories for media"
+msgstr ""
+
+#: includes/Media/Settings.php:433
+msgid "Adds hierarchical categories for attachments, for example Events > Conferences. These categories are separate from post and page categories."
+msgstr ""
+
+#: includes/Media/Settings.php:435
+msgid "Manage the terms under Media > Categories on each website and assign them to media. Category filters help narrow down the library and media selection dialogs when terms are in use."
+msgstr ""
+
+#: includes/Media/Settings.php:436
+msgid "Categories organize media logically. They do not create folders, move files, change file URLs or restrict access to the files."
+msgstr ""
+
+#: includes/Media/Settings.php:447
+msgid "Enable tags for media"
+msgstr ""
+
+#: includes/Media/Settings.php:448
+msgid "Adds freely combinable keywords for attachments, for example Campus, Research or Team. Tags have no parent-child hierarchy and are separate from post and page tags."
+msgstr ""
+
+#: includes/Media/Settings.php:450
+msgid "Manage terms under Media > Tags and assign multiple tags to a file when useful. Tags help find media across categories, without changing the file or automatically displaying tags on the website."
+msgstr ""
+
+#: includes/Media/Settings.php:466
+msgid "pixels"
+msgstr ""
+
+#: includes/Media/Settings.php:467
+msgid "Used only when Resize Large Images is enabled. Applies to both width and height. Minimum: 1024 pixels; default: 2000 pixels. Empty or smaller values are saved as the default."
+msgstr ""
+
+#: includes/Media/Settings.php:479
+msgid "Maps additional file extensions to MIME types and adds them to the allowed upload types. Existing files are not converted. Enter one mapping per line."
+msgstr ""
+
+#: includes/Media/Settings.php:481
+msgid "Format: extension=mime/type //Comment. Example: csv=text/csv //Tables. Use lowercase extensions without a leading dot; separate multiple extensions with |, for example svg|svgz=image/svg+xml //Vector graphics. Put a space before the optional // comment."
+msgstr ""
+
+#: includes/Media/Settings.php:482
+msgid "Keep these entries consistent with Upload file types under Network Admin > Settings > Network Settings. This plugin adds its mappings to the allowed types; the network field alone does not necessarily remove a type added here."
+msgstr ""
+
+#: includes/Media/Settings.php:483
+msgid "A mapping describes a file type; it does not add a preview generator or clean the file content. For SVG processing, use the separate SVG option above. Empty: this plugin adds no custom mappings; WordPress and other plugins may still allow those types."
+msgstr ""
+
 #: includes/Mail/Settings.php:115
 #: includes/Plugins/Settings.php:440
 msgid "Allowed Domains"
@@ -1252,124 +1536,7 @@ msgstr ""
 
 #: includes/Media/Settings.php:48
 #: includes/Media/Settings.php:49
-#: includes/Media/Settings.php:101
 msgid "Media"
-msgstr ""
-
-#: includes/Media/Settings.php:108
-msgid "Sanitize filename"
-msgstr ""
-
-#: includes/Media/Settings.php:119
-msgid "Filter Non-Images"
-msgstr ""
-
-#: includes/Media/Settings.php:130
-msgid "Automatic Image Resizing"
-msgstr ""
-
-#: includes/Media/Settings.php:138
-msgid "Sharpen JPG Images"
-msgstr ""
-
-#: includes/Media/Settings.php:146
-msgid "SVG Support"
-msgstr ""
-
-#: includes/Media/Settings.php:154
-msgid "File Replace"
-msgstr ""
-
-#: includes/Media/Settings.php:162
-msgid "File Size Column"
-msgstr ""
-
-#: includes/Media/Settings.php:170
-msgid "Custom Mime Types"
-msgstr ""
-
-#: includes/Media/Settings.php:178
-msgid "Taxonomien"
-msgstr ""
-
-#: includes/Media/Settings.php:185
-msgid "Register Attachment Document"
-msgstr ""
-
-#: includes/Media/Settings.php:193
-msgid "Register Attachment Category"
-msgstr ""
-
-#: includes/Media/Settings.php:201
-msgid "Register Attachment Tag"
-msgstr ""
-
-#: includes/Media/Settings.php:215
-msgid "Network administrators can centrally manage media settings across the multisite network. Options include sanitizing filenames, filtering non‑image MIME types, enabling automatic image resizing and sharpening, supporting SVG uploads, replacing files, displaying file sizes, and defining custom MIME types—ensuring consistent, secure media handling on every website."
-msgstr ""
-
-#: includes/Media/Settings.php:225
-msgid "Configure taxonomies for media attachments across the multisite network."
-msgstr ""
-
-#: includes/Media/Settings.php:235
-msgid "Register attachment document taxonomy"
-msgstr ""
-
-#: includes/Media/Settings.php:245
-msgid "Register attachment category taxonomy"
-msgstr ""
-
-#: includes/Media/Settings.php:255
-msgid "Register attachment tag taxonomy"
-msgstr ""
-
-#: includes/Media/Settings.php:265
-msgid "Sanitize the filenames to avoid links with UTF-8 characters"
-msgstr ""
-
-#: includes/Media/Settings.php:275
-msgid "Filters the image sizes generated for non-image mime types"
-msgstr ""
-
-#: includes/Media/Settings.php:285
-msgid "Enable automatic image resizing"
-msgstr ""
-
-#: includes/Media/Settings.php:288
-msgid "Maximum width and height in pixels:"
-msgstr ""
-
-#: includes/Media/Settings.php:291
-msgid "Size in pixels"
-msgstr ""
-
-#: includes/Media/Settings.php:302
-msgid "Enables sharpening of JPG images"
-msgstr ""
-
-#: includes/Media/Settings.php:312
-msgid "Enables support for SVG files"
-msgstr ""
-
-#: includes/Media/Settings.php:322
-msgid "Enables the file size column"
-msgstr ""
-
-#: includes/Media/Settings.php:334
-msgid "Enter custom Mime Types. Make sure to add the respective extensions in the Upload File Types settings."
-msgstr ""
-
-#: includes/Media/Settings.php:335
-msgid "To leave a comment, type two forward slashes (//) followed by the text of your comment."
-msgstr ""
-
-#: includes/Media/Settings.php:336
-msgid "One custom Mime Type per line."
-msgstr ""
-
-#: includes/Media/Settings.php:346
-msgid "Allows to replace files of the same mime type"
 msgstr ""
 
 #: includes/Media/SVG/SVG.php:186
@@ -1413,6 +1580,7 @@ msgid "Plugins"
 msgstr ""
 
 #: includes/Settings.php:123
+#: includes/Media/Settings.php:148
 msgid "Save Changes"
 msgstr ""
 
@@ -1751,6 +1919,7 @@ msgstr ""
 
 #: includes/Plugins/Settings.php:1185
 #: includes/Writing/Settings.php:192
+#: includes/Media/Settings.php:141
 msgid "Back to overview"
 msgstr ""
 

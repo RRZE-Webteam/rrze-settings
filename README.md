@@ -68,6 +68,15 @@ accessible. Block exclusions affect insertion choices while preserving existing
 content. See the [German user guide for Editor settings](docs/editor-settings.md)
 for dependencies, defaults and exact input formats.
 
+### Media settings
+
+Under **Network Admin > CMS > Media**, configure uploads and file types, image
+processing, media library tools and media organization. A section index and
+return links help navigate the shared form. Each setting explains
+its scope and effects on existing files, with expandable examples and readable
+text widths. See the [German user guide for Media settings](docs/media-settings.md)
+for SVG upload dependencies, resizing behavior, file replacement and classifications.
+
 ### Plugin settings
 
 Under **Network Admin > CMS > Plugins**, available plugin sections appear on one
