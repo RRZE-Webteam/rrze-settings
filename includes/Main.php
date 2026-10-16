@@ -193,7 +193,7 @@ class Main
         $wpAdminBar->add_node([
             'id' => 'network-admin-rrze-settings',
             'parent' => 'network-admin',
-            'title' => __('CMS', 'rrze-settings'),
+            'title' => 'RRZE Settings',
             'href' => network_admin_url('admin.php?page=rrze-settings'),
         ]);
     }

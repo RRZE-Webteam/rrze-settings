@@ -263,7 +263,7 @@ class Settings extends MainSettings
                 'description' => __('Default interval for content-editor screens, in seconds. Minimum and initial default: 15 seconds. A matching role exception takes precedence.', 'rrze-settings'),
                 'details' => [
                     __('Heartbeat supports editing-lock updates and classic-editor autosave, among other tasks. Long intervals can delay these updates; if lock refreshes arrive after the lock expires, collaborative editing can be affected.', 'rrze-settings'),
-                    __('Block-editor autosave is configured under CMS > Editor. If its Heartbeat synchronization is enabled, it uses twice this saved default, at least 60 seconds, even when a role exception gives Heartbeat a different interval.', 'rrze-settings'),
+                    __('Block-editor autosave is configured under RRZE Settings > Editor. If its Heartbeat synchronization is enabled, it uses twice this saved default, at least 60 seconds, even when a role exception gives Heartbeat a different interval.', 'rrze-settings'),
                 ],
             ]
         );

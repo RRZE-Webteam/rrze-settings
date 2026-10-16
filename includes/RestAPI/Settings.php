@@ -220,7 +220,7 @@ class Settings extends MainSettings
             __('Disabled: ordinary REST routes are no longer restricted by this setting. Registered plugin endpoints still require their own checkbox approval, and other access checks remain in place.', 'rrze-settings'),
             __('Example: a public search, form or external application may need REST access without a WordPress login. Allow the required route or registered endpoint instead of assuming that all public features use authenticated requests.', 'rrze-settings'),
             __('A browser login alone is not enough for cookie-based REST authentication: the request also needs a valid REST nonce. Requests without that nonce are treated as anonymous. Application-password authentication can also identify a WordPress user.', 'rrze-settings'),
-            __('This setting does not make the public website private, change user roles or control XML-RPC. XML-RPC is configured under CMS > Functions and Services.', 'rrze-settings'),
+            __('This setting does not make the public website private, change user roles or control XML-RPC. XML-RPC is configured under RRZE Settings > Functions and Services.', 'rrze-settings'),
         ]);
     }
 

@@ -1,6 +1,6 @@
 # REST-API-Zugriff im Netzwerk konfigurieren
 
-Unter **Netzwerkverwaltung → CMS → REST-API** steuern Sie REST-Anfragen ohne
+Unter **Netzwerkverwaltung → RRZE Settings → REST-API** steuern Sie REST-Anfragen ohne
 Anmeldung für alle Websites des Netzwerks. Über diese Schnittstelle tauschen
 WordPress, Plugins und externe Anwendungen Daten aus. Eine **Route** ist ein
 API-Pfad wie `/wp/v2/pages`. Ein **Namespace** wie `/wp/v2` fasst mehrere Routen
@@ -58,7 +58,7 @@ Auch Anwendungspasswörter können REST-Anfragen authentifizieren. Die
 Benutzerrechte und die Berechtigungsprüfung des jeweiligen Endpunkts bleiben
 maßgeblich. Diese Seite macht weder die öffentliche Website privat noch steuert
 sie XML-RPC. XML-RPC wird unter
-[CMS → Funktionen und Dienste](website-functions-settings.md#xml-rpc) konfiguriert.
+[RRZE Settings → Funktionen und Dienste](website-functions-settings.md#xml-rpc) konfiguriert.
 
 ## IP- und Routen-Ausnahmen
 

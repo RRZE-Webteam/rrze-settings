@@ -98,8 +98,8 @@ class Settings
     public function networkAdminMenu()
     {
         add_menu_page(
-            __('CMS', 'rrze-settings'),
-            __('CMS', 'rrze-settings'),
+            'RRZE Settings',
+            'RRZE Settings',
             'manage_options',
             $this->menuPage,
             '__return_false',

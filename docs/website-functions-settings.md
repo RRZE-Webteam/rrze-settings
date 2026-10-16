@@ -1,6 +1,6 @@
 # Funktionen und Dienste im Netzwerk steuern
 
-Unter **Netzwerkverwaltung → CMS → Funktionen und Dienste** legen Sie fest,
+Unter **Netzwerkverwaltung → RRZE Settings → Funktionen und Dienste** legen Sie fest,
 welche WordPress-Funktionen und Dienste im Netzwerk verfügbar sind. Die Seite
 hieß bisher **Website Funktionen**. Ihre technische Adresse bleibt
 `admin.php?page=rrze-settings-website-functions`.
@@ -33,7 +33,7 @@ Anwendungen, die über XML-RPC veröffentlichen oder andere Aufgaben ausführen,
 können diese Schnittstelle dann nicht mehr nutzen. Prüfen Sie die Anbindung
 solcher Anwendungen vor dem Aktivieren.
 
-Die REST-API wird separat unter **CMS → REST-API** gesteuert. Beim Ausschalten
+Die REST-API wird separat unter **RRZE Settings → REST-API** gesteuert. Beim Ausschalten
 entfällt die XML-RPC-Sperre durch dieses Plugin.
 
 ### WordPress-KI-Funktionen
@@ -95,7 +95,7 @@ auch für Superadministratoren.
 
 Installierte Schriftdateien und deren Verwendung auf der Website bleiben
 erhalten. Die Schriftartenbibliothek **im Block-Editor** wird separat unter
-[CMS → Editor](editor-settings.md#quellen-und-bibliotheken) gesteuert.
+[RRZE Settings → Editor](editor-settings.md#quellen-und-bibliotheken) gesteuert.
 Beim Ausschalten wird die Verwaltungsseite für berechtigte Benutzer wieder
 zugänglich, sofern die WordPress-Version sie bereitstellt.
 

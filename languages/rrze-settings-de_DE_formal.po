@@ -876,8 +876,8 @@ msgid "Uses twice the configured Heartbeat editor interval, with a minimum of 60
 msgstr "Verwendet das Doppelte des konfigurierten Heartbeat-Editor-Intervalls, mindestens 60 Sekunden. Solange dies aktiviert ist, wird das eigene Intervall unten nicht verwendet."
 
 #: includes/Writing/Settings.php:602
-msgid "Example: 30 seconds under CMS > Heartbeat results in 60 seconds; 60 results in 120. The calculation uses the saved editor interval, not role-specific overrides. Autosave saves drafts and does not publish changes."
-msgstr "Beispiel: 30 Sekunden unter CMS > Heartbeat ergeben 60 Sekunden; 60 ergeben 120. Berechnet wird mit dem gespeicherten Editor-Intervall, nicht mit rollenspezifischen Abweichungen. Autosave sichert Entwürfe und veröffentlicht keine Änderungen."
+msgid "Example: 30 seconds under RRZE Settings > Heartbeat results in 60 seconds; 60 results in 120. The calculation uses the saved editor interval, not role-specific overrides. Autosave saves drafts and does not publish changes."
+msgstr "Beispiel: 30 Sekunden unter RRZE Settings > Heartbeat ergeben 60 Sekunden; 60 ergeben 120. Berechnet wird mit dem gespeicherten Editor-Intervall, nicht mit rollenspezifischen Abweichungen. Autosave sichert Entwürfe und veröffentlicht keine Änderungen."
 
 #: includes/Writing/Settings.php:615
 msgid "Applies only when Heartbeat synchronization above is off. Default and minimum: 60 seconds. This setting applies to the block editor."
@@ -1255,8 +1255,8 @@ msgid "Heartbeat supports editing-lock updates and classic-editor autosave, amon
 msgstr "Heartbeat unterstützt unter anderem die Aktualisierung von Bearbeitungssperren und Autosave im klassischen Editor. Lange Intervalle können diese Aktualisierungen verzögern. Treffen Sperrsignale erst nach Ablauf der Sperre ein, kann die gemeinsame Bearbeitung beeinträchtigt werden."
 
 #: includes/Heartbeat/Settings.php:266
-msgid "Block-editor autosave is configured under CMS > Editor. If its Heartbeat synchronization is enabled, it uses twice this saved default, at least 60 seconds, even when a role exception gives Heartbeat a different interval."
-msgstr "Autosave im Block-Editor wird unter CMS > Editor eingestellt. Bei aktivierter Heartbeat-Abstimmung gilt das Doppelte dieses gespeicherten Standardwerts, mindestens 60 Sekunden, auch wenn eine Rollen-Ausnahme für Heartbeat ein anderes Intervall vorgibt."
+msgid "Block-editor autosave is configured under RRZE Settings > Editor. If its Heartbeat synchronization is enabled, it uses twice this saved default, at least 60 seconds, even when a role exception gives Heartbeat a different interval."
+msgstr "Autosave im Block-Editor wird unter RRZE Settings > Editor eingestellt. Bei aktivierter Heartbeat-Abstimmung gilt das Doppelte dieses gespeicherten Standardwerts, mindestens 60 Sekunden, auch wenn eine Rollen-Ausnahme für Heartbeat ein anderes Intervall vorgibt."
 
 #: includes/Heartbeat/Settings.php:273
 #: includes/Heartbeat/Settings.php:279
@@ -1514,8 +1514,8 @@ msgid "Removes the separate Font Library page under Appearance and blocks direct
 msgstr "Entfernt die separate Seite der Schriftartenbibliothek unter Design und sperrt den direkten Zugriff. Installierte Schriften bleiben für die Website verfügbar."
 
 #: includes/WebsiteFunctions/Settings.php:475
-msgid "The font library inside the block editor is controlled separately under CMS > Editor. This setting affects only the separate administration page, including access by super administrators."
-msgstr "Die Schriftartenbibliothek im Block-Editor wird separat unter CMS > Editor gesteuert. Diese Einstellung betrifft nur die eigenständige Verwaltungsseite, einschließlich des Zugriffs durch Superadministratoren."
+msgid "The font library inside the block editor is controlled separately under RRZE Settings > Editor. This setting affects only the separate administration page, including access by super administrators."
+msgstr "Die Schriftartenbibliothek im Block-Editor wird separat unter RRZE Settings > Editor gesteuert. Diese Einstellung betrifft nur die eigenständige Verwaltungsseite, einschließlich des Zugriffs durch Superadministratoren."
 
 #: includes/WebsiteFunctions/Settings.php:476
 msgid "No font files are deleted. Switching the option off restores access where the page is available and the user has the required permissions."
@@ -1534,8 +1534,8 @@ msgid "Example: publishing software that sends posts through XML-RPC can no long
 msgstr "Beispiel: Eine Anwendung, die Beiträge über XML-RPC veröffentlicht, kann diese nicht mehr übertragen. Prüfen Sie vor dem Aktivieren, welche Schnittstelle eine Anbindung verwendet."
 
 #: includes/WebsiteFunctions/Settings.php:497
-msgid "The REST API is configured separately under CMS > REST API. Switching this option off removes the XML-RPC block imposed by this plugin."
-msgstr "Die REST-API wird separat unter CMS > REST-API konfiguriert. Beim Ausschalten entfällt die XML-RPC-Sperre durch dieses Plugin."
+msgid "The REST API is configured separately under RRZE Settings > REST API. Switching this option off removes the XML-RPC block imposed by this plugin."
+msgstr "Die REST-API wird separat unter RRZE Settings > REST-API konfiguriert. Beim Ausschalten entfällt die XML-RPC-Sperre durch dieses Plugin."
 
 #: includes/WebsiteFunctions/Settings.php:513
 msgid "Skip the recurring administration email check"
@@ -1718,8 +1718,8 @@ msgid "A browser login alone is not enough for cookie-based REST authentication:
 msgstr "Eine Browser-Anmeldung allein genügt bei REST-Anfragen mit Anmelde-Cookie nicht: Die Anfrage benötigt zusätzlich einen gültigen REST-Nonce als Sicherheitsnachweis. Fehlt dieser, gilt die Anfrage als anonym. Auch Anwendungspasswörter können einen WordPress-Benutzer authentifizieren."
 
 #: includes/RestAPI/Settings.php:223
-msgid "This setting does not make the public website private, change user roles or control XML-RPC. XML-RPC is configured under CMS > Functions and Services."
-msgstr "Diese Einstellung macht die öffentliche Website nicht privat, ändert keine Benutzerrollen und steuert nicht XML-RPC. XML-RPC wird unter CMS > Funktionen und Dienste konfiguriert."
+msgid "This setting does not make the public website private, change user roles or control XML-RPC. XML-RPC is configured under RRZE Settings > Functions and Services."
+msgstr "Diese Einstellung macht die öffentliche Website nicht privat, ändert keine Benutzerrollen und steuert nicht XML-RPC. XML-RPC wird unter RRZE Settings > Funktionen und Dienste konfiguriert."
 
 #: includes/RestAPI/Settings.php:235
 msgid "One IPv4/IPv6 address or CIDR network per line. Matching visitors bypass the general restriction for ordinary routes, regardless of HTTP method. These entries take effect only while the general restriction is enabled."
@@ -1990,8 +1990,8 @@ msgid "Allow the host of the font file itself, for example https://fonts.example
 msgstr "Erlauben Sie den Host der Schriftdatei selbst, etwa https://fonts.example.org. Das zugehörige CSS kann einen eigenen Eintrag in style-src benötigen. data: erlaubt als Daten-URL eingebettete Schriften."
 
 #: includes/CSP/Settings.php:386
-msgid "This does not install fonts or control the WordPress Font Library. Font management and Google Fonts integration settings are configured separately under CMS > Functions and Services."
-msgstr "Diese Einstellung installiert keine Schriften und steuert nicht die WordPress-Schriftartenbibliothek. Die Schriftartenverwaltung und Google-Fonts-Einbindungen werden separat unter CMS > Funktionen und Dienste konfiguriert."
+msgid "This does not install fonts or control the WordPress Font Library. Font management and Google Fonts integration settings are configured separately under RRZE Settings > Functions and Services."
+msgstr "Diese Einstellung installiert keine Schriften und steuert nicht die WordPress-Schriftartenbibliothek. Die Schriftartenverwaltung und Google-Fonts-Einbindungen werden separat unter RRZE Settings > Funktionen und Dienste konfiguriert."
 
 #: includes/CSP/Settings.php:398
 msgid "Controls destinations for browser requests made by scripts, such as fetch, XMLHttpRequest, WebSocket, EventSource and sendBeacon. A blank field uses the default rule."
@@ -2221,12 +2221,6 @@ msgstr "Liste der zulässigen Domains für E-Mail-Adressen, die als Envelope-Sen
 #: includes/Mail/Settings.php:172
 msgid "List of website IDs that can edit the admin_email field. Enter one website ID per line."
 msgstr "Liste der Website-IDs, die das Feld admin_email bearbeiten können. Geben Sie pro Zeile eine Website-ID ein."
-
-#: includes/Main.php:189
-#: includes/Settings.php:101
-#: includes/Settings.php:102
-msgid "CMS"
-msgstr "CMS"
 
 #: includes/Media/Columns.php:68
 msgid "Size"

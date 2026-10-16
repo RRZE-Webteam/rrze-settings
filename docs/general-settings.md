@@ -1,6 +1,6 @@
 # Allgemein: Einstellungen für das Netzwerk
 
-Die Seite **Netzwerkverwaltung → CMS → Allgemein** bündelt vier Einstellungen
+Die Seite **Netzwerkverwaltung → RRZE Settings → Allgemein** bündelt vier Einstellungen
 für das Multisite-Netzwerk. Änderungen werden mit **Änderungen speichern**
 übernommen. Die ersten drei Optionen wirken netzwerkweit; das Standard-Theme
 wird ausschließlich beim Anlegen neuer Websites verwendet.

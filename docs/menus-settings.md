@@ -1,6 +1,6 @@
 # Menüs im Netzwerk konfigurieren
 
-Unter **Netzwerkverwaltung → CMS → Menüs** aktivieren Sie Hilfen für die
+Unter **Netzwerkverwaltung → RRZE Settings → Menüs** aktivieren Sie Hilfen für die
 klassische Menüverwaltung unter **Design → Menüs** und eine zusätzliche Spalte
 in der Seitenliste. Änderungen gelten nach **Änderungen speichern** für alle
 Websites des Netzwerks. Die Menüs selbst werden weiterhin auf jeder Website

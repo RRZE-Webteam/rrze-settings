@@ -1,6 +1,6 @@
 # Editor im Netzwerk konfigurieren
 
-Unter **Netzwerkverwaltung → CMS → Editor** legen Sie die Editor-Vorgabe,
+Unter **Netzwerkverwaltung → RRZE Settings → Editor** legen Sie die Editor-Vorgabe,
 verfügbare Blöcke, automatische Sicherungen und Bearbeitungswerkzeuge fest.
 Die Seite hieß bisher **Schreiben**. Der neue Name beschreibt ihren Schwerpunkt
 und unterscheidet sie von der allgemeinen Inhaltsverwaltung.
@@ -60,7 +60,7 @@ separate Liste im Abschnitt **Code und eigene Felder**.
 ## Sichern und Bearbeitungssperren
 
 **Autosave-Intervall aus Heartbeat ableiten** verwendet das Doppelte des unter
-**CMS → Heartbeat** gespeicherten Editor-Intervalls, mindestens 60 Sekunden.
+**RRZE Settings → Heartbeat** gespeicherten Editor-Intervalls, mindestens 60 Sekunden.
 Beispiele: 30 Sekunden ergeben 60 Sekunden; 60 Sekunden ergeben 120 Sekunden.
 Rollenspezifische Heartbeat-Abweichungen werden dabei nicht ausgewertet.
 
@@ -124,7 +124,7 @@ Inhaltsbereinigung für Importe, API-Anfragen oder andere Bearbeitungswege.
 
 Das Ausblenden einer Quelle löscht keine bereits eingefügten Inhalte.
 Die separate Verwaltungsseite der Schriftartenbibliothek wird unter
-**CMS → Funktionen und Dienste → Darstellung und Schriften** gesteuert.
+**RRZE Settings → Funktionen und Dienste → Darstellung und Schriften** gesteuert.
 Weitere Hinweise enthält die [Dokumentation zu Funktionen und Diensten](website-functions-settings.md).
 Andere Plugins können eigene Quellen bereitstellen.
 

@@ -1,6 +1,6 @@
 # Benutzer: Einstellungen für das Netzwerk
 
-Unter **Netzwerkverwaltung → CMS → Benutzer** werden zusätzliche Rollen,
+Unter **Netzwerkverwaltung → RRZE Settings → Benutzer** werden zusätzliche Rollen,
 Benutzersuche, Kontaktseite und weitere benutzerbezogene Funktionen zentral
 konfiguriert. Änderungen werden mit **Änderungen speichern** übernommen.
 

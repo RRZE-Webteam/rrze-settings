@@ -1,6 +1,6 @@
 # Content Security Policy im Netzwerk konfigurieren
 
-Unter **Netzwerkverwaltung → CMS → CSP** legen Sie fest, welche Quellen der
+Unter **Netzwerkverwaltung → RRZE Settings → CSP** legen Sie fest, welche Quellen der
 Browser für eine Website laden darf. Die Seite heißt **Content Security Policy
 (CSP)**; der Menüpunkt bleibt kurz **CSP**.
 
@@ -153,7 +153,7 @@ Blockierte Schriften können durch Ersatzschriften dargestellt werden. `data:`
 erlaubt als Daten-URL eingebettete Schriften.
 
 Schriftenverwaltung und Google-Fonts-Einbindungen werden separat unter
-[CMS → Funktionen und Dienste](website-functions-settings.md#darstellung-und-schriften)
+[RRZE Settings → Funktionen und Dienste](website-functions-settings.md#darstellung-und-schriften)
 gesteuert. Eine CSP-Freigabe installiert keine Schrift.
 
 ## Verbindungen und Einbettungen
@@ -168,7 +168,7 @@ Tragen Sie das tatsächliche Protokoll und den Host ein, beispielsweise
 
 Die Regel steuert keine ausgehenden HTTP-Anfragen des WordPress-Servers. Sie
 ersetzt weder CORS-Prüfungen noch die Zugriffsregeln unter
-[CMS → REST-API](rest-api-settings.md). CSP-Blockierungen erscheinen in der
+[RRZE Settings → REST-API](rest-api-settings.md). CSP-Blockierungen erscheinen in der
 Browser-Konsole; aus ihnen folgt kein bestimmter HTTP-Status des Zielservers.
 
 ### Eingebettete Seiten frame-src

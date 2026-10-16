@@ -383,7 +383,7 @@ class Settings extends MainSettings
         $this->renderDescription(__('Controls downloaded font files, for example fonts referenced by @font-face. Blocked fonts can cause the browser to use fallback fonts. A blank field uses the default rule.', 'rrze-settings'));
         $this->renderSettingDetails(__('Font Files (font-src)', 'rrze-settings'), [
             __('Allow the host of the font file itself, for example https://fonts.example.org. The associated CSS may need a separate style-src entry. The value data: allows fonts embedded as data URLs.', 'rrze-settings'),
-            __('This does not install fonts or control the WordPress Font Library. Font management and Google Fonts integration settings are configured separately under CMS > Functions and Services.', 'rrze-settings'),
+            __('This does not install fonts or control the WordPress Font Library. Font management and Google Fonts integration settings are configured separately under RRZE Settings > Functions and Services.', 'rrze-settings'),
         ]);
     }
 

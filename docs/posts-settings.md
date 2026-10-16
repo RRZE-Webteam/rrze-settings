@@ -1,6 +1,6 @@
 # Beiträge und Seiten im Netzwerk konfigurieren
 
-Unter **Netzwerkverwaltung → CMS → Beiträge und Seiten** konfigurieren Sie die
+Unter **Netzwerkverwaltung → RRZE Settings → Beiträge und Seiten** konfigurieren Sie die
 Listenansichten, Kategorien und Schlagwörter für Seiten sowie einen Ausschluss
 aus der Website-Suche. Die Seite hieß bisher **Posts**. Der neue Name macht
 deutlich, dass sich die Einstellungen auch auf Seiten beziehen.
@@ -120,7 +120,7 @@ direkten Link erreichbar bleiben, ohne in diesen Suchergebnissen aufzutauchen.
 
 Berücksichtigt werden Beitrags-, Seiten- und Medienschlagwörter
 (`post_tag`, `page_tag`, `attachment_tag`), sofern die jeweilige Taxonomie aktiv
-ist. Medienschlagwörter werden unter **CMS → Medien** aktiviert. Die Regel ist
+ist. Medienschlagwörter werden unter **RRZE Settings → Medien** aktiviert. Die Regel ist
 für Medien nur relevant, wenn Anhänge überhaupt Teil der Suchergebnisse sind.
 
 Die Filterung betrifft nur die Hauptabfrage einer WordPress-Suche auf der

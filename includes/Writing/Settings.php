@@ -599,7 +599,7 @@ class Settings extends MainSettings
         $this->renderCheckbox('rrze-settings-sync-autosave', sprintf('%s[sync_autosave]', $this->optionName), $this->siteOptions->writing->sync_autosave, __('Derive the autosave interval from Heartbeat', 'rrze-settings'));
         $this->renderDescription(__('Uses twice the configured Heartbeat editor interval, with a minimum of 60 seconds. While enabled, the custom interval below is ignored.', 'rrze-settings'));
         $this->renderSettingDetails(__('Automatic Saving', 'rrze-settings'), [
-            __('Example: 30 seconds under CMS > Heartbeat results in 60 seconds; 60 results in 120. The calculation uses the saved editor interval, not role-specific overrides. Autosave saves drafts and does not publish changes.', 'rrze-settings'),
+            __('Example: 30 seconds under RRZE Settings > Heartbeat results in 60 seconds; 60 results in 120. The calculation uses the saved editor interval, not role-specific overrides. Autosave saves drafts and does not publish changes.', 'rrze-settings'),
         ]);
     }
 

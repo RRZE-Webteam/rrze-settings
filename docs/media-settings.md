@@ -1,6 +1,6 @@
 # Medien im Netzwerk konfigurieren
 
-Unter **Netzwerkverwaltung → CMS → Medien** verwalten Sie Uploads, Bildverarbeitung,
+Unter **Netzwerkverwaltung → RRZE Settings → Medien** verwalten Sie Uploads, Bildverarbeitung,
 Werkzeuge für die Mediathek und Ordnungssysteme für Medien. **Medien** bleibt der
 Seitenname, weil die Einstellungen Bilder, Dokumente und andere Dateien betreffen.
 Das Inhaltsverzeichnis **Auf dieser Seite** führt zu den vier Abschnitten;

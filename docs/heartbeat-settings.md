@@ -1,6 +1,6 @@
 # Heartbeat im Netzwerk konfigurieren
 
-Unter **Netzwerkverwaltung → CMS → Heartbeat** steuern Sie regelmäßige
+Unter **Netzwerkverwaltung → RRZE Settings → Heartbeat** steuern Sie regelmäßige
 Hintergrundanfragen von WordPress. Heartbeat unterstützt unter anderem die
 Aktualisierung von Bearbeitungssperren, Anmeldestatus-Prüfungen und Autosave im
 klassischen Editor. Plugins können darüber weitere Live-Aktualisierungen anbieten.
@@ -89,7 +89,7 @@ oder Anfragen bei längerer Inaktivität aussetzen.
 Besonders im Inhaltseditor müssen Bearbeitungssperren rechtzeitig erneuert
 werden. Ist der Abstand zwischen Aktualisierungen länger als die Gültigkeit einer
 Sperre, kann diese zwischenzeitlich ablaufen. Die normale WordPress-Sperrdauer
-beträgt 150 Sekunden; dieses Plugin kann unter **CMS → Editor** eine abweichende
+beträgt 150 Sekunden; dieses Plugin kann unter **RRZE Settings → Editor** eine abweichende
 Dauer pro Website erlauben. Das Heartbeat-Intervall ist keine maximale
 Bearbeitungszeit.
 
@@ -99,7 +99,7 @@ Der klassische Editor überträgt automatische Sicherungen über Heartbeat.
 Längere Abstände können damit auch den Transport einer anstehenden Sicherung
 verzögern.
 
-Autosave im Block-Editor wird separat unter **CMS → Editor** konfiguriert.
+Autosave im Block-Editor wird separat unter **RRZE Settings → Editor** konfiguriert.
 Ist dort **Autosave-Intervall aus Heartbeat ableiten** aktiviert, verwendet es:
 
 ```text

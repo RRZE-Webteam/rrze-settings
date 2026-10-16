@@ -472,7 +472,7 @@ class Settings extends MainSettings
         );
         $this->renderDescription(__('Removes the separate Font Library page under Appearance and blocks direct access. Installed fonts remain available to the website.', 'rrze-settings'));
         $this->renderSettingDetails(__('Font Library in Administration', 'rrze-settings'), [
-            __('The font library inside the block editor is controlled separately under CMS > Editor. This setting affects only the separate administration page, including access by super administrators.', 'rrze-settings'),
+            __('The font library inside the block editor is controlled separately under RRZE Settings > Editor. This setting affects only the separate administration page, including access by super administrators.', 'rrze-settings'),
             __('No font files are deleted. Switching the option off restores access where the page is available and the user has the required permissions.', 'rrze-settings'),
         ]);
     }
@@ -494,7 +494,7 @@ class Settings extends MainSettings
         $this->renderDescription(__('Blocks requests to xmlrpc.php. External applications that use XML-RPC can no longer access the website through this interface.', 'rrze-settings'));
         $this->renderSettingDetails(__('XML-RPC', 'rrze-settings'), [
             __('Example: publishing software that sends posts through XML-RPC can no longer publish them. Check which interface an integration uses before enabling this setting.', 'rrze-settings'),
-            __('The REST API is configured separately under CMS > REST API. Switching this option off removes the XML-RPC block imposed by this plugin.', 'rrze-settings'),
+            __('The REST API is configured separately under RRZE Settings > REST API. Switching this option off removes the XML-RPC block imposed by this plugin.', 'rrze-settings'),
         ]);
     }
 

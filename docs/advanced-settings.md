@@ -1,6 +1,6 @@
 # CSS und Betrieb im Netzwerk konfigurieren
 
-Unter **Netzwerkverwaltung → CMS → CSS und Betrieb** verwalten Sie eigenes CSS,
+Unter **Netzwerkverwaltung → RRZE Settings → CSS und Betrieb** verwalten Sie eigenes CSS,
 zusätzliche Klassen im Block-Editor und eine Markierungsdatei für den
 Serverbetrieb. Die Seite hieß bisher **Erweitert**. Ihre Adresse
 `admin.php?page=rrze-settings-advanced` bleibt erhalten.
@@ -198,4 +198,4 @@ gespeichert. Sie wirkt erst wieder nach dem Einschalten der Hauptoption.
 Die Überarbeitung von Beschriftungen und Hilfetexten verändert bestehende
 gespeicherte Werte nicht. Die Einstellungen für KI, KI-Verbindungen und die
 Schriftartenbibliothek finden Sie unter
-[CMS → Funktionen und Dienste](website-functions-settings.md).
+[RRZE Settings → Funktionen und Dienste](website-functions-settings.md).

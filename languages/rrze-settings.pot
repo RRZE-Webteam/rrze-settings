@@ -914,7 +914,7 @@ msgid "Uses twice the configured Heartbeat editor interval, with a minimum of 60
 msgstr ""
 
 #: includes/Writing/Settings.php:602
-msgid "Example: 30 seconds under CMS > Heartbeat results in 60 seconds; 60 results in 120. The calculation uses the saved editor interval, not role-specific overrides. Autosave saves drafts and does not publish changes."
+msgid "Example: 30 seconds under RRZE Settings > Heartbeat results in 60 seconds; 60 results in 120. The calculation uses the saved editor interval, not role-specific overrides. Autosave saves drafts and does not publish changes."
 msgstr ""
 
 #: includes/Writing/Settings.php:615
@@ -1293,7 +1293,7 @@ msgid "Heartbeat supports editing-lock updates and classic-editor autosave, amon
 msgstr ""
 
 #: includes/Heartbeat/Settings.php:266
-msgid "Block-editor autosave is configured under CMS > Editor. If its Heartbeat synchronization is enabled, it uses twice this saved default, at least 60 seconds, even when a role exception gives Heartbeat a different interval."
+msgid "Block-editor autosave is configured under RRZE Settings > Editor. If its Heartbeat synchronization is enabled, it uses twice this saved default, at least 60 seconds, even when a role exception gives Heartbeat a different interval."
 msgstr ""
 
 #: includes/Heartbeat/Settings.php:273
@@ -1552,7 +1552,7 @@ msgid "Removes the separate Font Library page under Appearance and blocks direct
 msgstr ""
 
 #: includes/WebsiteFunctions/Settings.php:475
-msgid "The font library inside the block editor is controlled separately under CMS > Editor. This setting affects only the separate administration page, including access by super administrators."
+msgid "The font library inside the block editor is controlled separately under RRZE Settings > Editor. This setting affects only the separate administration page, including access by super administrators."
 msgstr ""
 
 #: includes/WebsiteFunctions/Settings.php:476
@@ -1572,7 +1572,7 @@ msgid "Example: publishing software that sends posts through XML-RPC can no long
 msgstr ""
 
 #: includes/WebsiteFunctions/Settings.php:497
-msgid "The REST API is configured separately under CMS > REST API. Switching this option off removes the XML-RPC block imposed by this plugin."
+msgid "The REST API is configured separately under RRZE Settings > REST API. Switching this option off removes the XML-RPC block imposed by this plugin."
 msgstr ""
 
 #: includes/WebsiteFunctions/Settings.php:513
@@ -1756,7 +1756,7 @@ msgid "A browser login alone is not enough for cookie-based REST authentication:
 msgstr ""
 
 #: includes/RestAPI/Settings.php:223
-msgid "This setting does not make the public website private, change user roles or control XML-RPC. XML-RPC is configured under CMS > Functions and Services."
+msgid "This setting does not make the public website private, change user roles or control XML-RPC. XML-RPC is configured under RRZE Settings > Functions and Services."
 msgstr ""
 
 #: includes/RestAPI/Settings.php:235
@@ -2028,7 +2028,7 @@ msgid "Allow the host of the font file itself, for example https://fonts.example
 msgstr ""
 
 #: includes/CSP/Settings.php:386
-msgid "This does not install fonts or control the WordPress Font Library. Font management and Google Fonts integration settings are configured separately under CMS > Functions and Services."
+msgid "This does not install fonts or control the WordPress Font Library. Font management and Google Fonts integration settings are configured separately under RRZE Settings > Functions and Services."
 msgstr ""
 
 #: includes/CSP/Settings.php:398
@@ -2258,12 +2258,6 @@ msgstr ""
 
 #: includes/Mail/Settings.php:172
 msgid "List of website IDs that can edit the admin_email field. Enter one website ID per line."
-msgstr ""
-
-#: includes/Main.php:189
-#: includes/Settings.php:101
-#: includes/Settings.php:102
-msgid "CMS"
 msgstr ""
 
 #: includes/Media/Columns.php:68

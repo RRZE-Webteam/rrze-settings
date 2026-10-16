@@ -29,7 +29,7 @@ RRZE Settings is a WordPress plugin that provides general settings and enhanceme
 
 ### General settings
 
-Under **Network Admin > CMS > General**, network administrators configure
+Under **Network Admin > RRZE Settings > General**, network administrators configure
 translation fallback, the RRZE error page, WordPress branding and the default
 theme for new websites. Each field explains its scope and effects. See the
 [German user guide for General settings](docs/general-settings.md) for examples,
@@ -37,14 +37,14 @@ defaults and prerequisites.
 
 ### User settings
 
-Under **Network Admin > CMS > Users**, configure additional author roles, user
+Under **Network Admin > RRZE Settings > Users**, configure additional author roles, user
 search, the automatic contact page, dashboard guidance, administrator warnings
 and debug access. See the [German user guide for User settings](docs/users-settings.md)
 for permissions, examples and the limitations of each option.
 
 ### Post and page settings
 
-Under **Network Admin > CMS > Posts and Pages** (formerly **Posts**), configure
+Under **Network Admin > RRZE Settings > Posts and Pages** (formerly **Posts**), configure
 the date column, parent page filter, page categories and tags, and exclusion
 from website search using the `nosearch` tag. Each field includes a short
 description and optional details. See the
@@ -53,7 +53,7 @@ dependencies and the scope of the search exclusion.
 
 ### Menu settings
 
-Under **Network Admin > CMS > Menus**, configure collapsible submenus in the
+Under **Network Admin > RRZE Settings > Menus**, configure collapsible submenus in the
 classic menu editor, a menu membership column in the page list and up to 100
 results when searching for content to add to a menu. These options do not extend
 the Navigation block. See the [German user guide for Menu settings](docs/menus-settings.md)
@@ -61,7 +61,7 @@ for examples, defaults and the scope of each option.
 
 ### Editor settings
 
-Under **Network Admin > CMS > Editor** (formerly **Writing**), configure editor
+Under **Network Admin > RRZE Settings > Editor** (formerly **Writing**), configure editor
 selection, exemptions, autosave, available blocks, sources, editing tools and
 plugin compatibility. A section index and shared save bar keep the full form
 accessible. Block exclusions affect insertion choices while preserving existing
@@ -70,7 +70,7 @@ for dependencies, defaults and exact input formats.
 
 ### Media settings
 
-Under **Network Admin > CMS > Media**, configure uploads and file types, image
+Under **Network Admin > RRZE Settings > Media**, configure uploads and file types, image
 processing, media library tools and media organization. A section index and
 return links help navigate the shared form. Each setting explains
 its scope and effects on existing files, with expandable examples and readable
@@ -79,7 +79,7 @@ for SVG upload dependencies, resizing behavior, file replacement and classificat
 
 ### Functions and services
 
-Under **Network Admin > CMS > Functions and Services** (formerly **Website
+Under **Network Admin > RRZE Settings > Functions and Services** (formerly **Website
 Functions**), configure interfaces and AI, appearance and fonts, comments and
 avatars, website administration and local Google translation preferences.
 A section index, highlighted anchor targets and expandable field guidance explain
@@ -90,7 +90,7 @@ for scope, defaults and effects on saved website options.
 
 ### Heartbeat settings
 
-Under **Network Admin > CMS > Heartbeat**, configure where background requests
+Under **Network Admin > RRZE Settings > Heartbeat**, configure where background requests
 are allowed, their default intervals and role exceptions. The page explains
 interval precedence, editor safeguards and the separate block-editor autosave
 setting. Invalid role JSON retains the saved rules and reports an error.
@@ -99,7 +99,7 @@ for examples and defaults.
 
 ### REST API settings
 
-Under **Network Admin > CMS > REST API**, configure anonymous access, IP and route
+Under **Network Admin > RRZE Settings > REST API**, configure anonymous access, IP and route
 exceptions, and individual public plugin endpoint approvals. The page separates
 these rules into three sections and explains their precedence, accepted input
 formats and interaction with private websites. IP exceptions remain visible while
@@ -109,7 +109,7 @@ for examples, defaults and troubleshooting.
 
 ### Content Security Policy settings
 
-Under **Network Admin > CMS > CSP**, configure browser resource restrictions with
+Under **Network Admin > RRZE Settings > CSP**, configure browser resource restrictions with
 an enforcing Content Security Policy. All seven source lists remain editable
 while CSP is off. The page explains fallback rules, source syntax, automatic
 oEmbed additions and the effects of each directive. It does not provide a
@@ -118,7 +118,7 @@ examples, defaults and response-header verification.
 
 ### Plugin settings
 
-Under **Network Admin > CMS > Plugins**, available plugin sections appear on one
+Under **Network Admin > RRZE Settings > Plugins**, available plugin sections appear on one
 page in alphabetical order. Use **Jump to plugin** to navigate to a section and
 **Back to overview** to return to the index. The linked section is highlighted
 with a subtle background and accent line until another section or the overview
@@ -128,7 +128,7 @@ the viewport while scrolling; on very short screens it follows the last section.
 
 ### CSS and operations
 
-Under **Network Admin > CMS > CSS and Operations** (formerly **Advanced**),
+Under **Network Admin > RRZE Settings > CSS and Operations** (formerly **Advanced**),
 configure network-wide CSS, additional body classes in the Block Editor iframe
 and the local Sentry marker for server automation. Three sections explain the
 scope of CSS, theme exceptions and the dependency between update and deletion
@@ -145,7 +145,7 @@ The following methods can be used by other plugins:
 
 ## Public REST access and private sites
 
-Under **Network Admin > CMS > REST API**, registered public endpoints require
+Under **Network Admin > RRZE Settings > REST API**, registered public endpoints require
 explicit network approval for anonymous requests. This approval is mandatory even
 when the general REST restriction is off or an IP/namespace exception applies.
 Authenticated access retains its existing behavior.
