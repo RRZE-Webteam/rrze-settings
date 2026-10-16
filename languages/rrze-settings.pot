@@ -2342,6 +2342,289 @@ msgstr ""
 msgid "Other Settings"
 msgstr ""
 
+#: includes/AdminMenu/Settings.php:41
+#: includes/AdminMenu/Settings.php:42
+#: includes/AdminMenu/view.php:17
+msgid "Admin Navigation"
+msgstr ""
+
+#: includes/AdminMenu/Settings.php:70
+msgid "%1$s: position %2$s of %3$s. Save changes to apply the order."
+msgstr ""
+
+#: includes/AdminMenu/Settings.php:71
+msgid "Unsaved changes"
+msgstr ""
+
+#: includes/AdminMenu/Settings.php:83
+#: includes/AdminMenu/Settings.php:110
+msgid "You are not allowed to manage network navigation."
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:13
+msgid "Akismet Anti-spam"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:17
+msgid "CRIS"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:21
+msgid "FAU oEmbed"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:25
+msgid "FAU.ORG Breadcrumb"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:29
+msgid "FAU Person"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:33
+msgid "FAU Degree Program"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:37
+msgid "FAU Studium Display"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:41
+msgid "FAU Studium Fachanteile"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:45
+msgid "CMS-Basis"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:49
+msgid "Access Control"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:53
+msgid "Advanced Search"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:57
+msgid "RRZE Answers"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:61
+msgid "RRZE Appointment"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:65
+msgid "Auto-Tweet"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:69
+msgid "RRZE-Autoshare"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:73
+msgid "RRZE Block Control"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:77
+msgid "RRZE Bluesky"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:81
+msgid "Cache"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:85
+msgid "Calendar"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:93
+msgid "RRZE Downloads"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:97
+msgid "RRZE Events"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:101
+msgid "RRZE Expo"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:105
+msgid "RRZE FAQ"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:109
+msgid "RRZE FAUbox"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:113
+msgid "RRZE FAUdir"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:121
+msgid "RRZE Glossary"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:125
+msgid "RRZE Green Office"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:129
+msgid "Greetings"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:137
+msgid "Jobspreader Analytics"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:141
+msgid "RRZE Knowledge Base"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:145
+msgid "RRZE Lectures"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:149
+msgid "Multilanguage"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:153
+msgid "Newsletters"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:157
+msgid "Expiration"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:161
+msgid "RRZE Preise"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:165
+msgid "PWA"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:169
+msgid "RRZE Research Data"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:173
+msgid "RRZE RSVP"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:177
+msgid "RRZE Servicekatalog"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:181
+msgid "RRZE Siteimprove"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:185
+msgid "RRZE Synonym"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:189
+msgid "RRZE Typesettings"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:193
+msgid "RRZE UnivIS"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:197
+msgid "RRZE Video Settings"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:201
+msgid "WEB-T Translator"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:205
+msgid "XLIFF Export/Import"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:209
+msgid "Advanced Editor Tools"
+msgstr ""
+
+#: includes/AdminMenu/defaults.php:213
+msgid "WP Downgrade"
+msgstr ""
+
+#: includes/AdminMenu/view.php:19
+msgid "Navigation settings saved."
+msgstr ""
+
+#: includes/AdminMenu/view.php:21
+msgid "Set the order of plugin pages under Settings in the dashboards of all websites in this network. The bundled catalogue is used until you save your own order."
+msgstr ""
+
+#: includes/AdminMenu/view.php:22
+msgid "WordPress settings remain at the top. Only existing menu items are reordered; plugin activation and user permissions still determine which items are visible. Other admin menus are not affected."
+msgstr ""
+
+#: includes/AdminMenu/view.php:26
+msgid "Apply the network order to website Settings menus"
+msgstr ""
+
+#: includes/AdminMenu/view.php:27
+msgid "Enabled by default. When disabled, WordPress and plugins determine the order. Your saved priorities are retained."
+msgstr ""
+
+#: includes/AdminMenu/view.php:29
+msgid "Plugin menu order"
+msgstr ""
+
+#: includes/AdminMenu/view.php:30
+msgid "Move entries with the arrow buttons or drag handles, or enter a position. Changes take effect after saving. Without JavaScript, positions are sorted numerically when saved; equal positions retain their previous order."
+msgstr ""
+
+#: includes/AdminMenu/view.php:31
+msgid "This list is a network catalogue, not a list of active plugins on a particular website. Unavailable entries are skipped. Newly bundled entries are appended to your saved order."
+msgstr ""
+
+#: includes/AdminMenu/view.php:34
+msgid "Restore default order"
+msgstr ""
+
+#: includes/AdminMenu/view.php:37
+msgid "Restoring the default order saves immediately. Accepted additions stay at the end; the activation setting stays unchanged."
+msgstr ""
+
+#: includes/AdminMenu/view.php:38
+msgid "Sortable plugin menu entries"
+msgstr ""
+
+#: includes/AdminMenu/view.php:45
+msgid "Position of %s"
+msgstr ""
+
+#: includes/AdminMenu/view.php:52
+msgid "Move %s up"
+msgstr ""
+
+#: includes/AdminMenu/view.php:56
+msgid "Move %s down"
+msgstr ""
+
+#: includes/AdminMenu/view.php:65
+msgid "Newly detected menu entries"
+msgstr ""
+
+#: includes/AdminMenu/view.php:66
+msgid "Additional entries are detected when a network administrator visits a website dashboard. They remain after the configured entries until you accept them here. Visit websites with additional plugins to extend this list."
+msgstr ""
+
+#: includes/AdminMenu/view.php:68
+msgid "Select entries and save to append them to the sortable list. You can then change their positions."
+msgstr ""
+
+#: includes/AdminMenu/view.php:75
+msgid "No additional menu entries have been detected."
+msgstr ""
+
 #: includes/Plugins/Settings.php:440
 msgid "Allowed Domains"
 msgstr ""
@@ -2496,6 +2779,8 @@ msgstr ""
 #: includes/CSP/Settings.php:144
 #: includes/Advanced/Settings.php:121
 #: includes/Mail/Settings.php:133
+#: includes/AdminMenu/view.php:33
+#: includes/AdminMenu/view.php:77
 msgid "Save Changes"
 msgstr ""
 
@@ -2520,6 +2805,7 @@ msgid "FAUdir API Key"
 msgstr ""
 
 #: includes/Plugins/Settings.php:256
+#: includes/AdminMenu/defaults.php:133
 msgid "RRZE Jobs"
 msgstr ""
 
@@ -2602,6 +2888,7 @@ msgid "Allowed domains for recipients"
 msgstr ""
 
 #: includes/Plugins/Settings.php:433
+#: includes/AdminMenu/defaults.php:117
 msgid "RRZE Formular"
 msgstr ""
 
@@ -2630,6 +2917,7 @@ msgid "Not Allowed Field Types"
 msgstr ""
 
 #: includes/Plugins/Settings.php:509
+#: includes/AdminMenu/defaults.php:89
 msgid "RRZE Directions"
 msgstr ""
 

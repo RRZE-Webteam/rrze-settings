@@ -97,6 +97,7 @@ class Main
     public function loaded()
     {
         (new AdminNavigation())->loaded();
+        (new AdminMenu\Navigation())->loaded();
 
         (new Settings(
             $this->optionName,

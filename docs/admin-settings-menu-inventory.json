@@ -1,0 +1,983 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-10-16",
+  "purpose": "Quellcode-Inventar als Grundlage für den erweiterbaren Standardkatalog in includes/AdminMenu/defaults.php. Diese Datei dokumentiert die Fundstellen und wird nicht als Laufzeitkonfiguration geladen.",
+  "scope": {
+    "source_base": "wp-content/plugins",
+    "target": "Website-Administration > Einstellungen",
+    "parent_slug": "options-general.php"
+  },
+  "method": "Statische Suche nach add_options_page(), add_submenu_page(), options-general.php und CMB2-/Settings-Konfigurationen. PHP-Aufrufe wurden tokenisiert und indirekte Kennungen anhand der Konfiguration nachverfolgt. Kein Plugin-Code wurde ausgeführt.",
+  "limitations": [
+    "Beschreibt im Quellcode gefundene mögliche Registrierungen, nicht die auf einer Website aktuell sichtbaren Einträge. Aktivierung, Berechtigungen, Optionen und Filter gelten weiterhin.",
+    "Keine Garantie für beliebige dynamische Registrierungen. Neue Plugins, Updates, weitere Sprachen und zur Laufzeit umgeschriebene Kennungen können Ergänzungen erfordern.",
+    "Theme- und MU-Plugin-Menüs sowie WordPress-Kernseiten sind außerhalb dieser Bestandsaufnahme.",
+    "Die Liste ist zur Prüfung nach Plugin-Verzeichnis sortiert; daraus folgt keine empfohlene Menüpriorität. Labels entsprechen dem Quelltext vor Übersetzung.",
+    "Die Sortierung darf ausschließlich vorhandene Menüeinträge umordnen und darf aus diesem Katalog keine Links oder Berechtigungen erzeugen."
+  ],
+  "entry_count": 51,
+  "entries": [
+    {
+      "plugin": "akismet",
+      "label_from_source": "Akismet Anti-spam",
+      "menu_slugs": [
+        "akismet-key-config"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "akismet/class.akismet-admin.php",
+          "line": 159
+        }
+      ],
+      "notes": [
+        "Bei vorhandener Jetpack-Menüintegration wird der Eintrag stattdessen unter Jetpack registriert; siehe class.akismet-admin.php:157."
+      ]
+    },
+    {
+      "plugin": "fau-cris",
+      "label_from_source": "CRIS",
+      "menu_slugs": [
+        "options-fau-cris"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "fau-cris/fau-cris.php",
+          "line": 249
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "fau-oembed",
+      "label_from_source": "FAU oEmbed",
+      "menu_slugs": [
+        "fau-oembed"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "fau-oembed/includes/Settings.php",
+          "line": 44
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "fau-orga-breadcrumb",
+      "label_from_source": "FAU.ORG Breadcrumb",
+      "menu_slugs": [
+        "fau_orga_breadcrumb_settings"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "fau-orga-breadcrumb/includes/Settings.php",
+          "line": 31
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "fau-person",
+      "label_from_source": "FAU Person",
+      "menu_slugs": [
+        "fau-person"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "fau-person/includes/Settings.php",
+          "line": 390
+        },
+        {
+          "file": "fau-person/config/config.php",
+          "line": 57
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "FAU-Studium",
+      "label_from_source": "FAU Degree Program",
+      "menu_slugs": [
+        "fau_degree_program_settings"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "FAU-Studium/src/Infrastructure/Dashboard/Settings/SettingsRegistrar.php",
+          "line": 60
+        },
+        {
+          "file": "FAU-Studium/src/Infrastructure/Dashboard/Settings/SettingsModule.php",
+          "line": 31
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "fau-studium-display",
+      "label_from_source": "FAU Studium Display",
+      "menu_slugs": [
+        "fau-studium-display"
+      ],
+      "slug_strategy": "plugin_directory",
+      "sources": [
+        {
+          "file": "fau-studium-display/includes/Settings.php",
+          "line": 46
+        },
+        {
+          "file": "fau-studium-display/includes/Plugin.php",
+          "line": 170
+        }
+      ],
+      "notes": [
+        "Kennung wird aus dem installierten Plugin-Verzeichnisnamen abgeleitet; bei Umbenennung des Verzeichnisses erneut prüfen."
+      ]
+    },
+    {
+      "plugin": "FAU-Studium-Fachanteile",
+      "label_from_source": "FAU Studium Fachanteile",
+      "menu_slugs": [
+        "fau-studium-fachanteile"
+      ],
+      "slug_strategy": "plugin_directory",
+      "sources": [
+        {
+          "file": "FAU-Studium-Fachanteile/includes/Settings.php",
+          "line": 26
+        },
+        {
+          "file": "FAU-Studium-Fachanteile/includes/Plugin.php",
+          "line": 141
+        }
+      ],
+      "notes": [
+        "Kennung wird aus dem installierten Plugin-Verzeichnisnamen abgeleitet; bei Umbenennung des Verzeichnisses erneut prüfen."
+      ]
+    },
+    {
+      "plugin": "Like-Json",
+      "label_from_source": "CMS-Basis",
+      "menu_slugs": [
+        "cms-basis"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "Like-Json/like-json.php",
+          "line": 272
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-ac",
+      "label_from_source": "Access Control",
+      "menu_slugs": [
+        "rrze-ac"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-ac/includes/Settings.php",
+          "line": 47
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-advanced-search",
+      "label_from_source": "Advanced Search",
+      "menu_slugs": [
+        "rrze-advanced-search"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-advanced-search/includes/Settings.php",
+          "line": 34
+        },
+        {
+          "file": "rrze-advanced-search/includes/Settings.php",
+          "line": 13
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-answers",
+      "label_from_source": "RRZE Answers",
+      "menu_slugs": [
+        "rrze-answers-settings",
+        "rrze-answers-einstellungen"
+      ],
+      "slug_strategy": "translated_title",
+      "sources": [
+        {
+          "file": "rrze-answers/includes/Main.php",
+          "line": 377
+        },
+        {
+          "file": "rrze-answers/includes/Defaults.php",
+          "line": 51
+        },
+        {
+          "file": "rrze-answers/includes/Common/Settings/Settings.php",
+          "line": 129
+        },
+        {
+          "file": "rrze-answers/languages/rrze-answers-de_DE.po",
+          "line": 852
+        },
+        {
+          "file": "rrze-answers/languages/rrze-answers-de_DE_formal.po",
+          "line": 852
+        }
+      ],
+      "notes": [
+        "Kennung wird mit sanitize_title() aus dem übersetzten Seitentitel erzeugt. Aufgeführte Varianten decken den englischen Quelltext und vorhandene deutsche Übersetzungen ab; andere Übersetzungen oder Filter können weitere Kennungen erzeugen."
+      ]
+    },
+    {
+      "plugin": "rrze-appointment",
+      "label_from_source": "RRZE Appointment",
+      "menu_slugs": [
+        "rrze-appointment-settings"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-appointment/includes/Admin/SettingsPage.php",
+          "line": 37
+        },
+        {
+          "file": "rrze-appointment/includes/Admin/SettingsPage.php",
+          "line": 15
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-auto-tweet",
+      "label_from_source": "Auto-Tweet",
+      "menu_slugs": [
+        "rrze-auto-tweet"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-auto-tweet/auto-tweet.php",
+          "line": 184
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-autoshare",
+      "label_from_source": "RRZE-Autoshare",
+      "menu_slugs": [
+        "rrze_autoshare"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-autoshare/includes/Settings.php",
+          "line": 41
+        },
+        {
+          "file": "rrze-autoshare/includes/Config.php",
+          "line": 12
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-block-control",
+      "label_from_source": "RRZE Block Control",
+      "menu_slugs": [
+        "rrze-block-control"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-block-control/includes/Settings/SettingsPage.php",
+          "line": 97
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-bluesky",
+      "label_from_source": "RRZE Bluesky",
+      "menu_slugs": [
+        "rrze-bluesky"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-bluesky/includes/Admin/Settings.php",
+          "line": 32
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-cache",
+      "label_from_source": "Cache",
+      "menu_slugs": [
+        "rrze-cache"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-cache/includes/Settings.php",
+          "line": 102
+        }
+      ],
+      "notes": [
+        "Lokales Menü bei Netzwerkaktivierung nur registriert, wenn cache_enabled gesetzt ist; siehe includes/Settings.php:51."
+      ]
+    },
+    {
+      "plugin": "rrze-calendar",
+      "label_from_source": "Calendar",
+      "menu_slugs": [
+        "rrze-calendar"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-calendar/includes/Settings.php",
+          "line": 43
+        },
+        {
+          "file": "rrze-calendar/includes/Settings/Settings.php",
+          "line": 86
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-directions",
+      "label_from_source": "RRZE Directions",
+      "menu_slugs": [
+        "rrze-directions-settings"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-directions/includes/Settings.php",
+          "line": 74
+        },
+        {
+          "file": "rrze-directions/includes/Settings.php",
+          "line": 18
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-downloads",
+      "label_from_source": "RRZE Downloads",
+      "menu_slugs": [
+        "rrze-downloads"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-downloads/includes/Settings.php",
+          "line": 443
+        },
+        {
+          "file": "rrze-downloads/includes/Config.php",
+          "line": 61
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-events",
+      "label_from_source": "RRZE Events",
+      "menu_slugs": [
+        "rrze-events-settings"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-events/includes/Settings.php",
+          "line": 56
+        },
+        {
+          "file": "rrze-events/vendor/cmb2/cmb2/includes/CMB2_Options_Hookup.php",
+          "line": 97
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-expo",
+      "label_from_source": "RRZE Expo",
+      "menu_slugs": [
+        "rrze-expo"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-expo/includes/Settings.php",
+          "line": 410
+        },
+        {
+          "file": "rrze-expo/config/config.php",
+          "line": 20
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-faq",
+      "label_from_source": "RRZE FAQ",
+      "menu_slugs": [
+        "rrze-faq"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-faq/includes/Settings.php",
+          "line": 1008
+        },
+        {
+          "file": "rrze-faq/includes/Config.php",
+          "line": 41
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-faubox",
+      "label_from_source": "RRZE FAUbox",
+      "menu_slugs": [
+        "rrze-faubox"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-faubox/includes/Admin/Settings.php",
+          "line": 51
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-faudir",
+      "label_from_source": "RRZE FAUdir",
+      "menu_slugs": [
+        "rrze-faudir"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-faudir-d735ed6860934ccab2ba8461d8ea2ed459039a4e/includes/Settings.php",
+          "line": 35
+        },
+        {
+          "file": "rrze-faudir/includes/Settings.php",
+          "line": 41
+        }
+      ],
+      "notes": [
+        "Zweiter installierter Plugin-Ordner registriert dieselbe Menükennung: rrze-faudir",
+        "Die zwei installierten FAUdir-Verzeichnisse wurden für die Startliste zu einem Eintrag zusammengefasst."
+      ]
+    },
+    {
+      "plugin": "rrze-formular",
+      "label_from_source": "RRZE Formular",
+      "menu_slugs": [
+        "rrze-formular-settings",
+        "rrze-formular-einstellungen"
+      ],
+      "slug_strategy": "translated_title",
+      "sources": [
+        {
+          "file": "rrze-formular/includes/Main.php",
+          "line": 172
+        },
+        {
+          "file": "rrze-formular/includes/Defaults.php",
+          "line": 40
+        },
+        {
+          "file": "rrze-formular/includes/Common/Settings/Settings.php",
+          "line": 112
+        },
+        {
+          "file": "rrze-formular/languages/rrze-formular-de_DE.po",
+          "line": 450
+        }
+      ],
+      "notes": [
+        "Kennung wird mit sanitize_title() aus dem übersetzten Seitentitel erzeugt. Aufgeführte Varianten decken den englischen Quelltext und vorhandene deutsche Übersetzungen ab; andere Übersetzungen oder Filter können weitere Kennungen erzeugen."
+      ]
+    },
+    {
+      "plugin": "rrze-glossary",
+      "label_from_source": "RRZE Glossary",
+      "menu_slugs": [
+        "rrze-glossary"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-glossary/includes/Settings.php",
+          "line": 558
+        },
+        {
+          "file": "rrze-glossary/config/config.php",
+          "line": 47
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-green-office",
+      "label_from_source": "RRZE Green Office",
+      "menu_slugs": [
+        "rrze-green-office"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-green-office/includes/Settings.php",
+          "line": 215
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-greetings",
+      "label_from_source": "Greetings",
+      "menu_slugs": [
+        "rrze-greetings"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-greetings/includes/Settings.php",
+          "line": 368
+        },
+        {
+          "file": "rrze-greetings/config/settings.php",
+          "line": 20
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-jobs",
+      "label_from_source": "RRZE Jobs",
+      "menu_slugs": [
+        "rrze-jobs"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-jobs/includes/Settings.php",
+          "line": 447
+        },
+        {
+          "file": "rrze-jobs/config/config.php",
+          "line": 127
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-jobspreader-analytics",
+      "label_from_source": "Jobspreader Analytics",
+      "menu_slugs": [
+        "rrze-jobspreader-analytics"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-jobspreader-analytics/includes/Settings.php",
+          "line": 82
+        },
+        {
+          "file": "rrze-jobspreader-analytics/includes/Settings.php",
+          "line": 46
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-knowledgebase",
+      "label_from_source": "RRZE Knowledge Base",
+      "menu_slugs": [
+        "rrze-kb-settings"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-knowledgebase/includes/Settings.php",
+          "line": 42
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-lectures",
+      "label_from_source": "RRZE Lectures",
+      "menu_slugs": [
+        "rrze-lectures"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-lectures/includes/Settings.php",
+          "line": 396
+        },
+        {
+          "file": "rrze-lectures/config/config.php",
+          "line": 171
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-multilang",
+      "label_from_source": "Multilanguage",
+      "menu_slugs": [
+        "rrze-multilang"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-multilang/includes/Settings.php",
+          "line": 68
+        },
+        {
+          "file": "rrze-multilang/includes/Settings.php",
+          "line": 19
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-newsletter",
+      "label_from_source": "Newsletters",
+      "menu_slugs": [
+        "rrze-newsletter"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-newsletter/includes/Settings.php",
+          "line": 358
+        },
+        {
+          "file": "rrze-newsletter/config/settings.php",
+          "line": 27
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-post-expiration",
+      "label_from_source": "Expiration",
+      "menu_slugs": [
+        "rrze_post_expiration"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-post-expiration/includes/Settings.php",
+          "line": 22
+        },
+        {
+          "file": "rrze-post-expiration/includes/Settings/Settings.php",
+          "line": 86
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-preise",
+      "label_from_source": "RRZE Preise",
+      "menu_slugs": [
+        "rrze-preise"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-preise/rrze-preise.php",
+          "line": 238
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-pwa",
+      "label_from_source": "PWA",
+      "menu_slugs": [
+        "rrze-pwa"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-pwa/includes/Settings.php",
+          "line": 137
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-research-data",
+      "label_from_source": "RRZE Research Data",
+      "menu_slugs": [
+        "rrze-research-data"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-research-data/includes/Admin/Settings.php",
+          "line": 41
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-rsvp",
+      "label_from_source": "RRZE RSVP",
+      "menu_slugs": [
+        "rrze-rsvp"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-rsvp/includes/Settings.php",
+          "line": 420
+        },
+        {
+          "file": "rrze-rsvp/config/config.php",
+          "line": 148
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-servicekatalog",
+      "label_from_source": "RRZE Servicekatalog",
+      "menu_slugs": [
+        "rrze-servicekatalog-settings"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-servicekatalog/includes/Settings.php",
+          "line": 30
+        },
+        {
+          "file": "rrze-servicekatalog/vendor/cmb2/cmb2/includes/CMB2_Options_Hookup.php",
+          "line": 97
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-siteimprove",
+      "label_from_source": "RRZE Siteimprove",
+      "menu_slugs": [
+        "rrze-siteimprove"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-siteimprove/includes/Settings.php",
+          "line": 81
+        },
+        {
+          "file": "rrze-siteimprove/includes/Config.php",
+          "line": 19
+        }
+      ],
+      "notes": [
+        "Im Multisite-Betrieb verlangt die Seite manage_network_options; gewöhnliche Website-Administratoren sehen diesen Eintrag daher normalerweise nicht. Siehe includes/Settings.php:319."
+      ]
+    },
+    {
+      "plugin": "rrze-synonym",
+      "label_from_source": "RRZE Synonym",
+      "menu_slugs": [
+        "rrze-synonym"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-synonym/includes/Settings.php",
+          "line": 482
+        },
+        {
+          "file": "rrze-synonym/config/config.php",
+          "line": 45
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-typesettings",
+      "label_from_source": "RRZE Typesettings",
+      "menu_slugs": [
+        "rrze-typesettings"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-typesettings/includes/Settings.php",
+          "line": 17
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-univis",
+      "label_from_source": "RRZE UnivIS",
+      "menu_slugs": [
+        "rrze-univis"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-univis/includes/Settings.php",
+          "line": 457
+        },
+        {
+          "file": "rrze-univis/includes/Config.php",
+          "line": 242
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-video",
+      "label_from_source": "RRZE Video Settings",
+      "menu_slugs": [
+        "rrze-video"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-video/includes/UI/Settings.php",
+          "line": 18
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-webt",
+      "label_from_source": "WEB-T Translator",
+      "menu_slugs": [
+        "rrze-webt"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-webt/includes/Settings.php",
+          "line": 110
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "rrze-xliff",
+      "label_from_source": "XLIFF Export/Import",
+      "menu_slugs": [
+        "rrze-xliff"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "rrze-xliff/includes/Settings.php",
+          "line": 86
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "tinymce-advanced",
+      "label_from_source": "Advanced Editor Tools",
+      "menu_slugs": [
+        "tinymce-advanced"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "tinymce-advanced/tinymce-advanced.php",
+          "line": 1160
+        },
+        {
+          "file": "tinymce-advanced/tinymce-advanced.php",
+          "line": 1159
+        }
+      ],
+      "notes": []
+    },
+    {
+      "plugin": "wp-downgrade",
+      "label_from_source": "WP Downgrade",
+      "menu_slugs": [
+        "wpdowngrade"
+      ],
+      "slug_strategy": "explicit",
+      "sources": [
+        {
+          "file": "wp-downgrade/wp-downgrade.php",
+          "line": 30
+        }
+      ],
+      "notes": [
+        "Registrierung verlangt die vom Plugin angegebene Capability administrator; hier wird nur der Quellcodefund dokumentiert."
+      ]
+    }
+  ],
+  "excluded_examples": [
+    {
+      "plugin": "rrze-sso",
+      "reason": "add_options_page() ist nur im Single-Site-Zweig registriert; Multisite verwendet network_admin_menu und settings.php.",
+      "sources": [
+        {
+          "file": "rrze-sso/includes/Settings.php",
+          "line": 56
+        }
+      ]
+    },
+    {
+      "plugin": "wordpress-beta-tester",
+      "reason": "Multisite: Einstellungen der Netzwerkverwaltung (settings.php), nicht lokale Website-Einstellungen.",
+      "sources": [
+        {
+          "file": "wordpress-beta-tester/src/WPBT/WPBT_Settings.php",
+          "line": 84
+        }
+      ]
+    },
+    {
+      "plugin": "rrze-legal",
+      "reason": "Eigene Legal-Menüs bzw. Netzwerkeinstellungen; in den geprüften Konfigurationen kein lokales options-general.php-Untermenü.",
+      "sources": [
+        {
+          "file": "rrze-legal/settings/network.php",
+          "line": 9
+        },
+        {
+          "file": "rrze-legal/settings/tos.php",
+          "line": 9
+        }
+      ]
+    }
+  ]
+}

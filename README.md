@@ -34,6 +34,53 @@ All links remain directly accessible, with WordPress's active-link and keyboard
 focus styles. Without JavaScript, the same page order remains available.
 Additional links from other plugins are retained under **Other Settings**.
 
+### Admin navigation
+
+Under **Network Admin > RRZE Settings > Admin Navigation**, network administrators
+set a shared order for plugin pages in each website's **Settings** submenu. The
+feature is enabled by default and starts with 51 reviewed catalogue entries.
+The initial order follows the plugin identifiers in the bundled catalogue.
+The [source inventory](docs/admin-settings-menu-inventory.json) records the menu
+slugs, translated aliases and source locations used to build these defaults.
+
+WordPress Settings pages stay first, with General as the parent menu's target.
+Available plugin entries follow the configured order. Unavailable plugins and
+entries the current user cannot access are not added. Unknown entries follow at
+the end in their existing relative order. Other menus, including the network
+Settings menu, are unaffected.
+
+Use drag handles, the Up/Down buttons or position fields, then **Save Changes**.
+The position fields also work without JavaScript: numeric values determine the
+saved order, and ties preserve the previous order. **Restore default order**
+saves immediately, retaining accepted additions at the end and leaving the
+activation setting unchanged. Disabling the feature restores the menu order
+produced by WordPress and the plugins while retaining the saved priorities.
+
+When a user with `manage_network_options` visits a website dashboard, previously
+unknown local Settings entries are collected under **Newly detected menu
+entries**. Select entries and save to add them to the sortable list. Ordinary
+website users do not write to the network catalogue. This is incremental
+discovery, not a scan of every website. It accepts up to 200 additional local
+identifiers; external URLs and slugs containing query parameters remain in their
+original relative order after configured entries and are not stored.
+
+Preferences and discoveries are stored separately for each network in
+`rrze_settings_admin_menu_order` and `rrze_settings_admin_menu_discoveries`.
+The reviewed defaults are maintained in `includes/AdminMenu/defaults.php`.
+New defaults are appended to a saved order; when an accepted discovery becomes a
+bundled entry, its saved position is retained. The catalogue stores stable IDs
+and known menu-slug aliases rather than matching translated menu labels.
+
+The catalogue is metadata only: it never creates links, activates plugins or
+changes access capabilities. Registration hooks which run after the late
+`admin_menu` sorter may still alter the final menu.
+
+Validate the ordering, discovery and network POST checks without database writes:
+
+```bash
+php tests/admin-menu-order.php
+```
+
 ### General settings
 
 Under **Network Admin > RRZE Settings > General**, network administrators configure

@@ -34,7 +34,7 @@ class AdminNavigation
         return [
             'network' => [
                 'label' => __('Network', 'rrze-settings'),
-                'pages' => ['rrze-settings', 'rrze-settings-users', 'rrze-settings-governance', 'legal'],
+                'pages' => ['rrze-settings', 'rrze-settings-users', 'rrze-settings-admin-navigation', 'rrze-settings-governance', 'legal'],
             ],
             'editorial' => [
                 'label' => __('Editorial', 'rrze-settings'),

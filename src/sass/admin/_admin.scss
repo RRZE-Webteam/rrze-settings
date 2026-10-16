@@ -519,3 +519,63 @@
         width: 20%;
     }
 }
+
+/* Network ordering controls use native WordPress buttons and focus indicators. */
+.rrze-admin-navigation {
+    > p,
+    form > p,
+    .rrze-navigation-pending {
+        max-width: 75ch;
+    }
+
+    .rrze-navigation-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        margin-block: 16px 8px;
+    }
+
+    .rrze-navigation-scroll {
+        max-width: 900px;
+        max-height: 65vh;
+        overflow: auto;
+        border: 1px solid #c3c4c7;
+        background: #fff;
+        margin-block: 16px 28px;
+        scrollbar-gutter: stable;
+    }
+
+    #rrze-navigation-order {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .rrze-navigation-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0;
+        padding: 10px 12px;
+        border-block-end: 1px solid #dcdcde;
+        background: #fff;
+    }
+
+    .rrze-navigation-row:last-child { border-block-end: 0; }
+    .rrze-navigation-handle { cursor: grab; font-size: 24px; }
+    .rrze-navigation-position { width: 5em; flex-shrink: 0; }
+    .rrze-navigation-label { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+    .rrze-navigation-label small { display: block; margin-top: 3px; color: #50575e; }
+    .rrze-navigation-buttons { display: flex; gap: 6px; }
+    .button[aria-disabled="true"] { opacity: 0.5; cursor: default; }
+    .rrze-navigation-placeholder { border: 2px dashed #8c8f94; box-sizing: border-box; }
+    .rrze-navigation-pending li { margin-block-end: 12px; overflow-wrap: anywhere; }
+
+    @media screen and (max-width: 600px) {
+        .rrze-navigation-row { gap: 8px; padding: 8px; flex-wrap: wrap; }
+        .rrze-navigation-label { flex-basis: 50%; }
+        .rrze-navigation-buttons { margin-inline-start: auto; }
+        .rrze-navigation-handle { display: none; }
+    }
+}
