@@ -42,6 +42,16 @@ search, the automatic contact page, dashboard guidance, administrator warnings
 and debug access. See the [German user guide for User settings](docs/users-settings.md)
 for permissions, examples and the limitations of each option.
 
+### Plugin settings
+
+Under **Network Admin > CMS > Plugins**, available plugin sections appear on one
+page in alphabetical order. Use **Jump to plugin** to navigate to a section and
+**Back to overview** to return to the index. The linked section is highlighted
+with a subtle background and accent line until another section or the overview
+is selected. **Save all changes** saves the entire
+form, including settings in other sections. The save bar stays at the bottom of
+the viewport while scrolling; on very short screens it follows the last section.
+
 Methods Available for Other Plugins
 
 The following methods can be used by other plugins:

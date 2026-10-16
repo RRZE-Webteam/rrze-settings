@@ -666,7 +666,7 @@ msgid "Envelope Sender"
 msgstr ""
 
 #: includes/Mail/Settings.php:115
-#: includes/Plugins/Settings.php:434
+#: includes/Plugins/Settings.php:440
 msgid "Allowed Domains"
 msgstr ""
 
@@ -981,337 +981,348 @@ msgstr ""
 
 #: includes/Plugins/Settings.php:38
 #: includes/Plugins/Settings.php:39
-#: includes/Plugins/Settings.php:199
+#: includes/Plugins/Settings.php:205
 msgid "Plugins"
 msgstr ""
 
-#: includes/Plugins/Settings.php:61
 #: includes/Settings.php:123
 msgid "Save Changes"
 msgstr ""
 
-#: includes/Plugins/Settings.php:207
+#: includes/Plugins/Settings.php:213
 msgid "DIP"
 msgstr ""
 
-#: includes/Plugins/Settings.php:214
+#: includes/Plugins/Settings.php:220
 msgid "DIP API Key"
 msgstr ""
 
-#: includes/Plugins/Settings.php:222
+#: includes/Plugins/Settings.php:228
 msgid "DIP Edu API key"
 msgstr ""
 
-#: includes/Plugins/Settings.php:232
+#: includes/Plugins/Settings.php:238
 msgid "FAUdir"
 msgstr ""
 
-#: includes/Plugins/Settings.php:239
+#: includes/Plugins/Settings.php:245
 msgid "FAUdir API Key"
 msgstr ""
 
-#: includes/Plugins/Settings.php:250
+#: includes/Plugins/Settings.php:256
 msgid "RRZE Jobs"
 msgstr ""
 
-#: includes/Plugins/Settings.php:257
+#: includes/Plugins/Settings.php:263
 msgid "B-ITE API Key"
 msgstr ""
 
-#: includes/Plugins/Settings.php:268
+#: includes/Plugins/Settings.php:274
 msgid "RRZE Search Settings"
 msgstr ""
 
-#: includes/Plugins/Settings.php:275
+#: includes/Plugins/Settings.php:281
 msgid "Search Engine Keys"
 msgstr ""
 
-#: includes/Plugins/Settings.php:283
+#: includes/Plugins/Settings.php:289
 msgid "Daily Limit"
 msgstr ""
 
-#: includes/Plugins/Settings.php:291
+#: includes/Plugins/Settings.php:297
 msgid "Weekly Limit"
 msgstr ""
 
-#: includes/Plugins/Settings.php:299
+#: includes/Plugins/Settings.php:305
 msgid "Monthly Limit"
 msgstr ""
 
-#: includes/Plugins/Settings.php:307
+#: includes/Plugins/Settings.php:313
 msgid "Yearly Limit"
 msgstr ""
 
-#: includes/Plugins/Settings.php:318
+#: includes/Plugins/Settings.php:324
 msgid "RRZE WebT"
 msgstr ""
 
-#: includes/Plugins/Settings.php:325
+#: includes/Plugins/Settings.php:331
 msgid "API Endpoint URL"
 msgstr ""
 
-#: includes/Plugins/Settings.php:333
+#: includes/Plugins/Settings.php:339
 msgid "Application Name"
 msgstr ""
 
-#: includes/Plugins/Settings.php:341
+#: includes/Plugins/Settings.php:347
 msgid "Password"
 msgstr ""
 
-#: includes/Plugins/Settings.php:349
-#: includes/Plugins/Settings.php:376
-#: includes/Plugins/Settings.php:493
+#: includes/Plugins/Settings.php:355
+#: includes/Plugins/Settings.php:382
+#: includes/Plugins/Settings.php:499
 msgid "Exceptions"
 msgstr ""
 
-#: includes/Plugins/Settings.php:360
+#: includes/Plugins/Settings.php:366
 msgid "RRZE Newsletter"
 msgstr ""
 
-#: includes/Plugins/Settings.php:367
+#: includes/Plugins/Settings.php:373
 msgid "Global Settings"
 msgstr ""
 
-#: includes/Plugins/Settings.php:384
+#: includes/Plugins/Settings.php:390
 msgid "Allowed domains for Envelope Sender"
 msgstr ""
 
-#: includes/Plugins/Settings.php:392
+#: includes/Plugins/Settings.php:398
 msgid "Send Limit"
 msgstr ""
 
-#: includes/Plugins/Settings.php:400
+#: includes/Plugins/Settings.php:406
 msgid "Max. Retries"
 msgstr ""
 
-#: includes/Plugins/Settings.php:408
+#: includes/Plugins/Settings.php:414
 msgid "Disable subscription"
 msgstr ""
 
-#: includes/Plugins/Settings.php:416
+#: includes/Plugins/Settings.php:422
 msgid "Allowed domains for recipients"
 msgstr ""
 
-#: includes/Plugins/Settings.php:427
+#: includes/Plugins/Settings.php:433
 msgid "RRZE Formular"
 msgstr ""
 
-#: includes/Plugins/Settings.php:444
+#: includes/Plugins/Settings.php:450
 msgid "CMS Workflow"
 msgstr ""
 
-#: includes/Plugins/Settings.php:451
+#: includes/Plugins/Settings.php:457
 msgid "Not Allowed Post Types"
 msgstr ""
 
-#: includes/Plugins/Settings.php:462
+#: includes/Plugins/Settings.php:468
 msgid "WS Form"
 msgstr ""
 
-#: includes/Plugins/Settings.php:469
+#: includes/Plugins/Settings.php:475
 msgid "License Key"
 msgstr ""
 
-#: includes/Plugins/Settings.php:477
+#: includes/Plugins/Settings.php:483
 msgid "PDF Add-On License Key"
 msgstr ""
 
-#: includes/Plugins/Settings.php:485
+#: includes/Plugins/Settings.php:491
 msgid "Not Allowed Field Types"
 msgstr ""
 
-#: includes/Plugins/Settings.php:503
+#: includes/Plugins/Settings.php:509
 msgid "RRZE Directions"
 msgstr ""
 
-#: includes/Plugins/Settings.php:510
+#: includes/Plugins/Settings.php:516
 msgid "OpenRouteService-API-Key"
 msgstr ""
 
-#: includes/Plugins/Settings.php:520
+#: includes/Plugins/Settings.php:526
 msgid "Contact Form 7"
 msgstr ""
 
-#: includes/Plugins/Settings.php:527
+#: includes/Plugins/Settings.php:533
 msgid "Dequeue scripts"
 msgstr ""
 
-#: includes/Plugins/Settings.php:538
+#: includes/Plugins/Settings.php:544
 msgid "SEO Framework"
 msgstr ""
 
-#: includes/Plugins/Settings.php:545
+#: includes/Plugins/Settings.php:551
 msgid "Force activation"
 msgstr ""
 
-#: includes/Plugins/Settings.php:555
+#: includes/Plugins/Settings.php:561
 msgid "Siteimprove"
 msgstr ""
 
-#: includes/Plugins/Settings.php:562
+#: includes/Plugins/Settings.php:568
 msgid "Crawler IP addresses"
 msgstr ""
 
-#: includes/Plugins/Settings.php:570
+#: includes/Plugins/Settings.php:576
 msgid "Schlüsselcode"
 msgstr ""
 
-#: includes/Plugins/Settings.php:584
+#: includes/Plugins/Settings.php:590
 msgid "Network administrators can oversee and configure plugin settings across a multisite environment. The page automatically detects supported plugins and presents dedicated sections and fields for each one. Network administrators can enter API keys, adjust plugin‑specific options, and maintain efficient, consistent management of all websites in the network."
 msgstr ""
 
-#: includes/Plugins/Settings.php:609
+#: includes/Plugins/Settings.php:615
 msgid "Enter one search engine per block (3 or 4 lines):"
 msgstr ""
 
-#: includes/Plugins/Settings.php:610
+#: includes/Plugins/Settings.php:616
 msgid "Line 1: Name"
 msgstr ""
 
-#: includes/Plugins/Settings.php:611
+#: includes/Plugins/Settings.php:617
 msgid "Line 2: CX"
 msgstr ""
 
-#: includes/Plugins/Settings.php:612
+#: includes/Plugins/Settings.php:618
 msgid "Line 3: API"
 msgstr ""
 
-#: includes/Plugins/Settings.php:613
+#: includes/Plugins/Settings.php:619
 msgid "Optional line 4: Description"
 msgstr ""
 
-#: includes/Plugins/Settings.php:614
+#: includes/Plugins/Settings.php:620
 msgid "Add multiple engines by adding additional 3/4-line blocks (no empty lines required)."
 msgstr ""
 
-#: includes/Plugins/Settings.php:627
+#: includes/Plugins/Settings.php:633
 msgid "Maximum number of RRZE Search requests per day. Use 0 for unlimited."
 msgstr ""
 
-#: includes/Plugins/Settings.php:640
+#: includes/Plugins/Settings.php:646
 msgid "Maximum number of RRZE Search requests per week. Use 0 for unlimited."
 msgstr ""
 
-#: includes/Plugins/Settings.php:653
+#: includes/Plugins/Settings.php:659
 msgid "Maximum number of RRZE Search requests per month. Use 0 for unlimited."
 msgstr ""
 
-#: includes/Plugins/Settings.php:666
+#: includes/Plugins/Settings.php:672
 msgid "Maximum number of RRZE Search requests per year. Use 0 for unlimited."
 msgstr ""
 
-#: includes/Plugins/Settings.php:722
+#: includes/Plugins/Settings.php:728
 msgid "The WebT API Url used for RRZE Webt."
 msgstr ""
 
-#: includes/Plugins/Settings.php:731
+#: includes/Plugins/Settings.php:737
 msgid "The WebT application name used for RRZE Webt."
 msgstr ""
 
-#: includes/Plugins/Settings.php:740
+#: includes/Plugins/Settings.php:746
 msgid "The WebT password used for RRZE Webt."
 msgstr ""
 
-#: includes/Plugins/Settings.php:750
-#: includes/Plugins/Settings.php:844
-#: includes/Plugins/Settings.php:943
+#: includes/Plugins/Settings.php:756
+#: includes/Plugins/Settings.php:850
+#: includes/Plugins/Settings.php:949
 msgid "List of IDS of websites that are exempt to all global settings. Enter one website ID per line."
 msgstr ""
 
-#: includes/Plugins/Settings.php:758
+#: includes/Plugins/Settings.php:764
 msgid "Activate the global settings of the plugin"
 msgstr ""
 
-#: includes/Plugins/Settings.php:768
+#: includes/Plugins/Settings.php:774
 msgid "List of allowed domains for envelope sender. Enter one domain per line."
 msgstr ""
 
-#: includes/Plugins/Settings.php:777
+#: includes/Plugins/Settings.php:783
 msgid "Maximum number of emails that can be sent per minute."
 msgstr ""
 
-#: includes/Plugins/Settings.php:786
+#: includes/Plugins/Settings.php:792
 msgid "Maximum number of retries until an email is sent successfully."
 msgstr ""
 
-#: includes/Plugins/Settings.php:794
+#: includes/Plugins/Settings.php:800
 msgid "Disables the subscription and mailing lists"
 msgstr ""
 
-#: includes/Plugins/Settings.php:804
+#: includes/Plugins/Settings.php:810
 msgid "List of allowed domains for recipients. Enter one domain per line."
 msgstr ""
 
-#: includes/Plugins/Settings.php:814
+#: includes/Plugins/Settings.php:820
 msgid "List of allowed domains for RRZE Formular. Enter one domain without www per line."
 msgstr ""
 
-#: includes/Plugins/Settings.php:830
+#: includes/Plugins/Settings.php:836
 msgid "Schlüssel unter"
 msgstr ""
 
-#: includes/Plugins/Settings.php:832
+#: includes/Plugins/Settings.php:838
 msgid "https://openrouteservice.org"
 msgstr ""
 
-#: includes/Plugins/Settings.php:833
+#: includes/Plugins/Settings.php:839
 msgid "beantragen und hier einfügen."
 msgstr ""
 
-#: includes/Plugins/Settings.php:854
+#: includes/Plugins/Settings.php:860
 msgid "List of not allowed post types. Enter one post type per line."
 msgstr ""
 
-#: includes/Plugins/Settings.php:864
+#: includes/Plugins/Settings.php:870
 msgid "List of allowed IP addresses of the Siteimprove crawler in case there are access restrictions to the content of the website. Enter one IP address per line."
 msgstr ""
 
-#: includes/Plugins/Settings.php:879
+#: includes/Plugins/Settings.php:885
 msgid "4 bis 10 alphanumerische Zeichen."
 msgstr ""
 
-#: includes/Plugins/Settings.php:887
+#: includes/Plugins/Settings.php:893
 msgid "Disables custom columns and metaboxes"
 msgstr ""
 
-#: includes/Plugins/Settings.php:895
+#: includes/Plugins/Settings.php:901
 msgid "Dequeue Contact Form 7 scripts on the posts where it is not needed"
 msgstr ""
 
-#: includes/Plugins/Settings.php:903
+#: includes/Plugins/Settings.php:909
 msgid "Forces the activation of the plugin if it exists and has not yet been activated"
 msgstr ""
 
-#: includes/Plugins/Settings.php:913
+#: includes/Plugins/Settings.php:919
 msgid "This license key will apply to all websites."
 msgstr ""
 
-#: includes/Plugins/Settings.php:923
+#: includes/Plugins/Settings.php:929
 msgid "This add-on license key will apply to all websites."
 msgstr ""
 
-#: includes/Plugins/Settings.php:933
+#: includes/Plugins/Settings.php:939
 msgid "List of not allowed field types. Enter one field type per line."
 msgstr ""
 
-#: includes/Plugins/Settings.php:952
+#: includes/Plugins/Settings.php:958
 msgid "The DIP API key used by some plugins."
 msgstr ""
 
-#: includes/Plugins/Settings.php:961
+#: includes/Plugins/Settings.php:967
 msgid "The DIP Edu API key used by some plugins."
 msgstr ""
 
-#: includes/Plugins/Settings.php:970
+#: includes/Plugins/Settings.php:976
 msgid "The FAUdir API key to access the API service https://api.fau.de/."
 msgstr ""
 
-#: includes/Plugins/Settings.php:979
+#: includes/Plugins/Settings.php:985
 msgid "The B-ITE API key used for RRZE Jobs."
 msgstr ""
 
+#: includes/Plugins/Settings.php:66
+msgid "Save all changes"
+msgstr ""
+
+#: includes/Plugins/Settings.php:67
+msgid "Saves the settings in all plugin sections on this page."
+msgstr ""
+
 #: includes/Plugins/Settings.php:1153
-msgid "Plugin settings"
+msgid "Jump to plugin"
+msgstr ""
+
+#: includes/Plugins/Settings.php:1185
+msgid "Back to overview"
 msgstr ""
 
 #: includes/Posts/Page.php:66

@@ -44,7 +44,7 @@ class Settings extends MainSettings
     }
 
     /**
-     * Options page with plugin settings tabs.
+     * Render all plugin sections in one form with jump links and a shared save bar.
      *
      * @return void
      */
@@ -57,10 +57,16 @@ class Settings extends MainSettings
         echo '<form method="post">';
         settings_fields($this->menuPage);
         $this->renderMainSection();
-        $this->renderTabs();
-        submit_button(__('Save Changes', 'rrze-settings'), 'primary', $this->menuPage . '-submit-primary');
+        $sections = $this->getPluginSections();
+        $this->renderSectionNavigation($sections);
+        foreach ($sections as $sectionId => $section) {
+            $this->renderPluginSection($sectionId, $section);
+        }
+        echo '<div class="rrze-settings-plugins-save-bar">';
+        submit_button(__('Save all changes', 'rrze-settings'), 'primary', $this->menuPage . '-submit-primary', false, ['aria-describedby' => 'rrze-settings-plugins-save-help']);
+        echo '<p id="rrze-settings-plugins-save-help">', esc_html__('Saves the settings in all plugin sections on this page.', 'rrze-settings'), '</p>';
+        echo '</div>';
         echo '</form>';
-        $this->printTabsScript();
         echo '</div>';
     }
 
@@ -1115,86 +1121,71 @@ class Settings extends MainSettings
     }
 
     /**
-     * Render the description section above the tabs.
+     * Render the existing page introduction without repeating the page heading.
      *
      * @return void
      */
-    protected function renderMainSection()
+    protected function renderMainSection(): void
     {
         global $wp_settings_sections;
 
         $mainSection = $wp_settings_sections[$this->menuPage]['rrze-settings-plugins-main'] ?? null;
-        if (empty($mainSection)) {
-            return;
-        }
-
-        if (!empty($mainSection['title'])) {
-            echo '<h2>', esc_html($mainSection['title']), '</h2>';
-        }
-
         if (!empty($mainSection['callback']) && is_callable($mainSection['callback'])) {
+            echo '<div class="rrze-settings-plugins-introduction">';
             call_user_func($mainSection['callback'], $mainSection);
+            echo '</div>';
         }
     }
 
     /**
-     * Render plugin section tabs.
+     * Render an alphabetical index linking to the visible plugin sections.
      *
+     * @param array<string, array> $sections Registered sections in display order.
      * @return void
      */
-    protected function renderTabs()
+    protected function renderSectionNavigation(array $sections): void
     {
-        $sections = $this->getTabSections();
         if (empty($sections)) {
-            do_settings_sections($this->menuPage);
             return;
         }
 
-        echo '<nav class="nav-tab-wrapper rrze-settings-plugins-tabs" role="tablist" aria-label="', esc_attr__('Plugin settings', 'rrze-settings'), '">';
-        $first = true;
+        echo '<nav id="rrze-settings-plugins-index" class="rrze-settings-plugins-index" aria-labelledby="rrze-settings-plugins-index-title" tabindex="-1">';
+        echo '<h2 id="rrze-settings-plugins-index-title">', esc_html__('Jump to plugin', 'rrze-settings'), '</h2>';
+        echo '<ul>';
         foreach ($sections as $sectionId => $section) {
-            $tabId = $this->getTabId($sectionId);
-            $panelId = $this->getTabPanelId($sectionId);
             printf(
-                '<button type="button" id="%1$s" class="nav-tab%2$s" role="tab" aria-selected="%3$s" aria-controls="%4$s" data-rrze-settings-tab="%5$s">%6$s</button>',
-                esc_attr($tabId),
-                $first ? ' nav-tab-active' : '',
-                $first ? 'true' : 'false',
-                esc_attr($panelId),
+                '<li><a href="#%1$s-panel">%2$s</a></li>',
                 esc_attr($sectionId),
                 esc_html($section['title'])
             );
-            $first = false;
         }
-        echo '</nav>';
-
-        $first = true;
-        foreach ($sections as $sectionId => $section) {
-            $this->renderTabPanel($sectionId, $section, $first);
-            $first = false;
-        }
+        echo '</ul></nav>';
     }
 
     /**
-     * Render a single tab panel.
+     * Render a visible, linkable plugin section using its existing field callbacks.
      *
-     * @param string $sectionId
-     * @param array $section
-     * @param bool $active
+     * Keep the former panel ID so bookmarked section anchors continue to work.
+     * The focusable target makes keyboard navigation from the index predictable.
+     *
+     * @param string $sectionId Registered section identifier.
+     * @param array  $section Registered title, callback and other section metadata.
      * @return void
      */
-    protected function renderTabPanel(string $sectionId, array $section, bool $active)
+    protected function renderPluginSection(string $sectionId, array $section): void
     {
         printf(
-            '<div id="%1$s" class="rrze-settings-plugins-tab-panel" role="tabpanel" aria-labelledby="%2$s"%3$s>',
-            esc_attr($this->getTabPanelId($sectionId)),
-            esc_attr($this->getTabId($sectionId)),
-            $active ? '' : ' hidden'
+            '<section id="%1$s-panel" class="rrze-settings-plugin-section" aria-labelledby="%1$s-heading" tabindex="-1">',
+            esc_attr($sectionId)
         );
-
-        if (!empty($section['title'])) {
-            echo '<h2>', esc_html($section['title']), '</h2>';
-        }
+        echo '<div class="rrze-settings-plugin-heading">';
+        printf('<h2 id="%1$s-heading">%2$s</h2>', esc_attr($sectionId), esc_html($section['title']));
+        printf(
+            '<a href="#rrze-settings-plugins-index">%1$s<span class="screen-reader-text">: %2$s</span></a>',
+            esc_html__('Back to overview', 'rrze-settings'),
+            esc_html($section['title'])
+        );
+        echo '</div>';
 
         if (!empty($section['callback']) && is_callable($section['callback'])) {
             call_user_func($section['callback'], $section);
@@ -1202,89 +1193,40 @@ class Settings extends MainSettings
 
         echo '<table class="form-table" role="presentation">';
         do_settings_fields($this->menuPage, $sectionId);
-        echo '</table>';
-        echo '</div>';
+        echo '</table></section>';
     }
 
     /**
-     * Get sections rendered as tabs.
+     * Return registered plugin sections sorted naturally by their translated title.
      *
-     * @return array
+     * Retain the section keys used by the Settings API to render their fields.
+     *
+     * @return array<string, array> Plugin sections in alphabetical display order.
      */
-    protected function getTabSections(): array
+    protected function getPluginSections(): array
     {
         global $wp_settings_sections;
 
         $sections = $wp_settings_sections[$this->menuPage] ?? [];
         unset($sections['rrze-settings-plugins-main']);
+        uasort($sections, [$this, 'comparePluginSections']);
 
         return $sections;
     }
 
     /**
-     * Get tab id.
+     * Compare display titles, treating hyphens and whitespace as the same separator.
      *
-     * @param string $sectionId
-     * @return string
+     * @param array $first First registered section.
+     * @param array $second Second registered section.
+     * @return int Negative, zero or positive according to the title order.
      */
-    protected function getTabId(string $sectionId): string
+    protected function comparePluginSections(array $first, array $second): int
     {
-        return $sectionId . '-tab';
-    }
+        $firstTitle = preg_replace('/[\s\p{Pd}]+/u', ' ', $first['title']);
+        $secondTitle = preg_replace('/[\s\p{Pd}]+/u', ' ', $second['title']);
 
-    /**
-     * Get tab panel id.
-     *
-     * @param string $sectionId
-     * @return string
-     */
-    protected function getTabPanelId(string $sectionId): string
-    {
-        return $sectionId . '-panel';
-    }
-
-    /**
-     * Print tab behavior script.
-     *
-     * @return void
-     */
-    protected function printTabsScript()
-    {
-        ?>
-        <script>
-        function rrzeSettingsPluginsActivateTab(tab) {
-            var page = tab.closest('.rrze-settings-plugins-page');
-            var tabs = page.querySelectorAll('[data-rrze-settings-tab]');
-            var panels = page.querySelectorAll('.rrze-settings-plugins-tab-panel');
-            var activeSection = tab.getAttribute('data-rrze-settings-tab');
-
-            tabs.forEach(function rrzeSettingsPluginsUpdateTab(currentTab) {
-                var isActive = currentTab === tab;
-                currentTab.classList.toggle('nav-tab-active', isActive);
-                currentTab.setAttribute('aria-selected', isActive ? 'true' : 'false');
-            });
-
-            panels.forEach(function rrzeSettingsPluginsUpdatePanel(panel) {
-                panel.hidden = panel.id !== activeSection + '-panel';
-            });
-        }
-
-        function rrzeSettingsPluginsTabsInit() {
-            var page = document.querySelector('.rrze-settings-plugins-page');
-            if (!page) {
-                return;
-            }
-
-            page.querySelectorAll('[data-rrze-settings-tab]').forEach(function rrzeSettingsPluginsBindTab(tab) {
-                tab.addEventListener('click', function rrzeSettingsPluginsTabClick() {
-                    rrzeSettingsPluginsActivateTab(tab);
-                });
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', rrzeSettingsPluginsTabsInit);
-        </script>
-        <?php
+        return strnatcasecmp($firstTitle, $secondTitle);
     }
 
     /**

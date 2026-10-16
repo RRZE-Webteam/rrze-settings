@@ -1,7 +1,8 @@
 /* Settings guidance: keep text readable on wide admin screens. */
 
 .rrze-settings-general,
-.rrze-settings-users {
+.rrze-settings-users,
+.rrze-settings-plugins-page {
     > p,
     .description,
     details,
@@ -25,6 +26,100 @@
 
     summary {
         cursor: pointer;
+    }
+}
+
+/* Plugin sections share one form; navigation only changes the scroll position. */
+
+.rrze-settings-plugins-page {
+    max-width: 1040px;
+
+    .rrze-settings-plugins-introduction {
+        max-width: 70ch;
+        margin: 12px 0 24px;
+        line-height: 1.6;
+    }
+
+    .rrze-settings-plugins-index,
+    .rrze-settings-plugin-section {
+        scroll-margin-top: 64px;
+    }
+
+    .rrze-settings-plugins-index {
+        margin-bottom: 24px;
+
+        ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+            gap: 4px 24px;
+            margin: 0;
+        }
+
+        li {
+            margin: 0;
+        }
+
+        a {
+            display: inline-block;
+            padding-block: 5px;
+        }
+    }
+
+    .rrze-settings-plugin-section {
+        padding-block: 24px;
+        padding-inline: 16px;
+        border-top: 1px solid #c3c4c7;
+        // Reserve the accent space so following a link does not shift the fields.
+        border-inline-start: 3px solid transparent;
+
+        &:target {
+            border-inline-start-color: var(--wp-admin-theme-color, #2271b1);
+            background-color: #f0f6fc;
+        }
+
+        input,
+        textarea,
+        select {
+            max-width: 100%;
+            box-sizing: border-box;
+            scroll-margin-block: 100px;
+        }
+    }
+
+    .rrze-settings-plugin-heading {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px 24px;
+
+        h2 {
+            margin: 0;
+        }
+    }
+
+    .rrze-settings-plugins-save-bar {
+        position: sticky;
+        bottom: 0;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px 16px;
+        padding-block: 16px;
+        background: #f0f0f1;
+        border-top: 1px solid #c3c4c7;
+
+        p {
+            max-width: 70ch;
+            margin: 0;
+        }
+    }
+}
+
+@media screen and (max-height: 480px) {
+    .rrze-settings-plugins-page .rrze-settings-plugins-save-bar {
+        position: static;
     }
 }
 
