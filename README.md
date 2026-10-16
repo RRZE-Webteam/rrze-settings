@@ -59,6 +59,15 @@ results when searching for content to add to a menu. These options do not extend
 the Navigation block. See the [German user guide for Menu settings](docs/menus-settings.md)
 for examples, defaults and the scope of each option.
 
+### Editor settings
+
+Under **Network Admin > CMS > Editor** (formerly **Writing**), configure editor
+selection, exemptions, autosave, available blocks, sources, editing tools and
+plugin compatibility. A section index and shared save bar keep the full form
+accessible. Block exclusions affect insertion choices while preserving existing
+content. See the [German user guide for Editor settings](docs/editor-settings.md)
+for dependencies, defaults and exact input formats.
+
 ### Plugin settings
 
 Under **Network Admin > CMS > Plugins**, available plugin sections appear on one

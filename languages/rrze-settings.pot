@@ -58,6 +58,8 @@ msgid "BlockEditor iFrame Body Class"
 msgstr ""
 
 #: includes/Advanced/Settings.php:115
+#: includes/Writing/Settings.php:218
+#: includes/Writing/Settings.php:353
 msgid "Theme Exceptions"
 msgstr ""
 
@@ -615,7 +617,7 @@ msgstr ""
 
 #: includes/Heartbeat/Settings.php:178
 #: includes/Heartbeat/Settings.php:193
-#: includes/Writing/Settings.php:236
+#: includes/Writing/Settings.php:614
 msgid "seconds"
 msgstr ""
 
@@ -750,6 +752,374 @@ msgstr ""
 
 #: includes/Menus/Settings.php:164
 msgid "A maximum of 100 matches is displayed; more specific search terms are still useful for large websites. Disabled: WordPress uses its regular limit again, which is 10 results by default."
+msgstr ""
+
+#: includes/Writing/Settings.php:139
+msgid "Editor Selection"
+msgstr ""
+
+#: includes/Writing/Settings.php:140
+msgid "Choose the network editor policy and the initial editor for newly created websites."
+msgstr ""
+
+#: includes/Writing/Settings.php:143
+msgid "Editor and Block Exceptions"
+msgstr ""
+
+#: includes/Writing/Settings.php:144
+msgid "These exceptions enable the block editor where supported and bypass this plugin’s block lists. They remain relevant when the block editor is the network default. Other tool restrictions still apply."
+msgstr ""
+
+#: includes/Writing/Settings.php:147
+msgid "Saving and Editing Locks"
+msgstr ""
+
+#: includes/Writing/Settings.php:148
+msgid "Configure automatic draft saving in the block editor and allow websites to adjust the editing lock duration."
+msgstr ""
+
+#: includes/Writing/Settings.php:151
+msgid "Available Blocks"
+msgstr ""
+
+#: includes/Writing/Settings.php:152
+msgid "First limit the available blocks, then remove individual blocks with the exclusion list. The exceptions above take precedence."
+msgstr ""
+
+#: includes/Writing/Settings.php:155
+msgid "Sources and Libraries"
+msgstr ""
+
+#: includes/Writing/Settings.php:156
+msgid "Control additional sources offered in the block editor. Hiding a source does not delete content already inserted."
+msgstr ""
+
+#: includes/Writing/Settings.php:159
+msgid "Code and Custom Fields"
+msgstr ""
+
+#: includes/Writing/Settings.php:160
+msgid "Configure access to editor tools. Each restriction has its own scope; a tool being hidden is not a general content security rule."
+msgstr ""
+
+#: includes/Writing/Settings.php:163
+msgid "Plugin Compatibility"
+msgstr ""
+
+#: includes/Writing/Settings.php:164
+msgid "Manage website plugins that should not run alongside the block editor."
+msgstr ""
+
+#: includes/Writing/Settings.php:182
+msgid "On this page"
+msgstr ""
+
+#: includes/Writing/Settings.php:200
+msgid "Saves the settings in all sections on this page."
+msgstr ""
+
+#: includes/Writing/Settings.php:216
+#: includes/Writing/Settings.php:555
+msgid "New Websites"
+msgstr ""
+
+#: includes/Writing/Settings.php:217
+#: includes/Writing/Settings.php:340
+msgid "Content Type Exceptions"
+msgstr ""
+
+#: includes/Writing/Settings.php:219
+#: includes/Writing/Settings.php:366
+msgid "Website Exceptions"
+msgstr ""
+
+#: includes/Writing/Settings.php:220
+#: includes/Writing/Settings.php:601
+msgid "Automatic Saving"
+msgstr ""
+
+#: includes/Writing/Settings.php:221
+msgid "Custom Autosave Interval"
+msgstr ""
+
+#: includes/Writing/Settings.php:222
+#: includes/Writing/Settings.php:312
+msgid "Editing Lock Duration"
+msgstr ""
+
+#: includes/Writing/Settings.php:224
+#: includes/Writing/Settings.php:395
+msgid "Excluded Blocks"
+msgstr ""
+
+#: includes/Writing/Settings.php:225
+#: includes/Writing/Settings.php:410
+msgid "Block Directory"
+msgstr ""
+
+#: includes/Writing/Settings.php:226
+#: includes/Writing/Settings.php:424
+msgid "Online Block Patterns"
+msgstr ""
+
+#: includes/Writing/Settings.php:227
+#: includes/Writing/Settings.php:438
+msgid "Openverse Media"
+msgstr ""
+
+#: includes/Writing/Settings.php:228
+#: includes/Writing/Settings.php:452
+msgid "Font Library"
+msgstr ""
+
+#: includes/Writing/Settings.php:229
+#: includes/Writing/Settings.php:466
+msgid "Code Editor"
+msgstr ""
+
+#: includes/Writing/Settings.php:230
+#: includes/Writing/Settings.php:508
+msgid "Code Editor Exceptions"
+msgstr ""
+
+#: includes/Writing/Settings.php:231
+#: includes/Writing/Settings.php:480
+msgid "Custom Block CSS"
+msgstr ""
+
+#: includes/Writing/Settings.php:232
+#: includes/Writing/Settings.php:494
+msgid "Themes for the CSS Restriction"
+msgstr ""
+
+#: includes/Writing/Settings.php:233
+#: includes/Writing/Settings.php:326
+msgid "Custom Fields"
+msgstr ""
+
+#: includes/Writing/Settings.php:234
+#: includes/Writing/Settings.php:522
+msgid "Automatically Deactivated Plugins"
+msgstr ""
+
+#: includes/Writing/Settings.php:299
+msgid "Configure editor selection, blocks and editing tools across the network. Changes take effect after saving. All sections remain visible so that exceptions and dependencies can be reviewed together."
+msgstr ""
+
+#: includes/Writing/Settings.php:310
+msgid "Allow websites to configure the editing lock duration"
+msgstr ""
+
+#: includes/Writing/Settings.php:311
+msgid "Allows an individual lock duration under Settings > Writing on each website. Disabling this option keeps the normal WordPress editing lock; it does not turn locking off."
+msgstr ""
+
+#: includes/Writing/Settings.php:313
+msgid "The lock detects when another person is editing the same content. The website value is entered in seconds; default and minimum when saving are 150. This is a lock timeout, not a maximum editing session length."
+msgstr ""
+
+#: includes/Writing/Settings.php:324
+msgid "Hide the standard Custom Fields box"
+msgstr ""
+
+#: includes/Writing/Settings.php:325
+msgid "Removes the standard WordPress Custom Fields box from editing screens. Stored custom-field values remain intact."
+msgstr ""
+
+#: includes/Writing/Settings.php:327
+msgid "This affects the standard metadata box, not all custom interfaces supplied by plugins such as ACF. Disabled: WordPress controls the availability of its standard box again."
+msgstr ""
+
+#: includes/Writing/Settings.php:339
+msgid "Enter one technical content type per line, such as page or newsletter. These types may use the block editor and bypass the allowed and excluded block lists."
+msgstr ""
+
+#: includes/Writing/Settings.php:341
+msgid "Use the registered identifier, not the translated label. The type must support the editor and REST API. These types are also exempt from the code-editor restriction; source and CSS restrictions still apply. Empty: no content-type exemptions."
+msgstr ""
+
+#: includes/Writing/Settings.php:352
+msgid "Enter one exact active theme name per line. Websites using these themes may use the block editor without this plugin’s block-list restrictions."
+msgstr ""
+
+#: includes/Writing/Settings.php:354
+msgid "Use the displayed theme name, such as FAU-Elemental, including capitalization. This list does not match folder names or automatically match a parent theme when a child theme is active. Empty: no theme exemptions."
+msgstr ""
+
+#: includes/Writing/Settings.php:365
+msgid "Enter one website ID per line. These websites may use the block editor without this plugin’s block-list restrictions. Empty: no website exemptions."
+msgstr ""
+
+#: includes/Writing/Settings.php:367
+msgid "Example: enter 12 and 34 on separate lines. After saving, the website URL is appended for orientation. Existing lines such as 12 - https://example.org remain valid. Code-editor access has a separate exception list below."
+msgstr ""
+
+#: includes/Writing/Settings.php:379
+msgid "Enter one block identifier per line, such as core/heading. Empty means all registered blocks, minus the exclusions below. This controls the selection for new blocks; existing content is retained."
+msgstr ""
+
+#: includes/Writing/Settings.php:381
+msgid "Use namespace/block or namespace/* for a whole provider, such as core/*. Arbitrary patterns such as core/image* are not supported. A non-empty list without core/* automatically retains core/paragraph and core/missing."
+msgstr ""
+
+#: includes/Writing/Settings.php:382
+msgid "The exclusions are applied afterwards, and the exemptions above bypass both lists. If filtering produces no blocks at all, the current implementation falls back to the previous WordPress allowance; this is not a way to disable every block."
+msgstr ""
+
+#: includes/Writing/Settings.php:394
+msgid "Removes these block types from the selection for inserting new blocks. Existing blocks remain stored and can still be displayed and edited while their provider is available."
+msgstr ""
+
+#: includes/Writing/Settings.php:396
+msgid "Enter one identifier per line, for example core/html, or use a provider pattern such as example/*. Exclusions take precedence over the allowed list, except for the content types, themes and websites explicitly exempted above. Empty: no additional exclusions."
+msgstr ""
+
+#: includes/Writing/Settings.php:397
+msgid "Variation rules such as core/embed:youtube target only a variation. Their editor script currently loads only when the content-type exception list is non-empty and no exception applies to the current content. Verify variation rules in the actual editor."
+msgstr ""
+
+#: includes/Writing/Settings.php:408
+msgid "Hide the block directory in the editor"
+msgstr ""
+
+#: includes/Writing/Settings.php:409
+msgid "Removes the WordPress block-directory integration used to discover additional block plugins in the editor. Already installed blocks remain available according to the block lists."
+msgstr ""
+
+#: includes/Writing/Settings.php:411
+msgid "This affects editor suggestions, not general plugin installation permissions. Disabled: WordPress may offer the directory again where permissions and editor support allow it."
+msgstr ""
+
+#: includes/Writing/Settings.php:422
+msgid "Disable patterns from the WordPress online directory"
+msgstr ""
+
+#: includes/Writing/Settings.php:423
+msgid "Stops WordPress from loading block patterns from its online directory. Locally registered patterns and already inserted content remain available."
+msgstr ""
+
+#: includes/Writing/Settings.php:425
+msgid "Useful when the available templates should come from your themes and plugins. Disabled: remote patterns may be loaded again. This does not disable every external service used by plugins."
+msgstr ""
+
+#: includes/Writing/Settings.php:436
+msgid "Hide Openverse in the block editor"
+msgstr ""
+
+#: includes/Writing/Settings.php:437
+msgid "Hides the Openverse media source in the block editor. The website media library and previously inserted images remain available."
+msgstr ""
+
+#: includes/Writing/Settings.php:439
+msgid "Disabled: the editor may offer Openverse again. This setting does not remove existing media or change their licenses."
+msgstr ""
+
+#: includes/Writing/Settings.php:450
+msgid "Hide the font library in the block editor"
+msgstr ""
+
+#: includes/Writing/Settings.php:451
+msgid "Disables the font library interface in the block editor. It does not delete installed fonts or change fonts already used by the theme."
+msgstr ""
+
+#: includes/Writing/Settings.php:453
+msgid "The separate font-library administration setting is managed under Advanced. Disabling this restriction alone does not guarantee that a font library will be offered by the active editor and theme."
+msgstr ""
+
+#: includes/Writing/Settings.php:464
+msgid "Hide code editing for website users"
+msgstr ""
+
+#: includes/Writing/Settings.php:465
+msgid "Hides the code-editing option in the block editor for regular website users. Super administrators, exempted content types and the websites listed below retain it."
+msgstr ""
+
+#: includes/Writing/Settings.php:467
+msgid "This controls the editor interface, not all ways of entering HTML. Exclude core/html separately if it should not be offered as a new block. Theme-file editing and the classic editor are not controlled by this option."
+msgstr ""
+
+#: includes/Writing/Settings.php:478
+msgid "Disable custom CSS support for blocks"
+msgstr ""
+
+#: includes/Writing/Settings.php:479
+msgid "Disables Custom CSS support in block metadata for the themes selected below. An empty theme list applies the restriction to all themes."
+msgstr ""
+
+#: includes/Writing/Settings.php:481
+msgid "This targets block-specific Custom CSS support. It does not remove stored CSS or act as a general CSS filter. The restriction also applies to super administrators; editor and block exemptions do not bypass it."
+msgstr ""
+
+#: includes/Writing/Settings.php:493
+msgid "Used only while the CSS restriction above is enabled. Enter one theme name or theme folder per line. Empty means all themes."
+msgstr ""
+
+#: includes/Writing/Settings.php:495
+msgid "Matching ignores capitalization and checks the active theme name, stylesheet folder and parent-theme folder. Example: fau-elemental also covers child themes using that parent folder. These are affected themes, not exemptions."
+msgstr ""
+
+#: includes/Writing/Settings.php:507
+msgid "Enter one website ID per line to exempt it from the code-editor restriction above. These entries do not grant permission to edit content."
+msgstr ""
+
+#: includes/Writing/Settings.php:509
+msgid "Example: enter 12 for a website whose editors need source-code access. Saving appends the website URL. Empty: no website exceptions; super administrators and exempted content types remain exempt."
+msgstr ""
+
+#: includes/Writing/Settings.php:521
+msgid "Deactivates listed website plugins when the website uses the block editor and its administration loads. Network-active plugins are skipped. Removing an entry does not reactivate the plugin."
+msgstr ""
+
+#: includes/Writing/Settings.php:523
+msgid "Enter the plugin file path relative to the plugins directory, one per line, for example tinymce-advanced/tinymce-advanced.php. A display name or folder name alone is insufficient. Empty: no automatic deactivations."
+msgstr ""
+
+#: includes/Writing/Settings.php:524
+msgid "This is a persistent deactivation, not just hiding the plugin in the editor. It can affect other parts of the website. A block-editor exemption for individual content does not by itself trigger this website-level rule."
+msgstr ""
+
+#: includes/Writing/Settings.php:539
+msgid "Block Editor makes it the network standard. Classic Editor allows the classic editor while retaining website-level editor choices and the exemptions below."
+msgstr ""
+
+#: includes/Writing/Settings.php:541
+msgid "Changing this setting does not convert existing content. Test representative pages before switching. Content types must support the editor and REST API for block editing."
+msgstr ""
+
+#: includes/Writing/Settings.php:542
+msgid "With Classic Editor selected, super administrators can choose an editor under Settings > Writing on each website and allow website administrators to switch. The network website list also offers an Editor column and filter."
+msgstr ""
+
+#: includes/Writing/Settings.php:553
+msgid "Start new websites with the block editor"
+msgstr ""
+
+#: includes/Writing/Settings.php:554
+msgid "Starts newly created websites with the block editor when the network otherwise permits the classic editor. Existing websites are not changed."
+msgstr ""
+
+#: includes/Writing/Settings.php:556
+msgid "Example: keep existing classic-editor websites as they are while new projects start with blocks. If Block Editor is already the network standard, it applies to new websites regardless of this checkbox."
+msgstr ""
+
+#: includes/Writing/Settings.php:568
+msgid "Lock timeout in seconds. Default and minimum when saving: 150. This does not limit the duration of an editing session."
+msgstr ""
+
+#: includes/Writing/Settings.php:599
+msgid "Derive the autosave interval from Heartbeat"
+msgstr ""
+
+#: includes/Writing/Settings.php:600
+msgid "Uses twice the configured Heartbeat editor interval, with a minimum of 60 seconds. While enabled, the custom interval below is ignored."
+msgstr ""
+
+#: includes/Writing/Settings.php:602
+msgid "Example: 30 seconds under CMS > Heartbeat results in 60 seconds; 60 results in 120. The calculation uses the saved editor interval, not role-specific overrides. Autosave saves drafts and does not publish changes."
+msgstr ""
+
+#: includes/Writing/Settings.php:615
+msgid "Applies only when Heartbeat synchronization above is off. Default and minimum: 60 seconds. This setting applies to the block editor."
 msgstr ""
 
 #: includes/Mail/Settings.php:115
@@ -1367,6 +1737,7 @@ msgid "The B-ITE API key used for RRZE Jobs."
 msgstr ""
 
 #: includes/Plugins/Settings.php:66
+#: includes/Writing/Settings.php:199
 msgid "Save all changes"
 msgstr ""
 
@@ -1379,6 +1750,7 @@ msgid "Jump to plugin"
 msgstr ""
 
 #: includes/Plugins/Settings.php:1185
+#: includes/Writing/Settings.php:192
 msgid "Back to overview"
 msgstr ""
 
@@ -2204,218 +2576,43 @@ msgstr ""
 msgid "XML-RPC Disabled"
 msgstr ""
 
-#: includes/Writing/Settings.php:41
-#: includes/Writing/Settings.php:42
-#: includes/Writing/Settings.php:137
-msgid "Writing"
-msgstr ""
-
-#: includes/Writing/Settings.php:144
-msgid "Post Lock"
-msgstr ""
-
-#: includes/Writing/Settings.php:152
-msgid "Disable Custom Fields Metabox"
-msgstr ""
-
-#: includes/Writing/Settings.php:160
-#: includes/Writing/Settings.php:373
+#: includes/Writing/Settings.php:215
+#: includes/Writing/Settings.php:272
+#: includes/Writing/Settings.php:535
+#: includes/Writing/Settings.php:540
 msgid "Default Editor"
 msgstr ""
 
-#: includes/Writing/Settings.php:168
-msgid "Enable Block Editor for New Sites"
-msgstr ""
-
-#: includes/Writing/Settings.php:178
-#: includes/Writing/Settings.php:575
+#: includes/Writing/Settings.php:537
 msgid "Classic Editor"
 msgstr ""
 
-#: includes/Writing/Settings.php:186
-#: includes/Writing/Settings.php:194
-#: includes/Writing/Settings.php:575
+#: includes/Writing/Settings.php:537
 msgid "Block Editor"
 msgstr ""
 
-#: includes/Writing/Settings.php:203
-msgid "Post Types Exceptions"
-msgstr ""
-
-#: includes/Writing/Settings.php:211
-msgid "Themes Exceptions"
-msgstr ""
-
-#: includes/Writing/Settings.php:219
-msgid "Websites Exceptions"
-msgstr ""
-
-#: includes/Writing/Settings.php:228
-msgid "Autosave Interval"
-msgstr ""
-
-#: includes/Writing/Settings.php:237
-msgid "Interval in seconds for the autosave feature. Minimum is 15 seconds."
-msgstr ""
-
-#: includes/Writing/Settings.php:243
-msgid "Sync Autosave Interval With Heartbeat"
-msgstr ""
-
-#: includes/Writing/Settings.php:249
-msgid "If enabled, the autosave interval will be synchronized with the Heartbeat API interval."
-msgstr ""
-
-#: includes/Writing/Settings.php:255
+#: includes/Writing/Settings.php:223
+#: includes/Writing/Settings.php:380
 msgid "Allowed Blocks"
 msgstr ""
 
-#: includes/Writing/Settings.php:263
-msgid "Disabled Blocks"
-msgstr ""
-
-#: includes/Writing/Settings.php:271
-msgid "Disable Block Directory Assets"
-msgstr ""
-
-#: includes/Writing/Settings.php:279
-msgid "Disable Remote Block Patterns"
-msgstr ""
-
-#: includes/Writing/Settings.php:287
-msgid "Disable Openverse Media"
-msgstr ""
-
-#: includes/Writing/Settings.php:295
-msgid "Disable Font Library UI"
-msgstr ""
-
-#: includes/Writing/Settings.php:303
-msgid "Disable Code Editor"
-msgstr ""
-
-#: includes/Writing/Settings.php:311
-msgid "Disable Custom CSS"
-msgstr ""
-
-#: includes/Writing/Settings.php:319
-msgid "Disable Custom CSS Themes"
-msgstr ""
-
-#: includes/Writing/Settings.php:327
-msgid "Code Editor Websites Exceptions"
-msgstr ""
-
-#: includes/Writing/Settings.php:335
-msgid "Deactivated Plugins"
-msgstr ""
-
-#: includes/Writing/Settings.php:358
+#: includes/Writing/Settings.php:257
 msgid "Post Lock Interval"
 msgstr ""
 
-#: includes/Writing/Settings.php:385
+#: includes/Writing/Settings.php:284
 msgid "Allow switching editors"
 msgstr ""
 
-#: includes/Writing/Settings.php:399
-msgid "This page enables network administrators to manage writing-related settings across the multisite network. Available options include enabling or configuring post locking, selecting the default editor (block or classic), specifying allowed and disabled blocks, applying exceptions for particular websites, themes, or post types, and enforcing additional editor restrictions—facilitating a standardized and controlled writing environment across all websites."
-msgstr ""
-
-#: includes/Writing/Settings.php:409
-msgid "Enable the post lock feature"
-msgstr ""
-
-#: includes/Writing/Settings.php:419
-msgid "Disables the custom fields metabox"
-msgstr ""
-
-#: includes/Writing/Settings.php:430
-msgid "List of post types that always have the block editor enabled and no block restrictions. Enter one post type per line."
-msgstr ""
-
-#: includes/Writing/Settings.php:440
-msgid "List of themes that always have the block editor enabled and no block restrictions. Enter one theme name per line."
-msgstr ""
-
-#: includes/Writing/Settings.php:450
-msgid "List of websites ids that always have the block editor enabled and no block restrictions. Enter one website id per line."
-msgstr ""
-
-#: includes/Writing/Settings.php:461
-msgid "List of allowed blocks. The * wildcard is supported at the end of a string."
-msgstr ""
-
-#: includes/Writing/Settings.php:462
-msgid "If this field is left empty, all registered blocks will be available."
-msgstr ""
-
-#: includes/Writing/Settings.php:463
-#: includes/Writing/Settings.php:475
-msgid "Enter one block type per line."
-msgstr ""
-
-#: includes/Writing/Settings.php:474
-msgid "List of disabled blocks. The * wildcard is supported at the end of a string."
-msgstr ""
-
-#: includes/Writing/Settings.php:485
-msgid "Remove Block Directory assets"
-msgstr ""
-
-#: includes/Writing/Settings.php:495
-msgid "Disable remote block patterns"
-msgstr ""
-
-#: includes/Writing/Settings.php:505
-msgid "Disable loading of Openverse Media"
-msgstr ""
-
-#: includes/Writing/Settings.php:515
-msgid "Disable the Font Library user interface"
-msgstr ""
-
-#: includes/Writing/Settings.php:525
-msgid "Disable the Code Editor option from the Block Editor settings"
-msgstr ""
-
-#: includes/Writing/Settings.php:535
-msgid "Disable Custom CSS support in Block Editor blocks"
-msgstr ""
-
-#: includes/Writing/Settings.php:546
-msgid "List of themes where Custom CSS support should be disabled in the Block Editor. Enter one theme name or stylesheet per line. Leave empty to apply to all themes."
-msgstr ""
-
-#: includes/Writing/Settings.php:557
-msgid "List of websites ids that always have the code editor enabled. Enter one website id per line."
-msgstr ""
-
-#: includes/Writing/Settings.php:563
-msgid "Plugins to disable when the block editor is active. Enter one plugin per line."
-msgstr ""
-
-#: includes/Writing/Settings.php:564
-msgid "The plugin name must be the same as in the plugins folder."
-msgstr ""
-
-#: includes/Writing/Settings.php:585
-msgid "Enable Block Editor for new sites"
-msgstr ""
-
-#: includes/Writing/Settings.php:596
-msgid "Post Lock interval in seconds."
-msgstr ""
-
-#: includes/Writing/Settings.php:606
+#: includes/Writing/Settings.php:578
 msgid "Allow admins to switch editors"
 msgstr ""
 
-#: includes/Writing/Settings.php:617
+#: includes/Writing/Settings.php:589
 msgid "Classic editor"
 msgstr ""
 
-#: includes/Writing/Settings.php:617
+#: includes/Writing/Settings.php:589
 msgid "Block editor"
 msgstr ""
 
@@ -2425,6 +2622,8 @@ msgid "The plugin \"%s\" has been deactivated because the block editor is enable
 msgstr ""
 
 #: includes/Writing/Writing.php:301
+#: includes/Writing/Settings.php:41
+#: includes/Writing/Settings.php:42
 msgid "Editor"
 msgstr ""
 

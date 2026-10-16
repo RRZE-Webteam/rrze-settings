@@ -70,8 +70,8 @@ class Writing extends Main
         // Enable/Disable post lock networkwide
         if ($this->siteOptions->writing->enable_post_lock) {
             // Filter the post lock window duration.
-            // https://developer.wordpress.org/reference/hooks/wp_wp_check_post_lock_window/
-            add_filter('wp_wp_check_post_lock_window', [$this, 'filterPostLock']);
+            // https://developer.wordpress.org/reference/hooks/wp_check_post_lock_window/
+            add_filter('wp_check_post_lock_window', [$this, 'filterPostLock']);
         }
 
         if ($this->siteOptions->writing->disable_custom_fields_metabox) {

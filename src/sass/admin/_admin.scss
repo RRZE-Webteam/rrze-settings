@@ -4,6 +4,8 @@
 .rrze-settings-users,
 .rrze-settings-posts,
 .rrze-settings-menus,
+.rrze-settings-editor-page,
+.rrze-settings-editor-section,
 .rrze-settings-plugins-page {
     > p,
     .description,
@@ -28,6 +30,82 @@
 
     summary {
         cursor: pointer;
+    }
+}
+
+/* Editor settings: keep dependent controls visible in one shared form. */
+.rrze-settings-editor-page {
+    max-width: 1040px;
+
+    #rrze-settings-editor-index,
+    .rrze-settings-editor-section {
+        scroll-margin-top: 64px;
+    }
+
+    #rrze-settings-editor-index {
+        margin-block: 24px;
+
+        ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+            gap: 4px 24px;
+            margin: 0;
+        }
+
+        li { margin: 0; }
+        a { display: inline-block; padding-block: 5px; }
+    }
+
+    .rrze-settings-editor-section {
+        padding: 24px 16px;
+        border-top: 1px solid #c3c4c7;
+        border-inline-start: 3px solid transparent;
+
+        &:target {
+            border-inline-start-color: var(--wp-admin-theme-color, #2271b1);
+            background-color: #f0f6fc;
+        }
+
+        input, textarea, summary {
+            scroll-margin-block: 140px;
+        }
+
+        textarea {
+            width: 100%;
+            max-width: 55ch;
+            box-sizing: border-box;
+        }
+    }
+
+    .rrze-settings-editor-heading {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px 24px;
+
+        h2 { margin: 0; }
+    }
+
+    .rrze-settings-editor-save-bar {
+        position: sticky;
+        bottom: 0;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px 16px;
+        padding-block: 16px;
+        background: #f0f0f1;
+        border-top: 1px solid #c3c4c7;
+
+        p { max-width: 70ch; margin: 0; }
+    }
+}
+
+@media screen and (max-height: 480px) {
+    .rrze-settings-editor-page .rrze-settings-editor-save-bar {
+        position: static;
     }
 }
 
