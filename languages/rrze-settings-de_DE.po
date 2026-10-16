@@ -627,6 +627,93 @@ msgstr "Mail"
 msgid "Envelope Sender"
 msgstr "Envelope-Sender"
 
+#: includes/Menus/Settings.php:73
+msgid "Classic Menu Management"
+msgstr "Klassische Menüverwaltung"
+
+#: includes/Menus/Settings.php:84
+#: includes/Menus/Settings.php:128
+msgid "Collapse Submenus"
+msgstr "Untermenüs einklappen"
+
+#: includes/Menus/Settings.php:92
+#: includes/Menus/Settings.php:144
+msgid "Menu Membership in the Page List"
+msgstr "Menüzuordnung in der Seitenliste"
+
+#: includes/Menus/Settings.php:100
+#: includes/Menus/Settings.php:161
+msgid "More Search Results"
+msgstr "Mehr Suchtreffer"
+
+#: includes/Menus/Settings.php:115
+msgid "These settings help editors work with classic navigation menus under Appearance > Menus and find menu membership in the page list. They apply to all websites in the network after saving. They do not extend the Navigation block in the Site Editor."
+msgstr "Diese Einstellungen unterstützen die Arbeit mit klassischen Navigationsmenüs unter Design > Menüs und zeigen Menüzuordnungen in der Seitenliste. Sie gelten nach dem Speichern für alle Websites im Netzwerk. Den Navigationsblock im Website-Editor erweitern sie nicht."
+
+#: includes/Menus/Settings.php:126
+msgid "Allow submenus to be collapsed in the menu editor"
+msgstr "Untermenüs im Menüeditor ein- und ausklappbar machen"
+
+#: includes/Menus/Settings.php:127
+msgid "Adds a toggle to menu items with subitems. Collapsing hides the subitems in the editor so that large menus are easier to navigate; the website menu remains unchanged."
+msgstr "Ergänzt bei Menüpunkten mit Unterpunkten ein Bedienelement zum Ein- und Ausklappen. So bleiben umfangreiche Menüs im Editor übersichtlich; das Menü auf der Website bleibt unverändert."
+
+#: includes/Menus/Settings.php:129
+msgid "Example: collapse the Study branch while editing Research. Expanding Study shows its subitems again; no menu items are deleted or moved."
+msgstr "Beispiel: Klappen Sie den Bereich Studium ein, während Sie Forschung bearbeiten. Beim erneuten Aufklappen werden die Unterpunkte wieder angezeigt. Es werden keine Menüpunkte gelöscht oder verschoben."
+
+#: includes/Menus/Settings.php:130
+msgid "Collapsed branches are remembered as a personal WordPress display setting. This feature requires JavaScript and the classic menu editor; items without subitems have no additional toggle."
+msgstr "WordPress merkt sich eingeklappte Bereiche als persönliche Anzeigeeinstellung. Die Funktion benötigt JavaScript und den klassischen Menüeditor. Menüpunkte ohne Unterpunkte erhalten kein zusätzliches Bedienelement."
+
+#: includes/Menus/Settings.php:131
+msgid "Disabled: the additional toggles are removed and subitems are shown normally again. Menu structure, links and theme locations remain unchanged."
+msgstr "Deaktiviert: Die zusätzlichen Bedienelemente entfallen und Unterpunkte werden wieder normal angezeigt. Menüstruktur, Links und die Zuordnung zu Theme-Positionen bleiben unverändert."
+
+#: includes/Menus/Settings.php:142
+msgid "Show the Menus column in the page list"
+msgstr "Spalte Menüs in der Seitenliste anzeigen"
+
+#: includes/Menus/Settings.php:143
+msgid "Shows which classic menus contain a page. Clicking a menu name filters the page list to pages assigned to that menu. The column is added to Pages, not Posts."
+msgstr "Zeigt, in welchen klassischen Menüs eine Seite enthalten ist. Ein Klick auf einen Menünamen filtert die Seitenliste auf die zugeordneten Seiten. Die Spalte erscheint in der Seitenliste; die Beitragsliste bleibt unverändert."
+
+#: includes/Menus/Settings.php:145
+msgid "Example: a page appears in both Main Navigation and Footer. Both menu names are listed. Clicking Footer shows the pages assigned to that menu, rather than opening the menu editor."
+msgstr "Beispiel: Eine Seite ist sowohl in Hauptnavigation als auch in Footer enthalten. Beide Menünamen werden angezeigt. Ein Klick auf Footer zeigt die zugeordneten Seiten, statt den Menüeditor zu öffnen."
+
+#: includes/Menus/Settings.php:146
+msgid "The column checks saved menu items. Custom links entered as URLs are not resolved to their destination pages, and Navigation blocks are not evaluated. A dash means no menu membership was detected; it does not mean the page is unreachable."
+msgstr "Die Spalte wertet gespeicherte Menüeinträge aus. Individuelle Links werden nicht anhand ihrer URL einer Zielseite zugeordnet; Navigationsblöcke werden nicht ausgewertet. Ein Gedankenstrich bedeutet, dass keine Menüzuordnung erkannt wurde, nicht dass die Seite unerreichbar ist."
+
+#: includes/Menus/Settings.php:147
+msgid "Menus without an assigned theme location can also appear. The column shows saved membership, not whether the theme currently displays a menu. If the column is hidden, check Screen Options above the page list."
+msgstr "Auch Menüs ohne zugewiesene Theme-Position können erscheinen. Die Spalte zeigt gespeicherte Zuordnungen, nicht die tatsächliche Ausgabe durch das Theme. Fehlt die Spalte, prüfen Sie Ansicht anpassen oberhalb der Seitenliste."
+
+#: includes/Menus/Settings.php:148
+msgid "Disabled: the additional column and its menu filter are no longer provided. Pages and menu assignments remain stored."
+msgstr "Deaktiviert: Die zusätzliche Spalte und ihr Menüfilter entfallen. Seiten und Menüzuordnungen bleiben gespeichert."
+
+#: includes/Menus/Settings.php:159
+msgid "Show up to 100 results when searching for content to add"
+msgstr "Bis zu 100 Suchtreffer beim Hinzufügen von Inhalten anzeigen"
+
+#: includes/Menus/Settings.php:160
+msgid "Raises the result limit for content searches in the classic menu editor to 100 per search. Search criteria and result order remain unchanged."
+msgstr "Erhöht die Treffergrenze der Inhaltssuche im klassischen Menüeditor auf 100 pro Suche. Suchkriterien und Reihenfolge der Treffer bleiben unverändert."
+
+#: includes/Menus/Settings.php:162
+msgid "Example: under Appearance > Menus, open the Search tab in Pages, enter Study and select the matching pages to add. More matches can be displayed without changing the search term."
+msgstr "Beispiel: Öffnen Sie unter Design > Menüs den Reiter Suchen im Bereich Seiten. Geben Sie Studium ein und wählen Sie passende Seiten zum Hinzufügen aus. Es können mehr Treffer zum selben Suchbegriff angezeigt werden."
+
+#: includes/Menus/Settings.php:163
+msgid "Applies to content selection, such as pages and posts, when adding menu items. It does not search the existing menu structure and does not raise the limit for category or tag searches, website search or the Navigation block."
+msgstr "Gilt für die Auswahl von Inhalten wie Seiten und Beiträgen beim Hinzufügen von Menüpunkten. Die vorhandene Menüstruktur wird nicht durchsucht. Die Suche nach Kategorien oder Schlagwörtern, die Website-Suche und der Navigationsblock bleiben unverändert."
+
+#: includes/Menus/Settings.php:164
+msgid "A maximum of 100 matches is displayed; more specific search terms are still useful for large websites. Disabled: WordPress uses its regular limit again, which is 10 results by default."
+msgstr "Es werden höchstens 100 Treffer angezeigt. Bei großen Websites helfen weiterhin genauere Suchbegriffe. Deaktiviert: WordPress verwendet wieder seine reguläre Grenze, standardmäßig 10 Treffer."
+
 #: includes/Mail/Settings.php:115
 #: includes/Plugins/Settings.php:440
 msgid "Allowed Domains"
@@ -862,7 +949,6 @@ msgstr "Ermöglicht das Ersetzen von Dateien des gleichen Mime-Typs"
 #: includes/Menus/CustomColumn.php:96
 #: includes/Menus/Settings.php:41
 #: includes/Menus/Settings.php:42
-#: includes/Menus/Settings.php:73
 msgid "Menus"
 msgstr "Menüs"
 
@@ -873,34 +959,6 @@ msgstr "Ausklappen"
 #: includes/Menus/Menus.php:83
 msgid "Expand"
 msgstr "Aufklappen"
-
-#: includes/Menus/Settings.php:80
-msgid "Expand Collapse"
-msgstr "Ein‑/Ausklappen"
-
-#: includes/Menus/Settings.php:88
-msgid "Custom Column"
-msgstr "Benutzerdefinierte Spalte"
-
-#: includes/Menus/Settings.php:96
-msgid "Enhanced Search"
-msgstr "Erweiterte Suche"
-
-#: includes/Menus/Settings.php:110
-msgid "Network administrators can manage menu-related settings across the multisite network from a centralized location. Options include enabling expand/collapse functionality for menu items, adding a custom column to the posts list, and improving menu search capabilities—enhancing efficiency and usability across all websites."
-msgstr "Netzwerkadministratoren können menübezogene Einstellungen im gesamten Multisite‑Netzwerk von einem zentralen Ort aus verwalten. Zu den Optionen gehören das Aktivieren der Ein‑/Ausklappfunktion für Menüpunkte, das Hinzufügen einer benutzerdefinierten Spalte in der Beitragsliste und die Verbesserung der Menüsuchfunktionen — zur Steigerung von Effizienz und Benutzerfreundlichkeit auf allen Websites."
-
-#: includes/Menus/Settings.php:120
-msgid "Expands and collapses menu items"
-msgstr "Ein‑/Ausklappen von Menüelementen"
-
-#: includes/Menus/Settings.php:130
-msgid "Creates a custom column (Menus) in the posts list"
-msgstr "Erstellt eine benutzerdefinierte Spalte (Menüs) in der Posts-Liste"
-
-#: includes/Menus/Settings.php:140
-msgid "Enhanced menu search"
-msgstr "Erweiterte Menüsuche"
 
 #: includes/Plugins/Settings.php:38
 #: includes/Plugins/Settings.php:39

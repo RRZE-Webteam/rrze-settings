@@ -51,6 +51,14 @@ description and optional details. See the
 [German user guide for Posts and Pages](docs/posts-settings.md) for examples,
 dependencies and the scope of the search exclusion.
 
+### Menu settings
+
+Under **Network Admin > CMS > Menus**, configure collapsible submenus in the
+classic menu editor, a menu membership column in the page list and up to 100
+results when searching for content to add to a menu. These options do not extend
+the Navigation block. See the [German user guide for Menu settings](docs/menus-settings.md)
+for examples, defaults and the scope of each option.
+
 ### Plugin settings
 
 Under **Network Admin > CMS > Plugins**, available plugin sections appear on one

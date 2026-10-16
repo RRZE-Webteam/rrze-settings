@@ -665,6 +665,93 @@ msgstr ""
 msgid "Envelope Sender"
 msgstr ""
 
+#: includes/Menus/Settings.php:73
+msgid "Classic Menu Management"
+msgstr ""
+
+#: includes/Menus/Settings.php:84
+#: includes/Menus/Settings.php:128
+msgid "Collapse Submenus"
+msgstr ""
+
+#: includes/Menus/Settings.php:92
+#: includes/Menus/Settings.php:144
+msgid "Menu Membership in the Page List"
+msgstr ""
+
+#: includes/Menus/Settings.php:100
+#: includes/Menus/Settings.php:161
+msgid "More Search Results"
+msgstr ""
+
+#: includes/Menus/Settings.php:115
+msgid "These settings help editors work with classic navigation menus under Appearance > Menus and find menu membership in the page list. They apply to all websites in the network after saving. They do not extend the Navigation block in the Site Editor."
+msgstr ""
+
+#: includes/Menus/Settings.php:126
+msgid "Allow submenus to be collapsed in the menu editor"
+msgstr ""
+
+#: includes/Menus/Settings.php:127
+msgid "Adds a toggle to menu items with subitems. Collapsing hides the subitems in the editor so that large menus are easier to navigate; the website menu remains unchanged."
+msgstr ""
+
+#: includes/Menus/Settings.php:129
+msgid "Example: collapse the Study branch while editing Research. Expanding Study shows its subitems again; no menu items are deleted or moved."
+msgstr ""
+
+#: includes/Menus/Settings.php:130
+msgid "Collapsed branches are remembered as a personal WordPress display setting. This feature requires JavaScript and the classic menu editor; items without subitems have no additional toggle."
+msgstr ""
+
+#: includes/Menus/Settings.php:131
+msgid "Disabled: the additional toggles are removed and subitems are shown normally again. Menu structure, links and theme locations remain unchanged."
+msgstr ""
+
+#: includes/Menus/Settings.php:142
+msgid "Show the Menus column in the page list"
+msgstr ""
+
+#: includes/Menus/Settings.php:143
+msgid "Shows which classic menus contain a page. Clicking a menu name filters the page list to pages assigned to that menu. The column is added to Pages, not Posts."
+msgstr ""
+
+#: includes/Menus/Settings.php:145
+msgid "Example: a page appears in both Main Navigation and Footer. Both menu names are listed. Clicking Footer shows the pages assigned to that menu, rather than opening the menu editor."
+msgstr ""
+
+#: includes/Menus/Settings.php:146
+msgid "The column checks saved menu items. Custom links entered as URLs are not resolved to their destination pages, and Navigation blocks are not evaluated. A dash means no menu membership was detected; it does not mean the page is unreachable."
+msgstr ""
+
+#: includes/Menus/Settings.php:147
+msgid "Menus without an assigned theme location can also appear. The column shows saved membership, not whether the theme currently displays a menu. If the column is hidden, check Screen Options above the page list."
+msgstr ""
+
+#: includes/Menus/Settings.php:148
+msgid "Disabled: the additional column and its menu filter are no longer provided. Pages and menu assignments remain stored."
+msgstr ""
+
+#: includes/Menus/Settings.php:159
+msgid "Show up to 100 results when searching for content to add"
+msgstr ""
+
+#: includes/Menus/Settings.php:160
+msgid "Raises the result limit for content searches in the classic menu editor to 100 per search. Search criteria and result order remain unchanged."
+msgstr ""
+
+#: includes/Menus/Settings.php:162
+msgid "Example: under Appearance > Menus, open the Search tab in Pages, enter Study and select the matching pages to add. More matches can be displayed without changing the search term."
+msgstr ""
+
+#: includes/Menus/Settings.php:163
+msgid "Applies to content selection, such as pages and posts, when adding menu items. It does not search the existing menu structure and does not raise the limit for category or tag searches, website search or the Navigation block."
+msgstr ""
+
+#: includes/Menus/Settings.php:164
+msgid "A maximum of 100 matches is displayed; more specific search terms are still useful for large websites. Disabled: WordPress uses its regular limit again, which is 10 results by default."
+msgstr ""
+
 #: includes/Mail/Settings.php:115
 #: includes/Plugins/Settings.php:440
 msgid "Allowed Domains"
@@ -938,7 +1025,6 @@ msgstr ""
 #: includes/Menus/CustomColumn.php:96
 #: includes/Menus/Settings.php:41
 #: includes/Menus/Settings.php:42
-#: includes/Menus/Settings.php:73
 msgid "Menus"
 msgstr ""
 
@@ -948,34 +1034,6 @@ msgstr ""
 
 #: includes/Menus/Menus.php:83
 msgid "Expand"
-msgstr ""
-
-#: includes/Menus/Settings.php:80
-msgid "Expand Collapse"
-msgstr ""
-
-#: includes/Menus/Settings.php:88
-msgid "Custom Column"
-msgstr ""
-
-#: includes/Menus/Settings.php:96
-msgid "Enhanced Search"
-msgstr ""
-
-#: includes/Menus/Settings.php:110
-msgid "Network administrators can manage menu-related settings across the multisite network from a centralized location. Options include enabling expand/collapse functionality for menu items, adding a custom column to the posts list, and improving menu search capabilities—enhancing efficiency and usability across all websites."
-msgstr ""
-
-#: includes/Menus/Settings.php:120
-msgid "Expands and collapses menu items"
-msgstr ""
-
-#: includes/Menus/Settings.php:130
-msgid "Creates a custom column (Menus) in the posts list"
-msgstr ""
-
-#: includes/Menus/Settings.php:140
-msgid "Enhanced menu search"
 msgstr ""
 
 #: includes/Plugins/Settings.php:38
