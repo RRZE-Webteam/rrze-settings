@@ -107,6 +107,15 @@ the general restriction is off so they can be prepared before enabling it.
 See the [German user guide for REST API settings](docs/rest-api-settings.md)
 for examples, defaults and troubleshooting.
 
+### Content Security Policy settings
+
+Under **Network Admin > CMS > CSP**, configure browser resource restrictions with
+an enforcing Content Security Policy. All seven source lists remain editable
+while CSP is off. The page explains fallback rules, source syntax, automatic
+oEmbed additions and the effects of each directive. It does not provide a
+report-only mode. See the [German CSP user guide](docs/csp-settings.md) for
+examples, defaults and response-header verification.
+
 ### Plugin settings
 
 Under **Network Admin > CMS > Plugins**, available plugin sections appear on one

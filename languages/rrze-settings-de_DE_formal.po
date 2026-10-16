@@ -294,90 +294,9 @@ msgid_plural "%s more IP addresses"
 msgstr[0] "%s weitere IP-Adresse"
 msgstr[1] "%s weitere IP-Adressen"
 
-#: includes/CSP/Settings.php:48
-msgid "Content Security Police"
-msgstr "Content-Security-Police"
-
-#: includes/CSP/Settings.php:49
-#: includes/CSP/Settings.php:106
+#: includes/CSP/Settings.php:35
 msgid "CSP"
 msgstr "CSP"
-
-#: includes/CSP/Settings.php:113
-msgid "Enable CSP"
-msgstr "CSP aktivieren"
-
-#: includes/CSP/Settings.php:122
-msgid "Directives"
-msgstr "Direktiven"
-
-#: includes/CSP/Settings.php:129
-msgid "default-src"
-msgstr "default-src"
-
-#: includes/CSP/Settings.php:137
-msgid "script-src"
-msgstr "script-src"
-
-#: includes/CSP/Settings.php:145
-msgid "style-src"
-msgstr "style-src"
-
-#: includes/CSP/Settings.php:153
-msgid "img-src"
-msgstr "img-src"
-
-#: includes/CSP/Settings.php:161
-msgid "font-src"
-msgstr "font-src"
-
-#: includes/CSP/Settings.php:169
-msgid "connect-src"
-msgstr "connect-src"
-
-#: includes/CSP/Settings.php:177
-msgid "frame-src"
-msgstr "frame-src"
-
-#: includes/CSP/Settings.php:192
-msgid "The Content-Security-Policy HTTP response header helps to reduce XSS risks on modern browsers by declaring, which dynamic resources are allowed to load."
-msgstr "Der Content-Security-Policy HTTP Response Header hilft, XSS-Risiken auf modernen Browsern zu reduzieren, indem er angibt, welche dynamischen Ressourcen geladen werden dürfen."
-
-#: includes/CSP/Settings.php:202
-msgid "The Content-Security-Policy header value is made up of one or more directives (defined below). All of these directives ending in -src support similar values known as source lists.  Multiple source list values can be separated with a new line, except for 'none', which should be the only value."
-msgstr "Der Header-Wert der Content-Security-Policy setzt sich aus einer oder mehreren Direktiven zusammen (siehe unten). Alle diese Direktiven, die mit -src enden, unterstützen ähnliche Werte, die als Quelllisten bekannt sind.  Mehrere Quelllistenwerte können durch eine neue Zeile getrennt werden, mit Ausnahme von 'none', das der einzige Wert sein sollte."
-
-#: includes/CSP/Settings.php:212
-msgid "Enable Content Security Police"
-msgstr "Content-Security-Policy aktivieren"
-
-#: includes/CSP/Settings.php:223
-msgid "The default-src is the default policy for loading content such as JavaScript, Images, CSS, Fonts, AJAX requests, Frames, HTML5 Media."
-msgstr "Das default-src ist die Standard-Policy für das Laden von Inhalten wie JavaScript, Bilder, CSS, Schriften, AJAX-Anfragen, Frames, HTML5-Medien."
-
-#: includes/CSP/Settings.php:234
-msgid "Defines valid sources of JavaScript."
-msgstr "Definiert gültige Quellen von JavaScript."
-
-#: includes/CSP/Settings.php:245
-msgid "Defines valid sources of stylesheets."
-msgstr "Definiert gültige Quellen von Stylesheets."
-
-#: includes/CSP/Settings.php:256
-msgid "Defines valid sources of images."
-msgstr "Definiert gültige Bildquellen."
-
-#: includes/CSP/Settings.php:267
-msgid "Defines valid sources of fonts."
-msgstr "Definiert gültige Schriftquellen."
-
-#: includes/CSP/Settings.php:278
-msgid "Applies to XMLHttpRequest (AJAX), WebSocket or EventSource. If not allowed the browser emulates a 400 HTTP status code."
-msgstr "Gilt für XMLHttpRequest (AJAX), WebSocket oder EventSource. Wenn nicht erlaubt, emuliert der Browser einen 400 HTTP-Statuscode."
-
-#: includes/CSP/Settings.php:289
-msgid "Defines valid sources for embedding the resource using <frame> or <iframe>."
-msgstr "Legt gültige Quellen fest, über die die Ressource mittels <frame> oder <iframe> eingebettet werden darf."
 
 #: includes/General/AdminRoleThresholdWarning.php:117
 msgid "Yes, I understand the consequences and still want to create more administrators."
@@ -714,6 +633,7 @@ msgstr "Verwalten Sie Website-Plugins, die nicht zusammen mit dem Block-Editor l
 #: includes/Heartbeat/Settings.php:165
 #: includes/WebsiteFunctions/Settings.php:134
 #: includes/RestAPI/Settings.php:102
+#: includes/CSP/Settings.php:127
 msgid "On this page"
 msgstr "Auf dieser Seite"
 
@@ -1939,6 +1859,226 @@ msgstr "Öffentliche Ausnahmen auf privaten Websites benötigen die Netzwerkfrei
 msgid "Only endpoints declared by plugins appear here; this is not a list of every WordPress REST route. Remembered declarations may come from other websites. Approval applies where the provider declares the endpoint on the current website. Unchecking an endpoint also disables its local public exception."
 msgstr "Hier erscheinen nur von Plugins gemeldete Endpunkte. Dies ist keine Liste aller WordPress-REST-Routen. Gespeicherte Meldungen können von anderen Websites stammen. Die Freigabe wirkt dort, wo der Anbieter den Endpunkt auf der aktuellen Website meldet. Das Abwählen hebt auch dessen lokale öffentliche Ausnahme auf."
 
+#: includes/CSP/Settings.php:34
+msgid "Content Security Policy (CSP)"
+msgstr "Content Security Policy (CSP)"
+
+#: includes/CSP/Settings.php:92
+msgid "Activation and Scope"
+msgstr "Aktivierung und Wirkung"
+
+#: includes/CSP/Settings.php:96
+msgid "Default Rule and Source Format"
+msgstr "Grundregel und Quellen"
+
+#: includes/CSP/Settings.php:100
+msgid "Scripts and Styles"
+msgstr "Skripte und Styles"
+
+#: includes/CSP/Settings.php:104
+msgid "Images and Fonts"
+msgstr "Bilder und Schriften"
+
+#: includes/CSP/Settings.php:108
+msgid "Connections and Embedded Pages"
+msgstr "Verbindungen und Einbettungen"
+
+#: includes/CSP/Settings.php:161
+#: includes/CSP/Settings.php:306
+msgid "Enforce CSP"
+msgstr "CSP durchsetzen"
+
+#: includes/CSP/Settings.php:169
+#: includes/CSP/Settings.php:322
+msgid "Default Rule (default-src)"
+msgstr "Grundregel (default-src)"
+
+#: includes/CSP/Settings.php:178
+#: includes/CSP/Settings.php:338
+msgid "JavaScript (script-src)"
+msgstr "JavaScript (script-src)"
+
+#: includes/CSP/Settings.php:187
+#: includes/CSP/Settings.php:354
+msgid "Stylesheets (style-src)"
+msgstr "Stylesheets (style-src)"
+
+#: includes/CSP/Settings.php:196
+#: includes/CSP/Settings.php:369
+msgid "Images (img-src)"
+msgstr "Bilder (img-src)"
+
+#: includes/CSP/Settings.php:205
+#: includes/CSP/Settings.php:384
+msgid "Font Files (font-src)"
+msgstr "Schriftdateien (font-src)"
+
+#: includes/CSP/Settings.php:214
+#: includes/CSP/Settings.php:399
+msgid "Data Connections (connect-src)"
+msgstr "Datenverbindungen (connect-src)"
+
+#: includes/CSP/Settings.php:223
+#: includes/CSP/Settings.php:414
+msgid "Embedded Pages (frame-src)"
+msgstr "Eingebettete Seiten (frame-src)"
+
+#: includes/CSP/Settings.php:238
+msgid "Content Security Policy (CSP) tells the browser which sources a page may load and which code it may execute. These settings apply across the network to website responses handled by WordPress. Configure the source lists before enabling enforcement."
+msgstr "Die Content Security Policy (CSP) legt für den Browser fest, welche Quellen eine Seite laden und welchen Code sie ausführen darf. Diese Einstellungen gelten netzwerkweit für Website-Antworten, die WordPress verarbeitet. Bereiten Sie die Quellenlisten vor, bevor Sie die Durchsetzung aktivieren."
+
+#: includes/CSP/Settings.php:248
+msgid "The policy is enforced by the browser when it receives the header. This page provides an enforcing policy, not a report-only mode. Missing sources can prevent scripts, styles or embedded content from loading."
+msgstr "Der Browser setzt die Richtlinie durch, sobald er den Header erhält. Diese Seite bietet eine durchsetzende Richtlinie, keinen reinen Beobachtungsmodus (Report-Only). Fehlende Quellen können Skripte, Styles oder eingebettete Inhalte blockieren."
+
+#: includes/CSP/Settings.php:258
+msgid "Enter one source per line, for example 'self' or https://cdn.example.org. Enter values only, without directive names, semicolons or comments. Use straight single quotes for keywords; domains and schemes are not quoted."
+msgstr "Tragen Sie eine Quelle pro Zeile ein, zum Beispiel 'self' oder https://cdn.example.org. Verwenden Sie nur Werte, keine Direktiven-Namen, Semikolons oder Kommentare. Schlüsselwörter benötigen gerade einfache Anführungszeichen. Domains und Protokolle stehen ohne Anführungszeichen."
+
+#: includes/CSP/Settings.php:259
+msgid "An empty field omits that directive; it does not mean block everything. The value 'none' blocks the relevant resource type. If 'none' is entered together with other sources, this plugin keeps only 'none' when saving."
+msgstr "Ein leeres Feld lässt die Direktive weg und bedeutet nicht alles sperren. Der Wert 'none' sperrt den betreffenden Ressourcentyp. Wird 'none' zusammen mit weiteren Quellen eingetragen, behält dieses Plugin beim Speichern nur 'none'."
+
+#: includes/CSP/Settings.php:260
+msgid "Source Format"
+msgstr "Eingabeformat der Quellen"
+
+#: includes/CSP/Settings.php:261
+msgid "The keyword 'self' refers to the current origin, rather than every website in the network. An external host can be written as https://cdn.example.org. Replace example domains with the actual source hosts."
+msgstr "Das Schlüsselwort 'self' bezieht sich auf den aktuellen Ursprung der Seite, nicht auf alle Websites des Netzwerks. Einen externen Host können Sie als https://cdn.example.org eintragen. Ersetzen Sie Beispieldomains durch die tatsächlichen Quellen."
+
+#: includes/CSP/Settings.php:262
+msgid "A wildcard such as *.example.org permits subdomains, not example.org itself. The values data: and blob: allow the corresponding URL types. A broad value such as https: allows all HTTPS hosts for that resource type."
+msgstr "Ein Platzhalter wie *.example.org erlaubt Subdomains, nicht example.org selbst. data: und blob: erlauben die entsprechenden URL-Typen. Ein weiter Wert wie https: erlaubt für diesen Ressourcentyp alle HTTPS-Hosts."
+
+#: includes/CSP/Settings.php:263
+msgid "This form does not provide a complete CSP syntax validator. Check the emitted response header and browser console after saving. A source allowed by this policy can still be blocked by another policy, browser rule or service."
+msgstr "Dieses Formular bietet keine vollständige Prüfung der CSP-Syntax. Prüfen Sie nach dem Speichern den ausgelieferten Antwort-Header und die Browser-Konsole. Eine hier erlaubte Quelle kann weiterhin durch eine andere Richtlinie, Browser-Regel oder den Dienst selbst blockiert werden."
+
+#: includes/CSP/Settings.php:274
+msgid "These rules control JavaScript and CSS. An explicit source list replaces the default rule for that resource type. Include 'self' again if files from the current website should remain allowed."
+msgstr "Diese Regeln steuern JavaScript und CSS. Eine eigene Quellenliste ersetzt die Grundregel für den jeweiligen Ressourcentyp. Tragen Sie 'self' erneut ein, wenn Dateien der eigenen Website weiterhin erlaubt sein sollen."
+
+#: includes/CSP/Settings.php:284
+msgid "Allow the actual sources of images and font files. A stylesheet and the font files it references may come from different hosts and therefore need entries in different rules."
+msgstr "Erlauben Sie die tatsächlichen Quellen von Bildern und Schriftdateien. Ein Stylesheet und die darin referenzierten Schriften können von unterschiedlichen Hosts stammen und benötigen dann Einträge in verschiedenen Regeln."
+
+#: includes/CSP/Settings.php:294
+msgid "Control connections made by page scripts and the pages loaded in frames. Allowing a frame does not automatically allow every script or connection used by the surrounding page."
+msgstr "Steuern Sie Verbindungen durch Seitenskripte und die in Frames geladenen Seiten. Die Freigabe eines Frames erlaubt nicht automatisch alle Skripte oder Verbindungen der umgebenden Seite."
+
+#: includes/CSP/Settings.php:304
+msgid "Enable and enforce Content Security Policy"
+msgstr "Content Security Policy aktivieren und durchsetzen"
+
+#: includes/CSP/Settings.php:305
+msgid "Enabled: sends the Content-Security-Policy response header with the configured rules. Disabled: this module stops adding its header; the saved source lists remain available for editing."
+msgstr "Aktiviert: Sendet den Antwort-Header Content-Security-Policy mit den konfigurierten Regeln. Deaktiviert: Dieses Modul ergänzt seinen Header nicht mehr. Die gespeicherten Quellenlisten bleiben zur Bearbeitung erhalten."
+
+#: includes/CSP/Settings.php:307
+msgid "This applies to normal website responses through WordPress. Administration pages, static files and responses served directly from a cache or web server are not automatically covered by this hook."
+msgstr "Dies gilt für normale Website-Antworten über WordPress. Verwaltungsseiten, statische Dateien und direkt aus einem Cache oder vom Webserver ausgelieferte Antworten werden über diese Anbindung nicht automatisch erfasst."
+
+#: includes/CSP/Settings.php:308
+msgid "After saving, load an affected website and inspect the Content-Security-Policy response header and browser console. Clear affected page caches if an old policy is still being served."
+msgstr "Laden Sie nach dem Speichern eine betroffene Website und prüfen Sie den Antwort-Header Content-Security-Policy sowie die Browser-Konsole. Leeren Sie betroffene Seiten-Caches, wenn weiterhin eine alte Richtlinie ausgeliefert wird."
+
+#: includes/CSP/Settings.php:309
+msgid "Other plugins, proxies or the web server may send their own CSP. Disabling this option does not remove those policies. This page provides neither a report destination nor a report viewer."
+msgstr "Andere Plugins, Proxys oder der Webserver können eigene CSP-Vorgaben senden. Das Ausschalten dieser Option entfernt diese Richtlinien nicht. Diese Seite stellt weder ein Meldeziel noch eine Auswertung von CSP-Berichten bereit."
+
+#: includes/CSP/Settings.php:321
+msgid "Provides the fallback for resource types without their own rule. Hosts collected from oEmbed providers and supported embed handlers can be added automatically to this list."
+msgstr "Dient als Rückfallregel für Ressourcentypen ohne eigene Regel. Erfasste Hosts von oEmbed-Anbietern und unterstützten Einbettungsdiensten können dieser Liste automatisch hinzugefügt werden."
+
+#: includes/CSP/Settings.php:323
+msgid "Example: with default-src set to 'self' and img-src left blank, images use the default rule. If img-src has its own list, only that image list applies; default-src is not added to it."
+msgstr "Beispiel: Steht in default-src 'self' und bleibt img-src leer, verwenden Bilder die Grundregel. Hat img-src eine eigene Liste, gilt für Bilder nur diese Liste. default-src wird ihr nicht hinzugefügt."
+
+#: includes/CSP/Settings.php:324
+msgid "The plugin adds collected embed hosts only when default-src is non-empty and not exactly 'none'. These additions are not shown in the text field and can differ by website. Check the actual response header to see the effective list."
+msgstr "Das Plugin ergänzt erfasste Einbettungs-Hosts nur, wenn default-src gefüllt ist und nicht genau 'none' enthält. Diese Ergänzungen stehen nicht im Textfeld und können je nach Website abweichen. Die wirksame Liste steht im tatsächlichen Antwort-Header."
+
+#: includes/CSP/Settings.php:325
+msgid "A blank field omits default-src. Resource types without another applicable directive then have no source restriction from this policy. The value 'none' blocks the types that fall back to this rule; explicitly configured rules still apply."
+msgstr "Ein leeres Feld lässt default-src weg. Ressourcentypen ohne andere passende Direktive erhalten dann durch diese Richtlinie keine Quellenbeschränkung. Der Wert 'none' sperrt die Typen, die auf diese Regel zurückfallen. Ausdrücklich konfigurierte Regeln gelten weiterhin."
+
+#: includes/CSP/Settings.php:337
+msgid "Controls script sources and JavaScript execution. This can affect menus, forms, analytics and other interactive features. A blank field uses the default rule."
+msgstr "Steuert Skriptquellen und die Ausführung von JavaScript. Dies kann Menüs, Formulare, Analysewerkzeuge und andere interaktive Funktionen betreffen. Ein leeres Feld verwendet die Grundregel."
+
+#: includes/CSP/Settings.php:339
+msgid "For an external script, add its actual host, for example https://scripts.example.org. Keep 'self' if local script files are also needed. A host entry alone does not allow inline scripts."
+msgstr "Ergänzen Sie für ein externes Skript dessen tatsächlichen Host, etwa https://scripts.example.org. Behalten Sie 'self' bei, wenn auch lokale Skriptdateien benötigt werden. Ein Host-Eintrag allein erlaubt keine Inline-Skripte."
+
+#: includes/CSP/Settings.php:340
+msgid "The keyword 'unsafe-inline' broadly permits inline JavaScript in a policy without nonces or hashes. The keyword 'unsafe-eval' permits code generation from strings, such as eval(). These allowances reduce CSP protection and should reflect actual application requirements."
+msgstr "Das Schlüsselwort 'unsafe-inline' erlaubt Inline-JavaScript pauschal in einer Richtlinie ohne Nonces oder Hashes. 'unsafe-eval' erlaubt die Erzeugung von Code aus Zeichenketten, etwa mit eval(). Diese Freigaben verringern den CSP-Schutz und sollten dem tatsächlichen Bedarf der Anwendung entsprechen."
+
+#: includes/CSP/Settings.php:341
+msgid "This page does not generate per-request nonces or add matching nonce attributes to scripts. Entering a nonce value here alone does not provide that integration."
+msgstr "Diese Seite erzeugt keine Nonces pro Anfrage und ergänzt keine passenden Nonce-Attribute an Skripten. Ein eingetragener Nonce-Wert allein stellt diese Integration nicht her."
+
+#: includes/CSP/Settings.php:353
+msgid "Controls CSS files and inline styling. Missing sources can change the appearance or make page elements unusable. A blank field uses the default rule."
+msgstr "Steuert CSS-Dateien und Inline-Styles. Fehlende Quellen können die Darstellung verändern oder Seitenelemente unbenutzbar machen. Ein leeres Feld verwendet die Grundregel."
+
+#: includes/CSP/Settings.php:355
+msgid "Example: 'self' permits stylesheets from the current website; https://styles.example.org adds an external stylesheet host. Font files referenced by CSS are governed separately by font-src."
+msgstr "Beispiel: 'self' erlaubt Stylesheets der eigenen Website. https://styles.example.org ergänzt einen externen Stylesheet-Host. Die in CSS referenzierten Schriftdateien werden separat über font-src gesteuert."
+
+#: includes/CSP/Settings.php:356
+msgid "The keyword 'unsafe-inline' broadly permits inline styles in a policy without nonces or hashes. Themes and plugins may depend on them. Removing this value can affect their layout."
+msgstr "Das Schlüsselwort 'unsafe-inline' erlaubt Inline-Styles pauschal in einer Richtlinie ohne Nonces oder Hashes. Themes und Plugins können darauf angewiesen sein. Das Entfernen kann ihre Darstellung beeinträchtigen."
+
+#: includes/CSP/Settings.php:368
+msgid "Controls image sources, including external thumbnails and avatars. A blank field uses the default rule; 'none' blocks images under this directive."
+msgstr "Steuert Bildquellen, einschließlich externer Vorschaubilder und Avatare. Ein leeres Feld verwendet die Grundregel. 'none' sperrt Bilder unter dieser Direktive."
+
+#: includes/CSP/Settings.php:370
+msgid "Example: 'self' allows local images; https://images.example.org allows an external image host. The value data: permits images embedded as data URLs. Add blob: only if a feature uses blob URLs."
+msgstr "Beispiel: 'self' erlaubt lokale Bilder. https://images.example.org erlaubt einen externen Bild-Host. data: erlaubt als Daten-URL eingebettete Bilder. Ergänzen Sie blob: nur, wenn eine Funktion Blob-URLs verwendet."
+
+#: includes/CSP/Settings.php:371
+msgid "This controls loading in the browser. It does not change media upload permissions, delete stored images or prevent direct server access to an image URL."
+msgstr "Dies steuert das Laden im Browser. Es ändert keine Upload-Berechtigungen, löscht keine gespeicherten Bilder und verhindert keinen direkten Serverzugriff auf eine Bild-URL."
+
+#: includes/CSP/Settings.php:383
+msgid "Controls downloaded font files, for example fonts referenced by @font-face. Blocked fonts can cause the browser to use fallback fonts. A blank field uses the default rule."
+msgstr "Steuert geladene Schriftdateien, etwa Schriften aus @font-face-Regeln. Bei blockierten Schriften kann der Browser Ersatzschriften verwenden. Ein leeres Feld verwendet die Grundregel."
+
+#: includes/CSP/Settings.php:385
+msgid "Allow the host of the font file itself, for example https://fonts.example.org. The associated CSS may need a separate style-src entry. The value data: allows fonts embedded as data URLs."
+msgstr "Erlauben Sie den Host der Schriftdatei selbst, etwa https://fonts.example.org. Das zugehörige CSS kann einen eigenen Eintrag in style-src benötigen. data: erlaubt als Daten-URL eingebettete Schriften."
+
+#: includes/CSP/Settings.php:386
+msgid "This does not install fonts or control the WordPress Font Library. Font management and Google Fonts integration settings are configured separately under CMS > Functions and Services."
+msgstr "Diese Einstellung installiert keine Schriften und steuert nicht die WordPress-Schriftartenbibliothek. Die Schriftartenverwaltung und Google-Fonts-Einbindungen werden separat unter CMS > Funktionen und Dienste konfiguriert."
+
+#: includes/CSP/Settings.php:398
+msgid "Controls destinations for browser requests made by scripts, such as fetch, XMLHttpRequest, WebSocket, EventSource and sendBeacon. A blank field uses the default rule."
+msgstr "Steuert Ziele von Browser-Anfragen durch Skripte, etwa fetch, XMLHttpRequest, WebSocket, EventSource und sendBeacon. Ein leeres Feld verwendet die Grundregel."
+
+#: includes/CSP/Settings.php:400
+msgid "Example: allow https://api.example.org for an external API and wss://socket.example.org for a secure WebSocket connection. Use the actual protocol and host of the connection."
+msgstr "Beispiel: Erlauben Sie https://api.example.org für eine externe API und wss://socket.example.org für eine sichere WebSocket-Verbindung. Verwenden Sie das tatsächliche Protokoll und den Host der Verbindung."
+
+#: includes/CSP/Settings.php:401
+msgid "This is a browser-side restriction. It does not authorize REST API access, replace CORS checks or govern outgoing HTTP requests made by the WordPress server. Blocked connections are reported in the browser console."
+msgstr "Dies ist eine Beschränkung im Browser. Sie erlaubt keinen REST-API-Zugriff, ersetzt keine CORS-Prüfung und steuert keine ausgehenden HTTP-Anfragen des WordPress-Servers. Blockierte Verbindungen werden in der Browser-Konsole gemeldet."
+
+#: includes/CSP/Settings.php:413
+msgid "Controls which external pages this website may load in frames or iframes, for example a video player. A blank field falls back to the default rule in this plugin."
+msgstr "Steuert, welche externen Seiten diese Website in Frames oder Iframes laden darf, etwa einen Videoplayer. Ein leeres Feld fällt in diesem Plugin auf die Grundregel zurück."
+
+#: includes/CSP/Settings.php:415
+msgid "Example: https://player.example.org allows frames from that host. If frame-src is filled in, embed hosts automatically added to default-src do not extend this list."
+msgstr "Beispiel: https://player.example.org erlaubt Frames dieses Hosts. Ist frame-src ausgefüllt, erweitern automatisch zu default-src ergänzte Einbettungs-Hosts diese Liste nicht."
+
+#: includes/CSP/Settings.php:416
+msgid "This does not decide which other websites may embed your website. That is the purpose of frame-ancestors, which is not configured on this page. The embedded provider can also refuse embedding through its own response headers."
+msgstr "Dies legt nicht fest, welche anderen Websites Ihre Website einbetten dürfen. Dafür dient frame-ancestors, das auf dieser Seite nicht konfiguriert wird. Der eingebettete Anbieter kann die Einbettung außerdem durch eigene Antwort-Header verweigern."
+
 #: includes/Mail/Settings.php:115
 #: includes/Plugins/Settings.php:440
 msgid "Allowed Domains"
@@ -2087,6 +2227,7 @@ msgstr "Plugins"
 #: includes/Heartbeat/Settings.php:182
 #: includes/WebsiteFunctions/Settings.php:151
 #: includes/RestAPI/Settings.php:119
+#: includes/CSP/Settings.php:144
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
@@ -2429,6 +2570,7 @@ msgstr "Zum Plugin springen"
 #: includes/Heartbeat/Settings.php:175
 #: includes/WebsiteFunctions/Settings.php:144
 #: includes/RestAPI/Settings.php:112
+#: includes/CSP/Settings.php:137
 msgid "Back to overview"
 msgstr "Zur Übersicht"
 
