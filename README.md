@@ -97,6 +97,16 @@ setting. Invalid role JSON retains the saved rules and reports an error.
 See the [German user guide for Heartbeat settings](docs/heartbeat-settings.md)
 for examples and defaults.
 
+### REST API settings
+
+Under **Network Admin > CMS > REST API**, configure anonymous access, IP and route
+exceptions, and individual public plugin endpoint approvals. The page separates
+these rules into three sections and explains their precedence, accepted input
+formats and interaction with private websites. IP exceptions remain visible while
+the general restriction is off so they can be prepared before enabling it.
+See the [German user guide for REST API settings](docs/rest-api-settings.md)
+for examples, defaults and troubleshooting.
+
 ### Plugin settings
 
 Under **Network Admin > CMS > Plugins**, available plugin sections appear on one

@@ -713,6 +713,7 @@ msgstr "Verwalten Sie Website-Plugins, die nicht zusammen mit dem Block-Editor l
 #: includes/Media/Settings.php:131
 #: includes/Heartbeat/Settings.php:165
 #: includes/WebsiteFunctions/Settings.php:134
+#: includes/RestAPI/Settings.php:102
 msgid "On this page"
 msgstr "Auf dieser Seite"
 
@@ -1786,6 +1787,158 @@ msgstr "Gibt auf der öffentlichen Website eine notranslate-Anweisung für Googl
 msgid "Disables Google Fonts in supported themes and plugins. Other integrations can still load external fonts; this is not a general block on font requests."
 msgstr "Deaktiviert Google Fonts in unterstützten Themes und Plugins. Andere Einbindungen können weiterhin externe Schriften laden. Dies ist keine allgemeine Sperre für Schriftanfragen."
 
+#: includes/RestAPI/Settings.php:75
+msgid "Access Without Authentication"
+msgstr "Zugriff ohne Anmeldung"
+
+#: includes/RestAPI/Settings.php:79
+msgid "IP and Route Exceptions"
+msgstr "IP- und Routen-Ausnahmen"
+
+#: includes/RestAPI/Settings.php:83
+msgid "Public Plugin Endpoints"
+msgstr "Öffentliche Plugin-Endpunkte"
+
+#: includes/RestAPI/Settings.php:136
+#: includes/RestAPI/Settings.php:219
+msgid "General Restriction"
+msgstr "Allgemeine Sperre"
+
+#: includes/RestAPI/Settings.php:144
+#: includes/RestAPI/Settings.php:236
+msgid "Allowed IP Addresses and Networks"
+msgstr "Erlaubte IP-Adressen und Netze"
+
+#: includes/RestAPI/Settings.php:153
+#: includes/RestAPI/Settings.php:254
+msgid "Allowed Namespaces and Routes"
+msgstr "Erlaubte Namespaces und Routen"
+
+#: includes/RestAPI/Settings.php:162
+#: includes/RestAPI/Settings.php:308
+msgid "Plugin Approvals"
+msgstr "Plugin-Freigaben"
+
+#: includes/RestAPI/Settings.php:176
+msgid "The REST API lets WordPress, plugins and external applications exchange data. Configure access without authentication across all websites in the network. A route is an API path; a namespace groups related routes."
+msgstr "Über die REST-API tauschen WordPress, Plugins und externe Anwendungen Daten aus. Hier steuern Sie den Zugriff ohne Anmeldung für alle Websites im Netzwerk. Eine Route ist ein API-Pfad. Ein Namespace fasst zusammengehörige Routen zusammen."
+
+#: includes/RestAPI/Settings.php:186
+msgid "The general restriction controls REST requests without a recognized WordPress user. Approved exceptions can permit access; endpoint permissions and private-site restrictions still apply."
+msgstr "Die allgemeine Sperre betrifft REST-Anfragen ohne erkannten WordPress-Benutzer. Freigegebene Ausnahmen können den Zugriff erlauben. Die Berechtigungsprüfung des Endpunkts und der Schutz privater Websites gelten weiterhin."
+
+#: includes/RestAPI/Settings.php:196
+msgid "IP addresses and routes provide two independent exceptions to the general restriction. A match in either list is sufficient for this restriction. Registered plugin endpoints always need their own approval below."
+msgstr "IP-Adressen und Routen sind zwei voneinander unabhängige Ausnahmen von der allgemeinen Sperre. Für diese Sperre genügt ein Treffer in einer der beiden Listen. Registrierte Plugin-Endpunkte benötigen immer ihre eigene Freigabe weiter unten."
+
+#: includes/RestAPI/Settings.php:206
+msgid "These plugin endpoints require explicit approval for requests without authentication, even when the general restriction is off or an IP or route exception matches. Approval covers only the exact route and the listed HTTP methods."
+msgstr "Diese Plugin-Endpunkte benötigen eine ausdrückliche Freigabe für Anfragen ohne Anmeldung, auch bei ausgeschalteter allgemeiner Sperre oder passender IP- oder Routen-Ausnahme. Die Freigabe gilt nur für die genaue Route und die aufgeführten HTTP-Methoden."
+
+#: includes/RestAPI/Settings.php:207
+msgid "For visitors without access to a website protected by RRZE Private Site, the site administrator must also select a local exception under Settings > Reading > Public REST API Routes. Those public exceptions support GET and HEAD only."
+msgstr "Für Besucher ohne Zugang zu einer durch RRZE Private Site geschützten Website muss der Website-Administrator zusätzlich eine lokale Ausnahme unter Einstellungen > Lesen > Öffentliche REST-API-Routen auswählen. Diese öffentlichen Ausnahmen unterstützen nur GET und HEAD."
+
+#: includes/RestAPI/Settings.php:217
+msgid "Restrict REST requests without authentication"
+msgstr "REST-Anfragen ohne Anmeldung einschränken"
+
+#: includes/RestAPI/Settings.php:218
+msgid "Enabled: requests without authentication are denied with HTTP 403 unless an approved exception applies. Requests authenticated by WordPress are not blocked by this setting."
+msgstr "Aktiviert: Anfragen ohne Anmeldung werden mit HTTP 403 abgewiesen, sofern keine freigegebene Ausnahme greift. Von WordPress authentifizierte Anfragen werden durch diese Einstellung nicht gesperrt."
+
+#: includes/RestAPI/Settings.php:220
+msgid "Disabled: ordinary REST routes are no longer restricted by this setting. Registered plugin endpoints still require their own checkbox approval, and other access checks remain in place."
+msgstr "Deaktiviert: Reguläre REST-Routen werden durch diese Einstellung nicht mehr eingeschränkt. Registrierte Plugin-Endpunkte benötigen weiterhin ihre eigene Checkbox-Freigabe. Andere Zugriffsprüfungen bleiben wirksam."
+
+#: includes/RestAPI/Settings.php:221
+msgid "Example: a public search, form or external application may need REST access without a WordPress login. Allow the required route or registered endpoint instead of assuming that all public features use authenticated requests."
+msgstr "Beispiel: Eine öffentliche Suche, ein Formular oder eine externe Anwendung kann REST-Zugriff ohne WordPress-Anmeldung benötigen. Geben Sie die benötigte Route oder den registrierten Endpunkt frei. Öffentliche Funktionen senden nicht automatisch authentifizierte Anfragen."
+
+#: includes/RestAPI/Settings.php:222
+msgid "A browser login alone is not enough for cookie-based REST authentication: the request also needs a valid REST nonce. Requests without that nonce are treated as anonymous. Application-password authentication can also identify a WordPress user."
+msgstr "Eine Browser-Anmeldung allein genügt bei REST-Anfragen mit Anmelde-Cookie nicht: Die Anfrage benötigt zusätzlich einen gültigen REST-Nonce als Sicherheitsnachweis. Fehlt dieser, gilt die Anfrage als anonym. Auch Anwendungspasswörter können einen WordPress-Benutzer authentifizieren."
+
+#: includes/RestAPI/Settings.php:223
+msgid "This setting does not make the public website private, change user roles or control XML-RPC. XML-RPC is configured under CMS > Functions and Services."
+msgstr "Diese Einstellung macht die öffentliche Website nicht privat, ändert keine Benutzerrollen und steuert nicht XML-RPC. XML-RPC wird unter CMS > Funktionen und Dienste konfiguriert."
+
+#: includes/RestAPI/Settings.php:235
+msgid "One IPv4/IPv6 address or CIDR network per line. Matching visitors bypass the general restriction for ordinary routes, regardless of HTTP method. These entries take effect only while the general restriction is enabled."
+msgstr "Eine IPv4-/IPv6-Adresse oder ein CIDR-Netz pro Zeile. Passende Besucher umgehen die allgemeine Sperre für reguläre Routen, unabhängig von der HTTP-Methode. Diese Einträge wirken nur bei aktivierter allgemeiner Sperre."
+
+#: includes/RestAPI/Settings.php:237
+msgid "Examples: 192.0.2.25 for one address, 198.51.100.0/24 for an IPv4 network, or 2001:db8::/64 for an IPv6 network. These are documentation addresses; replace them with the actual client addresses."
+msgstr "Beispiele: 192.0.2.25 für eine einzelne Adresse, 198.51.100.0/24 für ein IPv4-Netz oder 2001:db8::/64 für ein IPv6-Netz. Dies sind Dokumentationsadressen. Ersetzen Sie sie durch die tatsächlichen Client-Adressen."
+
+#: includes/RestAPI/Settings.php:238
+msgid "Add a comment after an address using #, for example 192.0.2.25 # Import service. Hostnames, URLs and start-end ranges are not supported. Invalid entries are omitted when saving; valid entries are stored in CIDR notation."
+msgstr "Ergänzen Sie Kommentare nach der Adresse mit #, etwa 192.0.2.25 # Importdienst. Hostnamen, URLs und Von-bis-Bereiche werden nicht unterstützt. Ungültige Einträge entfallen beim Speichern. Gültige Einträge werden in CIDR-Schreibweise gespeichert."
+
+#: includes/RestAPI/Settings.php:239
+msgid "An IP exception does not replace a registered endpoint approval or grant access to a private website. A blank list provides no IP exceptions. Switching off the general restriction retains the list for later use."
+msgstr "Eine IP-Ausnahme ersetzt keine Freigabe eines registrierten Endpunkts und gewährt keinen Zugang zu einer privaten Website. Eine leere Liste enthält keine IP-Ausnahmen. Beim Ausschalten der allgemeinen Sperre bleibt die Liste für eine spätere Nutzung gespeichert."
+
+#: includes/RestAPI/Settings.php:240
+msgid "The client address detected by the server is used. Behind a reverse proxy, trusted proxies must be configured separately by the server administrator. This field grants visitor access; it does not configure proxy trust."
+msgstr "Verwendet wird die vom Server ermittelte Client-Adresse. Bei einem Reverse Proxy muss die Serveradministration vertrauenswürdige Proxys separat konfigurieren. Dieses Feld erlaubt Besucherzugriffe und legt keine vertrauenswürdigen Proxys fest."
+
+#: includes/RestAPI/Settings.php:252
+msgid "One namespace or route per line, for example /wp/v2/pages. Each entry permits the route and its subroutes through the general restriction, for all HTTP methods. Endpoint permissions still apply."
+msgstr "Ein Namespace oder eine Route pro Zeile, zum Beispiel /wp/v2/pages. Jeder Eintrag nimmt die Route und ihre Unterrouten von der allgemeinen Sperre aus, für alle HTTP-Methoden. Die Berechtigungsprüfung des Endpunkts bleibt wirksam."
+
+#: includes/RestAPI/Settings.php:253
+msgid "RRZE Private Site also offers these entries as local public exceptions, even when the general restriction is off. The site administrator must select them there; local public exceptions allow GET and HEAD only."
+msgstr "RRZE Private Site bietet diese Einträge außerdem als lokale öffentliche Ausnahmen an, auch bei ausgeschalteter allgemeiner Sperre. Der Website-Administrator muss sie dort auswählen. Lokale öffentliche Ausnahmen erlauben nur GET und HEAD."
+
+#: includes/RestAPI/Settings.php:255
+msgid "Example: /wp/v2/pages includes /wp/v2/pages/42, but not /wp/v2/pages-other. The namespace /wp/v2 includes all routes beneath it and is therefore broader than a single route."
+msgstr "Beispiel: /wp/v2/pages umfasst /wp/v2/pages/42, aber nicht /wp/v2/pages-other. Der Namespace /wp/v2 umfasst alle darunterliegenden Routen und ist deshalb weiter gefasst als eine einzelne Route."
+
+#: includes/RestAPI/Settings.php:256
+msgid "Use the API path without a domain, /wp-json prefix, query parameters or # comments. Entries are case-sensitive. Leading and trailing slashes are optional; wildcards are not supported. The entry pages does not match /wp/v2/pages."
+msgstr "Verwenden Sie den API-Pfad ohne Domain, /wp-json-Präfix, Abfrageparameter oder #-Kommentare. Groß- und Kleinschreibung wird beachtet. Schrägstriche am Anfang und Ende sind optional. Platzhalter werden nicht unterstützt. Der Eintrag pages passt nicht zu /wp/v2/pages."
+
+#: includes/RestAPI/Settings.php:257
+msgid "A registered plugin endpoint within an allowed namespace still needs its own checkbox approval. The namespace exception does not replace it."
+msgstr "Ein registrierter Plugin-Endpunkt innerhalb eines erlaubten Namespaces benötigt weiterhin seine eigene Checkbox-Freigabe. Die Namespace-Ausnahme ersetzt diese nicht."
+
+#: includes/RestAPI/Settings.php:258
+msgid "Removing an entry also removes the corresponding public exception from private sites. Changing its path requires a new local selection. A blank list provides no namespace or route exceptions."
+msgstr "Das Entfernen eines Eintrags hebt auch die zugehörige öffentliche Ausnahme auf privaten Websites auf. Nach einer Pfadänderung ist eine neue lokale Auswahl erforderlich. Eine leere Liste enthält keine Namespace- oder Routen-Ausnahmen."
+
+#: includes/RestAPI/Settings.php:274
+msgid "No plugin endpoints are available for approval yet. If a plugin is active only on an individual website, visit that website once and reload this settings page."
+msgstr "Bisher stehen keine Plugin-Endpunkte zur Freigabe bereit. Ist ein Plugin nur auf einer einzelnen Website aktiv, rufen Sie diese Website einmal auf und laden Sie diese Einstellungsseite anschließend neu."
+
+#: includes/RestAPI/Settings.php:276
+msgid "Approve plugin endpoints for access without authentication"
+msgstr "Plugin-Endpunkte für Zugriffe ohne Anmeldung freigeben"
+
+#: includes/RestAPI/Settings.php:296
+msgid "Methods:"
+msgstr "Methoden:"
+
+#: includes/RestAPI/Settings.php:298
+msgid "Route:"
+msgstr "Route:"
+
+#: includes/RestAPI/Settings.php:309
+msgid "GET reads content; HEAD requests response headers without the content body. POST can submit data. An approval includes only the methods listed for that endpoint, not its subroutes."
+msgstr "GET liest Inhalte. HEAD fragt Antwort-Header ohne den Inhalt ab. POST kann Daten übermitteln. Eine Freigabe umfasst nur die für diesen Endpunkt aufgeführten Methoden, nicht seine Unterrouten."
+
+#: includes/RestAPI/Settings.php:310
+msgid "The endpoint still checks its own permissions, for example a valid signed download URL. Approval does not bypass these checks or other access-control plugins."
+msgstr "Der Endpunkt prüft weiterhin seine eigenen Berechtigungen, etwa eine gültige signierte Download-URL. Die Freigabe umgeht weder diese Prüfung noch andere Plugins zur Zugriffskontrolle."
+
+#: includes/RestAPI/Settings.php:311
+msgid "Private-site public exceptions require both network approval and a local selection. POST-only endpoints are not offered as public exceptions there. Visitors who already have site access do not need an additional local checkbox; the network rules still apply."
+msgstr "Öffentliche Ausnahmen auf privaten Websites benötigen die Netzwerkfreigabe und eine lokale Auswahl. Endpunkte ausschließlich mit POST werden dort nicht als öffentliche Ausnahme angeboten. Besucher mit bestehendem Website-Zugang benötigen keine zusätzliche lokale Checkbox. Die Netzwerkregeln gelten weiterhin."
+
+#: includes/RestAPI/Settings.php:312
+msgid "Only endpoints declared by plugins appear here; this is not a list of every WordPress REST route. Remembered declarations may come from other websites. Approval applies where the provider declares the endpoint on the current website. Unchecking an endpoint also disables its local public exception."
+msgstr "Hier erscheinen nur von Plugins gemeldete Endpunkte. Dies ist keine Liste aller WordPress-REST-Routen. Gespeicherte Meldungen können von anderen Websites stammen. Die Freigabe wirkt dort, wo der Anbieter den Endpunkt auf der aktuellen Website meldet. Das Abwählen hebt auch dessen lokale öffentliche Ausnahme auf."
+
 #: includes/Mail/Settings.php:115
 #: includes/Plugins/Settings.php:440
 msgid "Allowed Domains"
@@ -1933,6 +2086,7 @@ msgstr "Plugins"
 #: includes/Media/Settings.php:148
 #: includes/Heartbeat/Settings.php:182
 #: includes/WebsiteFunctions/Settings.php:151
+#: includes/RestAPI/Settings.php:119
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
@@ -2274,6 +2428,7 @@ msgstr "Zum Plugin springen"
 #: includes/Media/Settings.php:141
 #: includes/Heartbeat/Settings.php:175
 #: includes/WebsiteFunctions/Settings.php:144
+#: includes/RestAPI/Settings.php:112
 msgid "Back to overview"
 msgstr "Zur Übersicht"
 
@@ -2453,63 +2608,10 @@ msgstr "%s (einschließlich Unterrouten)"
 msgid "Network allowlist entry. Permits public read access to this route and its subroutes. Registered public endpoints require their own approval."
 msgstr "Eintrag aus der Netzwerkfreigabeliste. Erlaubt öffentlichen Lesezugriff auf diese Route und ihre Unterrouten. Registrierte öffentliche Endpunkte benötigen ihre eigene Freigabe."
 
-#: includes/RestAPI/Settings.php:42
-#: includes/RestAPI/Settings.php:43
-#: includes/RestAPI/Settings.php:82
+#: includes/RestAPI/Settings.php:35
+#: includes/RestAPI/Settings.php:36
 msgid "REST API"
 msgstr "REST-API"
-
-#: includes/RestAPI/Settings.php:89
-msgid "REST API Settings"
-msgstr "REST-API-Einstellungen"
-
-#: includes/RestAPI/Settings.php:98
-msgid "Allowed ip addresses"
-msgstr "Zulässige IP-Adressen"
-
-#: includes/RestAPI/Settings.php:109
-msgid "Allowed namespaces and routes"
-msgstr "Erlaubte Namespaces und Routen"
-
-#: includes/RestAPI/Settings.php:117
-msgid "Registered public endpoints"
-msgstr "Registrierte öffentliche Endpunkte"
-
-#: includes/RestAPI/Settings.php:131
-msgid "Network administrators can centrally configure REST API access across the multisite network. The settings lets them disable the API for non‑authenticated users, whitelist specific IP addresses, and permit chosen namespaces—strengthening security and access control on every website."
-msgstr "Netzwerkadministratoren können den REST‑API‑Zugriff im gesamten Multisite‑Netzwerk zentral konfigurieren. Die Einstellungen ermöglichen es, die API für nicht authentifizierte Benutzer zu deaktivieren, bestimmte IP‑Adressen auf die Whitelist zu setzen und ausgewählte Namespaces zu erlauben — und stärken so die Sicherheit und Zugriffskontrolle auf jeder Website."
-
-#: includes/RestAPI/Settings.php:141
-msgid "Disables the REST API for visitors who are not logged in."
-msgstr "Deaktiviert die REST-API für Besucher, die nicht angemeldet sind."
-
-#: includes/RestAPI/Settings.php:152
-msgid "Enter the IP addresses that allow access to the REST API when disabled."
-msgstr "Die IP-Adressen eingeben, die den Zugriff auf die REST-API ermöglichen, wenn sie deaktiviert ist. Eine IP-Adresse pro Zeile."
-
-#: includes/RestAPI/Settings.php:153
-msgid "To leave a comment, type a hash symbol (#) followed by the text of your comment."
-msgstr "Um einen Kommentar zu hinterlassen, geben Sie ein Hash-Symbol (#) gefolgt vom Text Ihres Kommentars ein."
-
-#: includes/RestAPI/Settings.php:154
-msgid "One IP address or IP range per line."
-msgstr "Eine IP-Adresse oder ein IP-Bereich pro Zeile."
-
-#: includes/RestAPI/Settings.php:165
-msgid "Enter one REST API namespace or route per line, for example /wp/v2/pages. Each entry includes its subroutes and permits access when the general REST API restriction is enabled."
-msgstr "Pro Zeile einen REST-API-Namespace oder eine Route eingeben, zum Beispiel /wp/v2/pages. Jeder Eintrag umfasst seine Unterrouten und erlaubt den Zugriff bei aktivierter allgemeiner REST-API-Sperre."
-
-#: includes/RestAPI/Settings.php:166
-msgid "Private Site administrators can additionally select these entries for public GET and HEAD access on their own site. Registered public endpoints always require their separate checkbox approval."
-msgstr "Betreiber privater Websites können diese Einträge zusätzlich für öffentliche GET- und HEAD-Anfragen auf ihrer Website auswählen. Registrierte öffentliche Endpunkte benötigen immer ihre eigene Checkbox-Freigabe."
-
-#: includes/RestAPI/Settings.php:182
-msgid "No installed plugin has declared a public REST API endpoint."
-msgstr "Bisher wurde kein öffentlicher REST-API-Endpunkt eines installierten Plugins erkannt."
-
-#: includes/RestAPI/Settings.php:205
-msgid "Registered endpoints require explicit approval for anonymous access, even when the general REST API restriction is off or an IP address or namespace is allowed. Only the exact route and listed methods are approved. Visitors without existing access to a private site additionally need a local endpoint selection (GET and HEAD only). Endpoint permission checks still apply."
-msgstr "Registrierte Endpunkte benötigen eine ausdrückliche Freigabe für anonyme Zugriffe, auch bei ausgeschalteter allgemeiner REST-API-Sperre oder erlaubter IP-Adresse beziehungsweise erlaubtem Namespace. Die Freigabe gilt nur für die genaue Route und die aufgeführten Methoden. Für Besucher ohne bestehende Zugangsberechtigung zur privaten Website muss der Betreiber den Endpunkt zusätzlich lokal auswählen (nur GET und HEAD). Die Berechtigungsprüfung des Endpunkts bleibt wirksam."
 
 #: includes/Settings.php:197
 msgid "Settings saved."
