@@ -27,6 +27,13 @@ RRZE Settings is a WordPress plugin that provides general settings and enhanceme
 
 ## Usage
 
+The **RRZE Settings** network menu groups its pages under **Network**,
+**Editorial**, **Services** and **Technical**. Compact italic headings, separators and
+subtle background shading follow the selected WordPress admin color scheme.
+All links remain directly accessible, with WordPress's active-link and keyboard
+focus styles. Without JavaScript, the same page order remains available.
+Additional links from other plugins are retained under **Other Settings**.
+
 ### General settings
 
 Under **Network Admin > RRZE Settings > General**, network administrators configure

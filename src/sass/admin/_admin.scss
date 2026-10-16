@@ -1,3 +1,41 @@
+/* Group only our submenu; WordPress keeps its link, current and focus styling. */
+#adminmenu #toplevel_page_rrze-settings > .wp-submenu[data-rrze-grouped] {
+    > .rrze-settings-menu-heading {
+        margin: 0;
+        padding: 9px 12px 3px;
+        border-block-start: 1px solid color-mix(in srgb, var(--rrze-menu-foreground) 20%, transparent);
+
+        &:nth-child(2) {
+            border-block-start: 0;
+            padding-block-start: 5px;
+        }
+
+        h3 {
+            margin: 0;
+            color: var(--rrze-menu-foreground, inherit);
+            font-size: 11px;
+            font-style: italic;
+            font-weight: 600;
+            line-height: 1.5;
+            letter-spacing: 0.025em;
+        }
+    }
+
+    > .rrze-settings-menu-shaded {
+        background-color: color-mix(in srgb, var(--rrze-menu-foreground) 6%, transparent);
+    }
+
+    @media (forced-colors: active) {
+        > .rrze-settings-menu-heading {
+            border-block-start-color: CanvasText;
+
+            h3 { color: CanvasText; }
+        }
+
+        > .rrze-settings-menu-shaded { background-color: transparent; }
+    }
+}
+
 /* Settings guidance: keep text readable on wide admin screens. */
 
 .rrze-settings-general,

@@ -2322,6 +2322,26 @@ msgstr ""
 msgid "Removing an exception allows a valid central address to replace the local address on a subsequent administration request. An empty list makes no explicit exceptions. Sender-domain rules above continue to apply to all websites."
 msgstr ""
 
+#: includes/AdminNavigation.php:36
+msgid "Network"
+msgstr ""
+
+#: includes/AdminNavigation.php:40
+msgid "Editorial"
+msgstr ""
+
+#: includes/AdminNavigation.php:44
+msgid "Services"
+msgstr ""
+
+#: includes/AdminNavigation.php:48
+msgid "Technical"
+msgstr ""
+
+#: includes/AdminNavigation.php:52
+msgid "Other Settings"
+msgstr ""
+
 #: includes/Plugins/Settings.php:440
 msgid "Allowed Domains"
 msgstr ""
