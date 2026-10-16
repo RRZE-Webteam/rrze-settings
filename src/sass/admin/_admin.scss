@@ -1,9 +1,11 @@
 /* Group only our submenu; WordPress keeps its link, current and focus styling. */
 #adminmenu #toplevel_page_rrze-settings > .wp-submenu[data-rrze-grouped] {
+    --rrze-menu-divider: color-mix(in srgb, var(--rrze-menu-foreground) 55%, transparent);
+
     > .rrze-settings-menu-heading {
         margin: 0;
-        padding: 9px 12px 3px;
-        border-block-start: 1px solid color-mix(in srgb, var(--rrze-menu-foreground) 20%, transparent);
+        padding: 9px 12px 9px;
+        border-block-start: 1px solid var(--rrze-menu-divider);
 
         &:nth-child(2) {
             border-block-start: 0;
@@ -15,7 +17,7 @@
             color: var(--rrze-menu-foreground, inherit);
             font-size: 11px;
             font-style: italic;
-            font-weight: 600;
+            font-weight: 700;
             line-height: 1.5;
             letter-spacing: 0.025em;
         }
@@ -23,6 +25,20 @@
 
     > .rrze-settings-menu-shaded {
         background-color: color-mix(in srgb, var(--rrze-menu-foreground) 6%, transparent);
+    }
+
+    > .rrze-settings-menu-item > a {
+        border-inline-start: 4px solid var(--rrze-menu-accent, var(--wp-admin-theme-color, #2271b1));
+        padding-inline-start: 28px;
+
+        &::before {
+            content: "+" / "";
+            display: inline-block;
+            inline-size: 16px;
+            margin-inline-start: -16px;
+            font-weight: 700;
+            pointer-events: none;
+        }
     }
 
     @media (forced-colors: active) {
@@ -33,6 +49,8 @@
         }
 
         > .rrze-settings-menu-shaded { background-color: transparent; }
+
+        > .rrze-settings-menu-item > a { border-inline-start-color: Highlight; }
     }
 }
 

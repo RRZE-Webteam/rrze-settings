@@ -1,7 +1,7 @@
 import domReady from '@wordpress/dom-ready';
 
 /**
- * Add non-interactive group headings to WordPress's server-ordered submenu.
+ * Group WordPress's ordered submenu with headings and theme-aware separators.
  * Existing anchors retain their URLs, permissions and native keyboard behavior.
  *
  * @return {void}
@@ -25,6 +25,7 @@ function groupSettingsNavigation() {
 		if ( ! group ) {
 			continue;
 		}
+		item.classList.add( 'rrze-settings-menu-item' );
 
 		if ( group !== previousGroup ) {
 			groupIndex++;
@@ -56,6 +57,16 @@ function groupSettingsNavigation() {
 			'--rrze-menu-foreground',
 			window.getComputedStyle( reference ).color
 		);
+	}
+	// Follow the active menu color, including custom WordPress admin schemes.
+	const activeMenu = document.querySelector(
+		'#adminmenu > li.wp-has-current-submenu > a, #adminmenu > li.current > a'
+	);
+	if ( activeMenu ) {
+		const accent = window.getComputedStyle( activeMenu ).backgroundColor;
+		if ( accent !== 'transparent' && accent !== 'rgba(0, 0, 0, 0)' ) {
+			menu.style.setProperty( '--rrze-menu-accent', accent );
+		}
 	}
 	menu.dataset.rrzeGrouped = 'true';
 }
