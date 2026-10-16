@@ -401,7 +401,6 @@ msgstr "RSS-Fehler: %s"
 msgid "Untitled"
 msgstr "Ohne Titel"
 
-#: includes/WebsiteFunctions/Settings.php:129
 #: includes/General/Settings.php:41
 #: includes/General/Settings.php:42
 #: includes/General/Settings.php:74
@@ -713,6 +712,7 @@ msgstr "Verwalten Sie Website-Plugins, die nicht zusammen mit dem Block-Editor l
 #: includes/Writing/Settings.php:182
 #: includes/Media/Settings.php:131
 #: includes/Heartbeat/Settings.php:165
+#: includes/WebsiteFunctions/Settings.php:134
 msgid "On this page"
 msgstr "Auf dieser Seite"
 
@@ -1478,6 +1478,314 @@ msgstr "Erhält Heartbeat im klassischen und im Block-Inhaltseditor sowie auf de
 msgid "Choose where this plugin should stop loading Heartbeat. Content editors and the exceptions below remain available. Disabling Heartbeat can stop live updates supplied by WordPress or other plugins."
 msgstr "Legen Sie fest, wo dieses Plugin Heartbeat nicht mehr laden soll. Inhaltseditoren und die Ausnahmen unten bleiben freigegeben. Das Abschalten kann Live-Aktualisierungen von WordPress oder anderen Plugins unterbrechen."
 
+#: includes/WebsiteFunctions/Settings.php:49
+#: includes/WebsiteFunctions/Settings.php:50
+msgid "Functions and Services"
+msgstr "Funktionen und Dienste"
+
+#: includes/WebsiteFunctions/Settings.php:99
+msgid "Interfaces and AI"
+msgstr "Schnittstellen und KI"
+
+#: includes/WebsiteFunctions/Settings.php:103
+msgid "Appearance and Fonts"
+msgstr "Darstellung und Schriften"
+
+#: includes/WebsiteFunctions/Settings.php:107
+msgid "Comments and Avatars"
+msgstr "Kommentare und Avatare"
+
+#: includes/WebsiteFunctions/Settings.php:111
+msgid "Website Administration"
+msgstr "Website-Verwaltung"
+
+#: includes/WebsiteFunctions/Settings.php:115
+#: includes/WebsiteFunctions/Settings.php:290
+msgid "Translation in Google Search"
+msgstr "Übersetzung in der Google-Suche"
+
+#: includes/WebsiteFunctions/Settings.php:178
+#: includes/WebsiteFunctions/Settings.php:432
+msgid "WordPress AI Functions"
+msgstr "WordPress-KI-Funktionen"
+
+#: includes/WebsiteFunctions/Settings.php:186
+#: includes/WebsiteFunctions/Settings.php:453
+msgid "AI Connection Settings"
+msgstr "Einstellungen für KI-Verbindungen"
+
+#: includes/WebsiteFunctions/Settings.php:194
+#: includes/WebsiteFunctions/Settings.php:537
+msgid "Emoji Display"
+msgstr "Emoji-Darstellung"
+
+#: includes/WebsiteFunctions/Settings.php:210
+#: includes/WebsiteFunctions/Settings.php:474
+msgid "Font Library in Administration"
+msgstr "Schriftartenbibliothek in der Verwaltung"
+
+#: includes/WebsiteFunctions/Settings.php:218
+#: includes/WebsiteFunctions/Settings.php:579
+msgid "Comment Defaults"
+msgstr "Kommentarvorgaben"
+
+#: includes/WebsiteFunctions/Settings.php:226
+#: includes/WebsiteFunctions/Settings.php:601
+msgid "Avatar Display"
+msgstr "Avatar-Anzeige"
+
+#: includes/WebsiteFunctions/Settings.php:234
+#: includes/WebsiteFunctions/Settings.php:390
+msgid "Website Deletion"
+msgstr "Löschen von Websites"
+
+#: includes/WebsiteFunctions/Settings.php:242
+#: includes/WebsiteFunctions/Settings.php:411
+msgid "WordPress Privacy Tools"
+msgstr "WordPress-Datenschutzwerkzeuge"
+
+#: includes/WebsiteFunctions/Settings.php:250
+#: includes/WebsiteFunctions/Settings.php:516
+msgid "Administration Email Reminder"
+msgstr "Erinnerung an die Administrator-E-Mail"
+
+#: includes/WebsiteFunctions/Settings.php:258
+#: includes/WebsiteFunctions/Settings.php:622
+msgid "Local Translation Preference"
+msgstr "Lokale Übersetzungsvorgabe"
+
+#: includes/WebsiteFunctions/Settings.php:297
+msgid "Translated Search Results"
+msgstr "Übersetzte Suchergebnisse"
+
+#: includes/WebsiteFunctions/Settings.php:322
+msgid "Manage the WordPress functions and services available across the network. Most options restrict a function; the Google translation option grants a local choice. Changes apply to all websites after saving."
+msgstr "Steuern Sie, welche WordPress-Funktionen und Dienste im Netzwerk verfügbar sind. Die meisten Optionen schränken eine Funktion ein. Die Option zur Google-Übersetzung erlaubt dagegen eine lokale Entscheidung. Änderungen gelten nach dem Speichern für alle Websites."
+
+#: includes/WebsiteFunctions/Settings.php:332
+msgid "Control access through XML-RPC and the WordPress AI integration. AI functions and access to their settings page can be restricted separately."
+msgstr "Steuern Sie den Zugriff über XML-RPC und die KI-Anbindung von WordPress. KI-Funktionen und der Zugriff auf deren Einstellungsseite lassen sich getrennt einschränken."
+
+#: includes/WebsiteFunctions/Settings.php:342
+msgid "Manage additional emoji rendering, supported Google Fonts integrations and access to the font management page."
+msgstr "Steuern Sie die zusätzliche Emoji-Darstellung, unterstützte Google-Fonts-Einbindungen und den Zugriff auf die Schriftartenverwaltung."
+
+#: includes/WebsiteFunctions/Settings.php:352
+msgid "Set comment defaults and control avatar display. Some of these settings also write local website options; switching them off does not restore earlier values."
+msgstr "Legen Sie Kommentarvorgaben fest und steuern Sie die Anzeige von Avataren. Einige dieser Einstellungen schreiben auch lokale Website-Optionen. Beim Ausschalten werden frühere Werte nicht wiederhergestellt."
+
+#: includes/WebsiteFunctions/Settings.php:362
+msgid "Restrict website deletion and WordPress privacy tools, and control the recurring reminder to verify the administration email address."
+msgstr "Beschränken Sie das Löschen von Websites und die Datenschutzwerkzeuge von WordPress. Steuern Sie außerdem die wiederkehrende Erinnerung zur Prüfung der Administrator-E-Mail-Adresse."
+
+#: includes/WebsiteFunctions/Settings.php:372
+msgid "Allow website administrators to decide locally whether Google should offer translated search results for their website."
+msgstr "Erlauben Sie Website-Administratoren, lokal festzulegen, ob Google übersetzte Suchergebnisse für ihre Website anbieten soll."
+
+#: includes/WebsiteFunctions/Settings.php:387
+msgid "Prevent website administrators from deleting their website"
+msgstr "Website-Administratoren am Löschen ihrer Website hindern"
+
+#: includes/WebsiteFunctions/Settings.php:389
+msgid "Removes Tools > Delete Site and blocks that deletion path for users without super administrator privileges. Super administrators can still delete websites."
+msgstr "Entfernt Werkzeuge > Website löschen und sperrt diesen Löschweg für Benutzer ohne Superadministrator-Rechte. Superadministratoren können Websites weiterhin löschen."
+
+#: includes/WebsiteFunctions/Settings.php:391
+msgid "Example: a website administrator can maintain content but cannot delete the entire website through the WordPress deletion workflow."
+msgstr "Beispiel: Ein Website-Administrator kann Inhalte pflegen, aber die gesamte Website nicht über den Löschablauf von WordPress löschen."
+
+#: includes/WebsiteFunctions/Settings.php:392
+msgid "Deleting individual posts, pages or media is not restricted by this option. Switching it off restores the usual website deletion workflow for authorized users."
+msgstr "Das Löschen einzelner Beiträge, Seiten oder Medien wird dadurch nicht eingeschränkt. Beim Ausschalten steht der übliche Löschablauf für berechtigte Benutzer wieder zur Verfügung."
+
+#: includes/WebsiteFunctions/Settings.php:408
+msgid "Block privacy settings and personal data tools"
+msgstr "Datenschutzeinstellungen und Werkzeuge für personenbezogene Daten sperren"
+
+#: includes/WebsiteFunctions/Settings.php:410
+msgid "Blocks access to Settings > Privacy and the tools for exporting and erasing personal data. This also applies to super administrators."
+msgstr "Sperrt den Zugriff auf Einstellungen > Datenschutz sowie die Werkzeuge zum Exportieren und Löschen personenbezogener Daten. Dies gilt auch für Superadministratoren."
+
+#: includes/WebsiteFunctions/Settings.php:412
+msgid "The existing privacy policy page remains stored and accessible according to its publication status. This option does not delete personal data or replace a privacy policy."
+msgstr "Die vorhandene Datenschutzerklärungsseite bleibt gespeichert und entsprechend ihrem Veröffentlichungsstatus erreichbar. Diese Option löscht keine personenbezogenen Daten und ersetzt keine Datenschutzerklärung."
+
+#: includes/WebsiteFunctions/Settings.php:413
+msgid "Switching this option off restores access according to the normal WordPress permissions. Privacy features provided independently by plugins are not covered by this restriction."
+msgstr "Beim Ausschalten gelten wieder die regulären WordPress-Berechtigungen. Eigenständige Datenschutzfunktionen anderer Plugins werden von dieser Einschränkung nicht erfasst."
+
+#: includes/WebsiteFunctions/Settings.php:429
+msgid "Disable the WordPress AI integration"
+msgstr "KI-Anbindung von WordPress deaktivieren"
+
+#: includes/WebsiteFunctions/Settings.php:431
+msgid "Disables AI support and prevents prompts sent through the WordPress AI client. Plugins with their own independent AI connections are not covered."
+msgstr "Deaktiviert die KI-Unterstützung und unterbindet Anfragen über den WordPress-KI-Client. Plugins mit eigenen, unabhängigen KI-Anbindungen werden davon nicht erfasst."
+
+#: includes/WebsiteFunctions/Settings.php:433
+msgid "Applies where WordPress or a plugin uses the WordPress AI integration. It does not remove installed plugins or delete saved provider settings."
+msgstr "Wirkt dort, wo WordPress oder ein Plugin die KI-Anbindung von WordPress nutzt. Installierte Plugins und gespeicherte Anbieter-Einstellungen werden nicht gelöscht."
+
+#: includes/WebsiteFunctions/Settings.php:434
+msgid "Access to the AI Connectors settings page is controlled by the separate option below. Hiding that page alone does not disable AI requests."
+msgstr "Der Zugriff auf die Einstellungsseite für KI-Verbindungen wird durch die separate Option darunter gesteuert. Das Ausblenden dieser Seite allein deaktiviert keine KI-Anfragen."
+
+#: includes/WebsiteFunctions/Settings.php:450
+msgid "Hide the AI Connectors page and block direct access"
+msgstr "Seite für KI-Verbindungen ausblenden und direkten Zugriff sperren"
+
+#: includes/WebsiteFunctions/Settings.php:452
+msgid "Removes the AI Connectors settings page from website administration. Opening its address directly redirects to the dashboard, including for super administrators."
+msgstr "Entfernt die Einstellungsseite für KI-Verbindungen aus der Website-Verwaltung. Auch beim direkten Aufruf ihrer Adresse wird zum Dashboard weitergeleitet, einschließlich bei Superadministratoren."
+
+#: includes/WebsiteFunctions/Settings.php:454
+msgid "This restricts the settings interface. Existing connections and AI requests are not disabled by this option; use WordPress AI Functions for that."
+msgstr "Diese Option beschränkt die Einstellungsoberfläche. Vorhandene Verbindungen und KI-Anfragen werden dadurch nicht deaktiviert. Dafür dient die Option WordPress-KI-Funktionen."
+
+#: includes/WebsiteFunctions/Settings.php:455
+msgid "Switching this option off allows the page again, provided it exists in the installed WordPress version and the user has the required permissions."
+msgstr "Beim Ausschalten wird die Seite wieder zugänglich, sofern sie in der installierten WordPress-Version vorhanden ist und der Benutzer die erforderlichen Berechtigungen besitzt."
+
+#: includes/WebsiteFunctions/Settings.php:471
+msgid "Hide the font management page and block direct access"
+msgstr "Seite zur Schriftartenverwaltung ausblenden und direkten Zugriff sperren"
+
+#: includes/WebsiteFunctions/Settings.php:473
+msgid "Removes the separate Font Library page under Appearance and blocks direct access. Installed fonts remain available to the website."
+msgstr "Entfernt die separate Seite der Schriftartenbibliothek unter Design und sperrt den direkten Zugriff. Installierte Schriften bleiben für die Website verfügbar."
+
+#: includes/WebsiteFunctions/Settings.php:475
+msgid "The font library inside the block editor is controlled separately under CMS > Editor. This setting affects only the separate administration page, including access by super administrators."
+msgstr "Die Schriftartenbibliothek im Block-Editor wird separat unter CMS > Editor gesteuert. Diese Einstellung betrifft nur die eigenständige Verwaltungsseite, einschließlich des Zugriffs durch Superadministratoren."
+
+#: includes/WebsiteFunctions/Settings.php:476
+msgid "No font files are deleted. Switching the option off restores access where the page is available and the user has the required permissions."
+msgstr "Es werden keine Schriftdateien gelöscht. Beim Ausschalten wird die Seite wieder zugänglich, sofern sie vorhanden ist und der Benutzer die erforderlichen Berechtigungen besitzt."
+
+#: includes/WebsiteFunctions/Settings.php:492
+msgid "Block the XML-RPC interface"
+msgstr "XML-RPC-Schnittstelle sperren"
+
+#: includes/WebsiteFunctions/Settings.php:494
+msgid "Blocks requests to xmlrpc.php. External applications that use XML-RPC can no longer access the website through this interface."
+msgstr "Sperrt Anfragen an xmlrpc.php. Externe Anwendungen, die XML-RPC verwenden, können darüber nicht mehr auf die Website zugreifen."
+
+#: includes/WebsiteFunctions/Settings.php:496
+msgid "Example: publishing software that sends posts through XML-RPC can no longer publish them. Check which interface an integration uses before enabling this setting."
+msgstr "Beispiel: Eine Anwendung, die Beiträge über XML-RPC veröffentlicht, kann diese nicht mehr übertragen. Prüfen Sie vor dem Aktivieren, welche Schnittstelle eine Anbindung verwendet."
+
+#: includes/WebsiteFunctions/Settings.php:497
+msgid "The REST API is configured separately under CMS > REST API. Switching this option off removes the XML-RPC block imposed by this plugin."
+msgstr "Die REST-API wird separat unter CMS > REST-API konfiguriert. Beim Ausschalten entfällt die XML-RPC-Sperre durch dieses Plugin."
+
+#: includes/WebsiteFunctions/Settings.php:513
+msgid "Skip the recurring administration email check"
+msgstr "Wiederkehrende Prüfung der Administrator-E-Mail überspringen"
+
+#: includes/WebsiteFunctions/Settings.php:515
+msgid "Suppresses the recurring prompt after login that asks administrators to confirm the website administration email address."
+msgstr "Unterdrückt die wiederkehrende Aufforderung nach der Anmeldung, die Administrator-E-Mail-Adresse der Website zu bestätigen."
+
+#: includes/WebsiteFunctions/Settings.php:517
+msgid "The saved email address and email delivery remain unchanged. This option does not confirm a newly entered address or disable confirmation when changing the address."
+msgstr "Die gespeicherte E-Mail-Adresse und der E-Mail-Versand bleiben unverändert. Die Option bestätigt keine neu eingetragene Adresse und deaktiviert nicht die Bestätigung beim Ändern der Adresse."
+
+#: includes/WebsiteFunctions/Settings.php:518
+msgid "Useful when administration email addresses are maintained centrally. Switching this option off restores the regular WordPress reminder."
+msgstr "Hilfreich, wenn Administrator-E-Mail-Adressen zentral gepflegt werden. Beim Ausschalten gilt wieder die reguläre Erinnerung von WordPress."
+
+#: includes/WebsiteFunctions/Settings.php:534
+msgid "Disable additional WordPress emoji rendering"
+msgstr "Zusätzliche Emoji-Darstellung von WordPress deaktivieren"
+
+#: includes/WebsiteFunctions/Settings.php:536
+msgid "Removes WordPress emoji scripts and selected image conversions, including in emails and the classic editor. Emoji characters in saved content remain intact."
+msgstr "Entfernt Emoji-Skripte von WordPress und ausgewählte Bildumwandlungen, unter anderem in E-Mails und im klassischen Editor. Emoji-Zeichen in gespeicherten Inhalten bleiben erhalten."
+
+#: includes/WebsiteFunctions/Settings.php:538
+msgid "Browsers and operating systems can still display emoji using their own fonts. Their appearance may therefore differ between devices."
+msgstr "Browser und Betriebssysteme können Emojis weiterhin mit eigenen Schriften darstellen. Das Aussehen kann sich deshalb je nach Gerät unterscheiden."
+
+#: includes/WebsiteFunctions/Settings.php:539
+msgid "This is not a ban on entering emoji and does not remove images inserted manually. Switching the option off restores the normal WordPress handling."
+msgstr "Dies ist keine Eingabesperre für Emojis und entfernt keine manuell eingefügten Bilder. Beim Ausschalten verwendet WordPress wieder seine reguläre Verarbeitung."
+
+#: includes/WebsiteFunctions/Settings.php:555
+msgid "Disable supported Google Fonts integrations"
+msgstr "Unterstützte Google-Fonts-Einbindungen deaktivieren"
+
+#: includes/WebsiteFunctions/Settings.php:559
+msgid "Fonts loaded directly through HTML, CSS or JavaScript can still be requested. Check the actual font requests of the active theme and plugins separately."
+msgstr "Direkt über HTML, CSS oder JavaScript eingebundene Schriften können weiterhin geladen werden. Prüfen Sie die tatsächlichen Schriftanfragen des aktiven Themes und der Plugins separat."
+
+#: includes/WebsiteFunctions/Settings.php:560
+msgid "Locally hosted font files remain available. Where a supported Google Fonts integration is disabled, the resulting appearance depends on the fallback fonts defined by the theme."
+msgstr "Lokal bereitgestellte Schriftdateien bleiben verfügbar. Wird eine unterstützte Google-Fonts-Einbindung deaktiviert, hängt die Darstellung von den Ersatzschriften des Themes ab."
+
+#: includes/WebsiteFunctions/Settings.php:576
+msgid "Restrict comments and apply closed defaults"
+msgstr "Kommentare einschränken und geschlossene Vorgaben setzen"
+
+#: includes/WebsiteFunctions/Settings.php:578
+msgid "Requires visitors to log in before commenting across the network. New websites start with comments and pingbacks disabled; new posts and pages default to closed comments unless an explicit status is supplied."
+msgstr "Erfordert im gesamten Netzwerk eine Anmeldung zum Kommentieren. Neue Websites starten mit deaktivierten Kommentaren und Pingbacks. Neue Beiträge und Seiten erhalten geschlossene Kommentare, sofern kein ausdrücklicher Kommentarstatus übergeben wird."
+
+#: includes/WebsiteFunctions/Settings.php:580
+msgid "Existing comments remain stored. Existing posts and pages keep their comment status, but visitors who are not logged in can no longer comment. Logged-in users can comment only where comments are open."
+msgstr "Vorhandene Kommentare bleiben gespeichert. Bestehende Beiträge und Seiten behalten ihren Kommentarstatus. Nicht angemeldete Besucher können jedoch nicht mehr kommentieren. Angemeldete Benutzer können nur bei geöffneten Kommentaren kommentieren."
+
+#: includes/WebsiteFunctions/Settings.php:581
+msgid "For newly created websites, outgoing link notifications and incoming pingbacks/trackbacks are disabled by default, and comment registration is enabled. Existing websites do not receive these initial options retroactively."
+msgstr "Bei neu angelegten Websites werden ausgehende Link-Benachrichtigungen und eingehende Pingbacks/Trackbacks standardmäßig deaktiviert und die Anmeldepflicht für Kommentare aktiviert. Bestehende Websites erhalten diese Startwerte nicht nachträglich."
+
+#: includes/WebsiteFunctions/Settings.php:582
+msgid "Switching this option off stops enforcing these restrictions. Previously saved website defaults and comment statuses remain stored and may need to be changed locally."
+msgstr "Beim Ausschalten werden diese Einschränkungen nicht mehr erzwungen. Bereits gespeicherte Website-Vorgaben und Kommentarstatus bleiben erhalten und müssen bei Bedarf lokal angepasst werden."
+
+#: includes/WebsiteFunctions/Settings.php:598
+msgid "Disable WordPress avatars and hide their settings"
+msgstr "WordPress-Avatare deaktivieren und deren Einstellungen ausblenden"
+
+#: includes/WebsiteFunctions/Settings.php:600
+msgid "Turns off the local WordPress avatar display option and hides the avatar settings under Settings > Discussion. The default avatar is set to Mystery Person."
+msgstr "Schaltet die lokale WordPress-Option zur Avatar-Anzeige aus und blendet die Avatar-Einstellungen unter Einstellungen > Diskussion aus. Als Standard-Avatar wird Geheimnisvolle Person gesetzt."
+
+#: includes/WebsiteFunctions/Settings.php:602
+msgid "Applies as each website loads. Plugins that display profile images independently of the WordPress avatar setting can still show those images."
+msgstr "Wirkt beim Laden der jeweiligen Website. Plugins, die Profilbilder unabhängig von der WordPress-Einstellung für Avatare ausgeben, können diese weiterhin anzeigen."
+
+#: includes/WebsiteFunctions/Settings.php:603
+msgid "Switching this option off makes the settings available again, but does not restore earlier values. Re-enable avatar display locally if needed."
+msgstr "Beim Ausschalten werden die Einstellungen wieder zugänglich. Frühere Werte werden jedoch nicht wiederhergestellt. Aktivieren Sie die Avatar-Anzeige bei Bedarf wieder lokal."
+
+#: includes/WebsiteFunctions/Settings.php:619
+msgid "Allow websites to opt out of translation in Google Search"
+msgstr "Websites das Abschalten von Übersetzungen in der Google-Suche erlauben"
+
+#: includes/WebsiteFunctions/Settings.php:621
+msgid "Adds an option under Settings > Reading on each website. The website administrator must enable it there before this plugin outputs a notranslate instruction for Google."
+msgstr "Ergänzt auf jeder Website eine Option unter Einstellungen > Lesen. Erst wenn der Website-Administrator sie dort aktiviert, gibt dieses Plugin eine notranslate-Anweisung für Google aus."
+
+#: includes/WebsiteFunctions/Settings.php:623
+msgid "The instruction concerns translation features in Google Search. It is not an access restriction and does not prevent visitors from translating content themselves."
+msgstr "Die Anweisung betrifft Übersetzungsfunktionen in der Google-Suche. Sie ist keine Zugriffssperre und verhindert nicht, dass Besucher Inhalte selbst übersetzen."
+
+#: includes/WebsiteFunctions/Settings.php:624
+msgid "When this network permission is off, the local option is hidden and this plugin stops outputting the instruction. Saved local preferences are retained and apply again if permission is restored."
+msgstr "Ist diese Netzwerkfreigabe ausgeschaltet, wird die lokale Option ausgeblendet und dieses Plugin gibt die Anweisung nicht mehr aus. Gespeicherte lokale Vorgaben bleiben erhalten und gelten wieder, sobald die Freigabe erneut erteilt wird."
+
+#: includes/WebsiteFunctions/Settings.php:641
+msgid "Ask Google not to offer translated search results for this website"
+msgstr "Google anweisen, für diese Website keine übersetzten Suchergebnisse anzubieten"
+
+#: includes/WebsiteFunctions/Settings.php:643
+msgid "Outputs a notranslate instruction for Google on the public website while the network allows this setting. Visitors can still translate content themselves."
+msgstr "Gibt auf der öffentlichen Website eine notranslate-Anweisung für Google aus, solange das Netzwerk diese Einstellung freigibt. Besucher können Inhalte weiterhin selbst übersetzen."
+
+#: includes/WebsiteFunctions/Settings.php:557
+msgid "Disables Google Fonts in supported themes and plugins. Other integrations can still load external fonts; this is not a general block on font requests."
+msgstr "Deaktiviert Google Fonts in unterstützten Themes und Plugins. Andere Einbindungen können weiterhin externe Schriften laden. Dies ist keine allgemeine Sperre für Schriftanfragen."
+
 #: includes/Mail/Settings.php:115
 #: includes/Plugins/Settings.php:440
 msgid "Allowed Domains"
@@ -1624,6 +1932,7 @@ msgstr "Plugins"
 #: includes/Settings.php:123
 #: includes/Media/Settings.php:148
 #: includes/Heartbeat/Settings.php:182
+#: includes/WebsiteFunctions/Settings.php:151
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
@@ -1964,6 +2273,7 @@ msgstr "Zum Plugin springen"
 #: includes/Writing/Settings.php:192
 #: includes/Media/Settings.php:141
 #: includes/Heartbeat/Settings.php:175
+#: includes/WebsiteFunctions/Settings.php:144
 msgid "Back to overview"
 msgstr "Zur Übersicht"
 
@@ -2595,122 +2905,15 @@ msgstr "Diese netzwerkweite Liste wird durch Helper::userCanViewDebugLog() ausge
 msgid "Debug information may contain internal details or personal data. Add only accounts that need this information for support; removing a login withdraws this additional permission."
 msgstr "Debug-Informationen können interne Details oder personenbezogene Daten enthalten. Tragen Sie nur Konten ein, die diese Informationen für den Support benötigen. Das Entfernen eines Logins entzieht diese Zusatzberechtigung."
 
-#: includes/WebsiteFunctions/Settings.php:77
-#: includes/WebsiteFunctions/Settings.php:78
-msgid "Website Functions"
-msgstr "Website Funktionen"
-
-#: includes/WebsiteFunctions/Settings.php:136
+#: includes/WebsiteFunctions/Settings.php:170
+#: includes/WebsiteFunctions/Settings.php:495
 msgid "XML-RPC"
 msgstr "XML-RPC"
 
-#: includes/WebsiteFunctions/Settings.php:144
-msgid "Admin email verification"
-msgstr "Admin-E-Mail-Bestätigung"
-
-#: includes/WebsiteFunctions/Settings.php:152
-msgid "Emoji"
-msgstr "Emoji"
-
-#: includes/WebsiteFunctions/Settings.php:160
+#: includes/WebsiteFunctions/Settings.php:202
+#: includes/WebsiteFunctions/Settings.php:558
 msgid "Google Fonts"
 msgstr "Google-Schriften"
-
-#: includes/WebsiteFunctions/Settings.php:168
-msgid "Discussion"
-msgstr "Diskussion"
-
-#: includes/WebsiteFunctions/Settings.php:175
-msgid "Discussion Defaults"
-msgstr "Diskussions-Standards"
-
-#: includes/WebsiteFunctions/Settings.php:183
-msgid "Disable Avatars"
-msgstr "Avatare deaktivieren"
-
-#: includes/WebsiteFunctions/Settings.php:206
-msgid "Other Functions"
-msgstr "Sonstige Funktionen"
-
-#: includes/WebsiteFunctions/Settings.php:213
-msgid "Delete Website"
-msgstr "Website löschen"
-
-#: includes/WebsiteFunctions/Settings.php:221
-msgid "Privacy Options"
-msgstr "Datenschutzoptionen"
-
-#: includes/WebsiteFunctions/Settings.php:229
-msgid "Disable AI Functionality"
-msgstr "KI-Funktionalität deaktivieren"
-
-#: includes/WebsiteFunctions/Settings.php:237
-msgid "Hide AI Connector Page for Users"
-msgstr "KI-Connector-Seite für Benutzer ausblenden"
-
-#: includes/WebsiteFunctions/Settings.php:245
-msgid "Disable Font Library in Admin Dashboard"
-msgstr "Schriftartenbibliothek im Admin-Dashboard deaktivieren"
-
-#: includes/WebsiteFunctions/Settings.php:309
-msgid "Additional website-related functions that are applied across the multisite network."
-msgstr "Weitere websitebezogene Funktionen, die im gesamten Multisite-Netzwerk angewendet werden."
-
-#: includes/WebsiteFunctions/Settings.php:319
-msgid "General website features that are applied across the multisite network."
-msgstr "Allgemeine Website-Funktionen, die im gesamten Multisite-Netzwerk angewendet werden."
-
-#: includes/WebsiteFunctions/Settings.php:329
-msgid "Network administrators can centrally configure discussion settings across the multisite network."
-msgstr "Netzwerkadministratoren können Diskussionseinstellungen im gesamten Multisite-Netzwerk zentral konfigurieren."
-
-#: includes/WebsiteFunctions/Settings.php:354
-msgid "Disables the delete site feature"
-msgstr "Deaktiviert die Funktion zum Löschen der Website"
-
-#: includes/WebsiteFunctions/Settings.php:370
-msgid "Disables the privacy settings"
-msgstr "Deaktiviert die Datenschutzeinstellungen"
-
-#: includes/WebsiteFunctions/Settings.php:386
-msgid "Disable AI functionality in WordPress."
-msgstr "Deaktiviert KI-Funktionalität in WordPress."
-
-#: includes/WebsiteFunctions/Settings.php:402
-msgid "Hide the AI Connectors settings page for users and block direct access."
-msgstr "Blendet die Einstellungsseite für KI-Connectors für Benutzer aus und blockiert den direkten Zugriff."
-
-#: includes/WebsiteFunctions/Settings.php:418
-msgid "Hide the Font Library page in the admin dashboard and block direct access."
-msgstr "Blendet die Schriftartenbibliothek im Admin-Dashboard aus und blockiert den direkten Zugriff."
-
-#: includes/WebsiteFunctions/Settings.php:434
-msgid "Disables the XML-RPC API"
-msgstr "Deaktiviert die XML-RPC-API"
-
-#: includes/WebsiteFunctions/Settings.php:450
-msgid "Disables the admin email verification check"
-msgstr "Deaktiviert die Überprüfung der Administrator-E-Mail-Verifizierung"
-
-#: includes/WebsiteFunctions/Settings.php:466
-msgid "Disables Emoji graphics"
-msgstr "Deaktiviert Emoji-Grafiken"
-
-#: includes/WebsiteFunctions/Settings.php:482
-msgid "Disables loading of Google Fonts"
-msgstr "Deaktiviert das Laden von Google-Schriften"
-
-#: includes/WebsiteFunctions/Settings.php:498
-msgid "Apply restrictive discussion defaults"
-msgstr "Restriktive Diskussions-Standards anwenden"
-
-#: includes/WebsiteFunctions/Settings.php:500
-msgid "For new websites, comments and pingbacks are disabled by default and commenting requires a login. Across the network, new posts and pages get closed comments by default, and anonymous commenting is blocked."
-msgstr "Bei neuen Websites werden Kommentare und Pingbacks standardmäßig deaktiviert, und Kommentieren erfordert eine Anmeldung. Netzwerkweit werden Kommentare für neue Beiträge und Seiten standardmäßig geschlossen, und anonymes Kommentieren wird blockiert."
-
-#: includes/WebsiteFunctions/Settings.php:515
-msgid "Disable avatars settings"
-msgstr "Avatareinstellungen deaktivieren"
 
 #: includes/Writing/Settings.php:215
 #: includes/Writing/Settings.php:272
@@ -2845,31 +3048,6 @@ msgstr "Die Bestätigungsphrase stimmt nicht überein."
 #: src/general/admin-role-threshold-warning.js:129
 msgid "Proceed anyway"
 msgstr "Trotzdem fortfahren"
-
-#: includes/WebsiteFunctions/Settings.php:191
-#: includes/WebsiteFunctions/Settings.php:277
-msgid "Metatags"
-msgstr "Metatags"
-
-#: includes/WebsiteFunctions/Settings.php:198
-msgid "Google Notranslate"
-msgstr "Google Notranslate"
-
-#: includes/WebsiteFunctions/Settings.php:284
-msgid "Google Translate"
-msgstr "Google Translate"
-
-#: includes/WebsiteFunctions/Settings.php:339
-msgid "Controls which metatag settings website administrators can configure locally."
-msgstr "Steuert, welche Metatag-Einstellungen Website-Administratoren lokal konfigurieren können."
-
-#: includes/WebsiteFunctions/Settings.php:531
-msgid "Allow website administrators to tell Googlebot that this website should not be offered by Google as a translated copy."
-msgstr "Erlaube es Website-Administratoren, dem Googlebot mitzuteilen, dass diese Website nicht von Google in einer übersetzten Kopie angeboten werden soll."
-
-#: includes/WebsiteFunctions/Settings.php:546
-msgid "Prevent Google from creating a copy of the website in other languages and offering it under its own domain."
-msgstr "Verbiete es Google, eine Kopie der Website in anderen Sprachen anzulegen und unter eigener Domain anzubieten."
 
 #: includes/Feed.php:111
 #: includes/Feed.php:144

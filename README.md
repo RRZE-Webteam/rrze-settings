@@ -77,6 +77,17 @@ its scope and effects on existing files, with expandable examples and readable
 text widths. See the [German user guide for Media settings](docs/media-settings.md)
 for SVG upload dependencies, resizing behavior, file replacement and classifications.
 
+### Functions and services
+
+Under **Network Admin > CMS > Functions and Services** (formerly **Website
+Functions**), configure interfaces and AI, appearance and fonts, comments and
+avatars, website administration and local Google translation preferences.
+A section index, highlighted anchor targets and expandable field guidance explain
+the difference between disabling a function, blocking its administration page
+and granting a local choice. See the
+[German user guide for Functions and Services](docs/website-functions-settings.md)
+for scope, defaults and effects on saved website options.
+
 ### Heartbeat settings
 
 Under **Network Admin > CMS > Heartbeat**, configure where background requests

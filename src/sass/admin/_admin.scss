@@ -7,6 +7,8 @@
 .rrze-settings-media,
 .rrze-settings-heartbeat-page,
 .rrze-settings-heartbeat,
+.rrze-settings-website-functions-page,
+.rrze-settings-website-functions,
 .rrze-settings-editor-page,
 .rrze-settings-editor-section,
 .rrze-settings-plugins-page {
@@ -51,18 +53,22 @@
 
 /* Native anchor navigation keeps each settings page in one shared form. */
 .rrze-settings-media-page,
-.rrze-settings-heartbeat-page {
+.rrze-settings-heartbeat-page,
+.rrze-settings-website-functions-page {
     max-width: 1040px;
 
     #rrze-settings-media-index,
     #rrze-settings-heartbeat-index,
+    #rrze-settings-website-functions-index,
     .rrze-settings-media,
-    .rrze-settings-heartbeat {
+    .rrze-settings-heartbeat,
+    .rrze-settings-website-functions {
         scroll-margin-top: 64px;
     }
 
     #rrze-settings-media-index,
-    #rrze-settings-heartbeat-index {
+    #rrze-settings-heartbeat-index,
+    #rrze-settings-website-functions-index {
         margin-block: 24px;
 
         ul {
@@ -78,7 +84,8 @@
     }
 
     .rrze-settings-media,
-    .rrze-settings-heartbeat {
+    .rrze-settings-heartbeat,
+    .rrze-settings-website-functions {
         padding-block: 24px;
         padding-inline: 16px;
         // The first border separates the overview from the form.
@@ -93,7 +100,8 @@
     }
 
     .rrze-settings-media-heading,
-    .rrze-settings-heartbeat-heading {
+    .rrze-settings-heartbeat-heading,
+    .rrze-settings-website-functions-heading {
         display: flex;
         align-items: baseline;
         justify-content: space-between;

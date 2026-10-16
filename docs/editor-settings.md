@@ -124,7 +124,9 @@ Inhaltsbereinigung für Importe, API-Anfragen oder andere Bearbeitungswege.
 
 Das Ausblenden einer Quelle löscht keine bereits eingefügten Inhalte.
 Die separate Verwaltungsseite der Schriftartenbibliothek wird unter
-**CMS → Erweitert** gesteuert. Andere Plugins können eigene Quellen bereitstellen.
+**CMS → Funktionen und Dienste → Darstellung und Schriften** gesteuert.
+Weitere Hinweise enthält die [Dokumentation zu Funktionen und Diensten](website-functions-settings.md).
+Andere Plugins können eigene Quellen bereitstellen.
 
 ## Code und eigene Felder
 
