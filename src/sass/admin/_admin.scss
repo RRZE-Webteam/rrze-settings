@@ -5,6 +5,8 @@
 .rrze-settings-posts,
 .rrze-settings-menus,
 .rrze-settings-media,
+.rrze-settings-heartbeat-page,
+.rrze-settings-heartbeat,
 .rrze-settings-editor-page,
 .rrze-settings-editor-section,
 .rrze-settings-plugins-page {
@@ -41,16 +43,26 @@
     box-sizing: border-box;
 }
 
-/* Native anchor navigation keeps all media settings in the same form. */
-.rrze-settings-media-page {
+.rrze-settings-heartbeat textarea {
+    width: 100%;
+    max-width: 70ch;
+    box-sizing: border-box;
+}
+
+/* Native anchor navigation keeps each settings page in one shared form. */
+.rrze-settings-media-page,
+.rrze-settings-heartbeat-page {
     max-width: 1040px;
 
     #rrze-settings-media-index,
-    .rrze-settings-media {
+    #rrze-settings-heartbeat-index,
+    .rrze-settings-media,
+    .rrze-settings-heartbeat {
         scroll-margin-top: 64px;
     }
 
-    #rrze-settings-media-index {
+    #rrze-settings-media-index,
+    #rrze-settings-heartbeat-index {
         margin-block: 24px;
 
         ul {
@@ -65,7 +77,8 @@
         a { display: inline-block; padding-block: 5px; }
     }
 
-    .rrze-settings-media {
+    .rrze-settings-media,
+    .rrze-settings-heartbeat {
         padding-block: 24px;
         padding-inline: 16px;
         // The first border separates the overview from the form.
@@ -79,7 +92,8 @@
         }
     }
 
-    .rrze-settings-media-heading {
+    .rrze-settings-media-heading,
+    .rrze-settings-heartbeat-heading {
         display: flex;
         align-items: baseline;
         justify-content: space-between;

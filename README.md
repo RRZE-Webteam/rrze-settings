@@ -77,6 +77,15 @@ its scope and effects on existing files, with expandable examples and readable
 text widths. See the [German user guide for Media settings](docs/media-settings.md)
 for SVG upload dependencies, resizing behavior, file replacement and classifications.
 
+### Heartbeat settings
+
+Under **Network Admin > CMS > Heartbeat**, configure where background requests
+are allowed, their default intervals and role exceptions. The page explains
+interval precedence, editor safeguards and the separate block-editor autosave
+setting. Invalid role JSON retains the saved rules and reports an error.
+See the [German user guide for Heartbeat settings](docs/heartbeat-settings.md)
+for examples and defaults.
+
 ### Plugin settings
 
 Under **Network Admin > CMS > Plugins**, available plugin sections appear on one

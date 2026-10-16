@@ -545,75 +545,13 @@ msgstr "Sichtbarer Name für Websupport-Benutzer in Benutzerfiltern und Benutzer
 
 #: includes/Heartbeat/Settings.php:34
 #: includes/Heartbeat/Settings.php:35
-#: includes/Heartbeat/Settings.php:127
 msgid "Heartbeat"
 msgstr "Heartbeat"
 
-#: includes/Heartbeat/Settings.php:134
-msgid "Disable Heartbeat On Frontend"
-msgstr "Heartbeat im Frontend deaktivieren"
-
-#: includes/Heartbeat/Settings.php:140
-msgid "Disable Heartbeat on the frontend for non-logged-in users (e.g., visitors)."
-msgstr "Deaktiviere Heartbeat im Frontend für nicht eingeloggte Nutzer (z. B. Besucher)."
-
-#: includes/Heartbeat/Settings.php:146
-msgid "Disable Heartbeat In Admin Area"
-msgstr "Heartbeat im Admin-Bereich deaktivieren"
-
-#: includes/Heartbeat/Settings.php:152
-msgid "Disable Heartbeat in the admin area (except on post editor screens)."
-msgstr "Deaktiviere Heartbeat im Admin-Bereich (außer auf Posts-Editor-Screens)."
-
-#: includes/Heartbeat/Settings.php:158
-msgid "Force JS interval To Slow"
-msgstr "Erzwinge langsames JS-Intervall"
-
-#: includes/Heartbeat/Settings.php:164
-msgid "Set the JavaScript interval to “slow” (about 60s) in the admin area as a fallback if other settings do not apply."
-msgstr "Setze das JavaScript-Intervall im Admin-Bereich auf „slow“ (ca. 60 s) als Fallback, falls andere Einstellungen nicht greifen."
-
-#: includes/Heartbeat/Settings.php:170
-msgid "Editor interval"
-msgstr "Editor-Intervall"
-
-#: includes/Heartbeat/Settings.php:178
-#: includes/Heartbeat/Settings.php:193
 #: includes/Writing/Settings.php:614
+#: includes/Heartbeat/Settings.php:409
 msgid "seconds"
 msgstr "Sekunden"
-
-#: includes/Heartbeat/Settings.php:179
-msgid "Interval for post editors (seconds)."
-msgstr "Intervall für Posts-Editoren (Sekunden)."
-
-#: includes/Heartbeat/Settings.php:185
-msgid "Admin Interval"
-msgstr "Admin-Intervall"
-
-#: includes/Heartbeat/Settings.php:194
-msgid "Interval for other admin pages (seconds)."
-msgstr "Intervall für andere Admin-Seiten (Sekunden)."
-
-#: includes/Heartbeat/Settings.php:200
-msgid "Role Overrides"
-msgstr "Rollen-Überschreibungen"
-
-#: includes/Heartbeat/Settings.php:207
-msgid "Set custom Heartbeat intervals per role. Provide a JSON object where each role key contains two values: editor for post editor screens and default for other admin pages. Intervals are in seconds. Example: {\"administrator\":{\"editor\":15,\"default\":60},\"editor\":{\"editor\":30,\"default\":90},\"author\":{\"editor\":45,\"default\":120}}."
-msgstr "Benutzerdefinierte Heartbeat-Intervalle pro Rolle festlegen. Es ist ein JSON-Objekt anzugeben, bei dem jeder Rollenschlüssel zwei Werte enthält: „editor“ für Beitragseditor-Seiten und „default“ für andere Admin-Seiten. Die Intervalle werden in Sekunden angegeben. Beispiel: {\"administrator\":{\"editor\":15,\"default\":60},\"editor\":{\"editor\":30,\"default\":90},\"author\":{\"editor\":45,\"default\":120}}."
-
-#: includes/Heartbeat/Settings.php:213
-msgid "Allowed Admin Page Hooks"
-msgstr "Erlaubte Admin-Seiten-Hooks"
-
-#: includes/Heartbeat/Settings.php:220
-msgid "List of admin page hooks where Heartbeat is always allowed (one per line). Post editors (post.php, post-new.php) and the Site Editor are always allowed."
-msgstr "Liste der Admin-Seiten-Hooks, auf denen Heartbeat immer erlaubt ist (ein Eintrag pro Zeile). Beitrags-Editoren (post.php, post-new.php) und der Site-Editor sind immer erlaubt."
-
-#: includes/Heartbeat/Settings.php:232
-msgid "This page enables network administrators to manage heartbeat-related settings across the multisite network."
-msgstr "Auf dieser Seite können Netzwerk-Administratoren die Heartbeat-bezogenen Einstellungen im gesamten Multisite-Netzwerk verwalten."
 
 #: includes/Mail/AdminEmail.php:107
 msgid "Admin Email"
@@ -774,6 +712,7 @@ msgstr "Verwalten Sie Website-Plugins, die nicht zusammen mit dem Block-Editor l
 
 #: includes/Writing/Settings.php:182
 #: includes/Media/Settings.php:131
+#: includes/Heartbeat/Settings.php:165
 msgid "On this page"
 msgstr "Auf dieser Seite"
 
@@ -1368,6 +1307,177 @@ msgstr "Stimmen Sie die Einträge mit Upload-Dateitypen unter Netzwerkverwaltung
 msgid "A mapping describes a file type; it does not add a preview generator or clean the file content. For SVG processing, use the separate SVG option above. Empty: this plugin adds no custom mappings; WordPress and other plugins may still allow those types."
 msgstr "Eine Zuordnung beschreibt einen Dateityp; sie ergänzt weder eine Vorschauerzeugung noch eine Inhaltsbereinigung. Für die SVG-Verarbeitung gibt es oben eine eigene Option. Leer: Dieses Plugin ergänzt keine eigenen Zuordnungen; WordPress und andere Plugins können die Typen weiterhin erlauben."
 
+#: includes/Heartbeat/Settings.php:95
+msgid "Use a JSON object with role names and whole-second editor/default intervals. The previous role exceptions were kept; the other settings were saved."
+msgstr "Verwenden Sie ein JSON-Objekt mit Rollennamen und editor/default-Intervallen in ganzen Sekunden. Die bisherigen Rollen-Ausnahmen wurden beibehalten; die übrigen Einstellungen wurden gespeichert."
+
+#: includes/Heartbeat/Settings.php:138
+msgid "Where Heartbeat Runs"
+msgstr "Einsatzbereiche"
+
+#: includes/Heartbeat/Settings.php:142
+msgid "Default Intervals"
+msgstr "Standardintervalle"
+
+#: includes/Heartbeat/Settings.php:146
+msgid "Role Exceptions"
+msgstr "Rollen-Ausnahmen"
+
+#: includes/Heartbeat/Settings.php:199
+#: includes/Heartbeat/Settings.php:205
+msgid "Public Website"
+msgstr "Öffentliche Website"
+
+#: includes/Heartbeat/Settings.php:206
+msgid "Disable Heartbeat for visitors who are not logged in"
+msgstr "Heartbeat für nicht angemeldete Besucher abschalten"
+
+#: includes/Heartbeat/Settings.php:207
+msgid "Stops this plugin from providing the Heartbeat script on public pages for logged-out visitors. Logged-in visitors and the Customizer preview are excluded."
+msgstr "Entfernt das Heartbeat-Skript auf öffentlichen Seiten für nicht angemeldete Besucher. Angemeldete Besucher und die Customizer-Vorschau sind ausgenommen."
+
+#: includes/Heartbeat/Settings.php:209
+msgid "Useful only if a theme or plugin loads Heartbeat on public pages. It does not disable all AJAX requests, REST requests or scheduled WordPress tasks."
+msgstr "Wirkt nur, wenn ein Theme oder Plugin Heartbeat auf öffentlichen Seiten lädt. Andere AJAX-Anfragen, REST-Anfragen und geplante WordPress-Aufgaben werden dadurch nicht abgeschaltet."
+
+#: includes/Heartbeat/Settings.php:210
+msgid "Disabled: this plugin no longer removes Heartbeat there. It does not automatically load Heartbeat on every page."
+msgstr "Deaktiviert: Dieses Plugin entfernt Heartbeat dort nicht mehr. Es lädt Heartbeat dadurch nicht automatisch auf jeder Seite."
+
+#: includes/Heartbeat/Settings.php:217
+#: includes/Heartbeat/Settings.php:223
+msgid "Administration Outside Editors"
+msgstr "Verwaltung außerhalb der Editoren"
+
+#: includes/Heartbeat/Settings.php:224
+msgid "Disable Heartbeat on other administration pages"
+msgstr "Heartbeat auf anderen Verwaltungsseiten abschalten"
+
+#: includes/Heartbeat/Settings.php:227
+msgid "This applies to all users, including super administrators. Plugin status displays, login-status checks or other Heartbeat-dependent updates may stop on affected pages."
+msgstr "Gilt für alle Benutzer einschließlich Superadministratoren. Statusanzeigen von Plugins, Anmeldestatus-Prüfungen und andere Heartbeat-abhängige Aktualisierungen können auf betroffenen Seiten entfallen."
+
+#: includes/Heartbeat/Settings.php:228
+msgid "The legacy Site Editor address with page=gutenberg-edit-site is also protected. The current site-editor.php screen is not automatically included; add site-editor.php to the exceptions below if it needs Heartbeat."
+msgstr "Die ältere Website-Editor-Adresse mit page=gutenberg-edit-site ist ebenfalls geschützt. Die aktuelle Seite site-editor.php ist nicht automatisch ausgenommen; tragen Sie site-editor.php unten ein, wenn sie Heartbeat benötigt."
+
+#: includes/Heartbeat/Settings.php:229
+msgid "Switching this off allows Heartbeat again on administration pages. The configured intervals still apply."
+msgstr "Beim Ausschalten ist Heartbeat auf Verwaltungsseiten wieder zulässig. Die eingestellten Intervalle gelten weiterhin."
+
+#: includes/Heartbeat/Settings.php:236
+#: includes/Heartbeat/Settings.php:242
+msgid "Additional Administration Exceptions"
+msgstr "Weitere Ausnahmen in der Verwaltung"
+
+#: includes/Heartbeat/Settings.php:244
+msgid "Keeps Heartbeat available on these pages when the administration restriction above is enabled. Enter one exact WordPress page hook per line, for example index.php for the dashboard."
+msgstr "Erhält Heartbeat auf diesen Seiten, wenn die Einschränkung der Verwaltung oben aktiv ist. Tragen Sie pro Zeile eine genaue WordPress-Seitenkennung ein, beispielsweise index.php für das Dashboard."
+
+#: includes/Heartbeat/Settings.php:246
+msgid "Use hook names, not full URLs, menu labels or wildcard patterns. Examples: index.php for the dashboard, upload.php for the media library, site-editor.php for the Site Editor. Plugin pages use their registered hook suffix."
+msgstr "Verwenden Sie Seitenkennungen, keine vollständigen URLs, Menünamen oder Platzhalter. Beispiele: index.php für das Dashboard, upload.php für die Mediathek, site-editor.php für den Website-Editor. Plugin-Seiten verwenden ihren registrierten Hook-Suffix."
+
+#: includes/Heartbeat/Settings.php:247
+msgid "Empty: no additional exceptions. The automatically protected content-editor screens remain exempt. Duplicate entries are combined. This list permits the script; it does not force it to load or choose an interval."
+msgstr "Leer: keine zusätzlichen Ausnahmen. Die automatisch geschützten Inhaltseditoren bleiben ausgenommen. Doppelte Einträge werden zusammengeführt. Diese Liste erlaubt das Skript; sie erzwingt weder sein Laden noch ein bestimmtes Intervall."
+
+#: includes/Heartbeat/Settings.php:254
+#: includes/Heartbeat/Settings.php:260
+msgid "Content Editor Interval"
+msgstr "Intervall im Inhaltseditor"
+
+#: includes/Heartbeat/Settings.php:263
+msgid "Default interval for content-editor screens, in seconds. Minimum and initial default: 15 seconds. A matching role exception takes precedence."
+msgstr "Standardintervall für Inhaltseditoren in Sekunden. Mindestwert und anfänglicher Standard: 15 Sekunden. Eine passende Rollen-Ausnahme hat Vorrang."
+
+#: includes/Heartbeat/Settings.php:265
+msgid "Heartbeat supports editing-lock updates and classic-editor autosave, among other tasks. Long intervals can delay these updates; if lock refreshes arrive after the lock expires, collaborative editing can be affected."
+msgstr "Heartbeat unterstützt unter anderem die Aktualisierung von Bearbeitungssperren und Autosave im klassischen Editor. Lange Intervalle können diese Aktualisierungen verzögern. Treffen Sperrsignale erst nach Ablauf der Sperre ein, kann die gemeinsame Bearbeitung beeinträchtigt werden."
+
+#: includes/Heartbeat/Settings.php:266
+msgid "Block-editor autosave is configured under CMS > Editor. If its Heartbeat synchronization is enabled, it uses twice this saved default, at least 60 seconds, even when a role exception gives Heartbeat a different interval."
+msgstr "Autosave im Block-Editor wird unter CMS > Editor eingestellt. Bei aktivierter Heartbeat-Abstimmung gilt das Doppelte dieses gespeicherten Standardwerts, mindestens 60 Sekunden, auch wenn eine Rollen-Ausnahme für Heartbeat ein anderes Intervall vorgibt."
+
+#: includes/Heartbeat/Settings.php:273
+#: includes/Heartbeat/Settings.php:279
+msgid "Other Administration Interval"
+msgstr "Intervall in der übrigen Verwaltung"
+
+#: includes/Heartbeat/Settings.php:282
+msgid "Default interval for other administration pages where Heartbeat is available. Minimum and initial default: 60 seconds. Role exceptions take precedence."
+msgstr "Standardintervall für andere Verwaltungsseiten, auf denen Heartbeat verfügbar ist. Mindestwert und anfänglicher Standard: 60 Sekunden. Rollen-Ausnahmen haben Vorrang."
+
+#: includes/Heartbeat/Settings.php:284
+msgid "Example: changing 60 to 120 roughly halves regular requests from an active page, but status updates can take longer. This is not a guaranteed request limit for the whole website."
+msgstr "Beispiel: Ein Wechsel von 60 auf 120 halbiert ungefähr die regelmäßigen Anfragen einer aktiven Seite. Statusänderungen können dadurch später erscheinen. Dies ist keine garantierte Anfragegrenze für die gesamte Website."
+
+#: includes/Heartbeat/Settings.php:285
+msgid "This value does not re-enable Heartbeat on disabled pages and does not set its interval on the public website. The current site-editor.php screen uses this administration default unless a role exception applies."
+msgstr "Dieser Wert aktiviert Heartbeat nicht auf abgeschalteten Seiten und bestimmt nicht den Takt auf der öffentlichen Website. Die aktuelle Seite site-editor.php verwendet diese Verwaltungsvorgabe, sofern keine Rollen-Ausnahme greift."
+
+#: includes/Heartbeat/Settings.php:292
+#: includes/Heartbeat/Settings.php:298
+msgid "Apply the Interval in the Browser"
+msgstr "Intervall im Browser nachsetzen"
+
+#: includes/Heartbeat/Settings.php:299
+msgid "Set the calculated interval again when the administration page loads"
+msgstr "Berechnetes Intervall beim Laden der Verwaltungsseite erneut setzen"
+
+#: includes/Heartbeat/Settings.php:300
+msgid "Applies the same calculated interval, including role exceptions, through JavaScript. This does not set a fixed 60-second interval and does not re-enable a disabled Heartbeat script."
+msgstr "Setzt dasselbe berechnete Intervall einschließlich Rollen-Ausnahmen zusätzlich per JavaScript. Die Option stellt keinen festen 60-Sekunden-Takt ein und aktiviert kein abgeschaltetes Heartbeat-Skript."
+
+#: includes/Heartbeat/Settings.php:302
+msgid "Use when the initial PHP interval setting is not being applied as expected. The browser call runs once when the page is ready; later changes by WordPress or other plugins can still take effect."
+msgstr "Für Fälle, in denen die anfängliche PHP-Intervallvorgabe nicht wie erwartet greift. Der Browser-Aufruf läuft einmal, sobald die Seite bereit ist. Spätere Änderungen durch WordPress oder andere Plugins bleiben möglich."
+
+#: includes/Heartbeat/Settings.php:303
+msgid "Disabled: the PHP interval setting remains active; only the additional JavaScript call is omitted."
+msgstr "Deaktiviert: Die PHP-Intervallvorgabe bleibt aktiv; nur der zusätzliche JavaScript-Aufruf entfällt."
+
+#: includes/Heartbeat/Settings.php:310
+#: includes/Heartbeat/Settings.php:316
+msgid "Intervals by User Role"
+msgstr "Intervalle nach Benutzerrolle"
+
+#: includes/Heartbeat/Settings.php:318
+msgid "Enter a JSON object with technical role names such as administrator, editor or author. Use editor for content-editor screens and default for other administration pages. Minimums: editor 15 seconds, default 60 seconds."
+msgstr "Tragen Sie ein JSON-Objekt mit technischen Rollennamen wie administrator, editor oder author ein. editor gilt für Inhaltseditoren, default für andere Verwaltungsseiten. Mindestwerte: editor 15 Sekunden, default 60 Sekunden."
+
+#: includes/Heartbeat/Settings.php:320
+msgid "Example: {\"editor\":{\"editor\":30,\"default\":90}} gives users with the editor role a 30-second content-editor interval and 90 seconds elsewhere. Use whole seconds and double quotes; JSON does not allow comments or trailing commas."
+msgstr "Beispiel: {\"editor\":{\"editor\":30,\"default\":90}} gibt Benutzern mit der Rolle editor im Inhaltseditor 30 Sekunden und sonst 90 Sekunden vor. Verwenden Sie ganze Sekunden und doppelte Anführungszeichen; JSON erlaubt keine Kommentare oder abschließenden Kommas."
+
+#: includes/Heartbeat/Settings.php:321
+msgid "If a role has no editor value, its default value also applies in the content editor. With multiple roles, the first applicable entry in the user’s stored role order wins. This is not necessarily the fastest interval or the most privileged role."
+msgstr "Fehlt bei einer Rolle editor, gilt ihr default-Wert auch im Inhaltseditor. Bei mehreren Rollen gewinnt der erste passende Eintrag in der gespeicherten Rollenreihenfolge des Benutzers. Das ist nicht zwingend das kürzeste Intervall oder die Rolle mit den meisten Rechten."
+
+#: includes/Heartbeat/Settings.php:322
+msgid "An empty field or {} removes all role exceptions and uses the default intervals above. Invalid JSON or invalid role entries retain the previous rules and show an error after saving; the other settings are saved."
+msgstr "Ein leeres Feld oder {} entfernt alle Rollen-Ausnahmen und verwendet die Standardintervalle oben. Ungültiges JSON oder ungültige Rolleneinträge erhalten die bisherigen Regeln und zeigen nach dem Speichern einen Fehler; die übrigen Einstellungen werden gespeichert."
+
+#: includes/Heartbeat/Settings.php:335
+msgid "Heartbeat is WordPress’s regular background connection to the server. It supports editing locks, login-status checks and classic-editor autosave. These settings apply throughout the network; reload affected pages after saving."
+msgstr "Heartbeat ist die regelmäßige Hintergrundverbindung von WordPress zum Server. Sie unterstützt Bearbeitungssperren, Anmeldestatus-Prüfungen und Autosave im klassischen Editor. Diese Einstellungen gelten im gesamten Netzwerk; laden Sie betroffene Seiten nach dem Speichern neu."
+
+#: includes/Heartbeat/Settings.php:355
+msgid "These defaults apply where Heartbeat is available and no role exception takes precedence. Longer intervals reduce regular requests but delay updates. Inactive browser tabs and other plugins can change the actual timing."
+msgstr "Diese Vorgaben gelten dort, wo Heartbeat verfügbar ist und keine Rollen-Ausnahme Vorrang hat. Längere Intervalle reduzieren regelmäßige Anfragen, verzögern aber Aktualisierungen. Inaktive Browser-Tabs und andere Plugins können den tatsächlichen Takt verändern."
+
+#: includes/Heartbeat/Settings.php:365
+msgid "Role exceptions override the defaults above. They change timing, not permissions, and do not enable Heartbeat on a disabled screen."
+msgstr "Rollen-Ausnahmen überschreiben die Standardintervalle oben. Sie ändern den Takt, keine Berechtigungen, und aktivieren Heartbeat nicht auf einer abgeschalteten Seite."
+
+#: includes/Heartbeat/Settings.php:225
+msgid "Keeps Heartbeat available in classic and block content editors and on the listed exception pages. Other administration pages lose this script."
+msgstr "Erhält Heartbeat im klassischen und im Block-Inhaltseditor sowie auf den eingetragenen Ausnahme-Seiten. Auf anderen Verwaltungsseiten entfällt dieses Skript."
+
+#: includes/Heartbeat/Settings.php:345
+msgid "Choose where this plugin should stop loading Heartbeat. Content editors and the exceptions below remain available. Disabling Heartbeat can stop live updates supplied by WordPress or other plugins."
+msgstr "Legen Sie fest, wo dieses Plugin Heartbeat nicht mehr laden soll. Inhaltseditoren und die Ausnahmen unten bleiben freigegeben. Das Abschalten kann Live-Aktualisierungen von WordPress oder anderen Plugins unterbrechen."
+
 #: includes/Mail/Settings.php:115
 #: includes/Plugins/Settings.php:440
 msgid "Allowed Domains"
@@ -1513,6 +1623,7 @@ msgstr "Plugins"
 
 #: includes/Settings.php:123
 #: includes/Media/Settings.php:148
+#: includes/Heartbeat/Settings.php:182
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
@@ -1852,6 +1963,7 @@ msgstr "Zum Plugin springen"
 #: includes/Plugins/Settings.php:1185
 #: includes/Writing/Settings.php:192
 #: includes/Media/Settings.php:141
+#: includes/Heartbeat/Settings.php:175
 msgid "Back to overview"
 msgstr "Zur Übersicht"
 
