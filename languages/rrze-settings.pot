@@ -39,72 +39,9 @@ msgstr ""
 msgid "https://www.wp.rrze.fau.de"
 msgstr ""
 
-#: includes/Advanced/Settings.php:42
-#: includes/Advanced/Settings.php:43
-#: includes/Advanced/Settings.php:84
-msgid "Advanced"
-msgstr ""
-
-#: includes/Advanced/Settings.php:91
-msgid "Frontend Style"
-msgstr ""
-
-#: includes/Advanced/Settings.php:99
-msgid "Backend Style"
-msgstr ""
-
-#: includes/Advanced/Settings.php:107
-msgid "BlockEditor iFrame Body Class"
-msgstr ""
-
-#: includes/Advanced/Settings.php:115
 #: includes/Writing/Settings.php:218
 #: includes/Writing/Settings.php:353
 msgid "Theme Exceptions"
-msgstr ""
-
-#: includes/Advanced/Settings.php:123
-msgid "Auto-generate Theme Classes"
-msgstr ""
-
-#: includes/Advanced/Settings.php:131
-msgid "Sentry Mode"
-msgstr ""
-
-#: includes/Advanced/Settings.php:139
-msgid "Monitor Deleted Themes and Plugins"
-msgstr ""
-
-#: includes/Advanced/Settings.php:153
-msgid "This page enables network administrators to centrally manage custom CSS styles for both the frontend and backend of every website in a multisite network, offering fields to input and organize CSS code and ensure advanced customization and consistent branding across the entire network."
-msgstr ""
-
-#: includes/Advanced/Settings.php:170
-msgid "Enter the CSS code which will be added to the frontend of all websites."
-msgstr ""
-
-#: includes/Advanced/Settings.php:187
-msgid "Enter the CSS code which will be added to the backend of all websites."
-msgstr ""
-
-#: includes/Advanced/Settings.php:205
-msgid "Enter a comma-separated list of CSS classes which will be injected into the body tag within the iFrame of the Block Editor."
-msgstr ""
-
-#: includes/Advanced/Settings.php:222
-msgid "Enter a comma-separated list of theme slugs (e.g., twentytwentyone, astra) where the Block Editor Body Class Injection should not be active."
-msgstr ""
-
-#: includes/Advanced/Settings.php:236
-msgid "Automatically generate theme classes and inject them into the iFrame body tag."
-msgstr ""
-
-#: includes/Advanced/Settings.php:251
-msgid "Write a sentry marker file in the WordPress base directory whenever WordPress completes a core, plugin, theme, or translation install/update."
-msgstr ""
-
-#: includes/Advanced/Settings.php:266
-msgid "When Sentry Mode is active, also update the sentry marker file after successful plugin or theme deletions."
 msgstr ""
 
 #: includes/Crawlers/Settings.php:54
@@ -672,6 +609,7 @@ msgstr ""
 #: includes/WebsiteFunctions/Settings.php:134
 #: includes/RestAPI/Settings.php:102
 #: includes/CSP/Settings.php:127
+#: includes/Advanced/Settings.php:104
 msgid "On this page"
 msgstr ""
 
@@ -2117,6 +2055,186 @@ msgstr ""
 msgid "This does not decide which other websites may embed your website. That is the purpose of frame-ancestors, which is not configured on this page. The embedded provider can also refuse embedding through its own response headers."
 msgstr ""
 
+#: includes/Advanced/Settings.php:35
+#: includes/Advanced/Settings.php:36
+msgid "CSS and Operations"
+msgstr ""
+
+#: includes/Advanced/Settings.php:77
+msgid "Network-wide CSS"
+msgstr ""
+
+#: includes/Advanced/Settings.php:81
+msgid "CSS Classes in the Block Editor"
+msgstr ""
+
+#: includes/Advanced/Settings.php:85
+msgid "Operations Marker (Sentry)"
+msgstr ""
+
+#: includes/Advanced/Settings.php:138
+#: includes/Advanced/Settings.php:275
+msgid "Website CSS"
+msgstr ""
+
+#: includes/Advanced/Settings.php:147
+#: includes/Advanced/Settings.php:296
+msgid "Administration CSS"
+msgstr ""
+
+#: includes/Advanced/Settings.php:156
+#: includes/Advanced/Settings.php:317
+msgid "Additional Body Classes"
+msgstr ""
+
+#: includes/Advanced/Settings.php:165
+#: includes/Advanced/Settings.php:338
+msgid "Automatic Theme Class"
+msgstr ""
+
+#: includes/Advanced/Settings.php:173
+#: includes/Advanced/Settings.php:357
+msgid "Themes Without Additional Classes"
+msgstr ""
+
+#: includes/Advanced/Settings.php:182
+#: includes/Advanced/Settings.php:377
+msgid "Update Marker"
+msgstr ""
+
+#: includes/Advanced/Settings.php:190
+#: includes/Advanced/Settings.php:398
+msgid "Deletion Marker"
+msgstr ""
+
+#: includes/Advanced/Settings.php:204
+msgid "Manage custom CSS, additional classes in the Block Editor and a local marker for server automation. These settings apply across the network. All sections are saved together."
+msgstr ""
+
+#: includes/Advanced/Settings.php:214
+msgid "Add CSS for public websites and the WordPress administration. The two fields apply throughout the network. Enter CSS rules without style tags; an empty field adds no CSS."
+msgstr ""
+
+#: includes/Advanced/Settings.php:224
+msgid "Additional body classes let existing editor styles target the editing canvas. They apply to the iframe used by the Block Editor, not to saved blocks or the public website. Classes alone do not load any CSS."
+msgstr ""
+
+#: includes/Advanced/Settings.php:234
+msgid "Provide a local marker file that server automation can read after installations, updates and optionally deletions. This feature does not send notifications or configure an external monitoring service."
+msgstr ""
+
+#: includes/Advanced/Settings.php:272
+msgid "Adds CSS to the public pages of all websites through the normal WordPress style output. Theme and plugin styles continue to apply."
+msgstr ""
+
+#: includes/Advanced/Settings.php:276
+msgid "Example: .site-footer { margin-block-start: 2rem; } changes the spacing only where the theme uses that class. Check the selector on each affected theme."
+msgstr ""
+
+#: includes/Advanced/Settings.php:277
+msgid "This field does not automatically add styles to the Block Editor canvas or login screen. More specific selectors and later rules may override your CSS."
+msgstr ""
+
+#: includes/Advanced/Settings.php:278
+msgid "The form removes HTML tags but does not validate CSS syntax. To remove these additions, clear the field and save. If old styles remain visible, check the affected page caches."
+msgstr ""
+
+#: includes/Advanced/Settings.php:293
+msgid "Adds CSS to WordPress administration pages, including network administration. The rules can affect all users who see those pages."
+msgstr ""
+
+#: includes/Advanced/Settings.php:297
+msgid "Use selectors limited to the intended screen or component. Broad rules for buttons, inputs or navigation can also affect settings pages and editing tools."
+msgstr ""
+
+#: includes/Advanced/Settings.php:298
+msgid "The editing canvas inside an iframe is a separate document. Administration CSS does not automatically style that canvas; matching styles must be loaded into the editor separately."
+msgstr ""
+
+#: includes/Advanced/Settings.php:299
+msgid "This field changes appearance, not permissions. Hiding a control with CSS does not prevent access to its function. An empty field stops adding this CSS after saving."
+msgstr ""
+
+#: includes/Advanced/Settings.php:315
+msgid "Enter class names separated by commas, for example site-layout, editor-preview. Use names without a leading dot and without CSS rules."
+msgstr ""
+
+#: includes/Advanced/Settings.php:318
+msgid "The classes are added to the body element of the editor-canvas iframe. Use letters a-z, digits, hyphens and underscores. Separate multiple names with commas, not just spaces or line breaks."
+msgstr ""
+
+#: includes/Advanced/Settings.php:319
+msgid "An empty field adds no manual classes. Automatic theme classes can still be active. Theme exceptions below disable both kinds of additions on matching websites."
+msgstr ""
+
+#: includes/Advanced/Settings.php:320
+msgid "These classes do not change the Additional CSS class(es) setting of an individual block. Without an editor-canvas iframe, this feature has no target."
+msgstr ""
+
+#: includes/Advanced/Settings.php:335
+msgid "Add the active theme as an editor body class"
+msgstr ""
+
+#: includes/Advanced/Settings.php:337
+msgid "Adds wp-theme- followed by the active theme directory name to the editor iframe body, for example wp-theme-twentytwentyfive."
+msgstr ""
+
+#: includes/Advanced/Settings.php:339
+msgid "With a child theme, the child theme directory name is used. The theme display name and the parent theme name are not added as separate classes."
+msgstr ""
+
+#: includes/Advanced/Settings.php:340
+msgid "Disabled: no automatic theme class is added by this feature. Manual classes still apply unless the active theme is listed as an exception."
+msgstr ""
+
+#: includes/Advanced/Settings.php:355
+msgid "Enter exact theme directory names separated by commas, for example twentytwentyfive, my-child-theme. Matching websites receive neither manual nor automatic body classes from this feature."
+msgstr ""
+
+#: includes/Advanced/Settings.php:358
+msgid "Use the active theme directory name, including its spelling and case. For a child theme, enter the child theme directory. Display names and wildcards are not matched."
+msgstr ""
+
+#: includes/Advanced/Settings.php:359
+msgid "The exception only affects the class additions on this page. Network-wide CSS, the theme itself and existing classes from WordPress or other plugins remain active. An empty list makes no theme exceptions."
+msgstr ""
+
+#: includes/Advanced/Settings.php:374
+msgid "Write a marker after installations and updates"
+msgstr ""
+
+#: includes/Advanced/Settings.php:376
+msgid "Writes .rrze-settings-sentry.json in the WordPress base directory when WordPress reports a completed installation or update of core, plugins, themes or translations."
+msgstr ""
+
+#: includes/Advanced/Settings.php:378
+msgid "The file describes the latest recorded event, including UTC time, action, type and affected items where available. Each new event replaces the previous contents; this is not an event history or a guarantee that every update succeeded."
+msgstr ""
+
+#: includes/Advanced/Settings.php:379
+msgid "A server-side tool must watch or read the file to react to changes. WordPress needs write access to the base directory. No separate marker is created for each website."
+msgstr ""
+
+#: includes/Advanced/Settings.php:380
+msgid "Enabling alone does not create a marker; the next matching event does. Disabling stops future writes but leaves an existing file in place. Direct file changes outside the WordPress update hooks are not recorded."
+msgstr ""
+
+#: includes/Advanced/Settings.php:395
+msgid "Also record successful plugin and theme deletions"
+msgstr ""
+
+#: includes/Advanced/Settings.php:397
+msgid "Requires the update marker above. After a successful plugin or theme deletion through WordPress, the same file is updated with action delete."
+msgstr ""
+
+#: includes/Advanced/Settings.php:399
+msgid "This records deletions; it does not trigger or prevent them. Plugin deactivation and deletions of posts, media or websites are not included."
+msgstr ""
+
+#: includes/Advanced/Settings.php:400
+msgid "The choice remains saved when the update marker is disabled, but has no effect until that main option is enabled again."
+msgstr ""
+
 #: includes/Mail/Settings.php:115
 #: includes/Plugins/Settings.php:440
 msgid "Allowed Domains"
@@ -2296,6 +2414,7 @@ msgstr ""
 #: includes/WebsiteFunctions/Settings.php:151
 #: includes/RestAPI/Settings.php:119
 #: includes/CSP/Settings.php:144
+#: includes/Advanced/Settings.php:121
 msgid "Save Changes"
 msgstr ""
 
@@ -2639,6 +2758,7 @@ msgstr ""
 #: includes/WebsiteFunctions/Settings.php:144
 #: includes/RestAPI/Settings.php:112
 #: includes/CSP/Settings.php:137
+#: includes/Advanced/Settings.php:114
 msgid "Back to overview"
 msgstr ""
 

@@ -126,6 +126,15 @@ is selected. **Save all changes** saves the entire
 form, including settings in other sections. The save bar stays at the bottom of
 the viewport while scrolling; on very short screens it follows the last section.
 
+### CSS and operations
+
+Under **Network Admin > CMS > CSS and Operations** (formerly **Advanced**),
+configure network-wide CSS, additional body classes in the Block Editor iframe
+and the local Sentry marker for server automation. Three sections explain the
+scope of CSS, theme exceptions and the dependency between update and deletion
+markers. See the [German CSS and operations guide](docs/advanced-settings.md)
+for input examples, defaults and marker-file behavior.
+
 Methods Available for Other Plugins
 
 The following methods can be used by other plugins:
