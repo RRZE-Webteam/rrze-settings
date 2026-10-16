@@ -13,8 +13,10 @@
 .rrze-settings-rest-api,
 .rrze-settings-csp-page,
 .rrze-settings-advanced-page,
+.rrze-settings-mail-page,
 .rrze-settings-csp,
 .rrze-settings-advanced,
+.rrze-settings-mail,
 .rrze-settings-editor-page,
 .rrze-settings-editor-section,
 .rrze-settings-plugins-page {
@@ -53,7 +55,8 @@
 
 .rrze-settings-heartbeat textarea,
 .rrze-settings-csp textarea,
-.rrze-settings-advanced textarea {
+.rrze-settings-advanced textarea,
+.rrze-settings-mail textarea {
     width: 100%;
     max-width: 70ch;
     box-sizing: border-box;
@@ -89,7 +92,8 @@
 .rrze-settings-website-functions-page,
 .rrze-settings-rest-api-page,
 .rrze-settings-csp-page,
-.rrze-settings-advanced-page {
+.rrze-settings-advanced-page,
+.rrze-settings-mail-page {
     max-width: 1040px;
 
     #rrze-settings-media-index,
@@ -98,12 +102,14 @@
     #rrze-settings-rest-api-index,
     #rrze-settings-csp-index,
     #rrze-settings-advanced-index,
+    #rrze-settings-mail-index,
     .rrze-settings-media,
     .rrze-settings-heartbeat,
     .rrze-settings-website-functions,
     .rrze-settings-rest-api,
     .rrze-settings-csp,
-    .rrze-settings-advanced {
+    .rrze-settings-advanced,
+    .rrze-settings-mail {
         scroll-margin-top: 64px;
     }
 
@@ -112,7 +118,8 @@
     #rrze-settings-website-functions-index,
     #rrze-settings-rest-api-index,
     #rrze-settings-csp-index,
-    #rrze-settings-advanced-index {
+    #rrze-settings-advanced-index,
+    #rrze-settings-mail-index {
         margin-block: 24px;
 
         ul {
@@ -132,7 +139,8 @@
     .rrze-settings-website-functions,
     .rrze-settings-rest-api,
     .rrze-settings-csp,
-    .rrze-settings-advanced {
+    .rrze-settings-advanced,
+    .rrze-settings-mail {
         padding-block: 24px;
         padding-inline: 16px;
         // The first border separates the overview from the form.
@@ -151,7 +159,8 @@
     .rrze-settings-website-functions-heading,
     .rrze-settings-rest-api-heading,
     .rrze-settings-csp-heading,
-    .rrze-settings-advanced-heading {
+    .rrze-settings-advanced-heading,
+    .rrze-settings-mail-heading {
         display: flex;
         align-items: baseline;
         justify-content: space-between;

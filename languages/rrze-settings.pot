@@ -450,16 +450,6 @@ msgstr ""
 msgid "Admin Email"
 msgstr ""
 
-#: includes/Mail/Settings.php:42
-#: includes/Mail/Settings.php:43
-#: includes/Mail/Settings.php:100
-msgid "Mail"
-msgstr ""
-
-#: includes/Mail/Settings.php:107
-msgid "Envelope Sender"
-msgstr ""
-
 #: includes/Menus/Settings.php:73
 msgid "Classic Menu Management"
 msgstr ""
@@ -610,6 +600,7 @@ msgstr ""
 #: includes/RestAPI/Settings.php:102
 #: includes/CSP/Settings.php:127
 #: includes/Advanced/Settings.php:104
+#: includes/Mail/Settings.php:116
 msgid "On this page"
 msgstr ""
 
@@ -2235,29 +2226,104 @@ msgstr ""
 msgid "The choice remains saved when the update marker is disabled, but has no effect until that main option is enabled again."
 msgstr ""
 
-#: includes/Mail/Settings.php:115
+#: includes/Mail/Settings.php:35
+#: includes/Mail/Settings.php:36
+msgid "Email"
+msgstr ""
+
+#: includes/Mail/Settings.php:93
+msgid "Technical Sender"
+msgstr ""
+
+#: includes/Mail/Settings.php:97
+msgid "Website Administration Email"
+msgstr ""
+
+#: includes/Mail/Settings.php:150
+#: includes/Mail/Settings.php:241
+msgid "Allowed Sender Domains"
+msgstr ""
+
+#: includes/Mail/Settings.php:159
+#: includes/Mail/Settings.php:261
+msgid "Fallback Address (Envelope Sender)"
+msgstr ""
+
+#: includes/Mail/Settings.php:168
+#: includes/Mail/Settings.php:282
+msgid "Websites with a Local Administration Email"
+msgstr ""
+
+#: includes/Mail/Settings.php:183
+msgid "Configure technical sender addresses for WordPress emails and exceptions to centrally managed website administration addresses. These settings apply across the network and are saved together."
+msgstr ""
+
+#: includes/Mail/Settings.php:193
+msgid "The envelope sender is the technical return address for delivery failures. The visible From address, sender name and Reply-To address are separate. Mail server credentials and transport are configured outside this page."
+msgstr ""
+
+#: includes/Mail/Settings.php:203
+msgid "The administration email belongs to the website, not to a user profile. Where central website data provides this address, exceptions allow individual websites to manage it locally."
+msgstr ""
+
+#: includes/Mail/Settings.php:239
+msgid "Enter one domain per line, for example example.org. A non-empty list restricts the envelope sender to those exact domains. An empty list imposes no domain restriction; it does not block sending."
+msgstr ""
+
+#: includes/Mail/Settings.php:242
+msgid "Use plain domain names without @, protocol, path or wildcard. example.org does not include mail.example.org; add subdomains separately. This list does not restrict recipients or the visible From address."
+msgstr ""
+
+#: includes/Mail/Settings.php:243
+msgid "The comparison uses the stored spelling, including case. Use matching lowercase domains in the list and sender addresses. The form checks domain syntax, not DNS records or the ability to receive email."
+msgstr ""
+
+#: includes/Mail/Settings.php:244
+msgid "If a sender domain is not allowed, the plugin uses the fallback address instead of cancelling the message. The fallback must also belong to an allowed domain; otherwise saving clears it."
+msgstr ""
+
+#: includes/Mail/Settings.php:260
+msgid "Used when the existing envelope sender, or the website administration email if no sender is set, is invalid or outside the allowed domains. Enter one email address without a display name."
+msgstr ""
+
+#: includes/Mail/Settings.php:262
+msgid "Selection order: keep an existing valid and allowed envelope sender. If it is empty, check the website administration email. If the selected address is invalid or not allowed, use this fallback."
+msgstr ""
+
+#: includes/Mail/Settings.php:263
+msgid "Example: with example.org allowed and bounces@example.org as fallback, a sender from external.example is replaced. A sender from example.org remains unchanged."
+msgstr ""
+
+#: includes/Mail/Settings.php:264
+msgid "A blank field provides no fallback address. If fallback is needed, the plugin leaves the envelope sender empty; the final behavior then depends on the mail transport. Invalid addresses or addresses outside a non-empty domain list are cleared when saving."
+msgstr ""
+
+#: includes/Mail/Settings.php:265
+msgid "This does not change From, Reply-To, recipients or message content. White Label under RRZE Settings > General can separately change the visible From address and name. Other mail plugins or the mail server can influence the final result."
+msgstr ""
+
+#: includes/Mail/Settings.php:280
+msgid "Enter one website ID per line, for example 12. These websites are exempt from central administration-email management by this module. Existing WordPress permissions still apply."
+msgstr ""
+
+#: includes/Mail/Settings.php:283
+msgid "This applies where an active central website record supplies site_email. Without a matching record or with an empty central address, this module does not impose central email management."
+msgstr ""
+
+#: includes/Mail/Settings.php:284
+msgid "For an exception, the module stops overwriting the address and removes its restriction on editing it under Settings > General. The normal WordPress change and confirmation process applies. User-profile email addresses and the network administration email are separate."
+msgstr ""
+
+#: includes/Mail/Settings.php:285
+msgid "Find website IDs in the network website list or in the id parameter of a website edit URL. After saving, recognized websites appear as ID - URL and are sorted by URL. Remove the entire line to remove an exception."
+msgstr ""
+
+#: includes/Mail/Settings.php:286
+msgid "Removing an exception allows a valid central address to replace the local address on a subsequent administration request. An empty list makes no explicit exceptions. Sender-domain rules above continue to apply to all websites."
+msgstr ""
+
 #: includes/Plugins/Settings.php:440
 msgid "Allowed Domains"
-msgstr ""
-
-#: includes/Mail/Settings.php:123
-msgid "Admin Email Exceptions"
-msgstr ""
-
-#: includes/Mail/Settings.php:137
-msgid "Centralized mail management for the multisite network enables defining the default envelope sender address, specifying permitted sender domains, and setting exceptions for editing admin email addresses—guaranteeing consistent, secure email delivery across all websites."
-msgstr ""
-
-#: includes/Mail/Settings.php:148
-msgid "Set the default envelope sender."
-msgstr ""
-
-#: includes/Mail/Settings.php:160
-msgid "List of allowed domains for email addresses used as envelope sender."
-msgstr ""
-
-#: includes/Mail/Settings.php:172
-msgid "List of website IDs that can edit the admin_email field. Enter one website ID per line."
 msgstr ""
 
 #: includes/Media/Columns.php:68
@@ -2409,6 +2475,7 @@ msgstr ""
 #: includes/RestAPI/Settings.php:119
 #: includes/CSP/Settings.php:144
 #: includes/Advanced/Settings.php:121
+#: includes/Mail/Settings.php:133
 msgid "Save Changes"
 msgstr ""
 
@@ -2753,6 +2820,7 @@ msgstr ""
 #: includes/RestAPI/Settings.php:112
 #: includes/CSP/Settings.php:137
 #: includes/Advanced/Settings.php:114
+#: includes/Mail/Settings.php:126
 msgid "Back to overview"
 msgstr ""
 

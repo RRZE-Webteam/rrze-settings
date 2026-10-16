@@ -77,6 +77,15 @@ its scope and effects on existing files, with expandable examples and readable
 text widths. See the [German user guide for Media settings](docs/media-settings.md)
 for SVG upload dependencies, resizing behavior, file replacement and classifications.
 
+### Email settings
+
+Under **Network Admin > RRZE Settings > Email**, configure allowed envelope-sender
+domains, the fallback sender address and exceptions to centrally managed website
+administration email addresses. The page explains sender selection, empty values
+and the difference between technical senders and visible From addresses. See the
+[German email settings guide](docs/mail-settings.md) for examples, prerequisites
+and the effect of removing a website exception.
+
 ### Functions and services
 
 Under **Network Admin > RRZE Settings > Functions and Services** (formerly **Website
