@@ -17,6 +17,8 @@ module.exports = {
             "./src/taxonomies/attachment-media-filters.js",        
         "menus/expand-collapse": "./src/menus/expand-collapse.js",
         "admin/admin": "./src/admin/admin.js",
+        "admin-navigation/settings": "./src/admin-navigation/settings.js",
+        "plugins/secret-fields": "./src/plugins/secret-fields.js",
         "writing/block-editor": "./src/writing/block-editor.js",
         "writing/block-editor-preferences":
             "./src/writing/block-editor-preferences.js",

@@ -27,6 +27,188 @@ RRZE Settings is a WordPress plugin that provides general settings and enhanceme
 
 ## Usage
 
+The **RRZE Settings** network menu groups its pages under **Network**,
+**Editorial**, **Services** and **Technical**. Compact italic headings, separators and
+subtle background shading follow the selected WordPress admin color scheme.
+All links remain directly accessible, with WordPress's active-link and keyboard
+focus styles. Without JavaScript, the same page order remains available.
+Additional links from other plugins are retained under **Other Settings**.
+
+### Admin navigation
+
+Under **Network Admin > RRZE Settings > Admin Navigation**, network administrators
+set a shared order for plugin pages in each website's **Settings** submenu. The
+feature is enabled by default and starts with 51 reviewed catalogue entries.
+The initial order follows the plugin identifiers in the bundled catalogue.
+The [source inventory](docs/admin-settings-menu-inventory.json) records the menu
+slugs, translated aliases and source locations used to build these defaults.
+
+WordPress Settings pages stay first, with General as the parent menu's target.
+Available plugin entries follow the configured order. Unavailable plugins and
+entries the current user cannot access are not added. Unknown entries follow at
+the end in their existing relative order. Other menus, including the network
+Settings menu, are unaffected.
+
+Use drag handles, the Up/Down buttons or position fields, then **Save Changes**.
+The position fields also work without JavaScript: numeric values determine the
+saved order, and ties preserve the previous order. **Restore default order**
+saves immediately, retaining accepted additions at the end and leaving the
+activation setting unchanged. Disabling the feature restores the menu order
+produced by WordPress and the plugins while retaining the saved priorities.
+
+When a user with `manage_network_options` visits a website dashboard, previously
+unknown local Settings entries are collected under **Newly detected menu
+entries**. Select entries and save to add them to the sortable list. Ordinary
+website users do not write to the network catalogue. This is incremental
+discovery, not a scan of every website. It accepts up to 200 additional local
+identifiers; external URLs and slugs containing query parameters remain in their
+original relative order after configured entries and are not stored.
+
+Preferences and discoveries are stored separately for each network in
+`rrze_settings_admin_menu_order` and `rrze_settings_admin_menu_discoveries`.
+The reviewed defaults are maintained in `includes/AdminMenu/defaults.php`.
+New defaults are appended to a saved order; when an accepted discovery becomes a
+bundled entry, its saved position is retained. The catalogue stores stable IDs
+and known menu-slug aliases rather than matching translated menu labels.
+
+The catalogue is metadata only: it never creates links, activates plugins or
+changes access capabilities. Registration hooks which run after the late
+`admin_menu` sorter may still alter the final menu.
+
+Validate the ordering, discovery and network POST checks without database writes:
+
+```bash
+php tests/admin-menu-order.php
+```
+
+### General settings
+
+Under **Network Admin > RRZE Settings > General**, network administrators configure
+translation fallback, the RRZE error page, WordPress branding and the default
+theme for new websites. Each field explains its scope and effects. See the
+[German user guide for General settings](docs/general-settings.md) for examples,
+defaults and prerequisites.
+
+### User settings
+
+Under **Network Admin > RRZE Settings > Users**, configure additional author roles, user
+search, the automatic contact page, dashboard guidance, administrator warnings
+and debug access. See the [German user guide for User settings](docs/users-settings.md)
+for permissions, examples and the limitations of each option.
+
+### Post and page settings
+
+Under **Network Admin > RRZE Settings > Posts and Pages** (formerly **Posts**), configure
+the date column, parent page filter, page categories and tags, and exclusion
+from website search using the `nosearch` tag. Each field includes a short
+description and optional details. See the
+[German user guide for Posts and Pages](docs/posts-settings.md) for examples,
+dependencies and the scope of the search exclusion.
+
+### Menu settings
+
+Under **Network Admin > RRZE Settings > Menus**, configure collapsible submenus in the
+classic menu editor, a menu membership column in the page list and up to 100
+results when searching for content to add to a menu. These options do not extend
+the Navigation block. See the [German user guide for Menu settings](docs/menus-settings.md)
+for examples, defaults and the scope of each option.
+
+### Editor settings
+
+Under **Network Admin > RRZE Settings > Editor** (formerly **Writing**), configure editor
+selection, exemptions, autosave, available blocks, sources, editing tools and
+plugin compatibility. A section index and shared save bar keep the full form
+accessible. Block exclusions affect insertion choices while preserving existing
+content. See the [German user guide for Editor settings](docs/editor-settings.md)
+for dependencies, defaults and exact input formats.
+
+### Media settings
+
+Under **Network Admin > RRZE Settings > Media**, configure uploads and file types, image
+processing, media library tools and media organization. A section index and
+return links help navigate the shared form. Each setting explains
+its scope and effects on existing files, with expandable examples and readable
+text widths. See the [German user guide for Media settings](docs/media-settings.md)
+for SVG upload dependencies, resizing behavior, file replacement and classifications.
+
+### Email settings
+
+Under **Network Admin > RRZE Settings > Email**, configure allowed envelope-sender
+domains, the fallback sender address and exceptions to centrally managed website
+administration email addresses. The page explains sender selection, empty values
+and the difference between technical senders and visible From addresses. See the
+[German email settings guide](docs/mail-settings.md) for examples, prerequisites
+and the effect of removing a website exception.
+
+### Functions and services
+
+Under **Network Admin > RRZE Settings > Functions and Services** (formerly **Website
+Functions**), configure interfaces and AI, appearance and fonts, comments and
+avatars, website administration and local Google translation preferences.
+A section index, highlighted anchor targets and expandable field guidance explain
+the difference between disabling a function, blocking its administration page
+and granting a local choice. See the
+[German user guide for Functions and Services](docs/website-functions-settings.md)
+for scope, defaults and effects on saved website options.
+
+### Heartbeat settings
+
+Under **Network Admin > RRZE Settings > Heartbeat**, configure where background requests
+are allowed, their default intervals and role exceptions. The page explains
+interval precedence, editor safeguards and the separate block-editor autosave
+setting. Invalid role JSON retains the saved rules and reports an error.
+See the [German user guide for Heartbeat settings](docs/heartbeat-settings.md)
+for examples and defaults.
+
+### REST API settings
+
+Under **Network Admin > RRZE Settings > REST API**, configure anonymous access, IP and route
+exceptions, and individual public plugin endpoint approvals. The page separates
+these rules into three sections and explains their precedence, accepted input
+formats and interaction with private websites. IP exceptions remain visible while
+the general restriction is off so they can be prepared before enabling it.
+See the [German user guide for REST API settings](docs/rest-api-settings.md)
+for examples, defaults and troubleshooting.
+
+### Content Security Policy settings
+
+Under **Network Admin > RRZE Settings > CSP**, configure browser resource restrictions with
+an enforcing Content Security Policy. All seven source lists remain editable
+while CSP is off. The page explains fallback rules, source syntax, automatic
+oEmbed additions and the effects of each directive. It does not provide a
+report-only mode. See the [German CSP user guide](docs/csp-settings.md) for
+examples, defaults and response-header verification.
+
+### Plugin settings
+
+Under **Network Admin > RRZE Settings > Plugins**, available plugin sections appear on one
+page in alphabetical order. Use **Jump to plugin** to navigate to a section and
+**Back to overview** to return to the index. The linked section is highlighted
+with a subtle background and accent line until another section or the overview
+is selected. **Save all changes** saves the entire
+form, including settings in other sections. The save bar stays at the bottom of
+the viewport while scrolling; on very short screens it follows the last section.
+
+API keys and the WebT password are masked by default. The eye button beside each
+field reveals or hides that field; search engine credentials use a closed native
+disclosure for their multiline content. Visibility resets on navigation and form
+submission. Toggling visibility does not alter values or save settings. Without
+JavaScript, password fields stay masked and editable, and the multiline disclosure
+still works. Existing WS Form license-key masking remains unchanged.
+
+This protects against accidental on-screen disclosure, not access to page source
+or developer tools: authorized administrators still receive the values in the
+form. Credential storage and validation are unchanged.
+
+### CSS and operations
+
+Under **Network Admin > RRZE Settings > CSS and Operations** (formerly **Advanced**),
+configure network-wide CSS, additional body classes in the Block Editor iframe
+and the local Sentry marker for server automation. Three sections explain the
+scope of CSS, theme exceptions and the dependency between update and deletion
+markers. See the [German CSS and operations guide](docs/advanced-settings.md)
+for input examples, defaults and marker-file behavior.
+
 Methods Available for Other Plugins
 
 The following methods can be used by other plugins:
@@ -37,7 +219,7 @@ The following methods can be used by other plugins:
 
 ## Public REST access and private sites
 
-Under **Network Admin > CMS > REST API**, registered public endpoints require
+Under **Network Admin > RRZE Settings > REST API**, registered public endpoints require
 explicit network approval for anonymous requests. This approval is mandatory even
 when the general REST restriction is off or an IP/namespace exception applies.
 Authenticated access retains its existing behavior.

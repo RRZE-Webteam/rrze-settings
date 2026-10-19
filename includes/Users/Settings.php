@@ -87,7 +87,11 @@ class Settings extends MainSettings
             $this->sectionName,
             __('Users', 'rrze-settings'),
             [$this, 'mainSectionDescription'],
-            $this->menuPage
+            $this->menuPage,
+            [
+                'before_section' => '<div class="rrze-settings-users">',
+                'after_section' => '</div>',
+            ]
         );
 
         add_settings_field(
@@ -108,7 +112,7 @@ class Settings extends MainSettings
 
         add_settings_field(
             'users_search',
-            __('Search', 'rrze-settings'),
+            __('User Search', 'rrze-settings'),
             [$this, 'usersSearchField'],
             $this->menuPage,
             $this->sectionName
@@ -140,10 +144,11 @@ class Settings extends MainSettings
 
         add_settings_field(
             'can_view_debug_log',
-            __('Can view debug log', 'rrze-settings'),
+            __('Debug Log Access', 'rrze-settings'),
             [$this, 'canViewDebugLogField'],
             $this->menuPage,
-            $this->sectionName
+            $this->sectionName,
+            ['label_for' => 'rrze-settings-can-view-debug-log']
         );
     }
 
@@ -154,72 +159,114 @@ class Settings extends MainSettings
      */
     public function mainSectionDescription()
     {
-        esc_html_e('Network administrators can configure user settings across the entire multisite network on this page, enabling special author roles, enhancing user search, generating a virtual contact page, disabling the welcome panel, warning when administrator thresholds are exceeded, and specifying which users have access to debug logs.', 'rrze-settings');
+        echo '<p>';
+        esc_html_e('Manage additional author roles, user search, contact information and dashboard guidance across the network. You can also configure administrator warnings and access to debug information. Changes take effect after saving.', 'rrze-settings');
+        echo '</p>';
     }
 
     /**
-     * Display the disable_welcome_panel field
+     * Display the welcome panel control and distinguish it from other dashboard widgets.
      *
      * @return void
      */
     public function welcomePanelField()
     {
-        $this->renderCheckbox('rrze-settings-disable-welcome-panel', sprintf('%s[disable_welcome_panel]', $this->optionName), $this->siteOptions->general->disable_welcome_panel, __('Disables the welcome panel that introduces users to WordPress', 'rrze-settings'));
+        $this->renderCheckbox('rrze-settings-disable-welcome-panel', sprintf('%s[disable_welcome_panel]', $this->optionName), $this->siteOptions->general->disable_welcome_panel, __('Hide the WordPress welcome panel', 'rrze-settings'));
+        $this->renderDescription(__('Removes the WordPress introduction panel from website dashboards. Other dashboard widgets remain available.', 'rrze-settings'));
+        $this->renderSettingDetails(__('Welcome Panel', 'rrze-settings'), [
+            __('Useful when users receive their introduction through your own training or documentation. This option does not change user roles or permissions.', 'rrze-settings'),
+            __('Disabled: WordPress controls the welcome panel again. Whether an individual user sees it also depends on their permissions and personal display settings.', 'rrze-settings'),
+        ]);
     }
 
     /**
-     * Display the admin_role_threshold_warning field
+     * Display the administrator warning with a labelled threshold and its limitations.
      *
      * @return void
      */
     public function adminRoleThresholdWarningField()
     {
-        $this->renderCheckbox('rrze-settings-admin-role-threshold-warning', sprintf('%s[admin_role_threshold_warning]', $this->optionName), $this->siteOptions->general->admin_role_threshold_warning, __('Enables a warning when the number of administrators exceeds a certain threshold', 'rrze-settings'));
-        $this->renderInput('number', 'rrze-settings-admin-role-threshold-warning-threshold', sprintf('%s[admin_role_threshold_warning_threshold]', $this->optionName), $this->siteOptions->general->admin_role_threshold_warning_threshold, 'small-text', ['min' => 3, 'step' => 1]);
+        $this->renderCheckbox('rrze-settings-admin-role-threshold-warning', sprintf('%s[admin_role_threshold_warning]', $this->optionName), $this->siteOptions->general->admin_role_threshold_warning, __('Ask for confirmation before assigning more administrators', 'rrze-settings'));
+        $this->renderDescription(__('Warns when a website already has at least the configured number of administrators and an existing user is promoted. The warning can be confirmed; it is not a fixed limit.', 'rrze-settings'));
+        printf('<p><label for="rrze-settings-admin-role-threshold-warning-threshold">%s</label> ', esc_html__('Administrator threshold per website', 'rrze-settings'));
+        $this->renderInput('number', 'rrze-settings-admin-role-threshold-warning-threshold', sprintf('%s[admin_role_threshold_warning_threshold]', $this->optionName), $this->siteOptions->general->admin_role_threshold_warning_threshold, 'small-text', ['min' => 3, 'step' => 1, 'aria-describedby' => 'rrze-settings-admin-threshold-help']);
+        echo '</p>';
+        printf('<p id="rrze-settings-admin-threshold-help" class="description">%s</p>', esc_html__('Minimum and default: 3. Used only while the warning is enabled.', 'rrze-settings'));
+        $this->renderSettingDetails(__('Admin Role Threshold Warning', 'rrze-settings'), [
+            __('Example: with a threshold of 3 and three existing administrators, promoting another user requires typing the displayed confirmation phrase. Existing administrators keep their role.', 'rrze-settings'),
+            __('The check runs in the user management screens of individual websites, including bulk role changes. It counts users with the Administrator role on that website, not all network super administrators.', 'rrze-settings'),
+            __('The current count is checked before the change. A bulk change that crosses the threshold from below does not trigger the warning. Actions without an existing user ID, such as creating a new account, are not covered.', 'rrze-settings'),
+            __('This is a JavaScript confirmation, not a server-enforced restriction. Network administration, API requests and command-line changes are not covered. Disabled: this additional confirmation is omitted.', 'rrze-settings'),
+        ]);
     }
 
     /**
-     * Renders the pages author role field
+     * Display the pages author role, capabilities and role removal consequences.
      *
      * @return void
      */
     public function pagesAuthorRoleField()
     {
-        $this->renderCheckbox('rrze-settings-pages-author-role', sprintf('%s[pages_author_role]', $this->optionName), $this->siteOptions->users->pages_author_role, __('Enables pages author role', 'rrze-settings'));
+        $this->renderCheckbox('rrze-settings-pages-author-role', sprintf('%s[pages_author_role]', $this->optionName), $this->siteOptions->users->pages_author_role, __('Make the Pages Author role available', 'rrze-settings'));
+        $this->renderDescription(__('Allows users to create, publish and manage their own pages and upload media. Before disabling, assign affected users another role so they retain the access they need.', 'rrze-settings'));
+        $this->renderSettingDetails(__('Pages Author', 'rrze-settings'), [
+            __('Suitable for people who maintain their own pages but do not need to write posts. Includes editing and deleting their own published pages; does not grant management of other users, website settings or pages written by others.', 'rrze-settings'),
+            __('Enabling makes the role available for assignment; it does not assign it to anyone automatically. Role definitions are added or removed when each website loads, rather than updating all websites at once.', 'rrze-settings'),
+            __('Disabling removes the role definition. Existing role assignments are not migrated, so affected users lose the permissions supplied by this role. Their content is not deleted.', 'rrze-settings'),
+        ]);
     }
 
     /**
-     * Renders the super author role field
+     * Display the super author role and distinguish it from administrative access.
      *
      * @return void
      */
     public function superAuthorRoleField()
     {
-        $this->renderCheckbox('rrze-settings-super-author-role', sprintf('%s[super_author_role]', $this->optionName), $this->siteOptions->users->super_author_role, __('Enables super author role', 'rrze-settings'));
+        $this->renderCheckbox('rrze-settings-super-author-role', sprintf('%s[super_author_role]', $this->optionName), $this->siteOptions->users->super_author_role, __('Make the Super Author role available', 'rrze-settings'));
+        $this->renderDescription(__('Allows users to create, publish and manage their own posts and pages and upload media. Before disabling, assign affected users another role so they retain the access they need.', 'rrze-settings'));
+        $this->renderSettingDetails(__('Super Author', 'rrze-settings'), [
+            __('Combines work on own posts and pages, including editing and deleting published content. It does not grant editing of content written by others, user management or website administration. Super Author is not a network super administrator.', 'rrze-settings'),
+            __('Enabling makes the role available for assignment; it does not assign it to anyone automatically. Role definitions are added or removed when each website loads, rather than updating all websites at once.', 'rrze-settings'),
+            __('Disabling removes the role definition. Existing role assignments are not migrated, so affected users lose the permissions supplied by this role. Their content is not deleted.', 'rrze-settings'),
+        ]);
     }
 
     /**
-     * Renders the users search field
+     * Display the enhanced user search with examples and its email-search exception.
      *
      * @return void
      */
     public function usersSearchField()
     {
-        $this->renderCheckbox('rrze-settings-users-search', sprintf('%s[users_search]', $this->optionName), $this->siteOptions->users->users_search, __('Enables enhanced users search', 'rrze-settings'));
+        $this->renderCheckbox('rrze-settings-users-search', sprintf('%s[users_search]', $this->optionName), $this->siteOptions->users->users_search, __('Include first and last names in user searches', 'rrze-settings'));
+        $this->renderDescription(__('Adds matching profile information to searches in user lists. Useful when you know a person by name rather than by their login.', 'rrze-settings'));
+        $this->renderSettingDetails(__('User Search', 'rrze-settings'), [
+            __('Searches first name, last name, login, display name, email address, website URL and the URL-friendly user name. For example, Anna Meyer can match first and last names stored in separate profile fields.', 'rrze-settings'),
+            __('Multiple words must all match for an additional result; partial matches are supported. Searches containing @ use the normal WordPress search. This option does not add a search to the public website.', 'rrze-settings'),
+            __('Disabled: user lists use the normal WordPress search without these additional matches.', 'rrze-settings'),
+        ]);
     }
 
     /**
-     * Renders the contact page field
+     * Display the virtual contact page and its public data and main-site exceptions.
      *
      * @return void
      */
     public function contactPageField()
     {
-        $this->renderCheckbox('rrze-settings-contact-page', sprintf('%s[contact_page]', $this->optionName), $this->siteOptions->users->contact_page, __('Generate a virtual page (contact) with the contact list (administrators) of the website or blog. If the page already exists, the existing page is displayed.', 'rrze-settings'));
+        $this->renderCheckbox('rrze-settings-contact-page', sprintf('%s[contact_page]', $this->optionName), $this->siteOptions->users->contact_page, __('Provide an automatic contact page', 'rrze-settings'));
+        $this->renderDescription(__('Lists website administrators with their display names and email addresses on a public-facing contact page. Check that these details are suitable for publication. The main website is excluded.', 'rrze-settings'));
+        $this->renderSettingDetails(__('Contact Page', 'rrze-settings'), [
+            __('The address follows the website language, for example /kontakt/ in German and /contact/ in English. It lists accounts with the Administrator role on that website; network super administrators are not automatically included.', 'rrze-settings'),
+            __('An existing page with the same slug prevents the virtual page, including drafts, private pages and nested pages. This does not publish or move that existing page.', 'rrze-settings'),
+            __('The contact page is generated when requested and is not stored as an editable page. To provide your own content, create a normal page with the matching slug. Existing website access restrictions still apply.', 'rrze-settings'),
+            __('Disabled: the virtual page is no longer generated. Any normal contact page remains unchanged.', 'rrze-settings'),
+        ]);
     }
 
     /**
-     * Renders the can view debug log field
+     * Display the debug access list with the required login format and integration scope.
      *
      * @return void
      */
@@ -227,6 +274,11 @@ class Settings extends MainSettings
     {
         $rrzeUsers = implode(PHP_EOL, (array) $this->siteOptions->users->can_view_debug_log);
         $this->renderTextarea('rrze-settings-can-view-debug-log', sprintf('%s[can_view_debug_log]', $this->optionName), $rrzeUsers, 5, 55);
-        $this->renderDescription(__('List of users who can view debug information on websites, if any. Enter one user login per line.', 'rrze-settings'));
+        $this->renderDescription(__('Enter one exact user login per line, not a display name, email address or user ID. Listed accounts can view debug information in components that use this permission check. Super administrators are always allowed.', 'rrze-settings'));
+        $this->renderSettingDetails(__('Debug Log Access', 'rrze-settings'), [
+            __('For example, enter anna.meyer and max.mustermann on separate lines. Use the spelling and capitalization of the actual login. An empty list allows only super administrators through this check.', 'rrze-settings'),
+            __('This network-wide list is evaluated by Helper::userCanViewDebugLog(). It does not enable logging, create a log viewer or grant general website access. Other components may apply additional access checks.', 'rrze-settings'),
+            __('Debug information may contain internal details or personal data. Add only accounts that need this information for support; removing a login withdraws this additional permission.', 'rrze-settings'),
+        ]);
     }
 }

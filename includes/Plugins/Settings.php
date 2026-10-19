@@ -9,6 +9,7 @@ use RRZE\Settings\Crawlers\Defaults as CrawlerDefaults;
 use RRZE\Settings\Settings as MainSettings;
 use RRZE\Settings\Library\Network\IPUtils;
 use RRZE\Settings\Library\Encryption\Encryption;
+use function RRZE\Settings\plugin;
 
 /**
  * Class Settings
@@ -26,6 +27,44 @@ class Settings extends MainSettings
      */
     protected $menuPage = 'rrze-settings-plugins';
 
+    /** @var string WordPress screen hook for loading the secret-field controls. */
+    private string $pageHook = '';
+
+    /**
+     * Register the settings page and its optional visibility controls.
+     *
+     * @return void
+     */
+    public function loaded()
+    {
+        parent::loaded();
+        if (is_network_admin()) {
+            add_action('admin_enqueue_scripts', [$this, 'enqueueSecretFields']);
+        }
+    }
+
+    /**
+     * Load the visibility controls only on the Plugins settings page.
+     *
+     * @param string $hook Current WordPress screen hook.
+     * @return void
+     */
+    public function enqueueSecretFields(string $hook): void
+    {
+        if ($this->pageHook === '' || $hook !== $this->pageHook) {
+            return;
+        }
+        $asset = require plugin()->getPath('build') . 'plugins/secret-fields.asset.php';
+        wp_enqueue_script(
+            'rrze-settings-plugin-secrets',
+            plugins_url('build/plugins/secret-fields.js', plugin()->getBasename()),
+            $asset['dependencies'],
+            $asset['version'],
+            true
+        );
+        wp_enqueue_style('dashicons');
+    }
+
     /**
      * Adds a submenu page to the network admin menu
      * 
@@ -33,7 +72,7 @@ class Settings extends MainSettings
      */
     public function networkAdminMenu()
     {
-        add_submenu_page(
+        $this->pageHook = (string) add_submenu_page(
             'rrze-settings',
             __('Plugins', 'rrze-settings'),
             __('Plugins', 'rrze-settings'),
@@ -44,7 +83,7 @@ class Settings extends MainSettings
     }
 
     /**
-     * Options page with plugin settings tabs.
+     * Render all plugin sections in one form with jump links and a shared save bar.
      *
      * @return void
      */
@@ -57,10 +96,16 @@ class Settings extends MainSettings
         echo '<form method="post">';
         settings_fields($this->menuPage);
         $this->renderMainSection();
-        $this->renderTabs();
-        submit_button(__('Save Changes', 'rrze-settings'), 'primary', $this->menuPage . '-submit-primary');
+        $sections = $this->getPluginSections();
+        $this->renderSectionNavigation($sections);
+        foreach ($sections as $sectionId => $section) {
+            $this->renderPluginSection($sectionId, $section);
+        }
+        echo '<div class="rrze-settings-plugins-save-bar">';
+        submit_button(__('Save all changes', 'rrze-settings'), 'primary', $this->menuPage . '-submit-primary', false, ['aria-describedby' => 'rrze-settings-plugins-save-help']);
+        echo '<p id="rrze-settings-plugins-save-help">', esc_html__('Saves the settings in all plugin sections on this page.', 'rrze-settings'), '</p>';
+        echo '</div>';
         echo '</form>';
-        $this->printTabsScript();
         echo '</div>';
     }
 
@@ -598,11 +643,11 @@ class Settings extends MainSettings
     public function rrzeSearchEngineKeysField()
     {
         $option = $this->siteOptions->plugins->rrze_search_engine_keys;
-        $this->renderTextarea(
+        $this->renderSecretTextarea(
             'rrze-settings-rrze-search-engine-keys',
             sprintf('%s[rrze_search_engine_keys]', $this->optionName),
             $this->getTextarea($option),
-            8
+            __('Search engine keys', 'rrze-settings')
         );
         printf(
             '<p class="description">%1$s<br><code>%2$s</code><br><code>%3$s</code><br><code>%4$s</code><br>%5$s<br>%6$s</p>',
@@ -736,7 +781,7 @@ class Settings extends MainSettings
      */
     public function webtPasswordField()
     {
-        $this->renderInput('password', 'rrze-settings-rrze-webt-password', sprintf('%s[rrze_webt_password]', $this->optionName), $this->siteOptions->plugins->rrze_webt_password, 'regular-text', ['autocomplete' => 'off']);
+        $this->renderSecretInput('rrze-settings-rrze-webt-password', sprintf('%s[rrze_webt_password]', $this->optionName), $this->siteOptions->plugins->rrze_webt_password, __('WebT password', 'rrze-settings'));
         $this->renderDescription(__('The WebT password used for RRZE Webt.', 'rrze-settings'));
     }
 
@@ -819,10 +864,11 @@ class Settings extends MainSettings
      */
     public function rrzeDirectionsOpenRouteServiceApiKeyField()
     {
-        printf(
-            '<input type="text" id="rrze-settings-rrze-directions-openrouteservice-api-key" name="%1$s" value="%2$s" class="regular-text" autocomplete="off">',
-            esc_attr(sprintf('%s[rrze_directions_openrouteservice_api_key]', $this->optionName)),
-            esc_attr($this->siteOptions->plugins->rrze_directions_openrouteservice_api_key)
+        $this->renderSecretInput(
+            'rrze-settings-rrze-directions-openrouteservice-api-key',
+            sprintf('%s[rrze_directions_openrouteservice_api_key]', $this->optionName),
+            $this->siteOptions->plugins->rrze_directions_openrouteservice_api_key,
+            __('OpenRouteService-API-Key', 'rrze-settings')
         );
 
         printf(
@@ -948,7 +994,7 @@ class Settings extends MainSettings
      */
     public function dipAPIField()
     {
-        $this->renderInput('text', 'rrze-settings-dip-apiKey', sprintf('%s[dip_apiKey]', $this->optionName), $this->siteOptions->plugins->dip_apiKey);
+        $this->renderSecretInput('rrze-settings-dip-apiKey', sprintf('%s[dip_apiKey]', $this->optionName), $this->siteOptions->plugins->dip_apiKey, __('DIP API Key', 'rrze-settings'));
         $this->renderDescription(__('The DIP API key used by some plugins.', 'rrze-settings'));
     }
 
@@ -957,7 +1003,7 @@ class Settings extends MainSettings
      */
     public function dipEduApiKeyField()
     {
-        $this->renderInput('text', 'rrze-settings-dip-edu-api-key', sprintf('%s[dip_edu_api_key]', $this->optionName), $this->siteOptions->plugins->dip_edu_api_key);
+        $this->renderSecretInput('rrze-settings-dip-edu-api-key', sprintf('%s[dip_edu_api_key]', $this->optionName), $this->siteOptions->plugins->dip_edu_api_key, __('DIP Edu API key', 'rrze-settings'));
         $this->renderDescription(__('The DIP Edu API key used by some plugins.', 'rrze-settings'));
     }
 
@@ -966,7 +1012,7 @@ class Settings extends MainSettings
      */
     public function faudirApiKeyField()
     {
-        $this->renderInput('text', 'rrze-settings-faudir-apiKey', sprintf('%s[faudir_public_apiKey]', $this->optionName), $this->siteOptions->plugins->faudir_public_apiKey);
+        $this->renderSecretInput('rrze-settings-faudir-apiKey', sprintf('%s[faudir_public_apiKey]', $this->optionName), $this->siteOptions->plugins->faudir_public_apiKey, __('FAUdir API Key', 'rrze-settings'));
         $this->renderDescription(__('The FAUdir API key to access the API service https://api.fau.de/.', 'rrze-settings'));
     }
 
@@ -975,8 +1021,77 @@ class Settings extends MainSettings
      */
     public function biteApiKeyField()
     {
-        $this->renderInput('text', 'rrze-settings-bite-api-key', sprintf('%s[bite_api_key]', $this->optionName), $this->siteOptions->plugins->bite_api_key);
+        $this->renderSecretInput('rrze-settings-bite-api-key', sprintf('%s[bite_api_key]', $this->optionName), $this->siteOptions->plugins->bite_api_key, __('B-ITE API Key', 'rrze-settings'));
         $this->renderDescription(__('The B-ITE API key used for RRZE Jobs.', 'rrze-settings'));
+    }
+
+    /**
+     * Render a credential masked before JavaScript runs, retaining its form value.
+     *
+     * @param string $id Field ID.
+     * @param string $name Existing option field name.
+     * @param string $value Unmodified credential.
+     * @param string $label Translated field name for the input and visibility button.
+     * @return void
+     */
+    protected function renderSecretInput(string $id, string $name, string $value, string $label): void
+    {
+        /* translators: %s: Credential field name. */
+        $show = sprintf(__('Show: %s', 'rrze-settings'), $label);
+        /* translators: %s: Credential field name. */
+        $hide = sprintf(__('Hide: %s', 'rrze-settings'), $label);
+        echo '<div class="rrze-settings-secret-field">';
+        $this->renderInput('password', $id, $name, $value, 'regular-text', [
+            'autocomplete' => 'new-password',
+            'autocapitalize' => 'off',
+            'spellcheck' => 'false',
+            'aria-label' => $label,
+            'data-rrze-secret-input' => 'true',
+        ]);
+        printf(
+            '<button type="button" class="button rrze-settings-secret-toggle" hidden aria-controls="%1$s" aria-label="%2$s" title="%2$s" data-show-label="%2$s" data-hide-label="%3$s"><span class="dashicons dashicons-visibility" aria-hidden="true"></span></button>',
+            esc_attr($id),
+            esc_attr($show),
+            esc_attr($hide)
+        );
+        echo '</div>';
+    }
+
+    /**
+     * Conceal multiline credentials with a native disclosure that also works without JS.
+     *
+     * The closed disclosure still submits the original textarea, never the visual mask.
+     *
+     * @param string $id Textarea ID.
+     * @param string $name Existing option field name.
+     * @param string $value Unmodified multiline content.
+     * @param string $label Translated field name.
+     * @return void
+     */
+    protected function renderSecretTextarea(string $id, string $name, string $value, string $label): void
+    {
+        /* translators: %s: Credential field name. */
+        $show = sprintf(__('Show: %s', 'rrze-settings'), $label);
+        /* translators: %s: Credential field name. */
+        $hide = sprintf(__('Hide: %s', 'rrze-settings'), $label);
+        /* translators: %s: Credential field name. */
+        $toggle = sprintf(__('Show or hide: %s', 'rrze-settings'), $label);
+        printf(
+            '<details class="rrze-settings-secret-details"><summary aria-controls="%1$s" aria-label="%2$s" title="%2$s" data-show-label="%3$s" data-hide-label="%4$s"><span class="rrze-settings-secret-preview" aria-hidden="true">%5$s</span><span class="button rrze-settings-secret-toggle" aria-hidden="true"><span class="dashicons dashicons-visibility"></span></span></summary>',
+            esc_attr($id),
+            esc_attr($toggle),
+            esc_attr($show),
+            esc_attr($hide),
+            $value === '' ? '—' : '••••••••'
+        );
+        printf(
+            '<textarea id="%1$s" name="%2$s" rows="8" cols="50" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="%3$s">%4$s</textarea>',
+            esc_attr($id),
+            esc_attr($name),
+            esc_attr($label),
+            esc_textarea($value)
+        );
+        echo '</details>';
     }
 
     /**
@@ -1115,86 +1230,71 @@ class Settings extends MainSettings
     }
 
     /**
-     * Render the description section above the tabs.
+     * Render the existing page introduction without repeating the page heading.
      *
      * @return void
      */
-    protected function renderMainSection()
+    protected function renderMainSection(): void
     {
         global $wp_settings_sections;
 
         $mainSection = $wp_settings_sections[$this->menuPage]['rrze-settings-plugins-main'] ?? null;
-        if (empty($mainSection)) {
-            return;
-        }
-
-        if (!empty($mainSection['title'])) {
-            echo '<h2>', esc_html($mainSection['title']), '</h2>';
-        }
-
         if (!empty($mainSection['callback']) && is_callable($mainSection['callback'])) {
+            echo '<div class="rrze-settings-plugins-introduction">';
             call_user_func($mainSection['callback'], $mainSection);
+            echo '</div>';
         }
     }
 
     /**
-     * Render plugin section tabs.
+     * Render an alphabetical index linking to the visible plugin sections.
      *
+     * @param array<string, array> $sections Registered sections in display order.
      * @return void
      */
-    protected function renderTabs()
+    protected function renderSectionNavigation(array $sections): void
     {
-        $sections = $this->getTabSections();
         if (empty($sections)) {
-            do_settings_sections($this->menuPage);
             return;
         }
 
-        echo '<nav class="nav-tab-wrapper rrze-settings-plugins-tabs" role="tablist" aria-label="', esc_attr__('Plugin settings', 'rrze-settings'), '">';
-        $first = true;
+        echo '<nav id="rrze-settings-plugins-index" class="rrze-settings-plugins-index" aria-labelledby="rrze-settings-plugins-index-title" tabindex="-1">';
+        echo '<h2 id="rrze-settings-plugins-index-title">', esc_html__('Jump to plugin', 'rrze-settings'), '</h2>';
+        echo '<ul>';
         foreach ($sections as $sectionId => $section) {
-            $tabId = $this->getTabId($sectionId);
-            $panelId = $this->getTabPanelId($sectionId);
             printf(
-                '<button type="button" id="%1$s" class="nav-tab%2$s" role="tab" aria-selected="%3$s" aria-controls="%4$s" data-rrze-settings-tab="%5$s">%6$s</button>',
-                esc_attr($tabId),
-                $first ? ' nav-tab-active' : '',
-                $first ? 'true' : 'false',
-                esc_attr($panelId),
+                '<li><a href="#%1$s-panel">%2$s</a></li>',
                 esc_attr($sectionId),
                 esc_html($section['title'])
             );
-            $first = false;
         }
-        echo '</nav>';
-
-        $first = true;
-        foreach ($sections as $sectionId => $section) {
-            $this->renderTabPanel($sectionId, $section, $first);
-            $first = false;
-        }
+        echo '</ul></nav>';
     }
 
     /**
-     * Render a single tab panel.
+     * Render a visible, linkable plugin section using its existing field callbacks.
      *
-     * @param string $sectionId
-     * @param array $section
-     * @param bool $active
+     * Keep the former panel ID so bookmarked section anchors continue to work.
+     * The focusable target makes keyboard navigation from the index predictable.
+     *
+     * @param string $sectionId Registered section identifier.
+     * @param array  $section Registered title, callback and other section metadata.
      * @return void
      */
-    protected function renderTabPanel(string $sectionId, array $section, bool $active)
+    protected function renderPluginSection(string $sectionId, array $section): void
     {
         printf(
-            '<div id="%1$s" class="rrze-settings-plugins-tab-panel" role="tabpanel" aria-labelledby="%2$s"%3$s>',
-            esc_attr($this->getTabPanelId($sectionId)),
-            esc_attr($this->getTabId($sectionId)),
-            $active ? '' : ' hidden'
+            '<section id="%1$s-panel" class="rrze-settings-plugin-section" aria-labelledby="%1$s-heading" tabindex="-1">',
+            esc_attr($sectionId)
         );
-
-        if (!empty($section['title'])) {
-            echo '<h2>', esc_html($section['title']), '</h2>';
-        }
+        echo '<div class="rrze-settings-plugin-heading">';
+        printf('<h2 id="%1$s-heading">%2$s</h2>', esc_attr($sectionId), esc_html($section['title']));
+        printf(
+            '<a href="#rrze-settings-plugins-index">%1$s<span class="screen-reader-text">: %2$s</span></a>',
+            esc_html__('Back to overview', 'rrze-settings'),
+            esc_html($section['title'])
+        );
+        echo '</div>';
 
         if (!empty($section['callback']) && is_callable($section['callback'])) {
             call_user_func($section['callback'], $section);
@@ -1202,89 +1302,40 @@ class Settings extends MainSettings
 
         echo '<table class="form-table" role="presentation">';
         do_settings_fields($this->menuPage, $sectionId);
-        echo '</table>';
-        echo '</div>';
+        echo '</table></section>';
     }
 
     /**
-     * Get sections rendered as tabs.
+     * Return registered plugin sections sorted naturally by their translated title.
      *
-     * @return array
+     * Retain the section keys used by the Settings API to render their fields.
+     *
+     * @return array<string, array> Plugin sections in alphabetical display order.
      */
-    protected function getTabSections(): array
+    protected function getPluginSections(): array
     {
         global $wp_settings_sections;
 
         $sections = $wp_settings_sections[$this->menuPage] ?? [];
         unset($sections['rrze-settings-plugins-main']);
+        uasort($sections, [$this, 'comparePluginSections']);
 
         return $sections;
     }
 
     /**
-     * Get tab id.
+     * Compare display titles, treating hyphens and whitespace as the same separator.
      *
-     * @param string $sectionId
-     * @return string
+     * @param array $first First registered section.
+     * @param array $second Second registered section.
+     * @return int Negative, zero or positive according to the title order.
      */
-    protected function getTabId(string $sectionId): string
+    protected function comparePluginSections(array $first, array $second): int
     {
-        return $sectionId . '-tab';
-    }
+        $firstTitle = preg_replace('/[\s\p{Pd}]+/u', ' ', $first['title']);
+        $secondTitle = preg_replace('/[\s\p{Pd}]+/u', ' ', $second['title']);
 
-    /**
-     * Get tab panel id.
-     *
-     * @param string $sectionId
-     * @return string
-     */
-    protected function getTabPanelId(string $sectionId): string
-    {
-        return $sectionId . '-panel';
-    }
-
-    /**
-     * Print tab behavior script.
-     *
-     * @return void
-     */
-    protected function printTabsScript()
-    {
-        ?>
-        <script>
-        function rrzeSettingsPluginsActivateTab(tab) {
-            var page = tab.closest('.rrze-settings-plugins-page');
-            var tabs = page.querySelectorAll('[data-rrze-settings-tab]');
-            var panels = page.querySelectorAll('.rrze-settings-plugins-tab-panel');
-            var activeSection = tab.getAttribute('data-rrze-settings-tab');
-
-            tabs.forEach(function rrzeSettingsPluginsUpdateTab(currentTab) {
-                var isActive = currentTab === tab;
-                currentTab.classList.toggle('nav-tab-active', isActive);
-                currentTab.setAttribute('aria-selected', isActive ? 'true' : 'false');
-            });
-
-            panels.forEach(function rrzeSettingsPluginsUpdatePanel(panel) {
-                panel.hidden = panel.id !== activeSection + '-panel';
-            });
-        }
-
-        function rrzeSettingsPluginsTabsInit() {
-            var page = document.querySelector('.rrze-settings-plugins-page');
-            if (!page) {
-                return;
-            }
-
-            page.querySelectorAll('[data-rrze-settings-tab]').forEach(function rrzeSettingsPluginsBindTab(tab) {
-                tab.addEventListener('click', function rrzeSettingsPluginsTabClick() {
-                    rrzeSettingsPluginsActivateTab(tab);
-                });
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', rrzeSettingsPluginsTabsInit);
-        </script>
-        <?php
+        return strnatcasecmp($firstTitle, $secondTitle);
     }
 
     /**

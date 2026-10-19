@@ -73,12 +73,16 @@ class Settings extends MainSettings
             $this->sectionName,
             __('General', 'rrze-settings'),
             [$this, 'mainSectionDescription'],
-            $this->menuPage
+            $this->menuPage,
+            [
+                'before_section' => '<div class="rrze-settings-general">',
+                'after_section' => '</div>',
+            ]
         );
 
         add_settings_field(
             'textdomain_fallback',
-            __('Textdomain Fallback', 'rrze-settings'),
+            __('Translation Fallback', 'rrze-settings'),
             [$this, 'textdomainFallbackField'],
             $this->menuPage,
             $this->sectionName
@@ -113,41 +117,59 @@ class Settings extends MainSettings
      */
     public function mainSectionDescription()
     {
-        esc_html_e('Network administrators can centrally manage general settings for every website in a multisite network on this page, with options such as textdomain fallback, custom error pages, white labeling, and the default theme for new websites.', 'rrze-settings');
+        echo '<p>';
+        esc_html_e('Manage translations, error messages and the WordPress administration interface across the network. The default theme applies only to newly created websites. Changes take effect after saving.', 'rrze-settings');
+        echo '</p>';
     }
 
     /**
-     * Display the textdomain_fallback field
+     * Display the translation fallback control and explain when it applies.
      * 
      * @return void
      */
     public function textdomainFallbackField()
     {
-        $this->renderCheckbox('rrze-settings-textdomain-fallback', sprintf('%s[textdomain_fallback]', $this->optionName), $this->siteOptions->general->textdomain_fallback, __('Sets a default language as fallback for unavailable language files', 'rrze-settings'));
+        $this->renderCheckbox('rrze-settings-textdomain-fallback', sprintf('%s[textdomain_fallback]', $this->optionName), $this->siteOptions->general->textdomain_fallback, __('Use available translations when a language file is missing', 'rrze-settings'));
+        $this->renderDescription(__('Uses another available language variant when a translation file is missing. Website content remains unchanged.', 'rrze-settings'));
+        $this->renderSettingDetails(__('Translation Fallback', 'rrze-settings'), [
+            __('If a translation file is missing or unreadable, look for an available variant of the same language first, then an English translation. For example, German can replace German (formal). This also applies to translations in the block editor.', 'rrze-settings'),
+            __('Useful when plugins or themes do not provide every language variant. Does not translate website content, download language packs or fill individual gaps in an existing translation file. Disabled: WordPress handles translations without this additional fallback.', 'rrze-settings'),
+        ]);
     }
 
     /**
-     * Diplay the custom_error_page field
+     * Display the custom error page control, scope and contact information.
      * 
      * @return void
      */
     public function customErrorPageField()
     {
-        $this->renderCheckbox('rrze-settings-custom-error-page', sprintf('%s[custom_error_page]', $this->optionName), $this->siteOptions->general->custom_error_page, __('Enables custom error page', 'rrze-settings'));
+        $this->renderCheckbox('rrze-settings-custom-error-page', sprintf('%s[custom_error_page]', $this->optionName), $this->siteOptions->general->custom_error_page, __('Use the RRZE error page for WordPress error messages', 'rrze-settings'));
+        $this->renderDescription(__('Shows WordPress error messages in the RRZE layout. The website administration email address is displayed publicly as a contact; check that it is suitable before enabling this option.', 'rrze-settings'));
+        $this->renderSettingDetails(__('Custom Error Page', 'rrze-settings'), [
+            __('For example, denied access is shown with the website name and a contact address. The layout links to /impressum, /datenschutz and /barrierefreiheit; check that these pages are available.', 'rrze-settings'),
+            __('Applies to regular browser requests handled by wp_die(). Does not replace theme 404 pages, server error pages or AJAX, JSON and XML responses. If the admin page header has already been output, only the message is shown. Disabled: the WordPress error display is used.', 'rrze-settings'),
+        ]);
     }
 
     /**
-     * Display the white_label field
+     * Display the white label control and its administration and email effects.
      * 
      * @return void
      */
     public function whiteLabelField()
     {
-        $this->renderCheckbox('rrze-settings-white-label', sprintf('%s[white_label]', $this->optionName), $this->siteOptions->general->white_label, __('Ersetzt WordPress-Branding in Adminleiste und Admin-Footer, entfernt WordPress-Links, sortiert „Meine Websites“ und verwendet den Website-Absender für WordPress-E-Mails.', 'rrze-settings'));
+        $this->renderCheckbox('rrze-settings-white-label', sprintf('%s[white_label]', $this->optionName), $this->siteOptions->general->white_label, __('Customize WordPress branding, dashboard and email sender', 'rrze-settings'));
+        $this->renderDescription(__('Customizes the admin bar, footer and dashboard together. Also replaces default WordPress email sender details with the website title and administration email address.', 'rrze-settings'));
+        $this->renderSettingDetails(__('White Label', 'rrze-settings'), [
+            __('Links the admin bar logo to the main website (site ID 1), removes WordPress information and support links, and shows the main website name and tagline in the admin footer. Sorts My Sites alphabetically.', 'rrze-settings'),
+            __('Replaces the WordPress news widget with RRZE maintenance messages and, on website dashboards, Webmaster News. Adds counts for additional content types to At a Glance.', 'rrze-settings'),
+            __('For outgoing emails, replaces sender addresses beginning with wordpress@ with the current website administration email address, if valid, and the sender name WordPress with the website title. Other sender values are preserved. Disabled: these customizations are not applied.', 'rrze-settings'),
+        ]);
     }
 
     /**
-     * Display the default_theme field
+     * Display installed themes and explain the scope of the default selection.
      *
      * @return void
      */
@@ -170,7 +192,11 @@ class Settings extends MainSettings
             );
         }
         echo '</select>';
-        $this->renderDescription(__('Theme that is activated automatically when a new website is created. Leave empty to use the WordPress default theme.', 'rrze-settings'));
+        $this->renderDescription(__('Activates the selected theme only for newly created websites. Existing websites keep their current theme.', 'rrze-settings'));
+        $this->renderSettingDetails(__('Default Theme', 'rrze-settings'), [
+            __('Select Use WordPress default to keep the theme chosen by WordPress during website creation. If the selected theme has been removed, this setting is skipped. Selecting a theme here does not enable it for selection across the network.', 'rrze-settings'),
+            __('For example, after changing the default from theme A to theme B, only new websites start with theme B. Existing websites using theme A are not switched.', 'rrze-settings'),
+        ]);
     }
 
     /**

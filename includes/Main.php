@@ -96,6 +96,9 @@ class Main
      */
     public function loaded()
     {
+        (new AdminNavigation())->loaded();
+        (new AdminMenu\Navigation())->loaded();
+
         (new Settings(
             $this->optionName,
             $this->options,
@@ -156,18 +159,25 @@ class Main
     }
 
     /**
-     * Enqueue admin scripts
+     * Enqueue admin styles and invalidate cached CSS after a new build.
      *
      * @param string $hook The current admin page.
      * @return void
      */
     public function adminEnqueueScripts($hook)
     {
+        $stylesheet = plugin()->getPath('build') . 'admin/admin.css';
+        $modified = is_file($stylesheet) ? filemtime($stylesheet) : false;
+        $version = plugin()->getVersion();
+        if ($modified !== false) {
+            $version .= '.' . $modified;
+        }
+
         wp_enqueue_style(
             'rrze-settings',
             plugins_url('build/admin/admin.css', plugin()->getBasename()),
             [],
-            plugin()->getVersion()
+            $version
         );
     }
 
@@ -186,7 +196,7 @@ class Main
         $wpAdminBar->add_node([
             'id' => 'network-admin-rrze-settings',
             'parent' => 'network-admin',
-            'title' => __('CMS', 'rrze-settings'),
+            'title' => 'RRZE Settings',
             'href' => network_admin_url('admin.php?page=rrze-settings'),
         ]);
     }
