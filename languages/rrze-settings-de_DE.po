@@ -3937,3 +3937,35 @@ msgstr ""
 #: rrze-settings.php:195
 msgid "Plugins: %1$s: %2$s"
 msgstr ""
+
+#: includes/Governance/PluginAvailability.php
+msgid "Enabled"
+msgstr "Freigeschaltet"
+
+#: includes/Governance/PluginAvailability.php
+msgid "Not enabled"
+msgstr "Nicht freigeschaltet"
+
+#: includes/Governance/PluginAvailability.php
+msgid "Enable"
+msgstr "Freischalten"
+
+#: includes/Governance/PluginAvailability.php
+msgid "Disable"
+msgstr "Sperren"
+
+#: includes/Governance/PluginAvailability.php
+msgid "Sorry, you are not allowed to change the plugin availability."
+msgstr "Du darfst die Freigabe von Plugins nicht ändern."
+
+#: includes/Governance/PluginAvailability.php
+msgid "The plugin availability is not used on this network."
+msgstr "Die Plugin-Freigabe wird in diesem Netzwerk nicht verwendet."
+
+#: includes/Governance/PluginAvailability.php
+msgid "The plugin file does not exist."
+msgstr "Die Plugin-Datei existiert nicht."
+
+#: includes/Governance/PluginAvailability.php
+msgid "The plugin availability is still provided by RRZE Netzwerk-Audit. You can deactivate RRZE Netzwerk-Audit: RRZE Settings will then provide the plugin availability with the existing settings."
+msgstr "Die Plugin-Freigabe wird noch von RRZE Netzwerk-Audit bereitgestellt. Du kannst RRZE Netzwerk-Audit deaktivieren: RRZE Settings übernimmt die Plugin-Freigabe dann mit den bestehenden Einstellungen."

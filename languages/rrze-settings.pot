@@ -2,7 +2,7 @@
 # This file is distributed under the GNU General Public License Version 3.
 msgid ""
 msgstr ""
-"Project-Id-Version: RRZE Settings 2.5.0\n"
+"Project-Id-Version: RRZE Settings 2.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/RRZE-Webteam/rrze-settings/issues\n"
 "Last-Translator: RRZE Webteam <webmaster@fau.de>\n"
 "Language-Team: RRZE Webteam <webmaster@fau.de>\n"
@@ -3929,4 +3929,36 @@ msgstr ""
 #: build/general/admin-role-threshold-warning.js:1
 #: src/general/admin-role-threshold-warning.js:129
 msgid "Proceed anyway"
+msgstr ""
+
+#: includes/Governance/PluginAvailability.php
+msgid "Enabled"
+msgstr ""
+
+#: includes/Governance/PluginAvailability.php
+msgid "Not enabled"
+msgstr ""
+
+#: includes/Governance/PluginAvailability.php
+msgid "Enable"
+msgstr ""
+
+#: includes/Governance/PluginAvailability.php
+msgid "Disable"
+msgstr ""
+
+#: includes/Governance/PluginAvailability.php
+msgid "Sorry, you are not allowed to change the plugin availability."
+msgstr ""
+
+#: includes/Governance/PluginAvailability.php
+msgid "The plugin availability is not used on this network."
+msgstr ""
+
+#: includes/Governance/PluginAvailability.php
+msgid "The plugin file does not exist."
+msgstr ""
+
+#: includes/Governance/PluginAvailability.php
+msgid "The plugin availability is still provided by RRZE Netzwerk-Audit. You can deactivate RRZE Netzwerk-Audit: RRZE Settings will then provide the plugin availability with the existing settings."
 msgstr ""
