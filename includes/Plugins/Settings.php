@@ -5,7 +5,6 @@ namespace RRZE\Settings\Plugins;
 defined('ABSPATH') || exit;
 
 use RRZE\Settings\Helper;
-use RRZE\Settings\Crawlers\Defaults as CrawlerDefaults;
 use RRZE\Settings\Settings as MainSettings;
 use RRZE\Settings\Library\Network\IPUtils;
 use RRZE\Settings\Library\Encryption\Encryption;
@@ -145,10 +144,6 @@ class Settings extends MainSettings
         $input['cms_workflow_not_allowed_post_types'] = isset($input['cms_workflow_not_allowed_post_types']) ? $input['cms_workflow_not_allowed_post_types'] : '';
         $input['cms_workflow_not_allowed_post_types'] = $this->sanitizeTextarea($input['cms_workflow_not_allowed_post_types']);
 
-        $input['siteimprove_crawler_ip_addresses'] = isset($input['siteimprove_crawler_ip_addresses']) ? $input['siteimprove_crawler_ip_addresses'] : '';
-        $ipAddresses = $this->sanitizeTextarea($input['siteimprove_crawler_ip_addresses'], false);
-        $ipAddresses = !empty($ipAddresses) ? $this->sanitizeIpRange($ipAddresses) : '';
-        $input['siteimprove_crawler_ip_addresses'] = !empty($ipAddresses) ? $ipAddresses : '';
         $input['siteimprove'] = isset($input['siteimprove']) && is_array($input['siteimprove']) ? $input['siteimprove'] : [];
         $input['siteimprove']['analytics_jscode'] = isset($input['siteimprove']['analytics_jscode']) ? $input['siteimprove']['analytics_jscode'] : '';
         $input['siteimprove']['analytics_jscode'] = $this->sanitizeSiteimproveAnalyticsJsCode($input['siteimprove']['analytics_jscode']);
@@ -215,10 +210,6 @@ class Settings extends MainSettings
         $input['rrze_directions_openrouteservice_api_key'] = $this->sanitizeOpenRouteServiceApiKey($input['rrze_directions_openrouteservice_api_key']);
 
         $options = $this->parseOptionsValidate($input, 'plugins');
-        $siteimproveCrawler = CrawlerDefaults::getCrawler($options, 'siteimprove');
-        $siteimproveCrawler['ip_addresses'] = is_array($input['siteimprove_crawler_ip_addresses']) ? $input['siteimprove_crawler_ip_addresses'] : [];
-        $options->crawlers->entries['siteimprove'] = CrawlerDefaults::normalizeCrawler('siteimprove', $siteimproveCrawler);
-        $options->plugins->siteimprove_crawler_ip_addresses = CrawlerDefaults::getIpAddresses($options, 'siteimprove');
 
         if (is_multisite() && $this->pluginExists(RRZESearch::PLUGIN)) {
             RRZESearch::updateNetworkLimits([
@@ -603,14 +594,6 @@ class Settings extends MainSettings
         );
 
         add_settings_field(
-            'siteimprove_crawler_ip_addresses',
-            __('Crawler IP addresses', 'rrze-settings'),
-            [$this, 'siteimproveCrawlerIpAddressesField'],
-            $this->menuPage,
-            'rrze-settings-plugins-siteimprove'
-        );
-
-        add_settings_field(
             'siteimprove_analytics_jscode',
             __('Schlüsselcode', 'rrze-settings'),
             [$this, 'siteimproveAnalyticsJsCodeField'],
@@ -898,16 +881,6 @@ class Settings extends MainSettings
         $option = $this->siteOptions->plugins->cms_workflow_not_allowed_post_types;
         $this->renderTextarea('rrze-settings-cms-workflow-not-allowed-post-types', sprintf('%s[cms_workflow_not_allowed_post_types]', $this->optionName), $this->getTextarea($option));
         $this->renderDescription(__('List of not allowed post types. Enter one post type per line.', 'rrze-settings'));
-    }
-
-    /**
-     * Siteimprove - Crawler allowed IP addresses
-     */
-    public function siteimproveCrawlerIpAddressesField()
-    {
-        $option = $this->siteOptions->plugins->siteimprove_crawler_ip_addresses;
-        $this->renderTextarea('rrze-settings-siteimprove-crawler-ip-addresses', sprintf('%s[siteimprove_crawler_ip_addresses]', $this->optionName), $this->getTextarea($option));
-        $this->renderDescription(__('List of allowed IP addresses of the Siteimprove crawler in case there are access restrictions to the content of the website. Enter one IP address per line.', 'rrze-settings'));
     }
 
     /**
