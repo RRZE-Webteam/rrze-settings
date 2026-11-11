@@ -28,5 +28,7 @@ class Governance extends Main
         ))->loaded();
 
         (new Websupport($this->siteOptions))->loaded();
+
+        (new PluginAvailability())->loaded();
     }
 }

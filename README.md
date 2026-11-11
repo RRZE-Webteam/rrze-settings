@@ -200,6 +200,33 @@ This protects against accidental on-screen disclosure, not access to page source
 or developer tools: authorized administrators still receive the values in the
 form. Credential storage and validation are unchanged.
 
+### Plugin availability
+
+Site administrators can only see and activate plugins that a super admin has
+enabled. Super admins manage the list in **Network Admin > Plugins**: the
+**Enabled** column shows the state, and the **Enable**/**Disable** links change it.
+Network-only plugins, network-activated plugins and single-file plugins are not
+managed. Plugins that are already active on a website stay visible there.
+
+The activation check uses the `activate_plugin` capability, so it also applies to
+the REST API. Super admins are not restricted.
+
+The feature takes over the plugin allowlist of **RRZE Netzwerk-Audit** and uses the
+same network option (`rrze_netzwerk_audit`, key `enabled_plugins`). It is only
+active on networks where this option exists.
+
+- While RRZE Netzwerk-Audit (version 2019 or later) is active, it keeps providing
+  the management interface. RRZE Settings then only adds the capability check and
+  shows a notice that RRZE Netzwerk-Audit can be deactivated.
+- After RRZE Netzwerk-Audit has been deactivated, RRZE Settings provides the
+  complete functionality with the existing settings. No option is changed or
+  migrated.
+- Changes keep all other keys of the option (for example `enabled_themes`) and
+  remain readable by RRZE Netzwerk-Audit and RRZE Multisite Manager.
+
+The filter `rrze_settings_plugin_availability_legacy_active` overrides the
+detection of RRZE Netzwerk-Audit.
+
 ### CSS and operations
 
 Under **Network Admin > RRZE Settings > CSS and Operations** (formerly **Advanced**),
