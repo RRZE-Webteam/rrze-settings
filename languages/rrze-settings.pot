@@ -2,7 +2,7 @@
 # This file is distributed under the GNU General Public License Version 3.
 msgid ""
 msgstr ""
-"Project-Id-Version: RRZE Settings 2.5.3\n"
+"Project-Id-Version: RRZE Settings 2.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/RRZE-Webteam/rrze-settings/issues\n"
 "Last-Translator: RRZE Webteam <webmaster@fau.de>\n"
 "Language-Team: RRZE Webteam <webmaster@fau.de>\n"
@@ -3961,4 +3961,12 @@ msgstr ""
 #: build/general/admin-role-threshold-warning.js:1
 #: src/general/admin-role-threshold-warning.js:129
 msgid "Proceed anyway"
+msgstr ""
+
+#: includes/Users/LastLogin.php
+msgid "Last login"
+msgstr ""
+
+#: includes/Users/LastLogin.php
+msgid "No login recorded"
 msgstr ""

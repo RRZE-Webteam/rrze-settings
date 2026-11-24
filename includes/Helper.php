@@ -201,6 +201,20 @@ class Helper
     }
 
     /**
+     * Get the time of the last successful login of a user.
+     *
+     * @param int $userId User ID; 0 = current user
+     * @return int Unix timestamp (UTC); 0 if unknown
+     */
+    public static function getUserLastLogin(int $userId = 0): int {
+        if (!$userId) {
+            $userId = get_current_user_id();
+        }
+
+        return \RRZE\Settings\Users\LastLogin::get((int) $userId);
+    }
+
+    /**
      * Get the BITE API key
      * 
      * @return string The API key

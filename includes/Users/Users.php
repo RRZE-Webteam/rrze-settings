@@ -27,6 +27,9 @@ class Users extends Main
 
         (new Roles($this->siteOptions))->loaded();
 
+        // Last successful login (user meta 'rrze_last_login')
+        (new LastLogin())->loaded();
+
         // Users search enhanced
         if ($this->siteOptions->users->users_search) {
             (new Search)->loaded();
