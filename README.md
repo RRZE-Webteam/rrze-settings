@@ -243,6 +243,43 @@ The following methods can be used by other plugins:
 -   `\RRZE\Settings\Helper::userCanViewDebugLog()`: Check if the user can see the debug log (if available).
 -   `\RRZE\Settings\Helper::getBiteApiKey()`: Get the BITE API key.
 -   `\RRZE\Settings\Helper::getDipEduApiKey()`: Get the DIP Edu API key.
+-   `\RRZE\Settings\Helper::getUserLastLogin(int $userId = 0)`: Get the time of the user's last successful login as a Unix timestamp (0 if unknown).
+
+## Last login
+
+RRZE Settings stores the time of each user's last successful login network-wide
+in the user meta `rrze_last_login` (Unix timestamp, UTC, integer). It is updated
+on the `wp_login` action, which also covers logins via RRZE SSO. Session reuse
+through an existing login cookie, REST requests with application passwords and
+XML-RPC requests do not update the value. It therefore marks the last login,
+not the last activity.
+
+In **Network Admin > Users**, the sortable column **Last login** shows the date
+in `DD.MM.YYYY` format. The first click sorts by the most recent login. Users
+without a recorded login appear last in descending and first in ascending order;
+their cell shows a dash with the screen reader text "No login recorded".
+
+After each update, the action `rrze_settings_user_last_login` fires with the
+user ID and the timestamp. To query inactive users, use a numeric meta query:
+
+```php
+$users = get_users([
+    'blog_id' => 0,
+    'meta_query' => [[
+        'key' => 'rrze_last_login',
+        'value' => strtotime('-1 year'),
+        'compare' => '<',
+        'type' => 'NUMERIC',
+    ]],
+]);
+```
+
+Users who have not logged in since this feature was deployed have no value.
+Query them separately with `'compare' => 'NOT EXISTS'`. The former activity log
+of RRZE Netzwerk-Audit (`rrze_users_activity`) is not migrated; that plugin
+removes it as legacy data.
+
+Run the isolated test: `php tests/last-login.php`
 
 ## Public REST access and private sites
 

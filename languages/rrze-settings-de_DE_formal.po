@@ -3905,7 +3905,7 @@ msgstr ""
 #: includes/Posts/Post.php:143
 #: includes/Posts/Post.php:193
 msgid "%s ago"
-msgstr ""
+msgstr "vor %s"
 
 #: includes/Posts/Post.php:145
 #: includes/Posts/Post.php:195
@@ -3969,3 +3969,11 @@ msgstr "Die Plugin-Datei existiert nicht."
 #: includes/Governance/PluginAvailability.php:355
 msgid "The plugin availability is still provided by RRZE Netzwerk-Audit. You can deactivate RRZE Netzwerk-Audit: RRZE Settings will then provide the plugin availability with the existing settings."
 msgstr "Die Plugin-Freigabe wird noch von RRZE Netzwerk-Audit bereitgestellt. Sie können RRZE Netzwerk-Audit deaktivieren: RRZE Settings übernimmt die Plugin-Freigabe dann mit den bestehenden Einstellungen."
+
+#: includes/Users/LastLogin.php
+msgid "Last login"
+msgstr "Letzter Login"
+
+#: includes/Users/LastLogin.php
+msgid "No login recorded"
+msgstr "Kein Login erfasst"
