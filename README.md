@@ -254,8 +254,8 @@ through an existing login cookie, REST requests with application passwords and
 XML-RPC requests do not update the value. It therefore marks the last login,
 not the last activity.
 
-In **Network Admin > Users**, the sortable column **Last login** shows the date,
-time and elapsed time. The first click sorts by the most recent login. Users
+In **Network Admin > Users**, the sortable column **Last login** shows the date
+in `DD.MM.YYYY` format. The first click sorts by the most recent login. Users
 without a recorded login appear last in descending and first in ascending order;
 their cell shows a dash with the screen reader text "No login recorded".
 

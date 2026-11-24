@@ -164,8 +164,9 @@ namespace {
     $lastLogin = new LastLogin();
     check('column hooks registered', !empty($GLOBALS['hooks']['wpmu_users_columns']) && !empty($GLOBALS['hooks']['pre_user_query']));
 
-    $columns = $lastLogin->addColumn(['cb' => '', 'username' => 'Username', 'registered' => 'Registered', 'blogs' => 'Sites']);
+    $columns = $lastLogin->addColumn(['cb' => '', 'username' => 'Username', 'registered' => 'Registered', 'wfls_last_login' => 'Last Login', 'blogs' => 'Sites']);
     check('column inserted after registered', array_keys($columns) === ['cb', 'username', 'registered', LastLogin::COLUMN, 'blogs']);
+    check('Wordfence last-login column removed', !isset($columns['wfls_last_login']));
     check('column label', $columns[LastLogin::COLUMN] === 'Last login');
 
     $columns = $lastLogin->addColumn(['cb' => '', 'username' => 'Username']);
@@ -177,21 +178,23 @@ namespace {
     // Rendering.
     check('foreign column untouched', $lastLogin->renderColumn('x', 'email', 7) === 'x');
     $html = $lastLogin->renderColumn('', LastLogin::COLUMN, 7);
-    check('renders date', str_contains($html, '14.11.2023 22:13'));
+    check('renders date only', str_contains($html, '>14.11.2023<'));
+    check('does not render relative date or additional visible content', !str_contains($html, '2 days ago') && !str_contains($html, '<br>'));
     check('renders machine-readable time', str_contains($html, 'datetime="2023-11-14T22:13:20+00:00"'));
-    check('renders relative time', str_contains($html, '2 days ago'));
     $html = $lastLogin->renderColumn('', LastLogin::COLUMN, 99);
     check('unknown: dash plus screen reader text', str_contains($html, '&mdash;') && str_contains($html, 'No login recorded'));
 
     // Sorting.
     $query = new FakeUserQuery(['orderby' => LastLogin::COLUMN, 'order' => 'desc']);
     $lastLogin->sortQuery($query);
-    check('sort: left join on meta key', str_contains($query->query_from, "LEFT JOIN wp_usermeta AS rrze_last_login_meta") && str_contains($query->query_from, "meta_key = 'rrze_last_login'"));
-    check('sort: numeric desc order', $query->query_orderby === 'ORDER BY CAST(rrze_last_login_meta.meta_value AS UNSIGNED) DESC, wp_users.user_login ASC');
+    check('sort: RRZE timestamp has priority', str_contains($query->query_orderby, "rrze_last_login.meta_key = 'rrze_last_login'"));
+    check('sort: includes legacy audit fallback', str_contains($query->query_orderby, "rrze_legacy_activity.meta_key = 'rrze_users_activity'"));
+    check('sort: includes Wordfence fallback', str_contains($query->query_orderby, "rrze_wordfence.meta_key IN ('wfls_last_login', 'wfls-last-login', 'wfls_lastlogin')"));
+    check('sort: numeric desc order', str_ends_with($query->query_orderby, 'DESC, wp_users.user_login ASC'));
 
     $query = new FakeUserQuery(['orderby' => LastLogin::COLUMN, 'order' => 'asc; DROP TABLE x']);
     $lastLogin->sortQuery($query);
-    check('sort: invalid order falls back to ASC', str_contains($query->query_orderby, 'AS UNSIGNED) ASC,'));
+    check('sort: invalid order falls back to ASC', str_ends_with($query->query_orderby, 'ASC, wp_users.user_login ASC'));
 
     $query = new FakeUserQuery(['orderby' => 'login', 'order' => 'asc']);
     $lastLogin->sortQuery($query);

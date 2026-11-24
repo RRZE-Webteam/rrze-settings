@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
  * SSO login of RRZE SSO (it authenticates via the 'authenticate' filter).
  *
  * In the network admin user list, the sortable column "Last login" shows
- * the value. Users without a recorded login are listed last when sorting
+ * the date. Users without a recorded login are listed last when sorting
  * by the most recent login and first when sorting in ascending order.
  *
  * Successors of the former activity log of RRZE Netzwerk-Audit
@@ -44,11 +44,6 @@ class LastLogin {
     const COLUMN = 'rrze_last_login';
 
     /**
-     * Table alias of the user meta join used for sorting.
-     */
-    const SORT_ALIAS = 'rrze_last_login_meta';
-
-    /**
      * Register hooks.
      *
      * @return void
@@ -61,10 +56,10 @@ class LastLogin {
         }
 
         // Network admin user list.
-        add_filter('wpmu_users_columns', [$this, 'addColumn']);
-        add_filter('manage_users-network_sortable_columns', [$this, 'addSortableColumn']);
-        add_filter('manage_users_custom_column', [$this, 'renderColumn'], 10, 3);
-        add_action('pre_user_query', [$this, 'sortQuery']);
+        add_filter('wpmu_users_columns', [$this, 'addColumn'], PHP_INT_MAX);
+        add_filter('manage_users-network_sortable_columns', [$this, 'addSortableColumn'], PHP_INT_MAX);
+        add_filter('manage_users_custom_column', [$this, 'renderColumn'], PHP_INT_MAX, 3);
+        add_action('pre_user_query', [$this, 'sortQuery'], PHP_INT_MAX);
     }
 
     /**
@@ -76,6 +71,11 @@ class LastLogin {
     public function addColumn($columns): array {
         $columns = (array) $columns;
         $label = esc_html__('Last login', 'rrze-settings');
+
+        foreach (self::WORDFENCE_META_KEYS as $column) {
+            unset($columns[$column]);
+        }
+        unset($columns[self::COLUMN]);
 
         if (!isset($columns['registered'])) {
             $columns[self::COLUMN] = $label;
@@ -127,27 +127,21 @@ class LastLogin {
             );
         }
 
-        $date = wp_date(get_option('date_format') . ' ' . get_option('time_format'), $timestamp);
-        $ago = sprintf(
-            /* translators: %s: Human-readable time difference, e.g. "3 days". */
-            __('%s ago', 'rrze-settings'),
-            human_time_diff($timestamp, time())
-        );
+        $date = wp_date('d.m.Y', $timestamp);
 
         return sprintf(
-            '<time datetime="%1$s">%2$s</time><br><span class="description">%3$s</span>',
+            '<time datetime="%1$s">%2$s</time>',
             esc_attr(gmdate('c', $timestamp)),
-            esc_html((string) $date),
-            esc_html($ago)
+            esc_html((string) $date)
         );
     }
 
     /**
      * Sort the network admin user list by the last login.
      *
-     * Uses a LEFT JOIN instead of a meta query, so users without a value
-     * remain in the list without an OR meta query (which would add DISTINCT
-     * and conflict with ORDER BY in MySQL).
+     * Uses the same source priority as the displayed value. Correlated
+     * subqueries avoid duplicate users when legacy metadata has more than
+     * one row for a user.
      *
      * @param \WP_User_Query $query
      * @return void
@@ -159,14 +153,33 @@ class LastLogin {
             return;
         }
 
-        $alias = self::SORT_ALIAS;
         $order = strtoupper((string) $query->get('order')) === 'DESC' ? 'DESC' : 'ASC';
+        $expression = $this->getSortExpression();
 
-        $query->query_from .= $wpdb->prepare(
-            " LEFT JOIN {$wpdb->usermeta} AS {$alias} ON ({$alias}.user_id = {$wpdb->users}.ID AND {$alias}.meta_key = %s)",
-            self::META_KEY
+        $query->query_orderby = "ORDER BY {$expression} {$order}, {$wpdb->users}.user_login ASC";
+    }
+
+    /**
+     * Build the SQL expression for the effective last-login timestamp.
+     *
+     * @return string
+     */
+    protected function getSortExpression(): string
+    {
+        global $wpdb;
+
+        $wordfencePlaceholders = implode(', ', array_fill(0, count(self::WORDFENCE_META_KEYS), '%s'));
+        $arguments = array_merge(
+            [self::META_KEY],
+            ['s:9:"timestamp";i:', self::LEGACY_ACTIVITY_META_KEY, '%s:9:"timestamp";i:%'],
+            self::WORDFENCE_META_KEYS
         );
-        $query->query_orderby = "ORDER BY CAST({$alias}.meta_value AS UNSIGNED) {$order}, {$wpdb->users}.user_login ASC";
+
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- Table and column names are trusted identifiers; all meta keys and values use placeholders.
+        return $wpdb->prepare(
+            "COALESCE(NULLIF((SELECT MAX(CAST(rrze_last_login.meta_value AS UNSIGNED)) FROM {$wpdb->usermeta} AS rrze_last_login WHERE rrze_last_login.user_id = {$wpdb->users}.ID AND rrze_last_login.meta_key = %s AND rrze_last_login.meta_value REGEXP '^[0-9]+$'), 0), GREATEST(COALESCE((SELECT MAX(CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(rrze_legacy_activity.meta_value, %s, -1), ';', 1) AS UNSIGNED)) FROM {$wpdb->usermeta} AS rrze_legacy_activity WHERE rrze_legacy_activity.user_id = {$wpdb->users}.ID AND rrze_legacy_activity.meta_key = %s AND rrze_legacy_activity.meta_value LIKE %s), 0), COALESCE((SELECT MAX(CASE WHEN rrze_wordfence.meta_value REGEXP '^[0-9]+$' THEN CAST(rrze_wordfence.meta_value AS UNSIGNED) ELSE UNIX_TIMESTAMP(rrze_wordfence.meta_value) END) FROM {$wpdb->usermeta} AS rrze_wordfence WHERE rrze_wordfence.user_id = {$wpdb->users}.ID AND rrze_wordfence.meta_key IN ({$wordfencePlaceholders})), 0)))",
+            ...$arguments
+        );
     }
 
     /**
